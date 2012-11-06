@@ -6,7 +6,7 @@
 #include "ofMain.h"
 #include "ofxOsc.h"
 #include "mpeClientTCP.h"
-#include "Ball.h"
+#include "chapterHandler.h"
 
 class testApp : public ofBaseApp, public mpeClientListener {
     
@@ -25,17 +25,19 @@ public:
     
     void frameEvent();
     
-    ofxOscReceiver receiver;
+    //ofxOscReceiver receiver;
     float accPos;
     int movPos;
     
+    // video stuff
     ofVideoPlayer vid;
     bool playVid;
     
+    // handling chapters, reading the files and see whats in it
+    handleChapters reader;
+    
 private:
     mpeClientTCP  client;
-    vector<Ball*> balls;
-    
 };
 
 #endif

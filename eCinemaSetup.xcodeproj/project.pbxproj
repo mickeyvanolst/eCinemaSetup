@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		125506cd3e5f428aafe5cc657e873ba0 /* ofxTCPManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = f399b91e98dc31cda6ddacb450bb19da /* ofxTCPManager.cpp */; };
 		66ca411c5a9664e27326bf369079f00e /* ofxTCPServer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1c085e327dab912cfa2a443d084c3628 /* ofxTCPServer.cpp */; };
+		67728A0916480EAA00B6D0DB /* chapterHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67728A0816480EAA00B6D0DB /* chapterHandler.cpp */; };
 		67D45E85164163E300728A9F /* IpEndpointName.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67D45E61164163E300728A9F /* IpEndpointName.cpp */; };
 		67D45E86164163E300728A9F /* NetworkingUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67D45E66164163E300728A9F /* NetworkingUtils.cpp */; };
 		67D45E87164163E300728A9F /* UdpSocket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67D45E67164163E300728A9F /* UdpSocket.cpp */; };
@@ -88,6 +89,9 @@
 		2f519eb3b0dcd7378fb86abec41e3723 /* ofxUDPManager.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxUDPManager.h; path = ../../../addons/ofxNetwork/src/ofxUDPManager.h; sourceTree = SOURCE_ROOT; };
 		30841703b7ac8487d16fb4aaefffb8fa /* ofxTCPServer.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxTCPServer.h; path = ../../../addons/ofxNetwork/src/ofxTCPServer.h; sourceTree = SOURCE_ROOT; };
 		35bb9bb90dbabfd3b39f8db61b9da86b /* ofxUDPManager.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxUDPManager.cpp; path = ../../../addons/ofxNetwork/src/ofxUDPManager.cpp; sourceTree = SOURCE_ROOT; };
+		67728A0716480E9900B6D0DB /* chapterHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = chapterHandler.h; path = chapterHandler/chapterHandler.h; sourceTree = "<group>"; };
+		67728A0816480EAA00B6D0DB /* chapterHandler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = chapterHandler.cpp; path = chapterHandler/chapterHandler.cpp; sourceTree = "<group>"; };
+		67728A1E164810B300B6D0DB /* ofxDirList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxDirList.h; sourceTree = "<group>"; };
 		67D45E5C164163E300728A9F /* install.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = install.xml; sourceTree = "<group>"; };
 		67D45E61164163E300728A9F /* IpEndpointName.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = IpEndpointName.cpp; sourceTree = "<group>"; };
 		67D45E62164163E300728A9F /* IpEndpointName.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IpEndpointName.h; sourceTree = "<group>"; };
@@ -130,7 +134,6 @@
 		70B304A61628FE390034D616 /* tinyxmlparser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tinyxmlparser.cpp; sourceTree = "<group>"; };
 		70B304A81628FE390034D616 /* ofxXmlSettings.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxXmlSettings.cpp; sourceTree = "<group>"; };
 		70B304A91628FE390034D616 /* ofxXmlSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxXmlSettings.h; sourceTree = "<group>"; };
-		70B304AE1628FF450034D616 /* Ball.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Ball.h; sourceTree = "<group>"; };
 		BBAB23BE13894E4700AA2426 /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = ../../../libs/glut/lib/osx/GLUT.framework; sourceTree = "<group>"; };
 		E4328143138ABC890047C5CB /* openFrameworksLib.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = openFrameworksLib.xcodeproj; path = ../../../libs/openFrameworksCompiled/project/osx/openFrameworksLib.xcodeproj; sourceTree = SOURCE_ROOT; };
 		E45BE9710E8CC7DD009D7055 /* AGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AGL.framework; path = /System/Library/Frameworks/AGL.framework; sourceTree = "<absolute>"; };
@@ -142,7 +145,7 @@
 		E45BE9770E8CC7DD009D7055 /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = /System/Library/Frameworks/CoreServices.framework; sourceTree = "<absolute>"; };
 		E45BE9790E8CC7DD009D7055 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = /System/Library/Frameworks/OpenGL.framework; sourceTree = "<absolute>"; };
 		E45BE97A0E8CC7DD009D7055 /* QuickTime.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuickTime.framework; path = /System/Library/Frameworks/QuickTime.framework; sourceTree = "<absolute>"; };
-		E4B69B5B0A3A1756003C02F2 /* MPETestDebug.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MPETestDebug.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E4B69B5B0A3A1756003C02F2 /* eCinemaSetupDebug.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = eCinemaSetupDebug.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4B69E1D0A3A1BDC003C02F2 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = main.cpp; path = src/main.cpp; sourceTree = SOURCE_ROOT; };
 		E4B69E1E0A3A1BDC003C02F2 /* testApp.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = testApp.cpp; path = src/testApp.cpp; sourceTree = SOURCE_ROOT; };
 		E4B69E1F0A3A1BDC003C02F2 /* testApp.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = testApp.h; path = src/testApp.h; sourceTree = SOURCE_ROOT; };
@@ -212,6 +215,32 @@
 				35bb9bb90dbabfd3b39f8db61b9da86b /* ofxUDPManager.cpp */,
 			);
 			name = src;
+			sourceTree = "<group>";
+		};
+		67728A0616480E7300B6D0DB /* chapterHandler */ = {
+			isa = PBXGroup;
+			children = (
+				67728A0716480E9900B6D0DB /* chapterHandler.h */,
+				67728A0816480EAA00B6D0DB /* chapterHandler.cpp */,
+			);
+			name = chapterHandler;
+			sourceTree = "<group>";
+		};
+		67728A19164810B300B6D0DB /* ofxDirList */ = {
+			isa = PBXGroup;
+			children = (
+				67728A1D164810B300B6D0DB /* src */,
+			);
+			name = ofxDirList;
+			path = ../../../addons/ofxDirList;
+			sourceTree = "<group>";
+		};
+		67728A1D164810B300B6D0DB /* src */ = {
+			isa = PBXGroup;
+			children = (
+				67728A1E164810B300B6D0DB /* ofxDirList.h */,
+			);
+			path = src;
 			sourceTree = "<group>";
 		};
 		67D45E5B164163E300728A9F /* ofxOsc */ = {
@@ -371,6 +400,7 @@
 		BB4B014C10F69532006C3DED /* addons */ = {
 			isa = PBXGroup;
 			children = (
+				67728A19164810B300B6D0DB /* ofxDirList */,
 				67D45E5B164163E300728A9F /* ofxOsc */,
 				70B304A11628FE390034D616 /* ofxXmlSettings */,
 				70B3049B1628FDBC0034D616 /* ofxMostPixelsEver */,
@@ -435,14 +465,14 @@
 				E4EEC9E9138DF44700A80321 /* openFrameworks */,
 				BB4B014C10F69532006C3DED /* addons */,
 				E45BE5980E8CC70C009D7055 /* frameworks */,
-				E4B69B5B0A3A1756003C02F2 /* MPETestDebug.app */,
+				E4B69B5B0A3A1756003C02F2 /* eCinemaSetupDebug.app */,
 			);
 			sourceTree = "<group>";
 		};
 		E4B69E1C0A3A1BDC003C02F2 /* src */ = {
 			isa = PBXGroup;
 			children = (
-				70B304AE1628FF450034D616 /* Ball.h */,
+				67728A0616480E7300B6D0DB /* chapterHandler */,
 				E4B69E1D0A3A1BDC003C02F2 /* main.cpp */,
 				E4B69E1E0A3A1BDC003C02F2 /* testApp.cpp */,
 				E4B69E1F0A3A1BDC003C02F2 /* testApp.h */,
@@ -478,7 +508,7 @@
 			);
 			name = networkTcpClientExample;
 			productName = myOFApp;
-			productReference = E4B69B5B0A3A1756003C02F2 /* MPETestDebug.app */;
+			productReference = E4B69B5B0A3A1756003C02F2 /* eCinemaSetupDebug.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -486,7 +516,7 @@
 /* Begin PBXProject section */
 		E4B69B4C0A3A1720003C02F2 /* Project object */ = {
 			isa = PBXProject;
-			buildConfigurationList = E4B69B4D0A3A1720003C02F2 /* Build configuration list for PBXProject "MPETest" */;
+			buildConfigurationList = E4B69B4D0A3A1720003C02F2 /* Build configuration list for PBXProject "eCinemaSetup" */;
 			compatibilityVersion = "Xcode 2.4";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -567,6 +597,7 @@
 				67D45E8F164163E300728A9F /* ofxOscMessage.cpp in Sources */,
 				67D45E90164163E300728A9F /* ofxOscReceiver.cpp in Sources */,
 				67D45E91164163E300728A9F /* ofxOscSender.cpp in Sources */,
+				67728A0916480EAA00B6D0DB /* chapterHandler.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -741,7 +772,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				ONLY_ACTIVE_ARCH_PRE_XCODE_3_1 = "$(NATIVE_ARCH)";
 				PREBINDING = NO;
-				PRODUCT_NAME = MPETestDebug;
+				PRODUCT_NAME = eCinemaSetupDebug;
 				SDKROOT = macosx10.6;
 				WRAPPER_EXTENSION = app;
 			};
@@ -831,7 +862,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				ONLY_ACTIVE_ARCH_PRE_XCODE_3_1 = "$(NATIVE_ARCH)";
 				PREBINDING = NO;
-				PRODUCT_NAME = MPETestRelease;
+				PRODUCT_NAME = eCinemaSetupRelease;
 				SDKROOT = macosx10.6;
 				WRAPPER_EXTENSION = app;
 			};
@@ -840,7 +871,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		E4B69B4D0A3A1720003C02F2 /* Build configuration list for PBXProject "MPETest" */ = {
+		E4B69B4D0A3A1720003C02F2 /* Build configuration list for PBXProject "eCinemaSetup" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E4B69B4E0A3A1720003C02F2 /* Debug */,
