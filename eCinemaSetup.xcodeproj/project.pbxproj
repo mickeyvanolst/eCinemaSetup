@@ -130,6 +130,7 @@
 		67ADB459164A957400EC4F96 /* ofxQTKitVideoPlayer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ofxQTKitVideoPlayer.mm; sourceTree = "<group>"; };
 		67ADB45A164A957400EC4F96 /* QTKitMovieRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QTKitMovieRenderer.h; sourceTree = "<group>"; };
 		67ADB45B164A957400EC4F96 /* QTKitMovieRenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QTKitMovieRenderer.m; sourceTree = "<group>"; };
+		67E797FA164ACCBF0025B14D /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		70B3049D1628FDBC0034D616 /* mpeClientTCP.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mpeClientTCP.cpp; sourceTree = "<group>"; };
 		70B3049E1628FDBC0034D616 /* mpeClientTCP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mpeClientTCP.h; sourceTree = "<group>"; };
 		70B3049F1628FDBC0034D616 /* ofxMostPixelsEver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxMostPixelsEver.h; sourceTree = "<group>"; };
@@ -448,6 +449,7 @@
 		E4B69B4A0A3A1720003C02F2 = {
 			isa = PBXGroup;
 			children = (
+				67E797FA164ACCBF0025B14D /* .gitignore */,
 				E4B6FCAD0C3E899E008CF71C /* openFrameworks-Info.plist */,
 				E4EB6923138AFD0F00A09F29 /* Project.xcconfig */,
 				E4B69E1C0A3A1BDC003C02F2 /* src */,
