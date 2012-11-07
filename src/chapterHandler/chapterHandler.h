@@ -9,6 +9,7 @@
 
 #include "ofxDirList.h"
 #include "ofxXmlSettings.h"
+#include "customPlayer.h"
 
 #ifndef chapterHandler
 #define chapterHandler
@@ -18,14 +19,21 @@ class handleChapters {
 public:
     handleChapters();
     
-    void setup();
+    void setup(string ID);
     void update();
     void readDir();
     void writeXML();
+    void checkFiles();
+    
+    string          clientID;
     
     // read dir stuff
     ofDirectory     dir;
     ofFile          file;
+    
+    // our custom videoPlayer, capable of switching video's
+    // streaming syphon and going down a list
+    customPlayer players;
     
     // okay might seem weird, but we need two vector objects for storing
     // all this info before we write it to an XML, just wanna be safe
@@ -37,6 +45,7 @@ public:
         int         filesize;
         int         width;
         int         height;
+        bool        sameSettings;
     };
     vector<FilmInfo>    filmInfo;
     
@@ -45,6 +54,8 @@ public:
         FilmInfo    left;
         FilmInfo    middle;
         FilmInfo    right;
+        bool        complete;
+        bool        inOrder;
     };
     vector<Chapters>    chapters;
     
@@ -57,6 +68,9 @@ public:
     
     int lastTagNumber;
     int lastChapNumber;
+    
+    ofEvent<int>        buildGUIEvent;
+    
     
 private:
 

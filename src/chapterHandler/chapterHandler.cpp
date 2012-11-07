@@ -10,20 +10,20 @@
 //--------------------------------------------------------------
 handleChapters::handleChapters(){
     // start of with the <movies> tag in our XML
-    lastTagNumber	= XML.addTag("movies");
-	xmlStructure	= "<movies>\n";
-    lastTagNumber   = 0;
-    lastChapNumber  = 0;
+    lastTagNumber	 = XML.addTag("movies");
+	xmlStructure	 = "<movies>\n";
+    lastTagNumber    = 0;
+    lastChapNumber   = 0;
 }
 
 //--------------------------------------------------------------
-void handleChapters::setup(){
-    
+void handleChapters::setup(string ID){
+    clientID = ID;
 }
 
 //--------------------------------------------------------------
 void handleChapters::update(){
-    
+
 }
 
 //--------------------------------------------------------------
@@ -47,6 +47,9 @@ void handleChapters::readDir(){
         if(file.isDirectory()){
             dir.sort(); // do this again to alfabetize
             
+            chapters[i].complete = false; // don't worry kids, we're just not certain yet
+            chapters[i].inOrder  = false; // let me get back to that
+            
             chapters[i].name = dir.getName(i);
             printf("%s\n",chapters[i].name.c_str());
             // getting filename should be a folder
@@ -62,8 +65,8 @@ void handleChapters::readDir(){
                 // writing chapter folder name to XML object
                 XML.setValue("chapter:name", chapters[i].name, lastChapNumber);
                 
-                printf("tagNum: %i\n",lastChapNumber);
-                printf("lastTagNumber: %i\n",lastTagNumber);
+                //printf("tagNum: %i\n",lastChapNumber);
+                //printf("lastTagNumber: %i\n",lastTagNumber);
                 
                 // iterate through directory
                 for(int f = 0; f < (int)dir.size(); f++){
@@ -93,6 +96,8 @@ void handleChapters::readDir(){
                             chapters[i].left.numFrames = tempMov -> getTotalNumFrames();
                             delete tempMov;
                             
+                            chapters[i].left.sameSettings = false; // figure this out later
+                            
                             if( XML.pushTag("chapter", lastChapNumber) ){
                                 int tagNum = XML.addTag("left");
                                 // writing film info of this thing to XML
@@ -115,8 +120,11 @@ void handleChapters::readDir(){
                             chapters[i].middle.width    = tempMov -> getWidth();
                             chapters[i].middle.height   = tempMov -> getHeight();
                             chapters[i].middle.duration = tempMov -> getDuration();
-                            chapters[i].left.numFrames = tempMov -> getTotalNumFrames();
+                            chapters[i].middle.numFrames = tempMov -> getTotalNumFrames();
                             delete tempMov;
+                            
+                            chapters[i].middle.sameSettings = false; // figure this out later
+                            
                             if( XML.pushTag("chapter", lastChapNumber) ){
                                 int tagNum = XML.addTag("middle");
                                 // writing film info of this thing to XML
@@ -139,8 +147,11 @@ void handleChapters::readDir(){
                             chapters[i].right.width    = tempMov -> getWidth();
                             chapters[i].right.height   = tempMov -> getHeight();
                             chapters[i].right.duration = tempMov -> getDuration();
-                            chapters[i].left.numFrames = tempMov -> getTotalNumFrames();
+                            chapters[i].right.numFrames = tempMov -> getTotalNumFrames();
                             delete tempMov;
+                            
+                            chapters[i].right.sameSettings = false; // figure this out later
+                            
                             if( XML.pushTag("chapter", lastChapNumber) ){
                                 int tagNum = XML.addTag("right");
                                 // writing film info of this thing to XML
@@ -161,13 +172,24 @@ void handleChapters::readDir(){
                 // pop out of chapter
                 XML.popTag();
             }
-            
-
 
         } else {
             printf("no directory senior! - %s\n", dir.getPath(i).c_str());
         }
     }
+    checkFiles(); // checking to see if all files are in order
+    writeXML(); // write it to an XML file, makes it easy to check whats wrong
+    
+    for (int i = 0; i < chapters.size(); i++) {
+        if (clientID == "left" && chapters[i].complete && chapters[i].inOrder) {
+            players.addPlayer(chapters[i].left.file);
+        } else if (clientID == "middle") {
+            players.addPlayer(chapters[i].middle.file);
+        } else if (clientID == "right") {
+            players.addPlayer(chapters[i].right.file);
+        }
+    }
+    
 }
 
 //--------------------------------------------------------------
@@ -175,4 +197,60 @@ void handleChapters::writeXML(){
     XML.saveFile("dir_files.xml");
     printf("writing XML monsieur\n");
 }
+
+//--------------------------------------------------------------
+void handleChapters::checkFiles(){
+    // checking the files
+
+    // iterating through all chapters and check if they all contain the L, M and R movie files
+    
+    for (int i = 0; i < chapters.size(); i++) {
+        
+        // check separate to see which one is missing
+        if(chapters[i].left.name != "" && chapters[i].middle.name != "" && chapters[i].right.name != "")
+        {
+            //printf("chapter contains all movies!\n");
+            chapters[i].complete = true;
+            
+            // checking if all movies are the same amount of frames
+            for (int f = 0; f < 3; f++) {  
+                if (chapters[i].left.numFrames && chapters[i].middle.numFrames && chapters[i].right.numFrames) {
+                    //printf("SAME AMOUNT OF FRAMES!\n");
+                    chapters[i].inOrder = true;
+                } else {
+                    //printf("NO SAME FRAMES..\n");
+                    chapters[i].inOrder = false;
+                }
+            }
+            
+        } else {
+            
+            chapters[i].complete = false;
+            
+            // check separate to see which one is missing
+            if(chapters[i].left.name == "")
+            {
+                printf("chapter: %s, no lefty..\n", chapters[i].name.c_str());
+            } else {
+                //printf("left!\n");
+            }
+            if(chapters[i].middle.name == "")
+            {
+                printf("chapter: %s, no middle..\n", chapters[i].name.c_str());
+            } else {
+                //printf("middle!\n");
+            }
+            if(chapters[i].right.name == "")
+            {
+                printf("chapter: %s, no righty..\n", chapters[i].name.c_str());
+            } else {
+                //printf("right!\n");
+            }
+        }
+        
+    }
+    int myInt;
+    ofNotifyEvent(buildGUIEvent,myInt,this);
+}
+
 

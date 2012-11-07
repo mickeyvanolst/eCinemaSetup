@@ -61,17 +61,14 @@
     </chapter>
     <chapter>
         <name>03_Plaats en origine</name>
-    </chapter>
-    <chapter>
-        <name>04_Techniek</name>
-    </chapter>
-    <chapter>
-        <name>05_Beleving</name>
-    </chapter>
-    <chapter>
-        <name>06_Intentie en interpretatie</name>
-    </chapter>
-    <chapter>
-        <name>07_Maker vs Kijker</name>
+        <left>
+            <file>content/03_Plaats en origine/L_Plaats en origine.MOV</file>
+            <name>L_Plaats en origine.MOV</name>
+            <duration>10</duration>
+            <frames>315</frames>
+            <filesize>28015898</filesize>
+            <width>1920</width>
+            <height>1080</height>
+        </left>
     </chapter>
 </movies>
