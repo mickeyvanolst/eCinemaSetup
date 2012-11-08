@@ -65,6 +65,7 @@ public:
     int lastChapNumber;
     
     ofEvent<int>        buildGUIEvent;
+    ofEvent<int>        addAllVideosEvent;
     
     
 private:

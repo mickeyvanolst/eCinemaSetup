@@ -6,6 +6,7 @@
 #include "ofMain.h"
 #include "mpeClientTCP.h"
 #include "chapterHandler.h"
+#include "customPlayer.h"
 #include "myGUI.h"
 
 class testApp : public ofBaseApp, public mpeClientListener {
@@ -30,11 +31,15 @@ public:
     string appNameList[5];
     string appName;
     
+    // was private, now public!
+    mpeClientTCP  client;
+    
     // handling chapters, reading the files and see whats in it
     handleChapters reader;
     
-    // was private, now public!
-    mpeClientTCP  client;
+    // our custom videoPlayer, loads all movies and then decides which
+    // to draw and play, also handles syphon
+    customPlayer *player;
     
     // GUI stuff
     myGUI *gui;

@@ -56,19 +56,19 @@ void myGUI::guiEvent(ofxUIEventArgs &e)
             {
                 ofxUIButton *button = (ofxUIButton *) e.widget;
                 // trigger a video
-                if(appName == "left") {
+//                if(appName == "left") {
                     //player.addChapter(reader.chapters[i].left.file, true);
                 
-                    client->broadcast("addChapter," + ofToString(reader->chapters[i].left.file));
-                }
-                if(appName == "middle") {
-                    //player.addChapter(reader.chapters[i].middle.file, true);
-                    client->broadcast("addChapter," + ofToString(reader->chapters[i].middle.file));
-                }
-                if(appName == "right") {
-                    //player.addChapter(reader.chapters[i].right.file, true);
-                    client->broadcast("addChapter," + ofToString(reader->chapters[i].right.file));
-                }
+                    client->broadcast("playChapter," + ofToString(reader->chapters[i].name));
+//                }
+//                if(appName == "middle") {
+//                    //player.addChapter(reader.chapters[i].middle.file, true);
+//                    client->broadcast("playChapter," + ofToString(reader->chapters[i].middle.name));
+//                }
+//                if(appName == "right") {
+//                    //player.addChapter(reader.chapters[i].right.file, true);
+//                    client->broadcast("playChapter," + ofToString(reader->chapters[i].right.file));
+//                }
             }
         }
     }
@@ -84,7 +84,6 @@ void myGUI::exit()
 
 //--------------------------------------------------------------
 void myGUI::buildGUI(int & i){
-    printf("build GUI\n");
     // setup GUI
     setGUI1();
     setGUI2();
@@ -93,6 +92,7 @@ void myGUI::buildGUI(int & i){
     gui1->setDrawBack(false);
     gui2->setDrawBack(false);
     gui3->setDrawBack(false);
+    printf("build GUI\n");
 }
 
 void myGUI::setGUI1()
@@ -107,7 +107,7 @@ void myGUI::setGUI1()
 	gui1 = new ofxUICanvas(0, 0, length+xInit, ofGetHeight());
     
     // app name
-	//gui1->addWidgetDown(new ofxUILabel(appName, OFX_UI_FONT_LARGE));
+	gui1->addWidgetDown(new ofxUILabel(appName, OFX_UI_FONT_LARGE));
     
     gui1->addSpacer(length-xInit, 2);
 	gui1->addWidgetDown(new ofxUILabel("CONNECTIE ALLE APPS", OFX_UI_FONT_MEDIUM));
@@ -192,4 +192,5 @@ void myGUI::setGUI3()
     gui3->addWidgetDown(new ofxUILabel("MESSAGE OUTPUT", OFX_UI_FONT_MEDIUM));
     
 	ofAddListener(gui3->newGUIEvent,this,&myGUI::guiEvent);
+    printf("okay so this works..\n");
 }

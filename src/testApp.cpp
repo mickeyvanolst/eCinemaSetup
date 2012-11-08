@@ -4,7 +4,8 @@
 
 testApp::testApp()
 {
-    gui = new myGUI(&client, &reader);
+    gui         = new myGUI(&client, &reader);
+    player      = new customPlayer(&reader);
 }
 
 //--------------------------------------------------------------
@@ -23,14 +24,14 @@ void testApp::setup(){
     // set the random seed
 	//ofSeedRandom(1);
     
-    // gui give appname
+    // gui give appname and start ofListner for triggering buildGUI
     gui->setup(appName);
+    
+    // customp player, also needs to know who he is
+    player->setup(appName);
     
 	// start client
     client.start();
-    
-    // gets triggered if GUI needs to be (re)build after directory reading
-    //ofAddListener(reader.buildGUIEvent, this, &myGUI::buildGUI);
     
     // read out the directory and check if all files are correct
     reader.setup(appName);
@@ -68,8 +69,17 @@ void testApp::frameEvent() {
             reader.readDir();
         }
         
+        // just to fire of a red colored ofBackground to check if we're still happy
         if (splitMsg[0].compare("shoot") == 0) {
             ofBackground(255, 0, 0);
+        }
+        
+        if (splitMsg[0].compare("readDir") == 0) {
+            reader.readDir();
+        }
+        
+        if (splitMsg[0].compare("playChapter") == 0) {
+            printf("play chapter: %s\n",splitMsg[1].c_str());
         }
         
     }
@@ -90,9 +100,9 @@ void testApp::keyPressed(int key){
 			break;
             
 		case 'h':
-//            gui1->toggleVisible();
-//            gui2->toggleVisible();
-//            gui3->toggleVisible();
+            gui->gui1->toggleVisible();
+            gui->gui2->toggleVisible();
+            gui->gui3->toggleVisible();
 			break;
 
         default:
