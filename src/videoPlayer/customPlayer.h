@@ -11,7 +11,7 @@
 
 #include "ofxQTKitVideoPlayer.h"
 
-class customPlayer : ofBaseApp {
+class customPlayer {
     
 public:
     customPlayer();

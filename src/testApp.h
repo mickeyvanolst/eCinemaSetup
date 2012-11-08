@@ -6,11 +6,12 @@
 #include "ofMain.h"
 #include "mpeClientTCP.h"
 #include "chapterHandler.h"
-#include "ofxUI.h"
+#include "myGUI.h"
 
 class testApp : public ofBaseApp, public mpeClientListener {
     
 public:
+    testApp();
     void setup();
     void update();
     void draw();
@@ -23,34 +24,23 @@ public:
     void mouseReleased(int x, int y, int button);
     void windowResized(int w, int h);
     
-    // handling chapters, reading the files and see whats in it
-    handleChapters reader;
-    
     // MPE stuff, need some sort of setup command after first contact
     void frameEvent();
     
     string appNameList[5];
     string appName;
     
+    // handling chapters, reading the files and see whats in it
+    handleChapters reader;
+    
+    // was private, now public!
+    mpeClientTCP  client;
+    
     // GUI stuff
-    void setGUI1();
-	void setGUI2();
-	void setGUI3();
-    void exit();
-	
-	ofxUICanvas *gui1;
-	ofxUICanvas *gui2;
-	ofxUICanvas *gui3;
-    
-    void buildGUI(int & i);
-    void guiEvent(ofxUIEventArgs &e);
-    
-    bool hideGUI;
-    float red, green, blue;
-    
+    myGUI *gui;
     
 private:
-    mpeClientTCP  client;
+    
 };
 
 #endif

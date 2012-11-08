@@ -13,6 +13,7 @@
 		67ADB43D164A919B00EC4F96 /* customPlayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67ADB43C164A919B00EC4F96 /* customPlayer.cpp */; };
 		67ADB463164A957400EC4F96 /* ofxQTKitVideoPlayer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 67ADB459164A957400EC4F96 /* ofxQTKitVideoPlayer.mm */; };
 		67ADB464164A957400EC4F96 /* QTKitMovieRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 67ADB45B164A957400EC4F96 /* QTKitMovieRenderer.m */; };
+		67F0475B164BE99900F8A48C /* myGUI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67F0475A164BE99900F8A48C /* myGUI.cpp */; };
 		70B304A01628FDBC0034D616 /* mpeClientTCP.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 70B3049D1628FDBC0034D616 /* mpeClientTCP.cpp */; };
 		70B304AA1628FE390034D616 /* tinyxml.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 70B304A31628FE390034D616 /* tinyxml.cpp */; };
 		70B304AB1628FE390034D616 /* tinyxmlerror.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 70B304A51628FE390034D616 /* tinyxmlerror.cpp */; };
@@ -131,6 +132,8 @@
 		67ADB45A164A957400EC4F96 /* QTKitMovieRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QTKitMovieRenderer.h; sourceTree = "<group>"; };
 		67ADB45B164A957400EC4F96 /* QTKitMovieRenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QTKitMovieRenderer.m; sourceTree = "<group>"; };
 		67E797FA164ACCBF0025B14D /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		67F04759164BE98C00F8A48C /* myGUI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = myGUI.h; path = GUI/myGUI.h; sourceTree = "<group>"; };
+		67F0475A164BE99900F8A48C /* myGUI.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = myGUI.cpp; path = GUI/myGUI.cpp; sourceTree = "<group>"; };
 		70B3049D1628FDBC0034D616 /* mpeClientTCP.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mpeClientTCP.cpp; sourceTree = "<group>"; };
 		70B3049E1628FDBC0034D616 /* mpeClientTCP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mpeClientTCP.h; sourceTree = "<group>"; };
 		70B3049F1628FDBC0034D616 /* ofxMostPixelsEver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxMostPixelsEver.h; sourceTree = "<group>"; };
@@ -226,7 +229,6 @@
 		67728A0616480E7300B6D0DB /* chapterHandler */ = {
 			isa = PBXGroup;
 			children = (
-				67ADB43A164A916600EC4F96 /* videoPlayer */,
 				67728A0716480E9900B6D0DB /* chapterHandler.h */,
 				67728A0816480EAA00B6D0DB /* chapterHandler.cpp */,
 			);
@@ -335,6 +337,15 @@
 				67ADB45B164A957400EC4F96 /* QTKitMovieRenderer.m */,
 			);
 			path = src;
+			sourceTree = "<group>";
+		};
+		67F04758164BE96800F8A48C /* GUI */ = {
+			isa = PBXGroup;
+			children = (
+				67F04759164BE98C00F8A48C /* myGUI.h */,
+				67F0475A164BE99900F8A48C /* myGUI.cpp */,
+			);
+			name = GUI;
 			sourceTree = "<group>";
 		};
 		70B3049B1628FDBC0034D616 /* ofxMostPixelsEver */ = {
@@ -466,6 +477,8 @@
 				E4B69E1D0A3A1BDC003C02F2 /* main.cpp */,
 				E4B69E1F0A3A1BDC003C02F2 /* testApp.h */,
 				E4B69E1E0A3A1BDC003C02F2 /* testApp.cpp */,
+				67F04758164BE96800F8A48C /* GUI */,
+				67ADB43A164A916600EC4F96 /* videoPlayer */,
 				67728A0616480E7300B6D0DB /* chapterHandler */,
 			);
 			path = src;
@@ -579,6 +592,7 @@
 				67ADB43D164A919B00EC4F96 /* customPlayer.cpp in Sources */,
 				67ADB463164A957400EC4F96 /* ofxQTKitVideoPlayer.mm in Sources */,
 				67ADB464164A957400EC4F96 /* QTKitMovieRenderer.m in Sources */,
+				67F0475B164BE99900F8A48C /* myGUI.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

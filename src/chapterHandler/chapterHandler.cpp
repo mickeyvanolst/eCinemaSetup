@@ -180,16 +180,6 @@ void handleChapters::readDir(){
     checkFiles(); // checking to see if all files are in order
     writeXML(); // write it to an XML file, makes it easy to check whats wrong
     
-    for (int i = 0; i < chapters.size(); i++) {
-        if (clientID == "left" && chapters[i].complete && chapters[i].inOrder) {
-            players.addPlayer(chapters[i].left.file);
-        } else if (clientID == "middle") {
-            players.addPlayer(chapters[i].middle.file);
-        } else if (clientID == "right") {
-            players.addPlayer(chapters[i].right.file);
-        }
-    }
-    
 }
 
 //--------------------------------------------------------------
