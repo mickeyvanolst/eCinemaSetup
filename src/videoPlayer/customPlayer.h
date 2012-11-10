@@ -27,7 +27,8 @@ public:
     void removeAllPlayers();
     void pausePlayer();
     void startPlayer(int whichVid);
-    void syphonOut();
+    
+    bool syphonOut;
     
     struct Players {
         //ofxQTKitVideoPlayer vid;

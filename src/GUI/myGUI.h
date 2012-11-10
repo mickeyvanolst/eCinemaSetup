@@ -51,8 +51,14 @@ public:
     bool            syphonLaOn;
     bool            syphonRaOn;
     
-    
     int             activeChap;
+    
+    struct Chapters {
+        bool                active; // not used
+        ofxUILabelButton    *btn;
+    };
+    vector<Chapters> chapBtn;
+    
     ofxUISlider     *chapCurPercent;
     float           chapCurTime;
     ofxUILabel      *chapTotalTime;

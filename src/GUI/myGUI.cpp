@@ -156,12 +156,24 @@ void myGUI::setGUI2()
     gui2->addSpacer(length-xInit, 2);
     gui2->addWidgetDown(new ofxUILabel("CHAPTER LIST", OFX_UI_FONT_MEDIUM));
     
+    // clearing the buttons if they are here
+    if(chapBtn.size() > 0){
+        chapBtn.erase(chapBtn.begin(), chapBtn.end());
+        chapBtn.clear();
+        chapBtn.resize(0);
+    }
     for (int i = 0; i < reader->chapters.size(); i++) {
+        chapBtn.push_back(Chapters());
+        
         if(reader->chapters[i].inOrder && reader->chapters[i].complete) {
-            gui2->addLabelButton(reader->chapters[i].name, false, length-xInit);
+            //activeChapBtn = (ofxUILabelButton *) gui2->addLabelButton(reader->chapters[i].name, false, length-xInit);
+            chapBtn[chapBtn.size()-1].btn = (ofxUILabelButton *) gui2->addLabelButton(reader->chapters[i].name, false, length-xInit);
+
         } else {
-            gui2->addLabelButton("Err. " + reader->chapters[i].name, false, length-xInit);
+            //gui2->addLabelButton("Err. " + reader->chapters[i].name, false, length-xInit);
+            chapBtn[chapBtn.size()-1].btn = (ofxUILabelButton *) gui2->addLabelButton(reader->chapters[i].name, false, length-xInit);
         }
+        
     }
     
 	ofAddListener(gui2->newGUIEvent,this,&myGUI::guiEvent);

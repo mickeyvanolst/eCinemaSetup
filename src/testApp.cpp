@@ -55,6 +55,9 @@ void testApp::frameEvent() {
     ofBackground(50, 50, 50);
     ofSetColor(255, 255, 255);
     
+    // handle video playing stuff
+    player->draw(client.getXoffset(),client.getYoffset(), client.getLWidth(), client.getLHeight());
+    
     // read any incoming messages
     if (client.messageAvailable()) {
         vector<string> msg = client.getDataMessage();
@@ -80,13 +83,22 @@ void testApp::frameEvent() {
         }
     }
     
-    // handle video playing stuff
-    player->draw(client.getXoffset(),client.getYoffset(), client.getLWidth(), client.getLHeight());
-    
     // sending values from player to gui, should not have to be done this way...
     gui->chapCurPercent->setValue(player->chapCurPercent);
     gui->chapTotalTime->setLabel("TOTAL: " + ofToString(player->chapTotalTime) + " SEC");
     gui->totalPercent->setValue(player->totalProgress);
+    
+    // this for loop sets the buttons true or false each time,
+    //still have to put this somehwere it doesn't happen every frame
+    for (int i = 0; i < gui->chapBtn.size(); i++) {
+        if(player->activeVid == i+1){
+            gui->chapBtn[i].btn->setValue(true);
+            //printf("button %i true!!\n",i);
+        } else {
+            gui->chapBtn[i].btn->setValue(false);
+            //printf("button %i not true\n",i);
+        }
+    }
     
 }
 

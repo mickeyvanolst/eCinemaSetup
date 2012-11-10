@@ -111,7 +111,10 @@ void customPlayer::draw(int x, int y, int w, int h)
 //        printf("totalProgress: %f\n",totalProgress);
         
         // actually drawing the video
+
+        
         players[activeVid-1].vid.draw(x,y,w,h);
+        
     }
     // this is still a bit sketchy, not sure if I should update all video's in order to
     // keep commands nice and swift, or to only update the one thats playing for CPU's sake
@@ -159,10 +162,4 @@ void customPlayer::removeAllPlayers()
     printf("removed all players!\n");
     
     totPrevMovsFrames = 0;
-}
-
-//--------------------------------------------------------------
-void customPlayer::syphonOut()
-{
-
 }
