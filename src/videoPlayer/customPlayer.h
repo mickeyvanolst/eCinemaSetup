@@ -51,6 +51,9 @@ public:
     float           chapCurTime;
     float           chapTotalTime;
     
+    float           totPrevMovsFrames;
+    float           totMovsFrames;
+    
 private:
     
 };

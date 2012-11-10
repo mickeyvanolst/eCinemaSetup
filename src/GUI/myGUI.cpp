@@ -132,6 +132,9 @@ void myGUI::setGUI1()
     gui1->addSlider("01", 0.0, 100.0, red, length-xInit, dim);
     gui1->addSlider("02", 0.0, 100.0, red, length-xInit, dim);
     
+    gui1->addSpacer(length-xInit, 2);
+    gui1->addLabelButton("SHOOT", false, length-xInit);
+    
 	ofAddListener(gui1->newGUIEvent,this,&myGUI::guiEvent);
 }
 
@@ -147,8 +150,8 @@ void myGUI::setGUI2()
     gui2->addSpacer(length-xInit, 2);
     gui2->addWidgetDown(new ofxUILabel("CHAPTER CURRENT TIME", OFX_UI_FONT_MEDIUM));
     
-    gui2->addSlider("CURRENT", 0.0, 100.0, red, length-xInit, dim);
-    gui2->addWidgetDown(new ofxUILabel("TOTAL: ", OFX_UI_FONT_SMALL));
+    chapCurPercent = (ofxUISlider *) gui2->addSlider("PROCENT", 0.0, 100.0, 0.0, length-xInit, dim);
+    chapTotalTime = (ofxUILabel *) gui2->addWidgetDown(new ofxUILabel("TOTAL: ", OFX_UI_FONT_SMALL));
     
     gui2->addSpacer(length-xInit, 2);
     gui2->addWidgetDown(new ofxUILabel("CHAPTER LIST", OFX_UI_FONT_MEDIUM));
@@ -163,7 +166,7 @@ void myGUI::setGUI2()
     
 	ofAddListener(gui2->newGUIEvent,this,&myGUI::guiEvent);
 }
-
+    
 void myGUI::setGUI3()
 {
 	float dim = 16;
@@ -174,7 +177,7 @@ void myGUI::setGUI3()
     
     gui3->addSpacer(length-xInit, 2);
 	gui3->addWidgetDown(new ofxUILabel("TOTALE PROGRESSIE", OFX_UI_FONT_MEDIUM));
-	gui3->addSlider("MIN", 0.0, 60.0, red, length-xInit, dim);
+	totalPercent = (ofxUISlider *) gui3->addSlider("PROCENT", 0.0, 100.0, 0.0, length-xInit, dim);
     
     gui3->addSpacer(length-xInit, 2);
     gui3->addWidgetDown(new ofxUILabel("INTERACTIVE OBJECTS", OFX_UI_FONT_MEDIUM));
@@ -184,15 +187,17 @@ void myGUI::setGUI3()
     gui3->addLabelButton("SCAN FOLDER", false, length-xInit);
     
     gui3->addSpacer(length-xInit, 2);
-    gui3->addLabelButton("SHOOT", false, length-xInit);
-    
-    gui3->addSpacer(length-xInit, 2);
     gui3->addWidgetDown(new ofxUILabel("INTERVIEW SYNCER", OFX_UI_FONT_MEDIUM));
     gui3->addLabelButton("OPEN INTERVIEW FILES", false, length-xInit);
     gui3->addLabelButton("SYNCHRONISE!", false, length-xInit);
     
     gui3->addSpacer(length-xInit, 2);
     gui3->addWidgetDown(new ofxUILabel("MESSAGE OUTPUT", OFX_UI_FONT_MEDIUM));
+    
+    string textString = "This widget is a text area widget. Use this when you need to display a paragraph of text. It takes care of formatting the text to fit the block and if there is overflow it adds an ellipse, like so blah blah blah blah blah blah blah blah blah yad yad yad yad yad yad";
+    
+    gui3->addSpacer(length-xInit, 2);
+    gui3->addWidgetDown(new ofxUITextArea("OUTPUT FRAME", textString, length-xInit, 128));
     
 	ofAddListener(gui3->newGUIEvent,this,&myGUI::guiEvent);
 }

@@ -31,6 +31,8 @@ customPlayer::customPlayer(handleChapters *_rea)
     chapCurPercent = 0.0;
     chapCurTime = 0.0;
     chapTotalTime = 0.0;
+    totPrevMovsFrames = 0.0;
+    totMovsFrames = 0.0;
 }
 
 //--------------------------------------------------------------
@@ -56,6 +58,16 @@ void customPlayer::addPlayer(string videoDir)
     printf("adding movie: %s at players[%li]\n",videoDir.c_str(), players.size()-1);
     players[players.size()-1].vid.loadMovie(videoDir);
     players[players.size()-1].vid.stop();
+    
+    // calculate total amount of frames of all movies combined
+    totMovsFrames = 0.0;
+    for (int i = 0; i < players.size(); i++) {
+        if(i >= 0) {
+            totMovsFrames += float(players[i].vid.getTotalNumFrames());
+        } else {
+            totMovsFrames = 0.0;
+        }
+    }
 }
 
 //--------------------------------------------------------------
@@ -74,6 +86,7 @@ void customPlayer::addAllVideos(int & i)
             }
         }
     }
+    
     printf("new player size: %li\n",players.size());
 }
 
@@ -82,11 +95,22 @@ void customPlayer::draw(int x, int y, int w, int h)
 {
     if(isPlaying) {
         players[activeVid-1].vid.update();
+
+        // calulating stuff to show in the GUI
+        float tempCurFrame      = players[activeVid-1].vid.getCurrentFrame();
+        float tempTotFrame      = players[activeVid-1].vid.getTotalNumFrames();
+        float tempPercent       = tempCurFrame / tempTotFrame * 100.0;
+        float tempTotPercent    = (tempCurFrame + totPrevMovsFrames) / totMovsFrames * 100.0;
         
-        chapCurPercent = players[activeVid-1].vid.getCurrentFrame() / players[activeVid-1].vid.getTotalNumFrames() * 100;
-        chapCurTime = players[activeVid-1].vid.getDuration() / 100 * chapCurPercent;
-        chapTotalTime = players[activeVid-1].vid.getDuration();
+        chapTotalTime = int(players[activeVid-1].vid.getDuration() );
+        chapCurPercent = tempPercent;
+        totalProgress = tempTotPercent;
         
+//        printf("tempCurFrame: %f\n",tempCurFrame);
+//        printf("totPrevMovsFrames: %f\n",totPrevMovsFrames);
+//        printf("totalProgress: %f\n",totalProgress);
+        
+        // actually drawing the video
         players[activeVid-1].vid.draw(x,y,w,h);
     }
     // this is still a bit sketchy, not sure if I should update all video's in order to
@@ -103,6 +127,16 @@ void customPlayer::startPlayer(int whichVid)
     printf("customplayer: play vid nr: %i\n",activeVid);
     players[activeVid-1].vid.play();
     // pause the one that might be playing and play the new one
+    
+    // calculate new value for total amount of frames of previous films
+    totPrevMovsFrames = 0.0;
+    for (int i = 0; i < activeVid-1; i++) {
+        if(i >= 0) {
+            totPrevMovsFrames += float(players[i].vid.getTotalNumFrames());
+        } else {
+            totPrevMovsFrames = 0.0;
+        }
+    }
 }
 
 //--------------------------------------------------------------
@@ -123,6 +157,8 @@ void customPlayer::removeAllPlayers()
     players.clear();
     players.resize(0);
     printf("removed all players!\n");
+    
+    totPrevMovsFrames = 0;
 }
 
 //--------------------------------------------------------------

@@ -42,7 +42,7 @@ public:
     string appName;
     
     // All needed values
-    float           totalProgress;
+    ofxUISlider     *totalPercent;
     bool            appLaCon;
     bool            appMaCon;
     bool            appRaCon;
@@ -53,9 +53,9 @@ public:
     
     
     int             activeChap;
-    float           chapProgress;
+    ofxUISlider     *chapCurPercent;
     float           chapCurTime;
-    float           chapTotalTime;
+    ofxUILabel      *chapTotalTime;
     
     // play pause etc btns still to be made
     

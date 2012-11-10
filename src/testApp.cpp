@@ -6,7 +6,6 @@ testApp::testApp()
 {
     player      = new customPlayer(&reader);
     gui         = new myGUI(&client, &reader);
-    
 }
 
 //--------------------------------------------------------------
@@ -41,7 +40,7 @@ void testApp::setup(){
 
 //--------------------------------------------------------------
 void testApp::update(){
-
+    
 }
 
 //--------------------------------------------------------------
@@ -83,6 +82,12 @@ void testApp::frameEvent() {
     
     // handle video playing stuff
     player->draw(client.getXoffset(),client.getYoffset(), client.getLWidth(), client.getLHeight());
+    
+    // sending values from player to gui, should not have to be done this way...
+    gui->chapCurPercent->setValue(player->chapCurPercent);
+    gui->chapTotalTime->setLabel("TOTAL: " + ofToString(player->chapTotalTime) + " SEC");
+    gui->totalPercent->setValue(player->totalProgress);
+    
 }
 
 //--------------------------------------------------------------
