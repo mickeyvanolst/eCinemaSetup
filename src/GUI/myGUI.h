@@ -14,11 +14,12 @@
 #include "chapterHandler.h"
 
 class myGUI {
-    
+
 public:
     myGUI(mpeClientTCP *_cli, handleChapters *_rea);
-    
+
     void setup(string appID);
+    void keyPressed(int key);
     
     void buildGUI(int & i);
     void guiEvent(ofxUIEventArgs &e);
@@ -39,6 +40,32 @@ public:
     handleChapters *reader;
     
     string appName;
+    
+    // All needed values
+    float           totalProgress;
+    bool            appLaCon;
+    bool            appMaCon;
+    bool            appRaCon;
+    bool            appObj1Con;
+    bool            appObj2Con;
+    bool            syphonLaOn;
+    bool            syphonRaOn;
+    
+    
+    int             activeChap;
+    float           chapProgress;
+    float           chapCurTime;
+    float           chapTotalTime;
+    
+    // play pause etc btns still to be made
+    
+    // obj simulator still to be made
+    
+    // interview syncer still to be made
+    
+    // msg output still to be made
+    
+    
     
 private:
     

@@ -4,8 +4,9 @@
 
 testApp::testApp()
 {
-    gui         = new myGUI(&client, &reader);
     player      = new customPlayer(&reader);
+    gui         = new myGUI(&client, &reader);
+    
 }
 
 //--------------------------------------------------------------
@@ -53,7 +54,6 @@ void testApp::frameEvent() {
     
     // clear the screen
     ofBackground(50, 50, 50);
-    
     ofSetColor(255, 255, 255);
     
     // read any incoming messages
@@ -74,15 +74,15 @@ void testApp::frameEvent() {
             ofBackground(255, 0, 0);
         }
         
-        if (splitMsg[0].compare("readDir") == 0) {
-            reader.readDir();
-        }
-        
         if (splitMsg[0].compare("playChapter") == 0) {
             printf("play chapter: %s\n",splitMsg[1].c_str());
+            printf("chapter id nr: %s\n",splitMsg[2].c_str());
+            player->startPlayer(ofToInt(splitMsg[2]));
         }
-        
     }
+    
+    // handle video playing stuff
+    player->draw(client.getXoffset(),client.getYoffset(), client.getLWidth(), client.getLHeight());
 }
 
 //--------------------------------------------------------------
@@ -98,16 +98,12 @@ void testApp::keyPressed(int key){
         case 'f':
 			ofToggleFullscreen();
 			break;
-            
-		case 'h':
-            gui->gui1->toggleVisible();
-            gui->gui2->toggleVisible();
-            gui->gui3->toggleVisible();
-			break;
 
         default:
             break;
     }
+    
+    gui->keyPressed(key); // so we can toggle visibility
 }
 
 //--------------------------------------------------------------

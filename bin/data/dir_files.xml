@@ -41,7 +41,7 @@
             <height>1080</height>
         </left>
         <middle>
-            <file>content/02_Eis en verwachting/M_Eis en verwachting.MOV.MOV</file>
+            <file>content/02_Eis en verwachting/M_Eis en verwachting.MOV</file>
             <name>L_Eis en verwachting.MOV</name>
             <duration>10</duration>
             <frames>315</frames>
@@ -65,10 +65,28 @@
             <file>content/03_Plaats en origine/L_Plaats en origine.MOV</file>
             <name>L_Plaats en origine.MOV</name>
             <duration>10</duration>
-            <frames>315</frames>
-            <filesize>28015898</filesize>
+            <frames>330</frames>
+            <filesize>29207184</filesize>
             <width>1920</width>
             <height>1080</height>
         </left>
+        <middle>
+            <file>content/03_Plaats en origine/M_Plaats en origine.MOV</file>
+            <name>L_Plaats en origine.MOV</name>
+            <duration>10</duration>
+            <frames>330</frames>
+            <filesize>29732267</filesize>
+            <width>1920</width>
+            <height>1080</height>
+        </middle>
+        <right>
+            <file>content/03_Plaats en origine/R_Plaats en origine.MOV</file>
+            <name>L_Plaats en origine.MOV</name>
+            <duration>10</duration>
+            <frames>330</frames>
+            <filesize>28486396</filesize>
+            <width>1920</width>
+            <height>1080</height>
+        </right>
     </chapter>
 </movies>

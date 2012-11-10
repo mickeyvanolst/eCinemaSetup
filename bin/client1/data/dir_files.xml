@@ -41,7 +41,7 @@
             <height>1080</height>
         </left>
         <middle>
-            <file>content/02_Eis en verwachting/M_Eis en verwachting.MOV.MOV</file>
+            <file>content/02_Eis en verwachting/M_Eis en verwachting.MOV</file>
             <name>L_Eis en verwachting.MOV</name>
             <duration>10</duration>
             <frames>315</frames>
@@ -65,154 +65,28 @@
             <file>content/03_Plaats en origine/L_Plaats en origine.MOV</file>
             <name>L_Plaats en origine.MOV</name>
             <duration>10</duration>
-            <frames>315</frames>
-            <filesize>28015898</filesize>
-            <width>1920</width>
-            <height>1080</height>
-        </left>
-    </chapter>
-    <chapter>
-        <name>01_Introductie</name>
-        <left>
-            <file>content/01_Introductie/L_Introductie.MOV</file>
-            <name>L_Introductie.MOV</name>
-            <duration>11</duration>
-            <frames>334</frames>
-            <filesize>29892113</filesize>
+            <frames>330</frames>
+            <filesize>29207184</filesize>
             <width>1920</width>
             <height>1080</height>
         </left>
         <middle>
-            <file>content/01_Introductie/M_Introductie.MOV</file>
-            <name>L_Introductie.MOV</name>
-            <duration>11</duration>
-            <frames>334</frames>
-            <filesize>28902988</filesize>
-            <width>1920</width>
-            <height>1080</height>
-        </middle>
-        <right>
-            <file>content/01_Introductie/R_Introductie.MOV</file>
-            <name>L_Introductie.MOV</name>
-            <duration>11</duration>
-            <frames>334</frames>
-            <filesize>29785021</filesize>
-            <width>1920</width>
-            <height>1080</height>
-        </right>
-    </chapter>
-    <chapter>
-        <name>02_Eis en verwachting</name>
-        <left>
-            <file>content/02_Eis en verwachting/L_Eis en verwachting.MOV</file>
-            <name>L_Eis en verwachting.MOV</name>
-            <duration>10</duration>
-            <frames>315</frames>
-            <filesize>28015898</filesize>
-            <width>1920</width>
-            <height>1080</height>
-        </left>
-        <middle>
-            <file>content/02_Eis en verwachting/M_Eis en verwachting.MOV.MOV</file>
-            <name>L_Eis en verwachting.MOV</name>
-            <duration>10</duration>
-            <frames>315</frames>
-            <filesize>29962069</filesize>
-            <width>1920</width>
-            <height>1080</height>
-        </middle>
-        <right>
-            <file>content/02_Eis en verwachting/R_Eis en verwachting.MOV</file>
-            <name>L_Eis en verwachting.MOV</name>
-            <duration>10</duration>
-            <frames>315</frames>
-            <filesize>29684805</filesize>
-            <width>1920</width>
-            <height>1080</height>
-        </right>
-    </chapter>
-    <chapter>
-        <name>03_Plaats en origine</name>
-        <left>
-            <file>content/03_Plaats en origine/L_Plaats en origine.MOV</file>
+            <file>content/03_Plaats en origine/M_Plaats en origine.MOV</file>
             <name>L_Plaats en origine.MOV</name>
             <duration>10</duration>
-            <frames>315</frames>
-            <filesize>28015898</filesize>
-            <width>1920</width>
-            <height>1080</height>
-        </left>
-    </chapter>
-    <chapter>
-        <name>01_Introductie</name>
-        <left>
-            <file>content/01_Introductie/L_Introductie.MOV</file>
-            <name>L_Introductie.MOV</name>
-            <duration>11</duration>
-            <frames>334</frames>
-            <filesize>29892113</filesize>
-            <width>1920</width>
-            <height>1080</height>
-        </left>
-        <middle>
-            <file>content/01_Introductie/M_Introductie.MOV</file>
-            <name>L_Introductie.MOV</name>
-            <duration>11</duration>
-            <frames>334</frames>
-            <filesize>28902988</filesize>
+            <frames>330</frames>
+            <filesize>29732267</filesize>
             <width>1920</width>
             <height>1080</height>
         </middle>
         <right>
-            <file>content/01_Introductie/R_Introductie.MOV</file>
-            <name>L_Introductie.MOV</name>
-            <duration>11</duration>
-            <frames>334</frames>
-            <filesize>29785021</filesize>
-            <width>1920</width>
-            <height>1080</height>
-        </right>
-    </chapter>
-    <chapter>
-        <name>02_Eis en verwachting</name>
-        <left>
-            <file>content/02_Eis en verwachting/L_Eis en verwachting.MOV</file>
-            <name>L_Eis en verwachting.MOV</name>
-            <duration>10</duration>
-            <frames>315</frames>
-            <filesize>28015898</filesize>
-            <width>1920</width>
-            <height>1080</height>
-        </left>
-        <middle>
-            <file>content/02_Eis en verwachting/M_Eis en verwachting.MOV.MOV</file>
-            <name>L_Eis en verwachting.MOV</name>
-            <duration>10</duration>
-            <frames>315</frames>
-            <filesize>29962069</filesize>
-            <width>1920</width>
-            <height>1080</height>
-        </middle>
-        <right>
-            <file>content/02_Eis en verwachting/R_Eis en verwachting.MOV</file>
-            <name>L_Eis en verwachting.MOV</name>
-            <duration>10</duration>
-            <frames>315</frames>
-            <filesize>29684805</filesize>
-            <width>1920</width>
-            <height>1080</height>
-        </right>
-    </chapter>
-    <chapter>
-        <name>03_Plaats en origine</name>
-        <left>
-            <file>content/03_Plaats en origine/L_Plaats en origine.MOV</file>
+            <file>content/03_Plaats en origine/R_Plaats en origine.MOV</file>
             <name>L_Plaats en origine.MOV</name>
             <duration>10</duration>
-            <frames>315</frames>
-            <filesize>28015898</filesize>
+            <frames>330</frames>
+            <filesize>28486396</filesize>
             <width>1920</width>
             <height>1080</height>
-        </left>
+        </right>
     </chapter>
 </movies>

@@ -55,20 +55,7 @@ void myGUI::guiEvent(ofxUIEventArgs &e)
             if(name == reader->chapters[i].name)
             {
                 ofxUIButton *button = (ofxUIButton *) e.widget;
-                // trigger a video
-//                if(appName == "left") {
-                    //player.addChapter(reader.chapters[i].left.file, true);
-                
-                    client->broadcast("playChapter," + ofToString(reader->chapters[i].name));
-//                }
-//                if(appName == "middle") {
-//                    //player.addChapter(reader.chapters[i].middle.file, true);
-//                    client->broadcast("playChapter," + ofToString(reader->chapters[i].middle.name));
-//                }
-//                if(appName == "right") {
-//                    //player.addChapter(reader.chapters[i].right.file, true);
-//                    client->broadcast("playChapter," + ofToString(reader->chapters[i].right.file));
-//                }
+                client->broadcast("playChapter," + ofToString(reader->chapters[i].name) + "," + ofToString(i+1));
             }
         }
     }
@@ -80,6 +67,21 @@ void myGUI::exit()
 	delete gui1;
 	delete gui2;
 	delete gui3;
+}
+
+//--------------------------------------------------------------
+void myGUI::keyPressed(int key){
+    switch (key) {
+            
+		case 'h':
+            gui1->toggleVisible();
+            gui2->toggleVisible();
+            gui3->toggleVisible();
+			break;
+            
+        default:
+            break;
+    }
 }
 
 //--------------------------------------------------------------
@@ -144,7 +146,8 @@ void myGUI::setGUI2()
     
     gui2->addSpacer(length-xInit, 2);
     gui2->addWidgetDown(new ofxUILabel("CHAPTER CURRENT TIME", OFX_UI_FONT_MEDIUM));
-    gui2->addSlider("CURRENT", 0.0, 10.0, red, length-xInit, dim);
+    
+    gui2->addSlider("CURRENT", 0.0, 100.0, red, length-xInit, dim);
     gui2->addWidgetDown(new ofxUILabel("TOTAL: ", OFX_UI_FONT_SMALL));
     
     gui2->addSpacer(length-xInit, 2);
@@ -192,5 +195,4 @@ void myGUI::setGUI3()
     gui3->addWidgetDown(new ofxUILabel("MESSAGE OUTPUT", OFX_UI_FONT_MEDIUM));
     
 	ofAddListener(gui3->newGUIEvent,this,&myGUI::guiEvent);
-    printf("okay so this works..\n");
 }
