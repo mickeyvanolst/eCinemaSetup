@@ -40,7 +40,6 @@ void customPlayer::setup(string ID)
 {
     appName = ID;
     ofAddListener(reader->addAllVideosEvent, this, &customPlayer::addAllVideos);
-    
 }
 
 //--------------------------------------------------------------
@@ -58,6 +57,7 @@ void customPlayer::addPlayer(string videoDir)
     printf("adding movie: %s at players[%li]\n",videoDir.c_str(), players.size()-1);
     players[players.size()-1].vid.loadMovie(videoDir);
     players[players.size()-1].vid.stop();
+    players[players.size()-1].vid.setLoopState(OF_LOOP_NONE);
     
     // calculate total amount of frames of all movies combined
     totMovsFrames = 0.0;
@@ -93,29 +93,27 @@ void customPlayer::addAllVideos(int & i)
 //--------------------------------------------------------------
 void customPlayer::draw(int x, int y, int w, int h)
 {
-    if(isPlaying) {
-        players[activeVid-1].vid.update();
+    players[activeVid-1].vid.update();
 
-        // calulating stuff to show in the GUI
-        float tempCurFrame      = players[activeVid-1].vid.getCurrentFrame();
-        float tempTotFrame      = players[activeVid-1].vid.getTotalNumFrames();
-        float tempPercent       = tempCurFrame / tempTotFrame * 100.0;
-        float tempTotPercent    = (tempCurFrame + totPrevMovsFrames) / totMovsFrames * 100.0;
-        
-        chapTotalTime = int(players[activeVid-1].vid.getDuration() );
-        chapCurPercent = tempPercent;
-        totalProgress = tempTotPercent;
-        
+    // calulating stuff to show in the GUI
+    float tempCurFrame      = players[activeVid-1].vid.getCurrentFrame();
+    float tempTotFrame      = players[activeVid-1].vid.getTotalNumFrames();
+    float tempPercent       = tempCurFrame / tempTotFrame * 100.0;
+    float tempTotPercent    = (tempCurFrame + totPrevMovsFrames) / totMovsFrames * 100.0;
+    
+    chapTotalTime = int(players[activeVid-1].vid.getDuration() );
+    chapCurPercent = tempPercent;
+    totalProgress = tempTotPercent;
+    
 //        printf("tempCurFrame: %f\n",tempCurFrame);
 //        printf("totPrevMovsFrames: %f\n",totPrevMovsFrames);
 //        printf("totalProgress: %f\n",totalProgress);
-        
-        // actually drawing the video
+    
+    // actually drawing the video
 
-        
-        players[activeVid-1].vid.draw(x,y,w,h);
-        
-    }
+    
+    players[activeVid-1].vid.draw(x,y,w,h);
+
     // this is still a bit sketchy, not sure if I should update all video's in order to
     // keep commands nice and swift, or to only update the one thats playing for CPU's sake
     // option 2 for now..
@@ -146,8 +144,33 @@ void customPlayer::startPlayer(int whichVid)
 void customPlayer::pausePlayer()
 {
     if (isPlaying) {
-        players[activeVid-1].vid.stop();
+        players[activeVid-1].vid.setPaused(true);
         isPlaying = false;
+    }
+}
+
+//--------------------------------------------------------------
+void customPlayer::playPlayer()
+{
+    if (!isPlaying) {
+        players[activeVid-1].vid.play();
+        isPlaying = true;
+    }
+}
+
+//--------------------------------------------------------------
+void customPlayer::nextPlayer()
+{
+    if (activeVid < players.size()) {
+        startPlayer(activeVid+1);
+    }
+}
+
+//--------------------------------------------------------------
+void customPlayer::prevPlayer()
+{
+    if (activeVid > 1) {
+        startPlayer(activeVid-1);
     }
 }
 

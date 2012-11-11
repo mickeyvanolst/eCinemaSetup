@@ -19,6 +19,7 @@ handleChapters::handleChapters(){
 //--------------------------------------------------------------
 void handleChapters::setup(string ID){
     clientID = ID;
+    totalXmlString = "";
 }
 
 //--------------------------------------------------------------
@@ -180,6 +181,12 @@ void handleChapters::readDir(){
     checkFiles(); // checking to see if all files are in order
     writeXML(); // write it to an XML file, makes it easy to check whats wrong
     
+    XML.copyXmlToString(totalXmlString);
+//    totalXmlString.erase(std::remove(totalXmlString.begin(), totalXmlString.end(), '\n'), totalXmlString.end());
+//    totalXmlString.erase(std::remove(totalXmlString.begin(), totalXmlString.end(), ' '), totalXmlString.end());
+//    totalXmlString.erase(std::remove(totalXmlString.begin(), totalXmlString.end(), '<'), totalXmlString.end());
+//    totalXmlString.erase(std::remove(totalXmlString.begin(), totalXmlString.end(), '>'), totalXmlString.end());
+//    totalXmlString.erase(std::remove(totalXmlString.begin(), totalXmlString.end(), '/'), totalXmlString.end());
 }
 
 //--------------------------------------------------------------

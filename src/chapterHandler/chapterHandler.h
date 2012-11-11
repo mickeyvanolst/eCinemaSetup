@@ -7,7 +7,6 @@
 //
 #pragma once
 
-#include "ofxDirList.h"
 #include "ofxXmlSettings.h"
 
 #ifndef chapterHandler
@@ -60,6 +59,8 @@ public:
     // xml stuff
     ofxXmlSettings XML;
     string xmlStructure;
+    
+    string totalXmlString;
     
     int lastTagNumber;
     int lastChapNumber;

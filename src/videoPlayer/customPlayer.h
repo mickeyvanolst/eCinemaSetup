@@ -9,7 +9,6 @@
 #ifndef eCinemaSetup_customPlayer_h
 #define eCinemaSetup_customPlayer_h
 
-#include "ofxQTKitVideoPlayer.h"
 #include "chapterHandler.h"
 #include "myGUI.h"
 
@@ -26,9 +25,10 @@ public:
     void addAllVideos(int & i);
     void removeAllPlayers();
     void pausePlayer();
+    void playPlayer();
+    void nextPlayer();
+    void prevPlayer();
     void startPlayer(int whichVid);
-    
-    bool syphonOut;
     
     struct Players {
         //ofxQTKitVideoPlayer vid;

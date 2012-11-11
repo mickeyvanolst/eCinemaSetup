@@ -6,6 +6,7 @@
 #include "ofMain.h"
 #include "mpeClientTCP.h"
 #include "chapterHandler.h"
+#include "ofxSyphon.h"
 #include "customPlayer.h"
 #include "myGUI.h"
 
@@ -40,6 +41,13 @@ public:
     // our custom videoPlayer, loads all movies and then decides which
     // to draw and play, also handles syphon
     customPlayer *player;
+    
+    ofxSyphonServer syphonServer;
+    bool syphonOut;
+    
+    long int fpsCounter;
+
+    bool firstFrameEvent;
     
     // GUI stuff
     myGUI *gui;

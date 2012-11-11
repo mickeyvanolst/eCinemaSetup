@@ -48,8 +48,9 @@ public:
     bool            appRaCon;
     bool            appObj1Con;
     bool            appObj2Con;
-    bool            syphonLaOn;
-    bool            syphonRaOn;
+    
+    ofxUIButton     *syphonLaBtn;
+    ofxUIButton     *syphonRaBtn;
     
     int             activeChap;
     
@@ -59,9 +60,21 @@ public:
     };
     vector<Chapters> chapBtn;
     
+    ofxUIButton     *prevBtn;
+    ofxUIButton     *pauseBtn;
+    ofxUIButton     *playBtn;
+    ofxUIButton     *nextBtn;
+
+    
     ofxUISlider     *chapCurPercent;
     float           chapCurTime;
     ofxUILabel      *chapTotalTime;
+    
+    ofxUISlider     *fpsLaSlider;
+    ofxUISlider     *fpsMaSlider;
+    ofxUISlider     *fpsRaSlider;
+    ofxUISlider     *fps01Slider;
+    ofxUISlider     *fps02Slider;
     
     // play pause etc btns still to be made
     

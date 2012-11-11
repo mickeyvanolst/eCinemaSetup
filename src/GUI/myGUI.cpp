@@ -48,6 +48,52 @@ void myGUI::guiEvent(ofxUIEventArgs &e)
         client->broadcast("shoot,1");
 	}
     
+    if(name == "PLAY BUTTON")
+	{
+		ofxUIButton *button = (ofxUIButton *) e.widget;
+        client->broadcast("play,1");
+	}
+    
+    if(name == "PAUSE BUTTON")
+	{
+		ofxUIButton *button = (ofxUIButton *) e.widget;
+        client->broadcast("pause,1");
+	}
+    
+    if(name == "NEXT BUTTON")
+	{
+		ofxUIButton *button = (ofxUIButton *) e.widget;
+        client->broadcast("next,1");
+	}
+    
+    if(name == "PREV BUTTON")
+	{
+		ofxUIButton *button = (ofxUIButton *) e.widget;
+        client->broadcast("prev,1");
+	}
+    
+    if(name == "LA SYPHON")
+	{
+		ofxUIButton *button = (ofxUIButton *) e.widget;
+        if (syphonLaBtn->getValue() == 1) {
+            client->broadcast("syphonLaOn,1");
+        } else {
+            client->broadcast("syphonLaOff,1");
+        }
+        
+	}
+    
+    if(name == "RA SYPHON")
+	{
+		ofxUIButton *button = (ofxUIButton *) e.widget;
+        if (syphonRaBtn->getValue() == 1) {
+            client->broadcast("syphonRaOn,1");
+        } else {
+            client->broadcast("syphonRaOff,1");
+        }
+	}
+    
+    
     // custom event listeners for our chapter buttons
     for (int i = 0; i < reader->chapters.size(); i++) {
         if(reader->chapters[i].inOrder && reader->chapters[i].complete) {
@@ -86,6 +132,7 @@ void myGUI::keyPressed(int key){
 
 //--------------------------------------------------------------
 void myGUI::buildGUI(int & i){
+    
     // setup GUI
     setGUI1();
     setGUI2();
@@ -113,24 +160,24 @@ void myGUI::setGUI1()
     
     gui1->addSpacer(length-xInit, 2);
 	gui1->addWidgetDown(new ofxUILabel("CONNECTIE ALLE APPS", OFX_UI_FONT_MEDIUM));
-	gui1->addButton("LA", false, dim, dim);
-	gui1->addButton("MA", false, dim, dim);
-	gui1->addButton("RA", false, dim, dim);
-	gui1->addButton("01", false, dim, dim);
-	gui1->addButton("02", false, dim, dim);
+    gui1->addWidgetDown(new ofxUIButton("LA", false, dim, dim));
+    gui1->addWidgetRight(new ofxUIButton("MA", false, dim, dim));
+    gui1->addWidgetRight(new ofxUIButton("RA", false, dim, dim));
+    gui1->addWidgetDown(new ofxUIButton("01", false, dim, dim));
+    gui1->addWidgetRight(new ofxUIButton("02", false, dim, dim));
     
     gui1->addSpacer(length-xInit, 2);
 	gui1->addWidgetDown(new ofxUILabel("SYPHON OUTPUT", OFX_UI_FONT_MEDIUM));
-	gui1->addButton("LA", false, dim, dim);
-	gui1->addButton("RA", false, dim, dim);
+    syphonLaBtn = (ofxUIButton *) gui1->addWidgetDown(new ofxUIButton("LA SYPHON", false, dim, dim));
+    syphonRaBtn = (ofxUIButton *) gui1->addWidgetRight(new ofxUIButton("RA SYPHON", false, dim, dim));
     
     gui1->addSpacer(length-xInit, 2);
     gui1->addWidgetDown(new ofxUILabel("FPS ALLE APPS", OFX_UI_FONT_MEDIUM));
-    gui1->addSlider("LA", 0.0, 100.0, red, length-xInit, dim);
-    gui1->addSlider("MA", 0.0, 100.0, red, length-xInit, dim);
-    gui1->addSlider("RA", 0.0, 100.0, red, length-xInit, dim);
-    gui1->addSlider("01", 0.0, 100.0, red, length-xInit, dim);
-    gui1->addSlider("02", 0.0, 100.0, red, length-xInit, dim);
+    fpsLaSlider = (ofxUISlider *) gui1->addSlider("LA", 0.0, 100.0, 0.0, length-xInit, dim);
+    fpsMaSlider = (ofxUISlider *) gui1->addSlider("MA", 0.0, 100.0, 0.0, length-xInit, dim);
+    fpsRaSlider = (ofxUISlider *) gui1->addSlider("RA", 0.0, 100.0, 0.0, length-xInit, dim);
+    fps01Slider = (ofxUISlider *) gui1->addSlider("01", 0.0, 100.0, 0.0, length-xInit, dim);
+    fps02Slider = (ofxUISlider *) gui1->addSlider("02", 0.0, 100.0, 0.0, length-xInit, dim);
     
     gui1->addSpacer(length-xInit, 2);
     gui1->addLabelButton("SHOOT", false, length-xInit);
@@ -175,6 +222,12 @@ void myGUI::setGUI2()
         }
         
     }
+    
+    gui2->addSpacer(length-xInit, 2);
+    prevBtn = (ofxUIImageButton *) gui2->addWidgetDown(new ofxUIImageButton(dim*2, dim*2, false, "GUI/prev.png", "PREV BUTTON"));
+    pauseBtn = (ofxUIImageButton *) gui2->addWidgetRight(new ofxUIImageButton(dim*2, dim*2, false, "GUI/pause.png", "PAUSE BUTTON"));
+    playBtn = (ofxUIImageButton *) gui2->addWidgetRight(new ofxUIImageButton(dim*2, dim*2, false, "GUI/play.png", "PLAY BUTTON"));
+    prevBtn = (ofxUIImageButton *) gui2->addWidgetRight(new ofxUIImageButton(dim*2, dim*2, false, "GUI/next.png", "NEXT BUTTON"));
     
 	ofAddListener(gui2->newGUIEvent,this,&myGUI::guiEvent);
 }
