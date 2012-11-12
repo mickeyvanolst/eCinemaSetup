@@ -11,7 +11,6 @@
 //--------------------------------------------------------------
 myGUI::myGUI(mpeClientTCP *_cli, handleChapters *_rea)
 {
-    //parent = _par;
     client = _cli;
     reader = _rea;
 }
@@ -23,6 +22,10 @@ void myGUI::setup(string appID)
     
     // yay we can send events from class to class regardless of hiarchie!
     ofAddListener(reader->buildGUIEvent, this, &myGUI::buildGUI);
+    
+    prevMsg = "";
+    prevMsgCounter = 0;
+    
 }
 
 //--------------------------------------------------------------
@@ -30,78 +33,82 @@ void myGUI::guiEvent(ofxUIEventArgs &e)
 {
 	string name = e.widget->getName();
 	int kind = e.widget->getKind();
-	cout << "got event from: " << name << endl;
+    int id = e.widget->getID();
     
-	if(name == "SCAN FOLDER")
-	{
-		ofxUIButton *button = (ofxUIButton *) e.widget;
-        // trigger reader readDir function
-        //reader.readDir();
-        client->broadcast("readDir,1");
-	}
-    
-    if(name == "SHOOT")
-	{
-		ofxUIButton *button = (ofxUIButton *) e.widget;
-        // trigger reader readDir function
-        //reader.readDir();
-        client->broadcast("shoot,1");
-	}
-    
-    if(name == "PLAY BUTTON")
-	{
-		ofxUIButton *button = (ofxUIButton *) e.widget;
-        client->broadcast("play,1");
-	}
-    
-    if(name == "PAUSE BUTTON")
-	{
-		ofxUIButton *button = (ofxUIButton *) e.widget;
-        client->broadcast("pause,1");
-	}
-    
-    if(name == "NEXT BUTTON")
-	{
-		ofxUIButton *button = (ofxUIButton *) e.widget;
-        client->broadcast("next,1");
-	}
-    
-    if(name == "PREV BUTTON")
-	{
-		ofxUIButton *button = (ofxUIButton *) e.widget;
-        client->broadcast("prev,1");
-	}
-    
-    if(name == "LA SYPHON")
-	{
-		ofxUIButton *button = (ofxUIButton *) e.widget;
-        if (syphonLaBtn->getValue() == 1) {
-            client->broadcast("syphonLaOn,1");
-        } else {
-            client->broadcast("syphonLaOff,1");
+    // added a timer so if we get the same command withing 200 millisec we dont use it.
+    if (prevMsg == name && (ofGetElapsedTimeMillis() - prevMsgCounter) > 200) {
+        prevMsgCounter = ofGetElapsedTimeMillis();
+    } else {
+        
+        cout << "got event from: " << name << endl;
+        prevMsg = name;
+        
+        
+        if(name == "SCAN FOLDER")
+        {
+            ofxUIButton *button = (ofxUIButton *) e.widget;
+            client->broadcast("readDir,1");
         }
         
-	}
-    
-    if(name == "RA SYPHON")
-	{
-		ofxUIButton *button = (ofxUIButton *) e.widget;
-        if (syphonRaBtn->getValue() == 1) {
-            client->broadcast("syphonRaOn,1");
-        } else {
-            client->broadcast("syphonRaOff,1");
+        if(name == "SHOOT")
+        {
+            ofxUIButton *button = (ofxUIButton *) e.widget;
+            // trigger reader readDir function
+            //reader.readDir();
+            client->broadcast("shoot,1");
         }
-	}
-    
-    
-    // custom event listeners for our chapter buttons
-    for (int i = 0; i < reader->chapters.size(); i++) {
-        if(reader->chapters[i].inOrder && reader->chapters[i].complete) {
-            
-            if(name == reader->chapters[i].name)
-            {
-                ofxUIButton *button = (ofxUIButton *) e.widget;
-                client->broadcast("playChapter," + ofToString(reader->chapters[i].name) + "," + ofToString(i+1));
+        
+        if(name == "PLAY BUTTON")
+        {
+            ofxUIButton *button = (ofxUIButton *) e.widget;
+            client->broadcast("play,1");
+        }
+        
+        if(name == "PAUSE BUTTON")
+        {
+            ofxUIButton *button = (ofxUIButton *) e.widget;
+            client->broadcast("pause,1");
+        }
+        
+        if(name == "NEXT BUTTON")
+        {
+            ofxUIButton *button = (ofxUIButton *) e.widget;
+            client->broadcast("next,1");
+        }
+        
+        if(name == "PREV BUTTON")
+        {
+            ofxUIButton *button = (ofxUIButton *) e.widget;
+            client->broadcast("prev,1");
+        }
+        
+        if(name == "LA SYPHON")
+        {
+            ofxUIToggle *button = (ofxUIToggle *) e.widget;
+            if (syphonLaBtn->getValue() == 1) {
+                client->broadcast("syphonLa,1");
+            } else {
+                client->broadcast("syphonLa,0");
+            }
+        }
+        
+        if(name == "RA SYPHON")
+        {
+            ofxUIToggle *button = (ofxUIToggle *) e.widget;
+            if (syphonRaBtn->getValue() == 1) {
+                client->broadcast("syphonRa,1");
+            } else {
+                client->broadcast("syphonRa,0");
+            }
+        }
+        
+        // custom event listeners for our chapter buttons
+        for (int i = 0; i < reader->chapters.size(); i++) {
+            if(reader->chapters[i].inOrder && reader->chapters[i].complete) {
+                if(name == reader->chapters[i].name) {
+                    ofxUIButton *button = (ofxUIButton *) e.widget;
+                    client->broadcast("playChapter," + ofToString(reader->chapters[i].name) + "," + ofToString(i+1));
+                }
             }
         }
     }
@@ -141,13 +148,19 @@ void myGUI::buildGUI(int & i){
     gui1->setDrawBack(false);
     gui2->setDrawBack(false);
     gui3->setDrawBack(false);
+    
+    
+    if (appName != "left") {
+        gui1->toggleVisible();
+        gui2->toggleVisible();
+        gui3->toggleVisible();
+    }
+    
     printf("build GUI\n");
 }
 
 void myGUI::setGUI1()
-{
-	red = 233; blue = 52; green = 27;
-	
+{	
 	float dim = 16;
 	float xInit = OFX_UI_GLOBAL_WIDGET_SPACING;
     float length = 255-xInit;
@@ -155,7 +168,6 @@ void myGUI::setGUI1()
     
 	gui1 = new ofxUICanvas(0, 0, length+xInit, ofGetHeight());
     
-    // app name
 	gui1->addWidgetDown(new ofxUILabel(appName, OFX_UI_FONT_LARGE));
     
     gui1->addSpacer(length-xInit, 2);
@@ -168,8 +180,8 @@ void myGUI::setGUI1()
     
     gui1->addSpacer(length-xInit, 2);
 	gui1->addWidgetDown(new ofxUILabel("SYPHON OUTPUT", OFX_UI_FONT_MEDIUM));
-    syphonLaBtn = (ofxUIButton *) gui1->addWidgetDown(new ofxUIButton("LA SYPHON", false, dim, dim));
-    syphonRaBtn = (ofxUIButton *) gui1->addWidgetRight(new ofxUIButton("RA SYPHON", false, dim, dim));
+    syphonLaBtn = (ofxUIToggle *) gui1->addWidgetDown(new ofxUIToggle("LA SYPHON", true, dim, dim));
+    syphonRaBtn = (ofxUIToggle *) gui1->addWidgetRight(new ofxUIToggle("RA SYPHON", true, dim, dim));
     
     gui1->addSpacer(length-xInit, 2);
     gui1->addWidgetDown(new ofxUILabel("FPS ALLE APPS", OFX_UI_FONT_MEDIUM));
@@ -209,18 +221,17 @@ void myGUI::setGUI2()
         chapBtn.clear();
         chapBtn.resize(0);
     }
+    
     for (int i = 0; i < reader->chapters.size(); i++) {
         chapBtn.push_back(Chapters());
         
         if(reader->chapters[i].inOrder && reader->chapters[i].complete) {
             //activeChapBtn = (ofxUILabelButton *) gui2->addLabelButton(reader->chapters[i].name, false, length-xInit);
             chapBtn[chapBtn.size()-1].btn = (ofxUILabelButton *) gui2->addLabelButton(reader->chapters[i].name, false, length-xInit);
-
         } else {
             //gui2->addLabelButton("Err. " + reader->chapters[i].name, false, length-xInit);
             chapBtn[chapBtn.size()-1].btn = (ofxUILabelButton *) gui2->addLabelButton(reader->chapters[i].name, false, length-xInit);
-        }
-        
+        }        
     }
     
     gui2->addSpacer(length-xInit, 2);
@@ -228,6 +239,8 @@ void myGUI::setGUI2()
     pauseBtn = (ofxUIImageButton *) gui2->addWidgetRight(new ofxUIImageButton(dim*2, dim*2, false, "GUI/pause.png", "PAUSE BUTTON"));
     playBtn = (ofxUIImageButton *) gui2->addWidgetRight(new ofxUIImageButton(dim*2, dim*2, false, "GUI/play.png", "PLAY BUTTON"));
     prevBtn = (ofxUIImageButton *) gui2->addWidgetRight(new ofxUIImageButton(dim*2, dim*2, false, "GUI/next.png", "NEXT BUTTON"));
+    
+    gui2->addLabelToggle("PLAY ALL", true);
     
 	ofAddListener(gui2->newGUIEvent,this,&myGUI::guiEvent);
 }
@@ -259,10 +272,8 @@ void myGUI::setGUI3()
     gui3->addSpacer(length-xInit, 2);
     gui3->addWidgetDown(new ofxUILabel("MESSAGE OUTPUT", OFX_UI_FONT_MEDIUM));
     
-    string textString = "This widget is a text area widget. Use this when you need to display a paragraph of text. It takes care of formatting the text to fit the block and if there is overflow it adds an ellipse, like so blah blah blah blah blah blah blah blah blah yad yad yad yad yad yad";
-    
     gui3->addSpacer(length-xInit, 2);
-    gui3->addWidgetDown(new ofxUITextArea("OUTPUT FRAME", textString, length-xInit, 128));
+    outputFrame = (ofxUITextArea *) gui3->addWidgetDown(new ofxUITextArea("OUTPUT FRAME", "", length-xInit, 128));
     
 	ofAddListener(gui3->newGUIEvent,this,&myGUI::guiEvent);
 }

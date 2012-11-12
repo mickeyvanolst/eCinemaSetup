@@ -34,12 +34,15 @@ public:
 	ofxUICanvas *gui3;
     
     bool hideGUI;
-    float red, green, blue;
     
     mpeClientTCP *client;
     handleChapters *reader;
     
     string appName;
+    
+    // needed for a check if things are send double
+    string      prevMsg;
+    long int    prevMsgCounter;
     
     // All needed values
     ofxUISlider     *totalPercent;
@@ -49,8 +52,8 @@ public:
     bool            appObj1Con;
     bool            appObj2Con;
     
-    ofxUIButton     *syphonLaBtn;
-    ofxUIButton     *syphonRaBtn;
+    ofxUIToggle     *syphonLaBtn;
+    ofxUIToggle     *syphonRaBtn;
     
     int             activeChap;
     
@@ -76,14 +79,11 @@ public:
     ofxUISlider     *fps01Slider;
     ofxUISlider     *fps02Slider;
     
-    // play pause etc btns still to be made
+    ofxUITextArea   *outputFrame;
     
     // obj simulator still to be made
     
     // interview syncer still to be made
-    
-    // msg output still to be made
-    
     
     
 private:

@@ -15,16 +15,17 @@ void testApp::setup(){
     ofEnableSmoothing();
     ofEnableAlphaBlending();
 	ofSetBackgroundAuto(false);
+    ofBackground(150, 150, 150);
 
 	client.setup("mpe_settings.xml", this);
     
     string appNameList[5] = {"left","middle","right","obj 01", "obj 02"};
     appName = appNameList[client.getID()];
     
-    // set the random seed
+    // set the random seed (MPE thing)
 	//ofSeedRandom(1);
     
-    // gui give appname and start ofListner for triggering buildGUI
+    // GUI give appname and start ofListener for triggering buildGUI
     gui->setup(appName);
     
     // customp player, also needs to know who he is
@@ -37,13 +38,17 @@ void testApp::setup(){
     reader.setup(appName);
     reader.readDir();
     
-    syphonServer.setName(appName);
+    if (appName == "left" || appName == "right") {
+        syphonServer.setName(appName);
+        syphonOut = true;
+    } else {
+        syphonOut = false;
+    }
     
     firstFrameEvent = true;
     fpsCounter = 0;
     
-    syphonOut = false;
-
+    outputString = "";
 }
 
 //--------------------------------------------------------------
@@ -58,25 +63,12 @@ void testApp::draw(){
 
 //--------------------------------------------------------------
 void testApp::frameEvent() {
-    // add all stuff here that should be communicated right after contact
-    
-    if (firstFrameEvent) {
-//        printf("sending xml string: %s\n",reader.totalXmlString.c_str());
-//        client.broadcast("XML," + reader.totalXmlString);
-        
-        if (appName == "left") {
-            client.broadcast("syphonLaOn,1");
-        } else if(appName == "right") {
-            client.broadcast("syphonRaOn,1");
-        }
-        
-        firstFrameEvent = false;
-    }    
     
     // clear the screen
     ofBackground(50, 50, 50);
     ofSetColor(255, 255, 255);
     
+    // some clearing needed for syphon output
     if (syphonOut) {
         // Clear with alpha, so we can capture via syphon and composite elsewhere should we want.
         glClearColor(0.0, 0.0, 0.0, 0.0);
@@ -86,24 +78,54 @@ void testApp::frameEvent() {
     // handle video playing stuff
     player->draw(client.getXoffset(),client.getYoffset(), client.getLWidth(), client.getLHeight());
     
+    // send out a syphon feed, should only be possible for left and right app
     if (syphonOut) {
         syphonServer.publishScreen();
     }
     
+    handleMessages(); // handle all messages from the MPE client
+    
     // sending FPS value over the network to all cients every 200 milisec
-    if ((ofGetElapsedTimeMillis()- fpsCounter ) > 200) {
+    if ((ofGetElapsedTimeMillis() - fpsCounter ) > 200) {
         client.broadcast("FRAMERATE," + ofToString(client.getID()) + "," +  ofToString(ofGetFrameRate()) );
         fpsCounter = ofGetElapsedTimeMillis();
     }
     
+    // sending values from player to gui, later change this to variable binding
+    gui->chapCurPercent->setValue(player->chapCurPercent);
+    gui->chapTotalTime->setLabel("TOTAL: " + ofToString(player->chapTotalTime) + " SEC");
+    gui->totalPercent->setValue(player->totalProgress);
+    gui->playBtn->setValue(player->isPlaying);
+    gui->pauseBtn->setValue(!player->isPlaying);    
+    gui->outputFrame->setTextString(outputString);
+    
+    // this for loop sets the buttons true or false each time,
+    //still have to put this somehwere it doesn't happen every frame
+    for (int i = 0; i < gui->chapBtn.size(); i++) {
+        if(player->activeVid == i+1){
+            gui->chapBtn[i].btn->setValue(true);
+        } else {
+            gui->chapBtn[i].btn->setValue(false);
+        }
+    }
+    
+}
+
+//--------------------------------------------------------------
+void testApp::handleMessages(){
     // read any incoming messages
     if (client.messageAvailable()) {
         vector<string> msg = client.getDataMessage();
         vector<string> splitMsg = ofSplitString(msg[0], ",");
         
-        printf("MESSAGE: %s\n",splitMsg[0].c_str());
+        // will be captured further on, annoying to keep seeing these messages..
+        if (splitMsg[0].compare("FRAMERATE") == 0) {
+            // do nothing
+        } else {
+            printf("MESSAGE: %s\n",splitMsg[0].c_str());
+        }
         
-        // commands that should be done on every app should be received here
+        // read directory of chapterHandler
         if (splitMsg[0].compare("readDir") == 0) {
             reader.readDir();
         }
@@ -111,6 +133,7 @@ void testApp::frameEvent() {
         // checking if the XML we've written is the same everywhere, otherwise it means not all directories are the same
         if (splitMsg[0].compare("XML") == 0) {
             printf("XML: %s\n",splitMsg[1].c_str());
+            // not yet implemented because MPE can probably send no more than 500 characters per time
         }
         
         // just to fire of a red colored ofBackground to check if we're still happy
@@ -118,58 +141,56 @@ void testApp::frameEvent() {
             ofBackground(255, 0, 0);
         }
         
+        // play control
         if (splitMsg[0].compare("play") == 0) {
             player->playPlayer();
         }
         
+        // pause control
         if (splitMsg[0].compare("pause") == 0) {
             player->pausePlayer();
         }
         
+        // prev control
         if (splitMsg[0].compare("prev") == 0) {
             player->prevPlayer();
         }
         
+        // next control
         if (splitMsg[0].compare("next") == 0) {
             player->nextPlayer();
         }
         
+        // play a certain chapter
         if (splitMsg[0].compare("playChapter") == 0) {
             printf("play chapter: %s\n",splitMsg[1].c_str());
             printf("chapter id nr: %s\n",splitMsg[2].c_str());
             player->startPlayer(ofToInt(splitMsg[2]));
         }
         
-        if (splitMsg[0].compare("syphonLaOn") == 0) {
-            if (appName == "left") {
+        // turn syphon on or off, second value is the false/true
+        if (splitMsg[0].compare("syphonLa") == 0) {
+            if (appName == "left" && ofToInt(splitMsg[1]) == 1) {
                 syphonOut = true;
-            }
-            gui->syphonLaBtn->setState(true);
-        }
-        
-        if (splitMsg[0].compare("syphonLaOff") == 0) {
-            if (appName == "left") {
+            } else if(appName == "left" && ofToInt(splitMsg[1]) == 0) {
                 syphonOut = false;
             }
-            gui->syphonLaBtn->setState(false);
+            gui->syphonLaBtn->setValue(ofToInt(splitMsg[1]));
         }
         
-        if (splitMsg[0].compare("syphonRaOn") == 0) {
-            if (appName == "right") {
+        // turn syphon on or off, second value is the false/true
+        if (splitMsg[0].compare("syphonRa") == 0) {
+            if (appName == "right" && ofToInt(splitMsg[1]) == 1) {
                 syphonOut = true;
-            }
-            gui->syphonRaBtn->setState(true);
-        }
-        
-        if (splitMsg[0].compare("syphonRaOff") == 0) {
-            if (appName == "right") {
+            } else if(appName == "right" && ofToInt(splitMsg[1]) == 0) {
                 syphonOut = false;
             }
-            gui->syphonRaBtn->setState(false);
+            gui->syphonRaBtn->setValue(ofToInt(splitMsg[1]));
         }
         
+        // setting framerate for all apps
         if (splitMsg[0].compare("FRAMERATE") == 0) {
-            printf("CLIENT ID: %s FPS: %s\n",splitMsg[1].c_str(), splitMsg[2].c_str());
+            //printf("CLIENT ID: %s FPS: %s\n",splitMsg[1].c_str(), splitMsg[2].c_str());
             
             // setting value to the right fps slider
             switch (ofToInt(splitMsg[1])) {
@@ -188,44 +209,16 @@ void testApp::frameEvent() {
                 case 4:
                     gui->fps02Slider->setValue(ofToInt(splitMsg[2]));
                     break;
-                    
                 default:
                     break;
             }
-            
         }
     }
-    // sending values from player to gui, should not have to be done this way...
-    gui->chapCurPercent->setValue(player->chapCurPercent);
-    gui->chapTotalTime->setLabel("TOTAL: " + ofToString(player->chapTotalTime) + " SEC");
-    gui->totalPercent->setValue(player->totalProgress);
-    
-    gui->playBtn->setValue(player->isPlaying);
-    gui->pauseBtn->setValue(!player->isPlaying);
-    
-    // this for loop sets the buttons true or false each time,
-    //still have to put this somehwere it doesn't happen every frame
-    for (int i = 0; i < gui->chapBtn.size(); i++) {
-        if(player->activeVid == i+1){
-            gui->chapBtn[i].btn->setValue(true);
-            //printf("button %i true!!\n",i);
-        } else {
-            gui->chapBtn[i].btn->setValue(false);
-            //printf("button %i not true\n",i);
-        }
-    }
-    
 }
 
 //--------------------------------------------------------------
 void testApp::keyPressed(int key){
     switch (key) {
-        case 's':
-            //reader.writeXML();
-            break;
-        case 'r':
-            //reader.readDir();
-            break;
         case 'f':
 			ofToggleFullscreen();
 			break;

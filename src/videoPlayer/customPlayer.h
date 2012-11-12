@@ -20,18 +20,19 @@ public:
     void setup(string ID);
     void update();
     void draw(int x, int y, int w, int h);
+    
     // video functions
     void addPlayer(string videoDir);
     void addAllVideos(int & i);
     void removeAllPlayers();
     void pausePlayer();
+    void stopPlayer();
     void playPlayer();
     void nextPlayer();
     void prevPlayer();
     void startPlayer(int whichVid);
     
     struct Players {
-        //ofxQTKitVideoPlayer vid;
         ofVideoPlayer vid;
     };
     vector<Players>      players;
@@ -41,7 +42,6 @@ public:
     bool                isPlaying;
     
     handleChapters      *reader;
-    
     
     // some general values for easy access
     float           totalProgress;

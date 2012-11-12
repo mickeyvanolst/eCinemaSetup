@@ -25,6 +25,7 @@ public:
     void mousePressed(int x, int y, int button);
     void mouseReleased(int x, int y, int button);
     void windowResized(int w, int h);
+    void handleMessages();
     
     // MPE stuff, need some sort of setup command after first contact
     void frameEvent();
@@ -51,6 +52,7 @@ public:
     
     // GUI stuff
     myGUI *gui;
+    string outputString;
     
 private:
     

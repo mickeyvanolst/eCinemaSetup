@@ -24,7 +24,7 @@ void handleChapters::setup(string ID){
 
 //--------------------------------------------------------------
 void handleChapters::update(){
-
+    
 }
 
 //--------------------------------------------------------------
@@ -58,7 +58,7 @@ void handleChapters::readDir(){
             
             // write a new chapter to the XMl object
             if( XML.pushTag("movies", lastTagNumber) ){
-
+                
                 dir.listDir(dir.getPath(i)+"/");
                 dir.sort();
                 
@@ -173,7 +173,7 @@ void handleChapters::readDir(){
                 // pop out of chapter
                 XML.popTag();
             }
-
+            
         } else {
             printf("no directory senior! - %s\n", dir.getPath(i).c_str());
         }
@@ -182,11 +182,6 @@ void handleChapters::readDir(){
     writeXML(); // write it to an XML file, makes it easy to check whats wrong
     
     XML.copyXmlToString(totalXmlString);
-//    totalXmlString.erase(std::remove(totalXmlString.begin(), totalXmlString.end(), '\n'), totalXmlString.end());
-//    totalXmlString.erase(std::remove(totalXmlString.begin(), totalXmlString.end(), ' '), totalXmlString.end());
-//    totalXmlString.erase(std::remove(totalXmlString.begin(), totalXmlString.end(), '<'), totalXmlString.end());
-//    totalXmlString.erase(std::remove(totalXmlString.begin(), totalXmlString.end(), '>'), totalXmlString.end());
-//    totalXmlString.erase(std::remove(totalXmlString.begin(), totalXmlString.end(), '/'), totalXmlString.end());
 }
 
 //--------------------------------------------------------------
@@ -198,7 +193,7 @@ void handleChapters::writeXML(){
 //--------------------------------------------------------------
 void handleChapters::checkFiles(){
     // checking the files
-
+    
     // iterating through all chapters and check if they all contain the L, M and R movie files
     
     for (int i = 0; i < chapters.size(); i++) {
@@ -210,7 +205,7 @@ void handleChapters::checkFiles(){
             chapters[i].complete = true;
             
             // checking if all movies are the same amount of frames
-            for (int f = 0; f < 3; f++) {  
+            for (int f = 0; f < 3; f++) {
                 if (chapters[i].left.numFrames && chapters[i].middle.numFrames && chapters[i].right.numFrames) {
                     //printf("SAME AMOUNT OF FRAMES!\n");
                     chapters[i].inOrder = true;

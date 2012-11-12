@@ -25,9 +25,6 @@ customPlayer::customPlayer(handleChapters *_rea)
     
     // set all values we've got on default mode
     totalProgress = 0.0;
-    //appLaCon, appMaCon, appRaCon, appObj1Con, appObj2Con,
-    syphonLaOn, syphonRaOn = false;
-    
     chapCurPercent = 0.0;
     chapCurTime = 0.0;
     chapTotalTime = 0.0;
@@ -56,8 +53,8 @@ void customPlayer::addPlayer(string videoDir)
     players.push_back(Players());
     printf("adding movie: %s at players[%li]\n",videoDir.c_str(), players.size()-1);
     players[players.size()-1].vid.loadMovie(videoDir);
-    players[players.size()-1].vid.stop();
     players[players.size()-1].vid.setLoopState(OF_LOOP_NONE);
+    stopPlayer();
     
     // calculate total amount of frames of all movies combined
     totMovsFrames = 0.0;
@@ -105,13 +102,7 @@ void customPlayer::draw(int x, int y, int w, int h)
     chapCurPercent = tempPercent;
     totalProgress = tempTotPercent;
     
-//        printf("tempCurFrame: %f\n",tempCurFrame);
-//        printf("totPrevMovsFrames: %f\n",totPrevMovsFrames);
-//        printf("totalProgress: %f\n",totalProgress);
-    
-    // actually drawing the video
-
-    
+    // actually drawing the video    
     players[activeVid-1].vid.draw(x,y,w,h);
 
     // this is still a bit sketchy, not sure if I should update all video's in order to
@@ -122,7 +113,7 @@ void customPlayer::draw(int x, int y, int w, int h)
 //--------------------------------------------------------------
 void customPlayer::startPlayer(int whichVid)
 {
-    pausePlayer();
+    stopPlayer();
     isPlaying = true;
     activeVid = whichVid;
     printf("customplayer: play vid nr: %i\n",activeVid);
@@ -145,6 +136,16 @@ void customPlayer::pausePlayer()
 {
     if (isPlaying) {
         players[activeVid-1].vid.setPaused(true);
+        isPlaying = false;
+    }
+}
+
+//--------------------------------------------------------------
+void customPlayer::stopPlayer()
+{
+    if (isPlaying) {
+        players[activeVid-1].vid.setPaused(true);
+        players[activeVid-1].vid.setPosition(0);
         isPlaying = false;
     }
 }
@@ -177,8 +178,6 @@ void customPlayer::prevPlayer()
 //--------------------------------------------------------------
 void customPlayer::removeAllPlayers()
 {
-    printf("about to remove all players\n");
-    printf("total num players: %li\n",players.size());
     players.erase(players.begin(), players.end());
     players.clear();
     players.resize(0);

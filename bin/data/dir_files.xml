@@ -34,29 +34,29 @@
         <left>
             <file>content/02_Eis en verwachting/L_Eis en verwachting.MOV</file>
             <name>L_Eis en verwachting.MOV</name>
-            <duration>10</duration>
-            <frames>315</frames>
-            <filesize>28015898</filesize>
-            <width>1920</width>
-            <height>1080</height>
+            <duration>45</duration>
+            <frames>1126</frames>
+            <filesize>67535442</filesize>
+            <width>1536</width>
+            <height>1024</height>
         </left>
         <middle>
             <file>content/02_Eis en verwachting/M_Eis en verwachting.MOV</file>
             <name>L_Eis en verwachting.MOV</name>
-            <duration>10</duration>
-            <frames>315</frames>
-            <filesize>29962069</filesize>
-            <width>1920</width>
-            <height>1080</height>
+            <duration>45</duration>
+            <frames>1126</frames>
+            <filesize>90330623</filesize>
+            <width>1536</width>
+            <height>1024</height>
         </middle>
         <right>
             <file>content/02_Eis en verwachting/R_Eis en verwachting.MOV</file>
             <name>L_Eis en verwachting.MOV</name>
-            <duration>10</duration>
-            <frames>315</frames>
-            <filesize>29684805</filesize>
-            <width>1920</width>
-            <height>1080</height>
+            <duration>45</duration>
+            <frames>1126</frames>
+            <filesize>70807973</filesize>
+            <width>1536</width>
+            <height>1024</height>
         </right>
     </chapter>
     <chapter>
