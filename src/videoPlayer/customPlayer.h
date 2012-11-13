@@ -19,7 +19,7 @@ public:
     
     void setup(string ID);
     void update();
-    void draw(int x, int y, int w, int h);
+    void draw(int x, int y);
     
     // video functions
     void addPlayer(string videoDir);

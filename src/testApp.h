@@ -9,6 +9,7 @@
 #include "ofxSyphon.h"
 #include "customPlayer.h"
 #include "myGUI.h"
+#include "miniHandler.h"
 
 class testApp : public ofBaseApp, public mpeClientListener {
     
@@ -34,7 +35,9 @@ public:
     string appName;
     
     // was private, now public!
-    mpeClientTCP  client;
+    mpeClientTCP client;
+    
+    miniHandler *miniApp;
     
     // handling chapters, reading the files and see whats in it
     handleChapters reader;

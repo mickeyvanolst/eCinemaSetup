@@ -42,9 +42,8 @@ void customPlayer::setup(string ID)
 //--------------------------------------------------------------
 void customPlayer::update()
 {
-    for (int i = 0; i < players.size(); i++) {
-        players[i].vid.idleMovie();
-    }
+    players[activeVid-1].vid.update();
+    players[activeVid-1].vid.idleMovie();
 }
 
 //--------------------------------------------------------------
@@ -88,10 +87,8 @@ void customPlayer::addAllVideos(int & i)
 }
 
 //--------------------------------------------------------------
-void customPlayer::draw(int x, int y, int w, int h)
+void customPlayer::draw(int x, int y)
 {
-    players[activeVid-1].vid.update();
-
     // calulating stuff to show in the GUI
     float tempCurFrame      = players[activeVid-1].vid.getCurrentFrame();
     float tempTotFrame      = players[activeVid-1].vid.getTotalNumFrames();
@@ -103,7 +100,7 @@ void customPlayer::draw(int x, int y, int w, int h)
     totalProgress = tempTotPercent;
     
     // actually drawing the video    
-    players[activeVid-1].vid.draw(x,y,w,h);
+    players[activeVid-1].vid.draw(x,y);
 
     // this is still a bit sketchy, not sure if I should update all video's in order to
     // keep commands nice and swift, or to only update the one thats playing for CPU's sake

@@ -155,7 +155,6 @@ void myGUI::buildGUI(int & i){
         gui2->toggleVisible();
         gui3->toggleVisible();
     }
-    
     printf("build GUI\n");
 }
 

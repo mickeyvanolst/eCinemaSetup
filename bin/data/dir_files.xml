@@ -30,33 +30,33 @@
         </right>
     </chapter>
     <chapter>
-        <name>02_Eis en verwachting</name>
+        <name>02_Rise of the Guardians</name>
         <left>
-            <file>content/02_Eis en verwachting/L_Eis en verwachting.MOV</file>
-            <name>L_Eis en verwachting.MOV</name>
-            <duration>45</duration>
-            <frames>1126</frames>
-            <filesize>67535442</filesize>
-            <width>1536</width>
-            <height>1024</height>
+            <file>content/02_Rise of the Guardians/L_Rise of the Guardians.mov</file>
+            <name>L_Rise of the Guardians.mov</name>
+            <duration>10</duration>
+            <frames>241</frames>
+            <filesize>13947228</filesize>
+            <width>1920</width>
+            <height>1080</height>
         </left>
         <middle>
-            <file>content/02_Eis en verwachting/M_Eis en verwachting.MOV</file>
-            <name>L_Eis en verwachting.MOV</name>
-            <duration>45</duration>
-            <frames>1126</frames>
-            <filesize>90330623</filesize>
-            <width>1536</width>
-            <height>1024</height>
+            <file>content/02_Rise of the Guardians/M_Rise of the Guardians.mov</file>
+            <name>L_Rise of the Guardians.mov</name>
+            <duration>10</duration>
+            <frames>241</frames>
+            <filesize>13361165</filesize>
+            <width>1920</width>
+            <height>1080</height>
         </middle>
         <right>
-            <file>content/02_Eis en verwachting/R_Eis en verwachting.MOV</file>
-            <name>L_Eis en verwachting.MOV</name>
-            <duration>45</duration>
-            <frames>1126</frames>
-            <filesize>70807973</filesize>
-            <width>1536</width>
-            <height>1024</height>
+            <file>content/02_Rise of the Guardians/R_Rise of the Guardians.mov</file>
+            <name>L_Rise of the Guardians.mov</name>
+            <duration>10</duration>
+            <frames>241</frames>
+            <filesize>13756106</filesize>
+            <width>1920</width>
+            <height>1080</height>
         </right>
     </chapter>
     <chapter>

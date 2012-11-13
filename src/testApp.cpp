@@ -6,6 +6,7 @@ testApp::testApp()
 {
     player      = new customPlayer(&reader);
     gui         = new myGUI(&client, &reader);
+    miniApp     = new miniHandler(&client);
 }
 
 //--------------------------------------------------------------
@@ -23,13 +24,16 @@ void testApp::setup(){
     appName = appNameList[client.getID()];
     
     // set the random seed (MPE thing)
-	//ofSeedRandom(1);
+	ofSeedRandom(1);
     
     // GUI give appname and start ofListener for triggering buildGUI
     gui->setup(appName);
     
     // customp player, also needs to know who he is
     player->setup(appName);
+    
+    // our miniApp handler, this should handle all interactive chapters
+    miniApp->setup(appName);
     
 	// start client
     client.start();
@@ -49,11 +53,12 @@ void testApp::setup(){
     fpsCounter = 0;
     
     outputString = "";
+
 }
 
 //--------------------------------------------------------------
 void testApp::update(){
-    
+
 }
 
 //--------------------------------------------------------------
@@ -68,6 +73,9 @@ void testApp::frameEvent() {
     ofBackground(50, 50, 50);
     ofSetColor(255, 255, 255);
     
+    player->update();
+    miniApp->update();
+    
     // some clearing needed for syphon output
     if (syphonOut) {
         // Clear with alpha, so we can capture via syphon and composite elsewhere should we want.
@@ -76,8 +84,8 @@ void testApp::frameEvent() {
     }
     
     // handle video playing stuff
-    player->draw(client.getXoffset(),client.getYoffset(), client.getLWidth(), client.getLHeight());
-    
+    player->draw(client.getXoffset(),client.getYoffset()); // add width and height , client.getLWidth(), client.getLHeight()
+    miniApp->draw();
     // send out a syphon feed, should only be possible for left and right app
     if (syphonOut) {
         syphonServer.publishScreen();
