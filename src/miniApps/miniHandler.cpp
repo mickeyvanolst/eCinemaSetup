@@ -13,7 +13,7 @@ miniHandler::miniHandler(mpeClientTCP * _cli){
     client = _cli;
     main = new mainMini(client);
     curMiniApp = "";
-    
+
     myTestMini = NULL; // otherwise it will trigger anyways..
 }
 
@@ -45,30 +45,19 @@ void miniHandler::draw(){
 }
 
 //--------------------------------------------------------------
-void miniHandler::checkNextApp(string prevChapter){
+string miniHandler::appComesAfter(string prevChapter){
     if (prevChapter == "02_Rise of the Guardians") {
-        //startMini("01_TestMini");
-        client->broadcast("playMiniApp,01_TestMini");
-        return true;
+        return "01_TestMini";
     } else {
-        return false;
-    }
-}
-
-//--------------------------------------------------------------
-bool miniHandler::appComesAfter(string prevChapter){
-    if (prevChapter == "02_Rise of the Guardians") {
-        return true;
-    } else {
-        return false;
+        return "";
     }
 }
 
 //--------------------------------------------------------------
 void miniHandler::startMini(string wichApp){
-    // not yet finished here, need to figure out how to do this with several mini apps etc
-//    int myInt;
-//    stopMini(myInt);
+   
+    printf("wichApp: %s\n",wichApp.c_str());
+    
     if (wichApp == "01_TestMini") {
         myTestMini = new testMini(main);
         myTestMini->setup();

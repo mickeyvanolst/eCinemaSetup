@@ -23,15 +23,13 @@ public:
     void startMini(string wichApp);
     void stopMini(int & i);
     void killMini();
-    void checkNextApp(string prevChapter); //  maybe lose this?
-    bool appComesAfter(string prevChapter);
+    string appComesAfter(string prevChapter);
     
     string appName;
     string curMiniApp;
     
     mpeClientTCP *client;
     mainMini *main;
-    
     
     
     // ----- List of mini Apps -----

@@ -8,6 +8,7 @@
 #pragma once
 
 #include "ofxXmlSettings.h"
+#include "miniHandler.h"
 
 #ifndef chapterHandler
 #define chapterHandler

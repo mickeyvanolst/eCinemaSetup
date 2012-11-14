@@ -109,13 +109,21 @@ void testApp::frameEvent() {
     
     // this for loop sets the buttons true or false each time,
     //still have to put this somehwere it doesn't happen every frame
-    for (int i = 0; i < gui->chapBtn.size(); i++) {
-        if(player->activeVid == i+1){
-            gui->chapBtn[i].btn->setValue(true);
+//    for (int i = 0; i < gui->listBtn.size(); i++) {
+//        if(player->activeVid == i+1 && gui->listBtn[i].isVideo){
+//            gui->listBtn[i].btn->setValue(true);
+//        } else {
+//            gui->listBtn[i].btn->setValue(false);
+//        }
+//    }
+    for (int i = 0; i < gui->listBtn.size(); i++) {
+        if(gui->listBtn[i].active){
+            gui->listBtn[i].btn->setValue(true);
         } else {
-            gui->chapBtn[i].btn->setValue(false);
+            gui->listBtn[i].btn->setValue(false);
         }
     }
+
     
 }
 
@@ -236,10 +244,6 @@ void testApp::keyPressed(int key){
         case 'f':
 			ofToggleFullscreen();
 			break;
-        case 'm':
-            for (int i = 0; i < reader.chapters.size(); i++) {
-                miniApp->checkNextApp(reader.chapters[i].name);
-            }
         default:
             break;
     }

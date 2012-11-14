@@ -104,11 +104,38 @@ void myGUI::guiEvent(ofxUIEventArgs &e)
         }
         
         // custom event listeners for our chapter buttons
+//        for (int i = 0; i < reader->chapters.size(); i++) {
+//            if(reader->chapters[i].inOrder && reader->chapters[i].complete) {
+//                if(name == reader->chapters[i].name) {
+//                    ofxUIButton *button = (ofxUIButton *) e.widget;
+//                    client->broadcast("playChapter," + ofToString(reader->chapters[i].name) + "," + ofToString(i+1));
+//                }
+//            }
+//        }
         for (int i = 0; i < reader->chapters.size(); i++) {
             if(reader->chapters[i].inOrder && reader->chapters[i].complete) {
                 if(name == reader->chapters[i].name) {
                     ofxUIButton *button = (ofxUIButton *) e.widget;
                     client->broadcast("playChapter," + ofToString(reader->chapters[i].name) + "," + ofToString(i+1));
+                    for (int l = 0; l < listBtn.size(); l++) {
+                        if (name == listBtn[l].label) {
+                            listBtn[l].active = true;
+                        } else {
+                            listBtn[l].active = false;
+                        }
+                    }
+                }
+            }
+            
+            if (name == miniApp->appComesAfter(reader->chapters[i].name)) {
+                ofxUIButton *button = (ofxUIButton *) e.widget;
+                client->broadcast("playMiniApp," + ofToString(miniApp->appComesAfter(reader->chapters[i].name)));
+                for (int l = 0; l < listBtn.size(); l++) {
+                    if (name == listBtn[l].label) {
+                        listBtn[l].active = true;
+                    } else {
+                        listBtn[l].active = false;
+                    }
                 }
             }
         }
@@ -217,22 +244,43 @@ void myGUI::setGUI2()
     gui2->addWidgetDown(new ofxUILabel("CHAPTER LIST", OFX_UI_FONT_MEDIUM));
     
     // clearing the buttons if they are here
-    if(chapBtn.size() > 0){
-        chapBtn.erase(chapBtn.begin(), chapBtn.end());
-        chapBtn.clear();
-        chapBtn.resize(0);
+    if(listBtn.size() > 0){
+        listBtn.erase(listBtn.begin(), listBtn.end());
+        listBtn.clear();
+        listBtn.resize(0);
     }
     
+//    for (int i = 0; i < reader->chapters.size(); i++) {
+//        listBtn.push_back(BtnList());
+//        
+//        if(reader->chapters[i].inOrder && reader->chapters[i].complete) {
+//            //activeChapBtn = (ofxUILabelButton *) gui2->addLabelButton(reader->chapters[i].name, false, length-xInit);
+//            listBtn[listBtn.size()-1].btn = (ofxUILabelButton *) gui2->addLabelButton(reader->chapters[i].name, false, length-xInit);
+//        } else {
+//            //gui2->addLabelButton("Err. " + reader->chapters[i].name, false, length-xInit);
+//            listBtn[listBtn.size()-1].btn = (ofxUILabelButton *) gui2->addLabelButton(reader->chapters[i].name, false, length-xInit);
+//        }        
+//    }
+
     for (int i = 0; i < reader->chapters.size(); i++) {
-        chapBtn.push_back(Chapters());
+        listBtn.push_back(BtnList());
         
         if(reader->chapters[i].inOrder && reader->chapters[i].complete) {
-            //activeChapBtn = (ofxUILabelButton *) gui2->addLabelButton(reader->chapters[i].name, false, length-xInit);
-            chapBtn[chapBtn.size()-1].btn = (ofxUILabelButton *) gui2->addLabelButton(reader->chapters[i].name, false, length-xInit);
+            listBtn[listBtn.size()-1].isVideo = true;
+            listBtn[listBtn.size()-1].label = reader->chapters[i].name;
+            listBtn[listBtn.size()-1].btn = (ofxUILabelButton *) gui2->addLabelButton(reader->chapters[i].name, false, length-xInit);
         } else {
-            //gui2->addLabelButton("Err. " + reader->chapters[i].name, false, length-xInit);
-            chapBtn[chapBtn.size()-1].btn = (ofxUILabelButton *) gui2->addLabelButton(reader->chapters[i].name, false, length-xInit);
-        }        
+            listBtn[listBtn.size()-1].isVideo = true;
+            listBtn[listBtn.size()-1].label = reader->chapters[i].name;
+            listBtn[listBtn.size()-1].btn = (ofxUILabelButton *) gui2->addLabelButton("Err." + reader->chapters[i].name, false, length-xInit);
+        }
+        
+        if (miniApp->appComesAfter(reader->chapters[i].name) != "") {
+            listBtn.push_back(BtnList());
+            listBtn[listBtn.size()-1].isVideo = false;
+            listBtn[listBtn.size()-1].label = miniApp->appComesAfter(reader->chapters[i].name);
+            listBtn[listBtn.size()-1].btn = (ofxUILabelButton *) gui2->addLabelButton(miniApp->appComesAfter(reader->chapters[i].name), false, length-xInit);
+        }
     }
     
     gui2->addSpacer(length-xInit, 2);

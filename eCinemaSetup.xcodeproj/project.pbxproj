@@ -566,9 +566,9 @@
 				E4B69E1F0A3A1BDC003C02F2 /* testApp.h */,
 				E4B69E1E0A3A1BDC003C02F2 /* testApp.cpp */,
 				67AB0FE91652E47F001B449F /* miniApps */,
+				67728A0616480E7300B6D0DB /* chapterHandler */,
 				67F04758164BE96800F8A48C /* GUI */,
 				67ADB43A164A916600EC4F96 /* videoPlayer */,
-				67728A0616480E7300B6D0DB /* chapterHandler */,
 			);
 			path = src;
 			sourceTree = SOURCE_ROOT;

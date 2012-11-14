@@ -59,11 +59,13 @@ public:
     
     int             activeChap;
     
-    struct Chapters {
-        bool                active; // not used
+    struct BtnList {
+        string              label;
+        bool                active;
+        bool                isVideo; // either app or video
         ofxUILabelButton    *btn;
     };
-    vector<Chapters> chapBtn;
+    vector<BtnList> listBtn;
     
     ofxUIButton     *prevBtn;
     ofxUIButton     *pauseBtn;
