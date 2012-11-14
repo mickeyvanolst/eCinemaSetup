@@ -20,21 +20,24 @@ public:
     void setup(string id);
     void update();
     void draw();
-    void startMini();
+    void startMini(string wichApp);
     void stopMini(int & i);
     void killMini();
+    void checkNextApp(string prevChapter); //  maybe lose this?
+    bool appComesAfter(string prevChapter);
     
     string appName;
-    long int curAppCounter;
+    string curMiniApp;
     
     mpeClientTCP *client;
     mainMini *main;
     
+    
+    
     // ----- List of mini Apps -----
-    testMini *myTestMini;
+    testMini *myTestMini; // 01_TestMini - after 02_Rise of the Guardians
     
 private:
-    long int startCurAppCounter;
 };
 
 #endif

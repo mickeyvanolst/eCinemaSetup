@@ -12,15 +12,17 @@
 miniHandler::miniHandler(mpeClientTCP * _cli){
     client = _cli;
     main = new mainMini(client);
-    startCurAppCounter = 0;
+    curMiniApp = "";
+    
+    myTestMini = NULL; // otherwise it will trigger anyways..
 }
 
 //--------------------------------------------------------------
 void miniHandler::setup(string id){
     appName = id;
     main->setup(appName);
-
-    startMini(); // should be called from an upper level or something include which app in some way
+    
+    //startMini("01_TestMini"); // for some reason this only works when triggered at start, not through broadcast..
     
     // Listeners
     ofAddListener(main->doneEvent, this, &miniHandler::stopMini);
@@ -28,14 +30,8 @@ void miniHandler::setup(string id){
 
 //--------------------------------------------------------------
 void miniHandler::update(){
-    // so we know how long a mini app has been running
-    curAppCounter = ofGetElapsedTimeMillis() - startCurAppCounter;
-    main->update(curAppCounter);
-    
     // not yet finished here, need to figure out how to do this with several mini apps etc
-    if (myTestMini == NULL) {
-        // nuthing..
-    } else {
+    if (myTestMini != NULL && curMiniApp == "01_TestMini") {
         myTestMini->update();
     }
 }
@@ -43,28 +39,53 @@ void miniHandler::update(){
 //--------------------------------------------------------------
 void miniHandler::draw(){
     // not yet finished here, need to figure out how to do this with several mini apps etc
-    if (myTestMini == NULL) {
-        // nuthing..
-    } else {
+    if (myTestMini != NULL && curMiniApp == "01_TestMini") {
         myTestMini->draw();
     }
 }
 
 //--------------------------------------------------------------
-void miniHandler::startMini(){
-    startCurAppCounter = ofGetElapsedTimeMillis();
-    
+void miniHandler::checkNextApp(string prevChapter){
+    if (prevChapter == "02_Rise of the Guardians") {
+        //startMini("01_TestMini");
+        client->broadcast("playMiniApp,01_TestMini");
+        return true;
+    } else {
+        return false;
+    }
+}
+
+//--------------------------------------------------------------
+bool miniHandler::appComesAfter(string prevChapter){
+    if (prevChapter == "02_Rise of the Guardians") {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+//--------------------------------------------------------------
+void miniHandler::startMini(string wichApp){
     // not yet finished here, need to figure out how to do this with several mini apps etc
-    myTestMini = new testMini(main);
-    myTestMini->setup();
+//    int myInt;
+//    stopMini(myInt);
+    if (wichApp == "01_TestMini") {
+        myTestMini = new testMini(main);
+        myTestMini->setup();
+        curMiniApp = "01_TestMini";
+    }
+    printf("curMiniApp: %s\n",curMiniApp.c_str());
 }
 
 //--------------------------------------------------------------
 void miniHandler::stopMini(int & i){
     // not yet finished here, need to figure out how to do this with several mini apps etc
     printf("mini app said it's time for bed\n");
-    delete myTestMini;
-    myTestMini = NULL;
+    
+    if (curMiniApp == "01_TestMini" && myTestMini != NULL) {
+        delete myTestMini;
+        myTestMini = NULL;
+    }
 }
 
 //--------------------------------------------------------------

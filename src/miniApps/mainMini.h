@@ -18,7 +18,7 @@ class mainMini : ofBaseApp {
 public:
     mainMini(mpeClientTCP *_cli);
     void setup(string id);
-    void update(long int appDuration);
+    void update();
     void reset();
     void draw();
     void done();
@@ -26,7 +26,7 @@ public:
     mpeClientTCP *client;
     string appName;
     
-    long int appCounter;
+    int appCounter;
     
     ofEvent<int>        doneEvent;
 };

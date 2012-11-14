@@ -21,11 +21,12 @@ public:
     void endOfMini();
     
     string afterChapter;
-    int testX, testY;
     
     mainMini *main;
 private:
     vector<Ball*> balls;
+    int initTime;
+    int durTime;
 };
 
 #endif

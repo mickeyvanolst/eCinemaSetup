@@ -5,8 +5,8 @@
 testApp::testApp()
 {
     player      = new customPlayer(&reader);
-    gui         = new myGUI(&client, &reader);
     miniApp     = new miniHandler(&client);
+    gui         = new myGUI(&client, &reader, miniApp);
 }
 
 //--------------------------------------------------------------
@@ -176,6 +176,12 @@ void testApp::handleMessages(){
             player->startPlayer(ofToInt(splitMsg[2]));
         }
         
+        // play a certain minApp
+        if (splitMsg[0].compare("playMiniApp") == 0) {
+            printf("play miniApp: %s\n",splitMsg[1].c_str());
+            miniApp->startMini(ofToString(splitMsg[1]));
+        }
+        
         // turn syphon on or off, second value is the false/true
         if (splitMsg[0].compare("syphonLa") == 0) {
             if (appName == "left" && ofToInt(splitMsg[1]) == 1) {
@@ -230,7 +236,10 @@ void testApp::keyPressed(int key){
         case 'f':
 			ofToggleFullscreen();
 			break;
-
+        case 'm':
+            for (int i = 0; i < reader.chapters.size(); i++) {
+                miniApp->checkNextApp(reader.chapters[i].name);
+            }
         default:
             break;
     }
@@ -256,7 +265,7 @@ void testApp::mouseDragged(int x, int y, int button){
 
 //--------------------------------------------------------------
 void testApp::mousePressed(int x, int y, int button) {
-    
+
 }
 
 //--------------------------------------------------------------

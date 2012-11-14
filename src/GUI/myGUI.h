@@ -12,11 +12,12 @@
 #include "ofxUI.h"
 #include "mpeClientTCP.h"
 #include "chapterHandler.h"
+#include "miniHandler.h"
 
 class myGUI {
 
 public:
-    myGUI(mpeClientTCP *_cli, handleChapters *_rea);
+    myGUI(mpeClientTCP *_cli, handleChapters *_rea, miniHandler *_min);
 
     void setup(string appID);
     void keyPressed(int key);
@@ -37,6 +38,7 @@ public:
     
     mpeClientTCP *client;
     handleChapters *reader;
+    miniHandler *miniApp;
     
     string appName;
     

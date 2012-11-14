@@ -9,10 +9,11 @@
 #include "myGUI.h"
 
 //--------------------------------------------------------------
-myGUI::myGUI(mpeClientTCP *_cli, handleChapters *_rea)
+myGUI::myGUI(mpeClientTCP *_cli, handleChapters *_rea, miniHandler *_min)
 {
-    client = _cli;
-    reader = _rea;
+    client  = _cli;
+    reader  = _rea;
+    miniApp = _min;
 }
 
 //--------------------------------------------------------------
@@ -111,6 +112,7 @@ void myGUI::guiEvent(ofxUIEventArgs &e)
                 }
             }
         }
+
     }
 }
 

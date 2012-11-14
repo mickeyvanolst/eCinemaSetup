@@ -24,8 +24,8 @@ void mainMini::reset(){
 }
 
 //--------------------------------------------------------------
-void mainMini::update(long int appDuration){
-    appCounter = appDuration;
+void mainMini::update(){
+    
 }
 
 //--------------------------------------------------------------

@@ -11,11 +11,11 @@
 //--------------------------------------------------------------
 testMini::testMini(mainMini *_mai){
     main = _mai;
-    afterChapter = "02_Rise of the Guardians";
 }
 
 //--------------------------------------------------------------
 void testMini::setup(){
+    initTime = ofGetElapsedTimeMillis();
     
     // add a "randomly" placed ball
     Ball* ball = new Ball(ofRandom(0, main->client->getMWidth()), ofRandom(0, main->client->getMHeight()), main->client->getMWidth(), main->client->getMHeight());
@@ -24,9 +24,9 @@ void testMini::setup(){
 
 //--------------------------------------------------------------
 void testMini::update(){
-    
+    durTime = ofGetElapsedTimeMillis() - initTime;
     // just for now to show the end of an interactive event can be triggered by time
-    if (main->appCounter > 10000) {
+    if (durTime > 60000) {
         endOfMini();
     }
 }
