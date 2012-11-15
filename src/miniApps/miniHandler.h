@@ -22,11 +22,15 @@ public:
     void draw();
     void startMini(string wichApp);
     void stopMini(int & i);
+    void pauseMini();
+    void playMini();
     void killMini();
     string appComesAfter(string prevChapter);
     
     string appName;
     string curMiniApp;
+    bool pauseApp;
+    bool appActive;
     
     mpeClientTCP *client;
     mainMini *main;

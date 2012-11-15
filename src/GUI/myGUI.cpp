@@ -112,6 +112,8 @@ void myGUI::guiEvent(ofxUIEventArgs &e)
 //                }
 //            }
 //        }
+        
+        // this is where it loops trough all the chapters to see if one has been pressed, including miniApps
         for (int i = 0; i < reader->chapters.size(); i++) {
             if(reader->chapters[i].inOrder && reader->chapters[i].complete) {
                 if(name == reader->chapters[i].name) {
@@ -126,7 +128,7 @@ void myGUI::guiEvent(ofxUIEventArgs &e)
                     }
                 }
             }
-            
+            // checking for miniApps being pressed
             if (name == miniApp->appComesAfter(reader->chapters[i].name)) {
                 ofxUIButton *button = (ofxUIButton *) e.widget;
                 client->broadcast("playMiniApp," + ofToString(miniApp->appComesAfter(reader->chapters[i].name)));

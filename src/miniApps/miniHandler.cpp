@@ -13,7 +13,9 @@ miniHandler::miniHandler(mpeClientTCP * _cli){
     client = _cli;
     main = new mainMini(client);
     curMiniApp = "";
-
+    pauseApp = false;
+    appActive = false;
+    
     myTestMini = NULL; // otherwise it will trigger anyways..
 }
 
@@ -31,9 +33,12 @@ void miniHandler::setup(string id){
 //--------------------------------------------------------------
 void miniHandler::update(){
     // not yet finished here, need to figure out how to do this with several mini apps etc
-    if (myTestMini != NULL && curMiniApp == "01_TestMini") {
-        myTestMini->update();
+    if (!pauseApp) {
+        if (myTestMini != NULL && curMiniApp == "01_TestMini") {
+            myTestMini->update();
+        }
     }
+
 }
 
 //--------------------------------------------------------------
@@ -55,14 +60,16 @@ string miniHandler::appComesAfter(string prevChapter){
 
 //--------------------------------------------------------------
 void miniHandler::startMini(string wichApp){
-   
-    printf("wichApp: %s\n",wichApp.c_str());
-    
-    if (wichApp == "01_TestMini") {
+    string tempApp = wichApp;
+    appActive = true;
+    // for some reason the string is not always recognized as the same, but does printf the same
+    if (tempApp.compare("01_TestMini") == 0) {
         myTestMini = new testMini(main);
         myTestMini->setup();
-        curMiniApp = "01_TestMini";
+        curMiniApp = tempApp;
+        pauseApp = false;
     }
+    printf("tempApp: %s\n",tempApp.c_str());
     printf("curMiniApp: %s\n",curMiniApp.c_str());
 }
 
@@ -74,10 +81,23 @@ void miniHandler::stopMini(int & i){
     if (curMiniApp == "01_TestMini" && myTestMini != NULL) {
         delete myTestMini;
         myTestMini = NULL;
+        curMiniApp = "";
     }
+    
+    appActive = false;
+}
+
+//--------------------------------------------------------------
+void miniHandler::pauseMini(){
+    pauseApp = true;
+}
+
+//--------------------------------------------------------------
+void miniHandler::playMini(){
+    pauseApp = false;
 }
 
 //--------------------------------------------------------------
 void miniHandler::killMini(){
-    
+
 }

@@ -29,14 +29,17 @@ void testMini::update(){
     if (durTime > 60000) {
         endOfMini();
     }
+    
+    for (int i = 0; i < balls.size(); i++) {
+        balls[i]->calc();
+    }
 }
 
 //--------------------------------------------------------------
 void testMini::draw(){
-    
+    ofBackground(200, 200, 20);
 // move and draw all the balls
     for (int i = 0; i < balls.size(); i++) {
-        balls[i]->calc();
         balls[i]->draw();
     }
 }

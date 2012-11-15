@@ -99,8 +99,11 @@ void customPlayer::draw(int x, int y)
     chapCurPercent = tempPercent;
     totalProgress = tempTotPercent;
     
-    // actually drawing the video    
-    players[activeVid-1].vid.draw(x,y);
+    // actually drawing the video
+    if (players[activeVid-1].vid.isPlaying()) {
+        players[activeVid-1].vid.draw(x,y);
+    }
+    
 
     // this is still a bit sketchy, not sure if I should update all video's in order to
     // keep commands nice and swift, or to only update the one thats playing for CPU's sake

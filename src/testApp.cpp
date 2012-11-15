@@ -15,8 +15,8 @@ void testApp::setup(){
 	ofSetFrameRate(30);
     ofEnableSmoothing();
     ofEnableAlphaBlending();
-	ofSetBackgroundAuto(false);
-    ofBackground(150, 150, 150);
+//	ofSetBackgroundAuto(false);
+    ofBackground(50, 50, 50);
 
 	client.setup("mpe_settings.xml", this);
     
@@ -53,7 +53,7 @@ void testApp::setup(){
     fpsCounter = 0;
     
     outputString = "";
-
+    
 }
 
 //--------------------------------------------------------------
@@ -159,16 +159,24 @@ void testApp::handleMessages(){
         
         // play control
         if (splitMsg[0].compare("play") == 0) {
-            player->playPlayer();
+            if (miniApp->appActive) {
+                miniApp->playMini();
+            } else {
+                player->playPlayer();                
+            }
         }
         
         // pause control
         if (splitMsg[0].compare("pause") == 0) {
-            player->pausePlayer();
+            if (miniApp->appActive) {
+                miniApp->pauseMini();
+            } else {
+                player->pausePlayer();
+            }
         }
         
         // prev control
-        if (splitMsg[0].compare("prev") == 0) {
+        if (splitMsg[0].compare("prev") == 0) {            
             player->prevPlayer();
         }
         
@@ -182,12 +190,19 @@ void testApp::handleMessages(){
             printf("play chapter: %s\n",splitMsg[1].c_str());
             printf("chapter id nr: %s\n",splitMsg[2].c_str());
             player->startPlayer(ofToInt(splitMsg[2]));
+            if (miniApp->curMiniApp != "") {
+                int myInt;
+                miniApp->stopMini(myInt);
+            }
         }
         
         // play a certain minApp
         if (splitMsg[0].compare("playMiniApp") == 0) {
             printf("play miniApp: %s\n",splitMsg[1].c_str());
             miniApp->startMini(ofToString(splitMsg[1]));
+            if (player->isPlaying) {
+                player->stopPlayer();
+            }
         }
         
         // turn syphon on or off, second value is the false/true
