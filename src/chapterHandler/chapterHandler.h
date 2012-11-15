@@ -63,6 +63,8 @@ public:
     
     string totalXmlString;
     
+    vector<string> partXML;
+    
     int lastTagNumber;
     int lastChapNumber;
     
