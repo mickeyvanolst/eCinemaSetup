@@ -14,6 +14,11 @@ myGUI::myGUI(mpeClientTCP *_cli, handleChapters *_rea, miniHandler *_min)
     client  = _cli;
     reader  = _rea;
     miniApp = _min;
+    
+    gui1 = NULL;
+    gui2 = NULL;
+    gui3 = NULL;
+    
 }
 
 //--------------------------------------------------------------
@@ -151,6 +156,10 @@ void myGUI::exit()
 	delete gui1;
 	delete gui2;
 	delete gui3;
+    
+    gui1 = NULL;
+    gui2 = NULL;
+    gui3 = NULL;
 }
 
 //--------------------------------------------------------------
@@ -171,6 +180,10 @@ void myGUI::keyPressed(int key){
 //--------------------------------------------------------------
 void myGUI::buildGUI(int & i){
     
+    if (gui1 != NULL && gui2 != NULL && gui3 != NULL) {
+        exit();
+    }
+    
     // setup GUI
     setGUI1();
     setGUI2();
@@ -179,7 +192,6 @@ void myGUI::buildGUI(int & i){
     gui1->setDrawBack(false);
     gui2->setDrawBack(false);
     gui3->setDrawBack(false);
-    
     
     if (appName != "left") {
         gui1->toggleVisible();

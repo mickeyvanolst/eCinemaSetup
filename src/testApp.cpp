@@ -50,6 +50,7 @@ void testApp::setup(){
     }
     
     firstFrameEvent = true;
+    
     fpsCounter = 0;
     
     outputString = "";
@@ -68,6 +69,14 @@ void testApp::draw(){
 
 //--------------------------------------------------------------
 void testApp::frameEvent() {
+
+    // checkin if all parts of the XML file we created of our directory are right, sending parts out that haven't been checked yet
+    for (int i = 0; i < reader.partXML.size(); i++) {
+        if (reader.partXML[i].checked == false) {
+            client.broadcast("checkXML," + appName + "," + ofToString(i) + "," + reader.partXML[i].part);
+            i = 1000; // suppose no one would like to see things done this way, but I justa like bea meself ;-)
+        }
+    }
     
     // clear the screen
     ofBackground(50, 50, 50);
@@ -105,7 +114,7 @@ void testApp::frameEvent() {
     gui->totalPercent->setValue(player->totalProgress);
     gui->playBtn->setValue(player->isPlaying);
     gui->pauseBtn->setValue(!player->isPlaying);    
-    gui->outputFrame->setTextString(outputString);
+    //gui->outputFrame->setTextString(outputString);
     
     // this for loop sets the buttons true or false each time,
     //still have to put this somehwere it doesn't happen every frame
@@ -147,9 +156,15 @@ void testApp::handleMessages(){
         }
         
         // checking if the XML we've written is the same everywhere, otherwise it means not all directories are the same
-        if (splitMsg[0].compare("XML") == 0) {
-            printf("XML: %s\n",splitMsg[1].c_str());
-            // not yet implemented because MPE can probably send no more than 500 characters per time
+        if (splitMsg[0].compare("checkXML") == 0) {
+            if (splitMsg[3].compare(reader.partXML[ofToInt(splitMsg[2])].part) != 0) {
+                //printf("SHIT IS GOING DOWN! App %s has a different directory!\n",splitMsg[1].c_str());
+                outputString = "In app " + splitMsg[1] + " zijn niet alle bestanden correct!                              .";
+                gui->outputFrame->setTextString(outputString);
+            } else {
+                printf("all files in ORDER!\n");
+            }
+            reader.partXML[ofToInt(splitMsg[2])].checked = true;
         }
         
         // just to fire of a red colored ofBackground to check if we're still happy

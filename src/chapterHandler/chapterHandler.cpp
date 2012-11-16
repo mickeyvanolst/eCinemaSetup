@@ -183,18 +183,21 @@ void handleChapters::readDir(){
     
 // attempt at chopping up the xml file into 300 char pieces so I can send it over the MPE network for checking
     
-//    XML.copyXmlToString(totalXmlString);
-//    totalXmlString.erase(std::remove(totalXmlString.begin(), totalXmlString.end(), '\n'), totalXmlString.end());
-//    totalXmlString.erase(std::remove(totalXmlString.begin(), totalXmlString.end(), ' '), totalXmlString.end());
-//    int chopLength = 300;
-//    int numChops = totalXmlString.size()/chopLength;
+    XML.copyXmlToString(totalXmlString);
+    totalXmlString.erase(std::remove(totalXmlString.begin(), totalXmlString.end(), '\n'), totalXmlString.end());
+    totalXmlString.erase(std::remove(totalXmlString.begin(), totalXmlString.end(), ' '), totalXmlString.end());
+    totalXmlString.erase(std::remove(totalXmlString.begin(), totalXmlString.end(), ','), totalXmlString.end());
+    int chopLength = 300;
+    float fChops = float(totalXmlString.size())/float(chopLength);
+    float fChopsRoundUP = ceil(fChops);
+    int numChops = int(fChopsRoundUP);
 //    printf("totalXML %li: %s\n\n", totalXmlString.size() ,totalXmlString.c_str());
 //    printf("numChops: %i\n",numChops);
-//    partXML.resize(numChops);
-//    for (int i = 0; i < (totalXmlString.size()/chopLength); i++) {
-//        partXML[i] = totalXmlString.substr(i*chopLength,(i+1)*chopLength);
-//        printf("xml from %i to %i: %s\n\n", i*chopLength, (i+1)*chopLength , partXML[i].c_str());
-//    }
+    partXML.resize(numChops);
+    for (int i = 0; i < numChops; i++) {
+        partXML[i].part = totalXmlString.substr(i*chopLength,chopLength);
+        //printf("xml from %i to %i: %s\n\n", i*chopLength, (i+1)*chopLength , partXML[i].c_str());
+    }
     
 }
 

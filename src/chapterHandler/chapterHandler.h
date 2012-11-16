@@ -63,7 +63,11 @@ public:
     
     string totalXmlString;
     
-    vector<string> partXML;
+    struct xmlPart {
+        string  part;
+        bool    checked = false;
+    };
+    vector<xmlPart> partXML;
     
     int lastTagNumber;
     int lastChapNumber;

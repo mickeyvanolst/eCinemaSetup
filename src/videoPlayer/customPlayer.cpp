@@ -100,9 +100,7 @@ void customPlayer::draw(int x, int y)
     totalProgress = tempTotPercent;
     
     // actually drawing the video
-    if (players[activeVid-1].vid.isPlaying()) {
-        players[activeVid-1].vid.draw(x,y);
-    }
+    players[activeVid-1].vid.draw(x,y);
     
 
     // this is still a bit sketchy, not sure if I should update all video's in order to
