@@ -166,22 +166,6 @@ void customPlayer::playPlayer()
     }
 }
 
-////--------------------------------------------------------------
-//void customPlayer::nextPlayer()
-//{
-//    if (activeVid < players.size()) {
-//        startPlayer(activeVid+1);
-//    }
-//}
-//
-////--------------------------------------------------------------
-//void customPlayer::prevPlayer()
-//{
-//    if (activeVid > 1) {
-//        startPlayer(activeVid-1);
-//    }
-//}
-
 //--------------------------------------------------------------
 void customPlayer::removeAllPlayers()
 {

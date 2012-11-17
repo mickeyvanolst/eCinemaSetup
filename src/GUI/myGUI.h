@@ -61,8 +61,6 @@ public:
     
     struct BtnList {
         string              label;
-//        bool                active;
-//        bool                isVideo; // either app or video
         ofxUILabelButton    *btn;
     };
     vector<BtnList> listBtn;

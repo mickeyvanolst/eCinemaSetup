@@ -27,8 +27,6 @@ public:
     void pausePlayer();
     void stopPlayer();
     void playPlayer();
-//    void nextPlayer();
-//    void prevPlayer();
     void startPlayer(int whichVid);
     
     struct Players {

@@ -209,7 +209,6 @@ void handleChapters::checkFiles(){
     // checking the files
     
     // iterating through all chapters and check if they all contain the L, M and R movie files
-    
     for (int i = 0; i < chapters.size(); i++) {
         
         // check separate to see which one is missing

@@ -89,8 +89,6 @@ void testApp::frameEvent() {
     ofBackground(50, 50, 50);
     ofSetColor(255, 255, 255);
     
-//    player->update();
-//    miniApp->update();
     handler->update();
     
     // some clearing needed for syphon output
@@ -100,9 +98,7 @@ void testApp::frameEvent() {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     }
     
-    // handle video playing stuff
-//    player->draw(client.getXoffset(),client.getYoffset()); // add width and height , client.getLWidth(), client.getLHeight()
-//    miniApp->draw();
+    // handle video/app playing stuff
     handler->draw();
     
     // send out a syphon feed, should only be possible for left and right app
@@ -127,15 +123,6 @@ void testApp::frameEvent() {
     //gui->outputFrame->setTextString(outputString);
     
     // this for loop sets the buttons true or false each time,
-    //still have to put this somehwere it doesn't happen every frame
-//    for (int i = 0; i < gui->listBtn.size(); i++) {
-//        if(gui->listBtn[i].active){
-//            gui->listBtn[i].btn->setValue(true);
-//        } else {
-//            gui->listBtn[i].btn->setValue(false);
-//        }
-//    }
-
     for (int i = 0; i < handler->list.size(); i++) {
         gui->listBtn[i].btn->setValue(handler->list[i].active);
     }
@@ -179,63 +166,29 @@ void testApp::handleMessages(){
         
         // play control
         if (splitMsg[0].compare("play") == 0) {
-//            if (miniApp->appActive) {
-//                miniApp->playMini();
-//            } else {
-//                player->playPlayer();                
-//            }
             handler->resume();
         }
         
         // pause control
         if (splitMsg[0].compare("pause") == 0) {
-//            if (miniApp->appActive) {
-//                miniApp->pauseMini();
-//            } else {
-//                player->pausePlayer();
-//            }
             handler->pause();
         }
         
         // prev control
         if (splitMsg[0].compare("prev") == 0) {            
-            //player->prevPlayer();
             handler->startPrev();
         }
         
         // next control
         if (splitMsg[0].compare("next") == 0) {
-            //player->nextPlayer();
             handler->startNext();
         }
-        
-//        // play a certain chapter
-//        if (splitMsg[0].compare("playChapter") == 0) {
-//            printf("play chapter: %s\n",splitMsg[1].c_str());
-//            printf("chapter id nr: %s\n",splitMsg[2].c_str());
-//            player->startPlayer(ofToInt(splitMsg[2]));
-//            if (miniApp->curMiniApp != "") {
-//                int myInt;
-//                miniApp->stopMini(myInt);
-//            }
-//        }
-//        
-//        // play a certain minApp
-//        if (splitMsg[0].compare("playMiniApp") == 0) {
-//            printf("play miniApp: %s\n",splitMsg[1].c_str());
-//            miniApp->startMini(ofToString(splitMsg[1]));
-//            if (player->isPlaying) {
-//                player->stopPlayer();
-//            }
-//        }
-        
-        
+                
         // play a certain item from the allHandler list
         if (splitMsg[0].compare("handlerStart") == 0) {
             printf("play: %s - %s\n",splitMsg[1].c_str(),splitMsg[2].c_str());
             handler->start(splitMsg[1]);
         }
-        
         
         // turn syphon on or off, second value is the false/true
         if (splitMsg[0].compare("syphonLa") == 0) {
