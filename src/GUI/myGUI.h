@@ -12,12 +12,13 @@
 #include "ofxUI.h"
 #include "mpeClientTCP.h"
 #include "chapterHandler.h"
+#include "allHandler.h"
 #include "miniHandler.h"
 
 class myGUI {
 
 public:
-    myGUI(mpeClientTCP *_cli, handleChapters *_rea, miniHandler *_min);
+    myGUI(mpeClientTCP *_cli, allHandler *_all);
 
     void setup(string appID);
     void keyPressed(int key);
@@ -37,8 +38,7 @@ public:
     bool hideGUI;
     
     mpeClientTCP *client;
-    handleChapters *reader;
-    miniHandler *miniApp;
+    allHandler *handler;
     
     string appName;
     
@@ -61,8 +61,8 @@ public:
     
     struct BtnList {
         string              label;
-        bool                active;
-        bool                isVideo; // either app or video
+//        bool                active;
+//        bool                isVideo; // either app or video
         ofxUILabelButton    *btn;
     };
     vector<BtnList> listBtn;

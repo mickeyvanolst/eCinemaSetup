@@ -72,7 +72,7 @@ public:
     int lastTagNumber;
     int lastChapNumber;
     
-    ofEvent<int>        buildGUIEvent;
+    //ofEvent<int>        buildGUIEvent;
     ofEvent<int>        addAllVideosEvent;
     
     

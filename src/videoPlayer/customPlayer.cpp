@@ -16,7 +16,7 @@ customPlayer::customPlayer(handleChapters *_rea)
     ofSetVerticalSync(true);
     ofEnableAlphaBlending();
     
-    activeVid = 1;
+    activeVid = 0;
     // I guess this should be the first movie by default
     // maybe change this to 0 to make it easier for array use?
     
@@ -30,6 +30,7 @@ customPlayer::customPlayer(handleChapters *_rea)
     chapTotalTime = 0.0;
     totPrevMovsFrames = 0.0;
     totMovsFrames = 0.0;
+    isDone = false;
 }
 
 //--------------------------------------------------------------
@@ -42,8 +43,16 @@ void customPlayer::setup(string ID)
 //--------------------------------------------------------------
 void customPlayer::update()
 {
-    players[activeVid-1].vid.update();
-    players[activeVid-1].vid.idleMovie();
+    players[activeVid].vid.update();
+    players[activeVid].vid.idleMovie();
+    
+    
+    if (players[activeVid].vid.getCurrentFrame() == players[activeVid].vid.getTotalNumFrames() && !isDone) {
+        int myInt;
+        ofNotifyEvent(doneEvent,myInt,this);
+        printf("END OF MOVIE\n");
+        isDone = true;
+    }
 }
 
 //--------------------------------------------------------------
@@ -90,17 +99,17 @@ void customPlayer::addAllVideos(int & i)
 void customPlayer::draw(int x, int y)
 {
     // calulating stuff to show in the GUI
-    float tempCurFrame      = players[activeVid-1].vid.getCurrentFrame();
-    float tempTotFrame      = players[activeVid-1].vid.getTotalNumFrames();
+    float tempCurFrame      = players[activeVid].vid.getCurrentFrame();
+    float tempTotFrame      = players[activeVid].vid.getTotalNumFrames();
     float tempPercent       = tempCurFrame / tempTotFrame * 100.0;
     float tempTotPercent    = (tempCurFrame + totPrevMovsFrames) / totMovsFrames * 100.0;
     
-    chapTotalTime = int(players[activeVid-1].vid.getDuration() );
+    chapTotalTime = int(players[activeVid].vid.getDuration() );
     chapCurPercent = tempPercent;
     totalProgress = tempTotPercent;
     
     // actually drawing the video
-    players[activeVid-1].vid.draw(x,y);
+    players[activeVid].vid.draw(x,y);
     
 
     // this is still a bit sketchy, not sure if I should update all video's in order to
@@ -115,12 +124,12 @@ void customPlayer::startPlayer(int whichVid)
     isPlaying = true;
     activeVid = whichVid;
     printf("customplayer: play vid nr: %i\n",activeVid);
-    players[activeVid-1].vid.play();
+    players[activeVid].vid.play();
     // pause the one that might be playing and play the new one
     
     // calculate new value for total amount of frames of previous films
     totPrevMovsFrames = 0.0;
-    for (int i = 0; i < activeVid-1; i++) {
+    for (int i = 0; i < activeVid; i++) {
         if(i >= 0) {
             totPrevMovsFrames += float(players[i].vid.getTotalNumFrames());
         } else {
@@ -133,7 +142,7 @@ void customPlayer::startPlayer(int whichVid)
 void customPlayer::pausePlayer()
 {
     if (isPlaying) {
-        players[activeVid-1].vid.setPaused(true);
+        players[activeVid].vid.setPaused(true);
         isPlaying = false;
     }
 }
@@ -142,8 +151,8 @@ void customPlayer::pausePlayer()
 void customPlayer::stopPlayer()
 {
     if (isPlaying) {
-        players[activeVid-1].vid.setPaused(true);
-        players[activeVid-1].vid.setPosition(0);
+        players[activeVid].vid.setPaused(true);
+        players[activeVid].vid.setPosition(0);
         isPlaying = false;
     }
 }
@@ -152,26 +161,26 @@ void customPlayer::stopPlayer()
 void customPlayer::playPlayer()
 {
     if (!isPlaying) {
-        players[activeVid-1].vid.play();
+        players[activeVid].vid.play();
         isPlaying = true;
     }
 }
 
-//--------------------------------------------------------------
-void customPlayer::nextPlayer()
-{
-    if (activeVid < players.size()) {
-        startPlayer(activeVid+1);
-    }
-}
-
-//--------------------------------------------------------------
-void customPlayer::prevPlayer()
-{
-    if (activeVid > 1) {
-        startPlayer(activeVid-1);
-    }
-}
+////--------------------------------------------------------------
+//void customPlayer::nextPlayer()
+//{
+//    if (activeVid < players.size()) {
+//        startPlayer(activeVid+1);
+//    }
+//}
+//
+////--------------------------------------------------------------
+//void customPlayer::prevPlayer()
+//{
+//    if (activeVid > 1) {
+//        startPlayer(activeVid-1);
+//    }
+//}
 
 //--------------------------------------------------------------
 void customPlayer::removeAllPlayers()

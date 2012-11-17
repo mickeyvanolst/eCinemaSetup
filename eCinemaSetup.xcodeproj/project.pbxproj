@@ -20,6 +20,7 @@
 		67AB0FEF1652E58F001B449F /* miniHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67AB0FEE1652E58F001B449F /* miniHandler.cpp */; };
 		67AB10021652EC25001B449F /* 01_TestMini.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67AB10011652EC25001B449F /* 01_TestMini.cpp */; };
 		67ADB43D164A919B00EC4F96 /* customPlayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67ADB43C164A919B00EC4F96 /* customPlayer.cpp */; };
+		67E61DB01657DAF600765D82 /* allHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67E61DAF1657DAF600765D82 /* allHandler.cpp */; };
 		67F0475B164BE99900F8A48C /* myGUI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67F0475A164BE99900F8A48C /* myGUI.cpp */; };
 		70B304A01628FDBC0034D616 /* mpeClientTCP.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 70B3049D1628FDBC0034D616 /* mpeClientTCP.cpp */; };
 		70B304AA1628FE390034D616 /* tinyxml.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 70B304A31628FE390034D616 /* tinyxml.cpp */; };
@@ -151,6 +152,8 @@
 		67AB10081652F8ED001B449F /* Ball.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Ball.h; path = miniApps/apps/Ball.h; sourceTree = "<group>"; };
 		67ADB43B164A918D00EC4F96 /* customPlayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = customPlayer.h; path = videoPlayer/customPlayer.h; sourceTree = "<group>"; };
 		67ADB43C164A919B00EC4F96 /* customPlayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = customPlayer.cpp; path = videoPlayer/customPlayer.cpp; sourceTree = "<group>"; };
+		67E61DAE1657DAED00765D82 /* allHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = allHandler.h; sourceTree = "<group>"; };
+		67E61DAF1657DAF600765D82 /* allHandler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = allHandler.cpp; sourceTree = "<group>"; };
 		67E797FA164ACCBF0025B14D /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		67F04759164BE98C00F8A48C /* myGUI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = myGUI.h; path = GUI/myGUI.h; sourceTree = "<group>"; };
 		67F0475A164BE99900F8A48C /* myGUI.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = myGUI.cpp; path = GUI/myGUI.cpp; sourceTree = "<group>"; };
@@ -565,6 +568,8 @@
 				E4B69E1D0A3A1BDC003C02F2 /* main.cpp */,
 				E4B69E1F0A3A1BDC003C02F2 /* testApp.h */,
 				E4B69E1E0A3A1BDC003C02F2 /* testApp.cpp */,
+				67E61DAE1657DAED00765D82 /* allHandler.h */,
+				67E61DAF1657DAF600765D82 /* allHandler.cpp */,
 				67AB0FE91652E47F001B449F /* miniApps */,
 				67728A0616480E7300B6D0DB /* chapterHandler */,
 				67F04758164BE96800F8A48C /* GUI */,
@@ -701,6 +706,7 @@
 				67AB0FEC1652E4C1001B449F /* mainMini.cpp in Sources */,
 				67AB0FEF1652E58F001B449F /* miniHandler.cpp in Sources */,
 				67AB10021652EC25001B449F /* 01_TestMini.cpp in Sources */,
+				67E61DB01657DAF600765D82 /* allHandler.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
