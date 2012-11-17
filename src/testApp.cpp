@@ -6,7 +6,7 @@ testApp::testApp()
 {
     player      = new customPlayer(&reader);
     miniApp     = new miniHandler(&client);
-    handler     = new allHandler(&client, &reader, miniApp);//player, 
+    handler     = new allHandler(&client, &reader, miniApp, player);
     gui         = new myGUI(&client, handler);
 }
 
@@ -56,11 +56,17 @@ void testApp::setup(){
     fpsCounter = 0;
     outputString = "";
     
+    ofAddListener(player->doneEvent, this, &testApp::done);
 }
 
 //--------------------------------------------------------------
 void testApp::update(){
 
+}
+
+//--------------------------------------------------------------
+void testApp::done(int & i){
+    printf("VID IS DONE!\n");
 }
 
 //--------------------------------------------------------------
@@ -194,11 +200,13 @@ void testApp::handleMessages(){
         // prev control
         if (splitMsg[0].compare("prev") == 0) {            
             //player->prevPlayer();
+            handler->startPrev();
         }
         
         // next control
         if (splitMsg[0].compare("next") == 0) {
             //player->nextPlayer();
+            handler->startNext();
         }
         
 //        // play a certain chapter

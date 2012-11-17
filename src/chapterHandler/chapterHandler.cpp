@@ -256,7 +256,7 @@ void handleChapters::checkFiles(){
         
     }
     int myInt;
-    ofNotifyEvent(buildGUIEvent,myInt,this);
+    //ofNotifyEvent(buildGUIEvent,myInt,this);
     ofNotifyEvent(addAllVideosEvent,myInt,this);
 }
 

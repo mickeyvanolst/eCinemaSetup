@@ -35,6 +35,7 @@ public:
     mpeClientTCP *client;
     mainMini *main;
     
+    //ofEvent<int>        doneEvent;
     
     // ----- List of mini Apps -----
     testMini *myTestMini; // 01_TestMini - after 02_Rise of the Guardians

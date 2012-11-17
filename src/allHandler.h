@@ -5,6 +5,7 @@
 //  Created by Mick van Olst on 17-11-12.
 //
 //
+
 #include "ofMain.h"
 #include "mpeClientTCP.h"
 #include "chapterHandler.h"
@@ -16,8 +17,7 @@
 
 class allHandler {
 public:
-    allHandler(mpeClientTCP *_cli, handleChapters *_rea, miniHandler *_min);
-    //customPlayer *_cPl, 
+    allHandler(mpeClientTCP *_cli, handleChapters *_rea, miniHandler *_min, customPlayer *_pla); 
     
     void setup();
     void createList();
@@ -35,7 +35,7 @@ public:
     
     mpeClientTCP *client;
     handleChapters *reader;
-    //customPlayer *player;
+    customPlayer *player;
     miniHandler *miniApp;
     
     int activeID;
@@ -47,6 +47,8 @@ public:
         bool    active = false;
     };
     vector<TotProg> list;
+    
+    ofEvent<int>        buildGUIEvent;
     
 private:
 };

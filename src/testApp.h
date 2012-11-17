@@ -30,6 +30,8 @@ public:
     void windowResized(int w, int h);
     void handleMessages();
     
+    void done(int & i);
+    
     // MPE stuff, need some sort of setup command after first contact
     void frameEvent();
     

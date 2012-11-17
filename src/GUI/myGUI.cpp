@@ -26,7 +26,7 @@ void myGUI::setup(string appID)
     appName = appID;
     
     // yay we can send events from class to class regardless of hiarchie!
-    //ofAddListener(reader->buildGUIEvent, this, &myGUI::buildGUI);
+    ofAddListener(handler->buildGUIEvent, this, &myGUI::buildGUI);
     
     prevMsg = "";
     prevMsgCounter = 0;

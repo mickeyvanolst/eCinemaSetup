@@ -9,19 +9,21 @@
 #include "allHandler.h"
 
 //--------------------------------------------------------------
-allHandler::allHandler(mpeClientTCP *_cli, handleChapters *_rea, miniHandler *_min){
-    //, customPlayer *_cPl
+allHandler::allHandler(mpeClientTCP *_cli, handleChapters *_rea, miniHandler *_min, customPlayer *_pla){
     client  = _cli;
     reader  = _rea;
-    //player  = _cPl;
+    player  = _pla;
     miniApp = _min;
+
+    activeID = -1; // negative so at least we know something's wrong
 }
 
 //--------------------------------------------------------------
 void allHandler::setup(){
     
-    // adding listeners
-    //ofAddListener(player->, this, &allHandler::done);
+    // adding listeners (still have to add this)
+    //
+    //ofAddListener(miniApp->doneEvent, this, &allHandler::done);
 }
 
 //--------------------------------------------------------------
@@ -49,6 +51,13 @@ void allHandler::createList(){
     for (int i = 0; i < list.size(); i++) {
         printf("[%i] %s - %s\n", i,list[i].name.c_str(), list[i].type.c_str());
     }
+    
+    // init first item, otherwise some classes won't be happy..
+    start(list[0].name);
+    pause();
+    
+    int myInt;
+    ofNotifyEvent(buildGUIEvent,myInt,this);
 }
 
 //--------------------------------------------------------------
@@ -58,7 +67,7 @@ void allHandler::update(){
         miniApp->update();
     } else if(list[activeID].type.compare("mov") == 0) {
         // this is a movie
-        //player->update();
+        player->update();
     }
 }
 
@@ -69,7 +78,7 @@ void allHandler::draw(){
         miniApp->draw();
     } else if(list[activeID].type.compare("mov") == 0) {
         // this is a movie
-        //player->draw(client->getXoffset(),client->getYoffset());
+        player->draw(client->getXoffset(),client->getYoffset());
     }
 }
 
@@ -92,15 +101,17 @@ void allHandler::start(string name){
     bool notFound = true;
     for (int i = 0; i < list.size(); i++) {
         if (name.compare(list[i].name) == 0) {
-            
             // stop video/app that is currently playing
-            if (list[activeID].type.compare("app") == 0) {
-                // this is an app
-                int myInt; // bleh, ofListener stuff..
-                miniApp->stopMini(myInt);
-            } else if(list[activeID].type.compare("mov") == 0) {
-                // this is a movie
-                //player->stopPlayer();
+            
+            if (activeID != -1) {
+                if (list[activeID].type.compare("app") == 0) {
+                    // this is an app
+                    int myInt; // bleh, ofListener stuff..
+                    miniApp->stopMini(myInt);
+                } else if(list[activeID].type.compare("mov") == 0) {
+                    // this is a movie
+                    player->stopPlayer();
+                }
             }
             
             // set the new activeID
@@ -114,25 +125,28 @@ void allHandler::start(string name){
     }
     
     // actually starting something --
-    
     if (list[activeID].type.compare("app") == 0) {
         // this is an app
         miniApp->startMini(list[activeID].name);
     } else if(list[activeID].type.compare("mov") == 0) {
         // this is a movie
-        //player->startPlayer(list[activeID].chapterID);
+        player->startPlayer(list[activeID].chapterID);
     }
-    
+    printf("starting: %s - id:%i type: %s\n",list[activeID].name.c_str(), activeID, list[activeID].type.c_str());
 }
 
 //--------------------------------------------------------------
 void allHandler::startNext(){
-    
+    if (activeID < list.size()-1) {
+        start(list[activeID+1].name);
+    }
 }
 
 //--------------------------------------------------------------
 void allHandler::startPrev(){
-    
+    if (activeID > 0) {
+        start(list[activeID-1].name);
+    }
 }
 
 //--------------------------------------------------------------
@@ -142,7 +156,7 @@ void allHandler::pause(){
         miniApp->pauseMini();
     } else if(list[activeID].type.compare("mov") == 0) {
         // this is a movie
-        //player->pausePlayer();
+        player->pausePlayer();
     }
 }
 
@@ -153,7 +167,7 @@ void allHandler::resume(){
         miniApp->playMini();
     } else if(list[activeID].type.compare("mov") == 0) {
         // this is a movie
-        //player->playPlayer();
+        player->playPlayer();
     }
 }
 
@@ -164,6 +178,6 @@ void allHandler::stop(){
 
 //--------------------------------------------------------------
 void allHandler::done(int & i){
-    
+    printf("I AM DONE!\n");
 }
 
