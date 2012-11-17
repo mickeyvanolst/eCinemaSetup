@@ -6,7 +6,8 @@ testApp::testApp()
 {
     player      = new customPlayer(&reader);
     miniApp     = new miniHandler(&client);
-    gui         = new myGUI(&client, &reader, miniApp);
+    handler     = new allHandler(&client, &reader, miniApp);//player, 
+    gui         = new myGUI(&client, handler);
 }
 
 //--------------------------------------------------------------
@@ -42,6 +43,8 @@ void testApp::setup(){
     reader.setup(appName);
     reader.readDir();
     
+    handler->createList(); // setting up our total list of apps and movies
+    
     if (appName == "left" || appName == "right") {
         syphonServer.setName(appName);
         syphonOut = true;
@@ -50,9 +53,7 @@ void testApp::setup(){
     }
     
     firstFrameEvent = true;
-    
     fpsCounter = 0;
-    
     outputString = "";
     
 }
@@ -82,8 +83,9 @@ void testApp::frameEvent() {
     ofBackground(50, 50, 50);
     ofSetColor(255, 255, 255);
     
-    player->update();
-    miniApp->update();
+//    player->update();
+//    miniApp->update();
+    handler->update();
     
     // some clearing needed for syphon output
     if (syphonOut) {
@@ -93,8 +95,10 @@ void testApp::frameEvent() {
     }
     
     // handle video playing stuff
-    player->draw(client.getXoffset(),client.getYoffset()); // add width and height , client.getLWidth(), client.getLHeight()
-    miniApp->draw();
+//    player->draw(client.getXoffset(),client.getYoffset()); // add width and height , client.getLWidth(), client.getLHeight()
+//    miniApp->draw();
+    handler->draw();
+    
     // send out a syphon feed, should only be possible for left and right app
     if (syphonOut) {
         syphonServer.publishScreen();
@@ -119,21 +123,16 @@ void testApp::frameEvent() {
     // this for loop sets the buttons true or false each time,
     //still have to put this somehwere it doesn't happen every frame
 //    for (int i = 0; i < gui->listBtn.size(); i++) {
-//        if(player->activeVid == i+1 && gui->listBtn[i].isVideo){
+//        if(gui->listBtn[i].active){
 //            gui->listBtn[i].btn->setValue(true);
 //        } else {
 //            gui->listBtn[i].btn->setValue(false);
 //        }
 //    }
-    for (int i = 0; i < gui->listBtn.size(); i++) {
-        if(gui->listBtn[i].active){
-            gui->listBtn[i].btn->setValue(true);
-        } else {
-            gui->listBtn[i].btn->setValue(false);
-        }
-    }
 
-    
+    for (int i = 0; i < handler->list.size(); i++) {
+        gui->listBtn[i].btn->setValue(handler->list[i].active);
+    }
 }
 
 //--------------------------------------------------------------
@@ -158,11 +157,11 @@ void testApp::handleMessages(){
         // checking if the XML we've written is the same everywhere, otherwise it means not all directories are the same
         if (splitMsg[0].compare("checkXML") == 0) {
             if (splitMsg[3].compare(reader.partXML[ofToInt(splitMsg[2])].part) != 0) {
-                //printf("SHIT IS GOING DOWN! App %s has a different directory!\n",splitMsg[1].c_str());
+                // the (ridiculous) long space after the sentence send to the outputframe is because otherwise it won't show...
                 outputString = "In app " + splitMsg[1] + " zijn niet alle bestanden correct!                              .";
                 gui->outputFrame->setTextString(outputString);
             } else {
-                printf("all files in ORDER!\n");
+                //printf("all files in ORDER!\n");
             }
             reader.partXML[ofToInt(splitMsg[2])].checked = true;
         }
@@ -174,51 +173,61 @@ void testApp::handleMessages(){
         
         // play control
         if (splitMsg[0].compare("play") == 0) {
-            if (miniApp->appActive) {
-                miniApp->playMini();
-            } else {
-                player->playPlayer();                
-            }
+//            if (miniApp->appActive) {
+//                miniApp->playMini();
+//            } else {
+//                player->playPlayer();                
+//            }
+            handler->resume();
         }
         
         // pause control
         if (splitMsg[0].compare("pause") == 0) {
-            if (miniApp->appActive) {
-                miniApp->pauseMini();
-            } else {
-                player->pausePlayer();
-            }
+//            if (miniApp->appActive) {
+//                miniApp->pauseMini();
+//            } else {
+//                player->pausePlayer();
+//            }
+            handler->pause();
         }
         
         // prev control
         if (splitMsg[0].compare("prev") == 0) {            
-            player->prevPlayer();
+            //player->prevPlayer();
         }
         
         // next control
         if (splitMsg[0].compare("next") == 0) {
-            player->nextPlayer();
+            //player->nextPlayer();
         }
         
-        // play a certain chapter
-        if (splitMsg[0].compare("playChapter") == 0) {
-            printf("play chapter: %s\n",splitMsg[1].c_str());
-            printf("chapter id nr: %s\n",splitMsg[2].c_str());
-            player->startPlayer(ofToInt(splitMsg[2]));
-            if (miniApp->curMiniApp != "") {
-                int myInt;
-                miniApp->stopMini(myInt);
-            }
+//        // play a certain chapter
+//        if (splitMsg[0].compare("playChapter") == 0) {
+//            printf("play chapter: %s\n",splitMsg[1].c_str());
+//            printf("chapter id nr: %s\n",splitMsg[2].c_str());
+//            player->startPlayer(ofToInt(splitMsg[2]));
+//            if (miniApp->curMiniApp != "") {
+//                int myInt;
+//                miniApp->stopMini(myInt);
+//            }
+//        }
+//        
+//        // play a certain minApp
+//        if (splitMsg[0].compare("playMiniApp") == 0) {
+//            printf("play miniApp: %s\n",splitMsg[1].c_str());
+//            miniApp->startMini(ofToString(splitMsg[1]));
+//            if (player->isPlaying) {
+//                player->stopPlayer();
+//            }
+//        }
+        
+        
+        // play a certain item from the allHandler list
+        if (splitMsg[0].compare("handlerStart") == 0) {
+            printf("play: %s - %s\n",splitMsg[1].c_str(),splitMsg[2].c_str());
+            handler->start(splitMsg[1]);
         }
         
-        // play a certain minApp
-        if (splitMsg[0].compare("playMiniApp") == 0) {
-            printf("play miniApp: %s\n",splitMsg[1].c_str());
-            miniApp->startMini(ofToString(splitMsg[1]));
-            if (player->isPlaying) {
-                player->stopPlayer();
-            }
-        }
         
         // turn syphon on or off, second value is the false/true
         if (splitMsg[0].compare("syphonLa") == 0) {

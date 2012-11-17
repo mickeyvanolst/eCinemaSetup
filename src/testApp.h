@@ -5,11 +5,13 @@
 
 #include "ofMain.h"
 #include "mpeClientTCP.h"
-#include "chapterHandler.h"
 #include "ofxSyphon.h"
+#include "chapterHandler.h"
 #include "customPlayer.h"
-#include "myGUI.h"
 #include "miniHandler.h"
+#include "allHandler.h"
+#include "myGUI.h"
+
 
 class testApp : public ofBaseApp, public mpeClientListener {
     
@@ -37,14 +39,17 @@ public:
     // was private, now public!
     mpeClientTCP client;
     
-    miniHandler *miniApp;
-    
     // handling chapters, reading the files and see whats in it
     handleChapters reader;
     
+    miniHandler *miniApp;
+
     // our custom videoPlayer, loads all movies and then decides which
-    // to draw and play, also handles syphon
+    // to draw and play
     customPlayer *player;
+    
+    // allHandler, deals with both apps and video's
+    allHandler *handler;
     
     ofxSyphonServer syphonServer;
     bool syphonOut;

@@ -1,0 +1,169 @@
+//
+//  allHandler.cpp
+//  eCinemaSetup
+//
+//  Created by Mick van Olst on 17-11-12.
+//
+//
+
+#include "allHandler.h"
+
+//--------------------------------------------------------------
+allHandler::allHandler(mpeClientTCP *_cli, handleChapters *_rea, miniHandler *_min){
+    //, customPlayer *_cPl
+    client  = _cli;
+    reader  = _rea;
+    //player  = _cPl;
+    miniApp = _min;
+}
+
+//--------------------------------------------------------------
+void allHandler::setup(){
+    
+    // adding listeners
+    //ofAddListener(player->, this, &allHandler::done);
+}
+
+//--------------------------------------------------------------
+void allHandler::createList(){
+    // fill up our list with all apps and video names and types
+    int numChap = reader->chapters.size();
+    int curChap = 0;
+    int numApps = 0;
+    for (int curChap = 0; curChap < numChap; curChap++) {
+        list.push_back(TotProg());
+        
+        list[curChap+numApps].name = reader->chapters[curChap].name;
+        list[curChap+numApps].type = "mov";
+        list[curChap+numApps].chapterID = curChap;
+        
+        // checks after every movie if there should be an app next
+        if (miniApp->appComesAfter(reader->chapters[curChap].name) != "") {
+            numApps++;
+            list.push_back(TotProg());
+            list[curChap+numApps].name = miniApp->appComesAfter(reader->chapters[curChap].name);
+            list[curChap+numApps].type = "app";
+        }
+    }
+    
+    for (int i = 0; i < list.size(); i++) {
+        printf("[%i] %s - %s\n", i,list[i].name.c_str(), list[i].type.c_str());
+    }
+}
+
+//--------------------------------------------------------------
+void allHandler::update(){
+    if (list[activeID].type.compare("app") == 0) {
+        // this is an app
+        miniApp->update();
+    } else if(list[activeID].type.compare("mov") == 0) {
+        // this is a movie
+        //player->update();
+    }
+}
+
+//--------------------------------------------------------------
+void allHandler::draw(){
+    if (list[activeID].type.compare("app") == 0) {
+        // this is an app
+        miniApp->draw();
+    } else if(list[activeID].type.compare("mov") == 0) {
+        // this is a movie
+        //player->draw(client->getXoffset(),client->getYoffset());
+    }
+}
+
+//--------------------------------------------------------------
+void allHandler::setActive(int listID){
+    // iterating through the list to set only the right one to active = true and the rest to active = false
+    for (int i = 0; i < list.size(); i++) {
+        if (i == listID) {
+            list[i].active = true;
+            activeID = i;
+        } else {
+            list[i].active = false;
+        }
+    }
+}
+
+//--------------------------------------------------------------
+void allHandler::start(string name){
+    // checking if the app/video you wanna start exists and set it as active
+    bool notFound = true;
+    for (int i = 0; i < list.size(); i++) {
+        if (name.compare(list[i].name) == 0) {
+            
+            // stop video/app that is currently playing
+            if (list[activeID].type.compare("app") == 0) {
+                // this is an app
+                int myInt; // bleh, ofListener stuff..
+                miniApp->stopMini(myInt);
+            } else if(list[activeID].type.compare("mov") == 0) {
+                // this is a movie
+                //player->stopPlayer();
+            }
+            
+            // set the new activeID
+            setActive(i);
+            notFound = false;
+        }
+    }
+    if (notFound) {
+        printf("allHandler-start: the requested app/movie has not been found\n");
+        return false; // does this work right?
+    }
+    
+    // actually starting something --
+    
+    if (list[activeID].type.compare("app") == 0) {
+        // this is an app
+        miniApp->startMini(list[activeID].name);
+    } else if(list[activeID].type.compare("mov") == 0) {
+        // this is a movie
+        //player->startPlayer(list[activeID].chapterID);
+    }
+    
+}
+
+//--------------------------------------------------------------
+void allHandler::startNext(){
+    
+}
+
+//--------------------------------------------------------------
+void allHandler::startPrev(){
+    
+}
+
+//--------------------------------------------------------------
+void allHandler::pause(){
+    if (list[activeID].type.compare("app") == 0) {
+        // this is an app
+        miniApp->pauseMini();
+    } else if(list[activeID].type.compare("mov") == 0) {
+        // this is a movie
+        //player->pausePlayer();
+    }
+}
+
+//--------------------------------------------------------------
+void allHandler::resume(){
+    if (list[activeID].type.compare("app") == 0) {
+        // this is an app
+        miniApp->playMini();
+    } else if(list[activeID].type.compare("mov") == 0) {
+        // this is a movie
+        //player->playPlayer();
+    }
+}
+
+//--------------------------------------------------------------
+void allHandler::stop(){
+    
+}
+
+//--------------------------------------------------------------
+void allHandler::done(int & i){
+    
+}
+
