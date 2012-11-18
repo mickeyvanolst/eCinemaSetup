@@ -9,21 +9,27 @@
 #include "allHandler.h"
 
 //--------------------------------------------------------------
-allHandler::allHandler(mpeClientTCP *_cli, handleChapters *_rea, miniHandler *_min, customPlayer *_pla){
+allHandler::allHandler(mpeClientTCP *_cli, handleChapters *_rea){
     client  = _cli;
     reader  = _rea;
-    player  = _pla;
-    miniApp = _min;
+    player      = new customPlayer(reader);
+    miniApp     = new miniHandler(client);
 
     activeID = -1; // negative so at least we know something's wrong
 }
 
 //--------------------------------------------------------------
-void allHandler::setup(){
+void allHandler::setup(string appName){
+    
+    // customp player, also needs to know who he is
+    player->setup(appName);
+    
+    // our miniApp handler, this should handle all interactive chapters
+    miniApp->setup(appName);
     
     // adding listeners (still have to add this)
-    //
-    //ofAddListener(miniApp->doneEvent, this, &allHandler::done);
+    ofAddListener(miniApp->doneEvent, this, &allHandler::done);
+    ofAddListener(player->doneEvent, this, &allHandler::done);
 }
 
 //--------------------------------------------------------------

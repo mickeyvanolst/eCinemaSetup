@@ -17,9 +17,9 @@
 
 class allHandler {
 public:
-    allHandler(mpeClientTCP *_cli, handleChapters *_rea, miniHandler *_min, customPlayer *_pla); 
+    allHandler(mpeClientTCP *_cli, handleChapters *_rea); 
     
-    void setup();
+    void setup(string appName);
     void createList();
     void update();
     void draw();
@@ -35,8 +35,12 @@ public:
     
     mpeClientTCP *client;
     handleChapters *reader;
-    customPlayer *player;
+
     miniHandler *miniApp;
+    
+    // our custom videoPlayer, loads all movies and then decides which
+    // to draw and play
+    customPlayer *player;
     
     int activeID;
     

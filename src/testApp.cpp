@@ -4,9 +4,7 @@
 
 testApp::testApp()
 {
-    player      = new customPlayer(&reader);
-    miniApp     = new miniHandler(&client);
-    handler     = new allHandler(&client, &reader, miniApp, player);
+    handler     = new allHandler(&client, &reader);
     gui         = new myGUI(&client, handler);
 }
 
@@ -24,20 +22,16 @@ void testApp::setup(){
     string appNameList[5] = {"left","middle","right","obj 01", "obj 02"};
     appName = appNameList[client.getID()];
     
-    // set the random seed (MPE thing)
-	ofSeedRandom(1);
+    handler->setup(appName);
     
     // GUI give appname and start ofListener for triggering buildGUI
     gui->setup(appName);
     
-    // customp player, also needs to know who he is
-    player->setup(appName);
-    
-    // our miniApp handler, this should handle all interactive chapters
-    miniApp->setup(appName);
-    
 	// start client
     client.start();
+    
+    // set the random seed (MPE thing)
+	ofSeedRandom(1);
     
     // read out the directory and check if all files are correct
     reader.setup(appName);
@@ -56,17 +50,12 @@ void testApp::setup(){
     fpsCounter = 0;
     outputString = "";
     
-    ofAddListener(player->doneEvent, this, &testApp::done);
+    
 }
 
 //--------------------------------------------------------------
 void testApp::update(){
 
-}
-
-//--------------------------------------------------------------
-void testApp::done(int & i){
-    printf("VID IS DONE!\n");
 }
 
 //--------------------------------------------------------------
@@ -115,11 +104,11 @@ void testApp::frameEvent() {
     }
     
     // sending values from player to gui, later change this to variable binding
-    gui->chapCurPercent->setValue(player->chapCurPercent);
-    gui->chapTotalTime->setLabel("TOTAL: " + ofToString(player->chapTotalTime) + " SEC");
-    gui->totalPercent->setValue(player->totalProgress);
-    gui->playBtn->setValue(player->isPlaying);
-    gui->pauseBtn->setValue(!player->isPlaying);    
+    gui->chapCurPercent->setValue(handler->player->chapCurPercent);
+    gui->chapTotalTime->setLabel("TOTAL: " + ofToString(handler->player->chapTotalTime) + " SEC");
+    gui->totalPercent->setValue(handler->player->totalProgress);
+    gui->playBtn->setValue(handler->player->isPlaying);
+    gui->pauseBtn->setValue(!handler->player->isPlaying);
     //gui->outputFrame->setTextString(outputString);
     
     // this for loop sets the buttons true or false each time,
@@ -187,7 +176,7 @@ void testApp::handleMessages(){
         // play a certain item from the allHandler list
         if (splitMsg[0].compare("handlerStart") == 0) {
             printf("play: %s - %s\n",splitMsg[1].c_str(),splitMsg[2].c_str());
-            handler->start(splitMsg[1]);
+            handler->start(splitMsg[1]); 
         }
         
         // turn syphon on or off, second value is the false/true

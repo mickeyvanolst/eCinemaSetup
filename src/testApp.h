@@ -7,8 +7,8 @@
 #include "mpeClientTCP.h"
 #include "ofxSyphon.h"
 #include "chapterHandler.h"
-#include "customPlayer.h"
-#include "miniHandler.h"
+//#include "customPlayer.h"
+//#include "miniHandler.h"
 #include "allHandler.h"
 #include "myGUI.h"
 
@@ -30,8 +30,6 @@ public:
     void windowResized(int w, int h);
     void handleMessages();
     
-    void done(int & i);
-    
     // MPE stuff, need some sort of setup command after first contact
     void frameEvent();
     
@@ -43,12 +41,6 @@ public:
     
     // handling chapters, reading the files and see whats in it
     handleChapters reader;
-    
-    miniHandler *miniApp;
-
-    // our custom videoPlayer, loads all movies and then decides which
-    // to draw and play
-    customPlayer *player;
     
     // allHandler, deals with both apps and video's
     allHandler *handler;

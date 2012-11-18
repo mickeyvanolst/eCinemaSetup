@@ -46,11 +46,10 @@ void customPlayer::update()
     players[activeVid].vid.update();
     players[activeVid].vid.idleMovie();
     
-    
+    // send a message to allHandler the video is done
     if (players[activeVid].vid.getCurrentFrame() == players[activeVid].vid.getTotalNumFrames() && !isDone) {
         int myInt;
         ofNotifyEvent(doneEvent,myInt,this);
-        printf("END OF MOVIE\n");
         isDone = true;
     }
 }

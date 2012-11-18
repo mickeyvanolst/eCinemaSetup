@@ -86,8 +86,8 @@ void miniHandler::stopMini(int & i){
     
     appActive = false;
     
-    //int myInt;
-    //ofNotifyEvent(doneEvent,myInt,this);
+    int myInt;
+    ofNotifyEvent(doneEvent,myInt,this);
 }
 
 //--------------------------------------------------------------
