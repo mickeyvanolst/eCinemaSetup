@@ -43,6 +43,7 @@ public:
     customPlayer *player;
     
     int activeID;
+    bool bPlayAll;
     
     struct TotProg {
         string  name;

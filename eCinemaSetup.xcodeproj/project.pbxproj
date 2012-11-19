@@ -428,6 +428,17 @@
 			name = videoPlayer;
 			sourceTree = "<group>";
 		};
+		67E1F650165A47BA001F5D07 /* allHandler */ = {
+			isa = PBXGroup;
+			children = (
+				67E61DAE1657DAED00765D82 /* allHandler.h */,
+				67E61DAF1657DAF600765D82 /* allHandler.cpp */,
+				67ADB43A164A916600EC4F96 /* videoPlayer */,
+				67AB0FE91652E47F001B449F /* miniApps */,
+			);
+			name = allHandler;
+			sourceTree = "<group>";
+		};
 		67F04758164BE96800F8A48C /* GUI */ = {
 			isa = PBXGroup;
 			children = (
@@ -568,12 +579,9 @@
 				E4B69E1D0A3A1BDC003C02F2 /* main.cpp */,
 				E4B69E1F0A3A1BDC003C02F2 /* testApp.h */,
 				E4B69E1E0A3A1BDC003C02F2 /* testApp.cpp */,
-				67E61DAE1657DAED00765D82 /* allHandler.h */,
-				67E61DAF1657DAF600765D82 /* allHandler.cpp */,
-				67AB0FE91652E47F001B449F /* miniApps */,
+				67E1F650165A47BA001F5D07 /* allHandler */,
 				67728A0616480E7300B6D0DB /* chapterHandler */,
 				67F04758164BE96800F8A48C /* GUI */,
-				67ADB43A164A916600EC4F96 /* videoPlayer */,
 			);
 			path = src;
 			sourceTree = SOURCE_ROOT;

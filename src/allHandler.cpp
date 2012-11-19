@@ -16,6 +16,7 @@ allHandler::allHandler(mpeClientTCP *_cli, handleChapters *_rea){
     miniApp     = new miniHandler(client);
 
     activeID = -1; // negative so at least we know something's wrong
+    bPlayAll = true;
 }
 
 //--------------------------------------------------------------
@@ -145,6 +146,7 @@ void allHandler::start(string name){
 void allHandler::startNext(){
     if (activeID < list.size()-1) {
         start(list[activeID+1].name);
+        printf("startNext: %s\n",list[activeID+1].name.c_str());
     }
 }
 
@@ -185,5 +187,9 @@ void allHandler::stop(){
 //--------------------------------------------------------------
 void allHandler::done(int & i){
     printf("I AM DONE!\n");
+    if (bPlayAll) {
+        client->broadcast("next,1");
+        //startNext();
+    }
 }
 

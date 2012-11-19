@@ -25,13 +25,15 @@ void testMini::setup(){
 //--------------------------------------------------------------
 void testMini::update(){
     durTime = ofGetElapsedTimeMillis() - initTime;
-    // just for now to show the end of an interactive event can be triggered by time
-    if (durTime > 60000) {
-        endOfMini();
-    }
     
     for (int i = 0; i < balls.size(); i++) {
         balls[i]->calc();
+    }
+    
+    // just for now to show the end of an interactive event can be triggered by time
+    // this should be the last thing you do in an update!!!!!!!
+    if (durTime > 10000) {
+        endOfMini();
     }
 }
 

@@ -87,6 +87,16 @@ void myGUI::guiEvent(ofxUIEventArgs &e)
             client->broadcast("prev,1");
         }
         
+        if(name == "PLAY ALL")
+        {
+            ofxUIToggle *button = (ofxUIToggle *) e.widget;
+            if (syphonLaBtn->getValue() == 1) {
+                client->broadcast("playAll,1");
+            } else {
+                client->broadcast("playAll,0");
+            }
+        }
+        
         if(name == "LA SYPHON")
         {
             ofxUIToggle *button = (ofxUIToggle *) e.widget;
@@ -237,14 +247,13 @@ void myGUI::setGUI2()
         listBtn[listBtn.size()-1].btn = (ofxUILabelButton *) gui2->addLabelButton(handler->list[i].name, false, length-xInit);
     }
     
-    
     gui2->addSpacer(length-xInit, 2);
     prevBtn = (ofxUIImageButton *) gui2->addWidgetDown(new ofxUIImageButton(dim*2, dim*2, false, "GUI/prev.png", "PREV BUTTON"));
     pauseBtn = (ofxUIImageButton *) gui2->addWidgetRight(new ofxUIImageButton(dim*2, dim*2, false, "GUI/pause.png", "PAUSE BUTTON"));
     playBtn = (ofxUIImageButton *) gui2->addWidgetRight(new ofxUIImageButton(dim*2, dim*2, false, "GUI/play.png", "PLAY BUTTON"));
     prevBtn = (ofxUIImageButton *) gui2->addWidgetRight(new ofxUIImageButton(dim*2, dim*2, false, "GUI/next.png", "NEXT BUTTON"));
     
-    gui2->addLabelToggle("PLAY ALL", true);
+    playAllBtn = (ofxUIToggle *) gui2->addLabelToggle("PLAY ALL", true);
     
 	ofAddListener(gui2->newGUIEvent,this,&myGUI::guiEvent);
 }

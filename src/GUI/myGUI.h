@@ -70,6 +70,7 @@ public:
     ofxUIButton     *playBtn;
     ofxUIButton     *nextBtn;
 
+    ofxUIToggle     *playAllBtn;
     
     ofxUISlider     *chapCurPercent;
     float           chapCurTime;

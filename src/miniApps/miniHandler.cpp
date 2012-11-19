@@ -34,7 +34,7 @@ void miniHandler::setup(string id){
 void miniHandler::update(){
     // not yet finished here, need to figure out how to do this with several mini apps etc
     if (!pauseApp) {
-        if (myTestMini != NULL && curMiniApp == "01_TestMini") {
+        if (myTestMini != NULL && curMiniApp == "01_TestMini" && appActive) {
             myTestMini->update();
         }
     }
@@ -44,7 +44,7 @@ void miniHandler::update(){
 //--------------------------------------------------------------
 void miniHandler::draw(){
     // not yet finished here, need to figure out how to do this with several mini apps etc
-    if (myTestMini != NULL && curMiniApp == "01_TestMini") {
+    if (myTestMini != NULL && curMiniApp == "01_TestMini" && appActive) {
         myTestMini->draw();
     }
 }
@@ -77,17 +77,15 @@ void miniHandler::startMini(string wichApp){
 void miniHandler::stopMini(int & i){
     // not yet finished here, need to figure out how to do this with several mini apps etc
     printf("mini app said it's time for bed\n");
+    appActive = false;
     
     if (curMiniApp == "01_TestMini" && myTestMini != NULL) {
         delete myTestMini;
         myTestMini = NULL;
         curMiniApp = "";
+        int myInt;
+        ofNotifyEvent(doneEvent,myInt,this);
     }
-    
-    appActive = false;
-    
-    int myInt;
-    ofNotifyEvent(doneEvent,myInt,this);
 }
 
 //--------------------------------------------------------------

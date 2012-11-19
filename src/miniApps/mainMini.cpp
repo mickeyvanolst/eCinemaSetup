@@ -37,4 +37,5 @@ void mainMini::draw(){
 void mainMini::done(){
     int myInt;
     ofNotifyEvent(doneEvent,myInt,this); // trigger listener at miniHandler which will execute stopMini
+    printf("notify miniApp done to miniHandler\n");
 }

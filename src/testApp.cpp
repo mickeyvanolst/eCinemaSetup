@@ -50,7 +50,6 @@ void testApp::setup(){
     fpsCounter = 0;
     outputString = "";
     
-    
 }
 
 //--------------------------------------------------------------
@@ -170,7 +169,7 @@ void testApp::handleMessages(){
         
         // next control
         if (splitMsg[0].compare("next") == 0) {
-            handler->startNext();
+                handler->startNext();
         }
                 
         // play a certain item from the allHandler list
@@ -180,11 +179,25 @@ void testApp::handleMessages(){
         }
         
         // turn syphon on or off, second value is the false/true
+        if (splitMsg[0].compare("playAll") == 0) {
+            if (ofToInt(splitMsg[1]) == 1) {
+                handler->bPlayAll = true;
+                printf("playAll: TRUE\n");
+            } else if(ofToInt(splitMsg[1]) == 0) {
+                handler->bPlayAll = false;
+                printf("playAll: FALSE\n");
+            }
+            gui->playAllBtn->setValue(ofToInt(splitMsg[1]));
+        }
+        
+        // turn syphon on or off, second value is the false/true
         if (splitMsg[0].compare("syphonLa") == 0) {
             if (appName == "left" && ofToInt(splitMsg[1]) == 1) {
                 syphonOut = true;
+                printf("syphonLA: TRUE\n");
             } else if(appName == "left" && ofToInt(splitMsg[1]) == 0) {
                 syphonOut = false;
+                printf("syphonLA: FALSE\n");
             }
             gui->syphonLaBtn->setValue(ofToInt(splitMsg[1]));
         }
@@ -193,8 +206,10 @@ void testApp::handleMessages(){
         if (splitMsg[0].compare("syphonRa") == 0) {
             if (appName == "right" && ofToInt(splitMsg[1]) == 1) {
                 syphonOut = true;
+                printf("syphonRA: TRUE\n");
             } else if(appName == "right" && ofToInt(splitMsg[1]) == 0) {
                 syphonOut = false;
+                printf("syphonRA: FALSE\n");
             }
             gui->syphonRaBtn->setValue(ofToInt(splitMsg[1]));
         }
