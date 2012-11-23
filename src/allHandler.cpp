@@ -146,7 +146,7 @@ void allHandler::start(string name){
 void allHandler::startNext(){
     if (activeID < list.size()-1) {
         start(list[activeID+1].name);
-        printf("startNext: %s\n",list[activeID+1].name.c_str());
+        //printf("startNext: %s\n",list[activeID+1].name.c_str());
     }
 }
 

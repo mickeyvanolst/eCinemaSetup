@@ -50,7 +50,11 @@ void customPlayer::update()
     if (players[activeVid].vid.getCurrentFrame() == players[activeVid].vid.getTotalNumFrames() && !isDone) {
         int myInt;
         ofNotifyEvent(doneEvent,myInt,this);
+        printf("customPlayer - video is done, sending notifyEvent\n");
         isDone = true;
+        pausePlayer();
+    } else if(!isDone) {
+        isDone = false;
     }
 }
 
@@ -121,6 +125,7 @@ void customPlayer::startPlayer(int whichVid)
 {
     stopPlayer();
     isPlaying = true;
+    isDone = false;
     activeVid = whichVid;
     printf("customplayer: play vid nr: %i\n",activeVid);
     players[activeVid].vid.play();

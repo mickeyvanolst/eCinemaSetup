@@ -36,6 +36,8 @@ public:
     string appNameList[5];
     string appName;
     
+    long int nextCounter;
+    
     // was private, now public!
     mpeClientTCP client;
     

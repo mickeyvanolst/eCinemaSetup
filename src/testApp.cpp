@@ -49,6 +49,7 @@ void testApp::setup(){
     firstFrameEvent = true;
     fpsCounter = 0;
     outputString = "";
+    nextCounter = 0;
     
 }
 
@@ -169,7 +170,11 @@ void testApp::handleMessages(){
         
         // next control
         if (splitMsg[0].compare("next") == 0) {
+            if ((ofGetElapsedTimeMillis() - nextCounter ) > 100) {
                 handler->startNext();
+                nextCounter = ofGetElapsedTimeMillis();
+            }
+                
         }
                 
         // play a certain item from the allHandler list
@@ -178,7 +183,7 @@ void testApp::handleMessages(){
             handler->start(splitMsg[1]); 
         }
         
-        // turn syphon on or off, second value is the false/true
+        // turn playAll on or off, second value is the false/true
         if (splitMsg[0].compare("playAll") == 0) {
             if (ofToInt(splitMsg[1]) == 1) {
                 handler->bPlayAll = true;

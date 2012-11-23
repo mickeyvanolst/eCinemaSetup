@@ -44,6 +44,7 @@ public:
     
     // needed for a check if things are send double
     string      prevMsg;
+    bool        prevState;
     long int    prevMsgCounter;
     
     // All needed values

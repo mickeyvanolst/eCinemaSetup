@@ -40,14 +40,36 @@ void myGUI::guiEvent(ofxUIEventArgs &e)
 	int kind = e.widget->getKind();
     int id = e.widget->getID();
     
-    // added a timer so if we get the same command withing 200 millisec we dont use it.
+    // added a timer so if we get the same command within 200 millisec we dont use it.
     if (prevMsg == name && (ofGetElapsedTimeMillis() - prevMsgCounter) > 200) {
         prevMsgCounter = ofGetElapsedTimeMillis();
+        prevMsg = "";
+
+        // need to do this becuaus for some reason buttons tend to send values too vast even if
+        // you use them seconds later..
+        
+        if(name == "PLAY ALL")
+        {
+            ofxUIToggle *button = (ofxUIToggle *) e.widget;
+            playAllBtn->setValue(!playAllBtn->getValue());
+        }
+        
+        if(name == "LA SYPHON")
+        {
+            ofxUIToggle *button = (ofxUIToggle *) e.widget;
+            syphonLaBtn->setValue(!syphonLaBtn->getValue());
+        }
+        
+        if(name == "RA SYPHON")
+        {
+            ofxUIToggle *button = (ofxUIToggle *) e.widget;
+            syphonRaBtn->setValue(!syphonRaBtn->getValue());
+        }
+        
     } else {
         
         cout << "got event from: " << name << endl;
         prevMsg = name;
-        
         
         if(name == "SCAN FOLDER")
         {
@@ -90,7 +112,7 @@ void myGUI::guiEvent(ofxUIEventArgs &e)
         if(name == "PLAY ALL")
         {
             ofxUIToggle *button = (ofxUIToggle *) e.widget;
-            if (syphonLaBtn->getValue() == 1) {
+            if (playAllBtn->getValue() == 1) {
                 client->broadcast("playAll,1");
             } else {
                 client->broadcast("playAll,0");
