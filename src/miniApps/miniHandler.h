@@ -27,6 +27,8 @@ public:
     void killMini();
     string appComesAfter(string prevChapter);
     
+    ofFbo appFbo;
+    
     string appName;
     string curMiniApp;
     bool pauseApp;

@@ -7,8 +7,6 @@
 #include "mpeClientTCP.h"
 #include "ofxSyphon.h"
 #include "chapterHandler.h"
-//#include "customPlayer.h"
-//#include "miniHandler.h"
 #include "allHandler.h"
 #include "myGUI.h"
 
@@ -37,6 +35,8 @@ public:
     string appName;
     
     long int nextCounter;
+    
+    ofFbo appFbo;
     
     // was private, now public!
     mpeClientTCP client;

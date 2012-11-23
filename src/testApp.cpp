@@ -14,7 +14,7 @@ void testApp::setup(){
 	ofSetFrameRate(30);
     ofEnableSmoothing();
     ofEnableAlphaBlending();
-//	ofSetBackgroundAuto(false);
+	ofSetBackgroundAuto(false);
     ofBackground(50, 50, 50);
 
 	client.setup("mpe_settings.xml", this);
@@ -51,11 +51,12 @@ void testApp::setup(){
     outputString = "";
     nextCounter = 0;
     
+    appFbo.allocate(client.getLWidth(), client.getLHeight(),GL_RGB);
 }
 
 //--------------------------------------------------------------
 void testApp::update(){
-
+    
 }
 
 //--------------------------------------------------------------
@@ -88,11 +89,30 @@ void testApp::frameEvent() {
     }
     
     // handle video/app playing stuff
+        
+    if (syphonOut && handler->list[handler->activeID].type.compare("app") == 0) {
+        ofClear(255,255,255, 0);
+        appFbo.begin();
+    }
+        
     handler->draw();
+
+    if (syphonOut && handler->list[handler->activeID].type.compare("app") == 0) {
+        appFbo.end();
+        ofSetColor(255, 255, 255);
+        appFbo.draw(0,0);
+    }
     
     // send out a syphon feed, should only be possible for left and right app
     if (syphonOut) {
-        syphonServer.publishScreen();
+        //syphonServer.publishScreen();
+        
+        if (handler->list[handler->activeID].type.compare("mov") == 0) {
+            syphonServer.publishTexture(&handler->player->players[handler->player->activeVid].vid.getTextureReference());
+        } else if(handler->list[handler->activeID].type.compare("app") == 0) {
+            syphonServer.publishTexture(&appFbo.getTextureReference());
+        }
+        
     }
     
     handleMessages(); // handle all messages from the MPE client
