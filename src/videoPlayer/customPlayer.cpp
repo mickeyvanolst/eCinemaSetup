@@ -45,16 +45,15 @@ void customPlayer::update()
 {
     players[activeVid].vid.update();
     players[activeVid].vid.idleMovie();
-    
     // send a message to allHandler the video is done
-    if (players[activeVid].vid.getCurrentFrame() == players[activeVid].vid.getTotalNumFrames() && !isDone) {
+    
+    
+    if (players[activeVid].vid.getIsMovieDone() && !isDone) {
         int myInt;
         ofNotifyEvent(doneEvent,myInt,this);
         printf("customPlayer - video is done, sending notifyEvent\n");
         isDone = true;
-        pausePlayer();
-    } else if(!isDone) {
-        isDone = false;
+        stopPlayer();
     }
 }
 
@@ -128,6 +127,7 @@ void customPlayer::startPlayer(int whichVid)
     isDone = false;
     activeVid = whichVid;
     printf("customplayer: play vid nr: %i\n",activeVid);
+    //players[activeVid].vid.setFrame(1);
     players[activeVid].vid.play();
     // pause the one that might be playing and play the new one
     
@@ -157,7 +157,9 @@ void customPlayer::stopPlayer()
     if (isPlaying) {
         players[activeVid].vid.setPaused(true);
         players[activeVid].vid.setPosition(0);
+        players[activeVid].vid.stop();
         isPlaying = false;
+        printf("customPlayer - stopPlayer\n");
     }
 }
 

@@ -49,9 +49,10 @@ public:
     
     ofxSyphonServer syphonServer;
     bool syphonOut;
+    bool drawScreen;
     
     long int fpsCounter;
-
+    
     bool firstFrameEvent;
     
     // GUI stuff

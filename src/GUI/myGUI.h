@@ -49,11 +49,11 @@ public:
     
     // All needed values
     ofxUISlider     *totalPercent;
-    bool            appLaCon;
-    bool            appMaCon;
-    bool            appRaCon;
-    bool            appObj1Con;
-    bool            appObj2Con;
+    
+    ofxUIToggle     *drawLaBtn;
+    ofxUIToggle     *drawRaBtn;
+    
+    ofxUIToggle     *middleFsBtn;
     
     ofxUIToggle     *syphonLaBtn;
     ofxUIToggle     *syphonRaBtn;

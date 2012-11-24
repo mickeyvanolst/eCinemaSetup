@@ -54,6 +54,24 @@ void myGUI::guiEvent(ofxUIEventArgs &e)
             playAllBtn->setValue(!playAllBtn->getValue());
         }
         
+        if(name == "LA DRAW")
+        {
+            ofxUIToggle *button = (ofxUIToggle *) e.widget;
+            drawLaBtn->setValue(!drawLaBtn->getValue());
+        }
+        
+        if(name == "RA DRAW")
+        {
+            ofxUIToggle *button = (ofxUIToggle *) e.widget;
+            drawLaBtn->setValue(!drawRaBtn->getValue());
+        }
+        
+        if(name == "FULLSCREEN")
+        {
+            ofxUIToggle *button = (ofxUIToggle *) e.widget;
+            middleFsBtn->setValue(!middleFsBtn->getValue());
+        }
+        
         if(name == "LA SYPHON")
         {
             ofxUIToggle *button = (ofxUIToggle *) e.widget;
@@ -116,6 +134,36 @@ void myGUI::guiEvent(ofxUIEventArgs &e)
                 client->broadcast("playAll,1");
             } else {
                 client->broadcast("playAll,0");
+            }
+        }
+        
+        if(name == "LA DRAW")
+        {
+            ofxUIToggle *button = (ofxUIToggle *) e.widget;
+            if (drawLaBtn->getValue() == 1) {
+                client->broadcast("drawLa,1");
+            } else {
+                client->broadcast("drawLa,0");
+            }
+        }
+        
+        if(name == "RA DRAW")
+        {
+            ofxUIToggle *button = (ofxUIToggle *) e.widget;
+            if (drawRaBtn->getValue() == 1) {
+                client->broadcast("drawRa,1");
+            } else {
+                client->broadcast("drawRa,0");
+            }
+        }
+        
+        if(name == "FULLSCREEN")
+        {
+            ofxUIToggle *button = (ofxUIToggle *) e.widget;
+            if (middleFsBtn->getValue() == 1) {
+                client->broadcast("middleFs,1");
+            } else {
+                client->broadcast("middleFs,0");
             }
         }
         
@@ -213,12 +261,13 @@ void myGUI::setGUI1()
 	gui1->addWidgetDown(new ofxUILabel(appName, OFX_UI_FONT_LARGE));
     
     gui1->addSpacer(length-xInit, 2);
-	gui1->addWidgetDown(new ofxUILabel("CONNECTIE ALLE APPS", OFX_UI_FONT_MEDIUM));
-    gui1->addWidgetDown(new ofxUIButton("LA", false, dim, dim));
-    gui1->addWidgetRight(new ofxUIButton("MA", false, dim, dim));
-    gui1->addWidgetRight(new ofxUIButton("RA", false, dim, dim));
-    gui1->addWidgetDown(new ofxUIButton("01", false, dim, dim));
-    gui1->addWidgetRight(new ofxUIButton("02", false, dim, dim));
+    gui1->addWidgetDown(new ofxUILabel("DRAW SCREEN", OFX_UI_FONT_MEDIUM));
+    drawLaBtn = (ofxUIToggle *) gui1->addWidgetDown(new ofxUIToggle("LA DRAW", true, dim, dim));
+    drawRaBtn = (ofxUIToggle *) gui1->addWidgetRight(new ofxUIToggle("RA DRAW", true, dim, dim));
+
+    gui1->addSpacer(length-xInit, 2);
+    gui1->addWidgetDown(new ofxUILabel("MIDDLE FULLSCREEN", OFX_UI_FONT_MEDIUM));
+    middleFsBtn = (ofxUIToggle *) gui1->addWidgetDown(new ofxUIToggle("FULLSCREEN", false, dim, dim));
     
     gui1->addSpacer(length-xInit, 2);
 	gui1->addWidgetDown(new ofxUILabel("SYPHON OUTPUT", OFX_UI_FONT_MEDIUM));
