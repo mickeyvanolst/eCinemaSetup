@@ -44,7 +44,7 @@ void customPlayer::setup(string ID)
 void customPlayer::update()
 {
     players[activeVid].vid.update();
-    players[activeVid].vid.idleMovie();
+    //players[activeVid].vid.idleMovie(); - deprecated
     // send a message to allHandler the video is done
     
     

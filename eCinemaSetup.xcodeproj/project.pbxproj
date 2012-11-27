@@ -100,6 +100,9 @@
 		479479a0cdc85cf6c47bdf586a186433 /* miniHandler.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = miniHandler.h; path = src/miniApps/miniHandler.h; sourceTree = SOURCE_ROOT; };
 		4f999d580406446a250eb854cb3085f8 /* 01_TestMini.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = 01_TestMini.h; path = src/miniApps/apps/01_TestMini.h; sourceTree = SOURCE_ROOT; };
 		4f9c03b22fac464ebe9d04dbc7011490 /* 01_TestMini.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = 01_TestMini.cpp; path = src/miniApps/apps/01_TestMini.cpp; sourceTree = SOURCE_ROOT; };
+		67166B9F166583BF00C9537B /* Instructions.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Instructions.txt; sourceTree = "<group>"; };
+		67166BA0166583BF00C9537B /* install.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = install.xml; sourceTree = "<group>"; };
+		67166BA2166583BF00C9537B /* ofxDirList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxDirList.h; sourceTree = "<group>"; };
 		678D1A3D1665679800757A80 /* mpeClientTCP.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mpeClientTCP.cpp; sourceTree = "<group>"; };
 		678D1A3E1665679800757A80 /* mpeClientTCP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mpeClientTCP.h; sourceTree = "<group>"; };
 		678D1A3F1665679800757A80 /* ofxMostPixelsEver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxMostPixelsEver.h; sourceTree = "<group>"; };
@@ -260,6 +263,33 @@
 				479479a0cdc85cf6c47bdf586a186433 /* miniHandler.h */,
 			);
 			name = miniApps;
+			sourceTree = "<group>";
+		};
+		67166B9D166583BF00C9537B /* ofxDirList */ = {
+			isa = PBXGroup;
+			children = (
+				67166B9E166583BF00C9537B /* doc */,
+				67166BA0166583BF00C9537B /* install.xml */,
+				67166BA1166583BF00C9537B /* src */,
+			);
+			name = ofxDirList;
+			path = ../../../addons/ofxDirList;
+			sourceTree = "<group>";
+		};
+		67166B9E166583BF00C9537B /* doc */ = {
+			isa = PBXGroup;
+			children = (
+				67166B9F166583BF00C9537B /* Instructions.txt */,
+			);
+			path = doc;
+			sourceTree = "<group>";
+		};
+		67166BA1166583BF00C9537B /* src */ = {
+			isa = PBXGroup;
+			children = (
+				67166BA2166583BF00C9537B /* ofxDirList.h */,
+			);
+			path = src;
 			sourceTree = "<group>";
 		};
 		678D1A3B1665679800757A80 /* ofxMostPixelsEver */ = {
@@ -488,6 +518,7 @@
 		BB4B014C10F69532006C3DED /* addons */ = {
 			isa = PBXGroup;
 			children = (
+				67166B9D166583BF00C9537B /* ofxDirList */,
 				678D1CC91665681400757A80 /* ofxNetwork */,
 				678D1CBC1665680300757A80 /* ofxXmlSettings */,
 				678D1A73166567C600757A80 /* ofxUI */,
