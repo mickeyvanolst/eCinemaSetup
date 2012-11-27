@@ -19,6 +19,7 @@
 *.rar
 *.tar
 *.zip
+*.app
 
 # Logs and databases #
 ######################
@@ -43,3 +44,6 @@ Thumbs.db
 .mov
 .MOV
 .mp4
+*.mov
+*.MOV
+*.mp4
