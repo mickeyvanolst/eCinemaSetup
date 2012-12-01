@@ -27,6 +27,7 @@
 		6767B958166A02D1006E8130 /* ofxOscMessage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6767B948166A02D1006E8130 /* ofxOscMessage.cpp */; };
 		6767B959166A02D1006E8130 /* ofxOscReceiver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6767B94A166A02D1006E8130 /* ofxOscReceiver.cpp */; };
 		6767B95A166A02D1006E8130 /* ofxOscSender.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6767B94C166A02D1006E8130 /* ofxOscSender.cpp */; };
+		6767B9B1166A4F7C006E8130 /* plaats_origine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6767B9B0166A4F7C006E8130 /* plaats_origine.cpp */; };
 		678D1A401665679800757A80 /* mpeClientTCP.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 678D1A3D1665679800757A80 /* mpeClientTCP.cpp */; };
 		678D1CC51665680300757A80 /* tinyxml.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 678D1CBE1665680300757A80 /* tinyxml.cpp */; };
 		678D1CC61665680300757A80 /* tinyxmlerror.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 678D1CC01665680300757A80 /* tinyxmlerror.cpp */; };
@@ -161,6 +162,8 @@
 		6767B94B166A02D1006E8130 /* ofxOscReceiver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxOscReceiver.h; sourceTree = "<group>"; };
 		6767B94C166A02D1006E8130 /* ofxOscSender.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxOscSender.cpp; sourceTree = "<group>"; };
 		6767B94D166A02D1006E8130 /* ofxOscSender.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxOscSender.h; sourceTree = "<group>"; };
+		6767B9AF166A4F68006E8130 /* plaats_origine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = plaats_origine.h; path = miniApps/apps/plaats_origine.h; sourceTree = "<group>"; };
+		6767B9B0166A4F7C006E8130 /* plaats_origine.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = plaats_origine.cpp; path = miniApps/apps/plaats_origine.cpp; sourceTree = "<group>"; };
 		678D1A3D1665679800757A80 /* mpeClientTCP.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mpeClientTCP.cpp; sourceTree = "<group>"; };
 		678D1A3E1665679800757A80 /* mpeClientTCP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mpeClientTCP.h; sourceTree = "<group>"; };
 		678D1A3F1665679800757A80 /* ofxMostPixelsEver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxMostPixelsEver.h; sourceTree = "<group>"; };
@@ -290,6 +293,8 @@
 				4f9c03b22fac464ebe9d04dbc7011490 /* 01_TestMini.cpp */,
 				4f999d580406446a250eb854cb3085f8 /* 01_TestMini.h */,
 				b0d39a78e7b17a13163d277bb782b24b /* Ball.h */,
+				6767B9AF166A4F68006E8130 /* plaats_origine.h */,
+				6767B9B0166A4F7C006E8130 /* plaats_origine.cpp */,
 			);
 			name = apps;
 			sourceTree = "<group>";
@@ -306,11 +311,11 @@
 		525b55d492f76f3cb735402fd8efe249 /* miniApps */ = {
 			isa = PBXGroup;
 			children = (
-				07ff7d44f0314ecd99e40c588dcfeab9 /* apps */,
-				45ec56d68ee7d214e37e6c1c874b0a56 /* mainMini.cpp */,
-				2b1be93adc60a8cbf4d164369d3173a7 /* mainMini.h */,
 				0f4174da8d9adf73aa2b0fe20950b3de /* miniHandler.cpp */,
 				479479a0cdc85cf6c47bdf586a186433 /* miniHandler.h */,
+				45ec56d68ee7d214e37e6c1c874b0a56 /* mainMini.cpp */,
+				2b1be93adc60a8cbf4d164369d3173a7 /* mainMini.h */,
+				07ff7d44f0314ecd99e40c588dcfeab9 /* apps */,
 			);
 			name = miniApps;
 			sourceTree = "<group>";
@@ -891,6 +896,7 @@
 				6767B958166A02D1006E8130 /* ofxOscMessage.cpp in Sources */,
 				6767B959166A02D1006E8130 /* ofxOscReceiver.cpp in Sources */,
 				6767B95A166A02D1006E8130 /* ofxOscSender.cpp in Sources */,
+				6767B9B1166A4F7C006E8130 /* plaats_origine.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -55,7 +55,7 @@ public:
     vector<Chapters>    chapters;
     
     // need to load movies to get some actual data on them
-    ofVideoPlayer*  tempMov;
+    ofVideoPlayer  *tempMov;
     
     // xml stuff
     ofxXmlSettings XML;

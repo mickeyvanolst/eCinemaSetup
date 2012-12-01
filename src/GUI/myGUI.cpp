@@ -31,8 +31,8 @@ void myGUI::setup(string appID)
     prevMsg = "";
     prevMsgCounter = 0;
     
-    tv1rotVal = 50;
-    tv2rotVal = 50;
+    tv1rotVal = 0;
+    tv2rotVal = 0;
 }
 
 //--------------------------------------------------------------
@@ -389,8 +389,8 @@ void myGUI::setGUI3()
     
     gui3->addSpacer(length-xInit, 2);
     gui3->addWidgetDown(new ofxUILabel("INTERACTIVE OBJECTS", OFX_UI_FONT_MEDIUM));
-    tv1rot = (ofxUIRotarySlider *) gui3->addWidgetDown(new ofxUIRotarySlider(80, 0.0, 100.0, tv1rotVal, "TV_1_ROT"));
-    tv2rot = (ofxUIRotarySlider *) gui3->addWidgetRight(new ofxUIRotarySlider(80, 0.0, 100.0, tv2rotVal, "TV_2_ROT"));
+    tv1rot = (ofxUIRotarySlider *) gui3->addWidgetDown(new ofxUIRotarySlider(80, 0.0, 360.0, tv1rotVal, "TV_1_ROT"));
+    tv2rot = (ofxUIRotarySlider *) gui3->addWidgetRight(new ofxUIRotarySlider(80, 0.0, 360.0, tv2rotVal, "TV_2_ROT"));
     
     gui3->addSpacer(length-xInit, 2);
     gui3->addLabelButton("SCAN FOLDER", false, length-xInit);

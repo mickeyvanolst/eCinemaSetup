@@ -13,6 +13,7 @@
 #include "mainMini.h" // our mini app base app, all mini apps will derive from this one
 
 #include "01_TestMini.h"
+#include "plaats_origine.h"
 
 class miniHandler {
 public:
@@ -40,7 +41,8 @@ public:
     ofEvent<int>        doneEvent;
     
     // ----- List of mini Apps -----
-    testMini *myTestMini; // 01_TestMini - after 02_Rise of the Guardians
+    testMini        *myTestMini; // after 02_Rise of the Guardians
+    plaats_origine  *myPlaats_origine; // after 03_Plaats en origine
     
 private:
 };

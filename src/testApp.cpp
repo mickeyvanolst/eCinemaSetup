@@ -37,6 +37,7 @@ void testApp::setup(){
     reader.setup(appName);
     reader.readDir();
     
+    
     receiver.setup(8000);
     
     handler->createList(); // setting up our total list of apps and movies
@@ -339,31 +340,44 @@ void testApp::handleMessages(){
             if (splitMsg[0].compare("tv1rot") == 0) {
                 float incoming = ofToFloat(splitMsg[1]);
                 if (incoming == 1.0) {
-                    if (gui->tv1rotVal > 99) {
+                    if (gui->tv1rotVal > 359) {
                         gui->tv1rotVal = 0;
                     } else {
                         gui->tv1rotVal += 1;
                     }
                 } else if(incoming == 0) {
                     if (gui->tv1rotVal < 1) {
-                        gui->tv1rotVal == 99;
+                        gui->tv1rotVal == 359;
                     } else {
                         gui->tv1rotVal -= 1;
                     }
+                } else {
+                    gui -> tv1rotVal = incoming;
                 }
                 gui->tv1rot->setValue(gui->tv1rotVal);
+                handler->miniApp->main->tv1pos = gui->tv1rotVal;
             }
             
             // set rotate val of the TV 2 screen
             if (splitMsg[0].compare("tv2rot") == 0) {
                 float incoming = ofToFloat(splitMsg[1]);
                 if (incoming == 1.0) {
-                    gui->tv2rotVal += 1;
-                    gui->tv2rot->setValue(gui->tv2rotVal);
+                    if (gui->tv2rotVal > 359) {
+                        gui->tv2rotVal = 0;
+                    } else {
+                        gui->tv2rotVal += 1;
+                    }
                 } else if(incoming == 0) {
-                    gui->tv2rotVal -= 1;
-                    gui->tv2rot->setValue(gui->tv2rotVal);
+                    if (gui->tv2rotVal < 1) {
+                        gui->tv2rotVal == 359;
+                    } else {
+                        gui->tv2rotVal -= 1;
+                    }
+                } else {
+                    gui -> tv2rotVal = incoming;
                 }
+                gui->tv2rot->setValue(gui->tv2rotVal);
+                handler->miniApp->main->tv2pos = gui->tv2rotVal;
             }
             
             // turn syphon on or off, second value is the false/true
