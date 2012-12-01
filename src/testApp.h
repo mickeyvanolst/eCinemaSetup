@@ -8,6 +8,7 @@
 #include "ofxSyphon.h"
 #include "chapterHandler.h"
 #include "allHandler.h"
+#include "ofxOsc.h"
 #include "myGUI.h"
 
 
@@ -35,6 +36,9 @@ public:
     string appName;
     
     long int nextCounter;
+    
+    // needed for touch osc to simulate our interactive objects
+    ofxOscReceiver receiver;
     
     ofFbo appFbo;
     

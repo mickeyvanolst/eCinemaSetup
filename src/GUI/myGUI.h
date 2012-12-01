@@ -54,6 +54,8 @@ public:
     ofxUIToggle     *drawRaBtn;
     
     ofxUIToggle     *middleFsBtn;
+    ofxUIToggle     *tv1FsBtn;
+    ofxUIToggle     *tv2FsBtn;
     
     ofxUIToggle     *syphonLaBtn;
     ofxUIToggle     *syphonRaBtn;
@@ -73,6 +75,12 @@ public:
 
     ofxUIToggle     *playAllBtn;
     
+    ofxUIRotarySlider   *tv1rot;
+    ofxUIRotarySlider   *tv2rot;
+    
+    float tv1rotVal;
+    float tv2rotVal;
+    
     ofxUISlider     *chapCurPercent;
     float           chapCurTime;
     ofxUILabel      *chapTotalTime;
@@ -84,8 +92,6 @@ public:
     ofxUISlider     *fps02Slider;
     
     ofxUITextArea   *outputFrame;
-    
-    // obj simulator still to be made
     
     // interview syncer still to be made
     

@@ -31,6 +31,8 @@ void myGUI::setup(string appID)
     prevMsg = "";
     prevMsgCounter = 0;
     
+    tv1rotVal = 50;
+    tv2rotVal = 50;
 }
 
 //--------------------------------------------------------------
@@ -45,7 +47,7 @@ void myGUI::guiEvent(ofxUIEventArgs &e)
         prevMsgCounter = ofGetElapsedTimeMillis();
         prevMsg = "";
 
-        // need to do this becuaus for some reason buttons tend to send values too vast even if
+        // need to do this becuause for some reason buttons tend to send values too fast even if
         // you use them seconds later..
         
         if(name == "PLAY ALL")
@@ -66,10 +68,22 @@ void myGUI::guiEvent(ofxUIEventArgs &e)
             drawLaBtn->setValue(!drawRaBtn->getValue());
         }
         
-        if(name == "FULLSCREEN")
+        if(name == "MIDDLE FS")
         {
             ofxUIToggle *button = (ofxUIToggle *) e.widget;
             middleFsBtn->setValue(!middleFsBtn->getValue());
+        }
+        
+        if(name == "TV 1 FS")
+        {
+            ofxUIToggle *button = (ofxUIToggle *) e.widget;
+            tv1FsBtn->setValue(!tv1FsBtn->getValue());
+        }
+        
+        if(name == "TV 2 FS")
+        {
+            ofxUIToggle *button = (ofxUIToggle *) e.widget;
+            tv2FsBtn->setValue(!tv2FsBtn->getValue());
         }
         
         if(name == "LA SYPHON")
@@ -127,6 +141,16 @@ void myGUI::guiEvent(ofxUIEventArgs &e)
             client->broadcast("prev,1");
         }
         
+        if (name == "TV_1_ROT") {
+            ofxUIRotarySlider *button = (ofxUIRotarySlider *) e.widget;
+            client->broadcast("tv1rot," + ofToString(tv1rot->getValue()));
+        }
+        
+        if (name == "TV_2_ROT") {
+            ofxUIRotarySlider *button = (ofxUIRotarySlider *) e.widget;
+            client->broadcast("tv2rot," + ofToString(tv2rot->getValue()));
+        }
+        
         if(name == "PLAY ALL")
         {
             ofxUIToggle *button = (ofxUIToggle *) e.widget;
@@ -157,13 +181,33 @@ void myGUI::guiEvent(ofxUIEventArgs &e)
             }
         }
         
-        if(name == "FULLSCREEN")
+        if(name == "MIDDLE FS")
         {
             ofxUIToggle *button = (ofxUIToggle *) e.widget;
             if (middleFsBtn->getValue() == 1) {
                 client->broadcast("middleFs,1");
             } else {
                 client->broadcast("middleFs,0");
+            }
+        }
+        
+        if(name == "TV 1 FS")
+        {
+            ofxUIToggle *button = (ofxUIToggle *) e.widget;
+            if (tv1FsBtn->getValue() == 1) {
+                client->broadcast("tv1Fs,1");
+            } else {
+                client->broadcast("tv1Fs,0");
+            }
+        }
+        
+        if(name == "TV 2 FS")
+        {
+            ofxUIToggle *button = (ofxUIToggle *) e.widget;
+            if (tv2FsBtn->getValue() == 1) {
+                client->broadcast("tv1Fs,1");
+            } else {
+                client->broadcast("tv2Fs,0");
             }
         }
         
@@ -266,8 +310,10 @@ void myGUI::setGUI1()
     drawRaBtn = (ofxUIToggle *) gui1->addWidgetRight(new ofxUIToggle("RA DRAW", true, dim, dim));
 
     gui1->addSpacer(length-xInit, 2);
-    gui1->addWidgetDown(new ofxUILabel("MIDDLE FULLSCREEN", OFX_UI_FONT_MEDIUM));
-    middleFsBtn = (ofxUIToggle *) gui1->addWidgetDown(new ofxUIToggle("FULLSCREEN", false, dim, dim));
+    gui1->addWidgetDown(new ofxUILabel("FULLSCREEN", OFX_UI_FONT_MEDIUM));
+    middleFsBtn = (ofxUIToggle *) gui1->addWidgetDown(new ofxUIToggle("MIDDLE FS", false, dim, dim));
+    tv1FsBtn = (ofxUIToggle *) gui1->addWidgetDown(new ofxUIToggle("TV 1 FS", false, dim, dim));
+    tv2FsBtn = (ofxUIToggle *) gui1->addWidgetDown(new ofxUIToggle("TV 2 FS", false, dim, dim));
     
     gui1->addSpacer(length-xInit, 2);
 	gui1->addWidgetDown(new ofxUILabel("SYPHON OUTPUT", OFX_UI_FONT_MEDIUM));
@@ -343,7 +389,8 @@ void myGUI::setGUI3()
     
     gui3->addSpacer(length-xInit, 2);
     gui3->addWidgetDown(new ofxUILabel("INTERACTIVE OBJECTS", OFX_UI_FONT_MEDIUM));
-    gui3->addLabelButton("SHOW SIMULATION", false, length-xInit);
+    tv1rot = (ofxUIRotarySlider *) gui3->addWidgetDown(new ofxUIRotarySlider(80, 0.0, 100.0, tv1rotVal, "TV_1_ROT"));
+    tv2rot = (ofxUIRotarySlider *) gui3->addWidgetRight(new ofxUIRotarySlider(80, 0.0, 100.0, tv2rotVal, "TV_2_ROT"));
     
     gui3->addSpacer(length-xInit, 2);
     gui3->addLabelButton("SCAN FOLDER", false, length-xInit);

@@ -22,6 +22,8 @@ allHandler::allHandler(mpeClientTCP *_cli, handleChapters *_rea){
 //--------------------------------------------------------------
 void allHandler::setup(string appName){
     
+    appName = appName;
+    
     // customp player, also needs to know who he is
     player->setup(appName);
     
@@ -59,9 +61,13 @@ void allHandler::createList(){
         printf("[%i] %s - %s\n", i,list[i].name.c_str(), list[i].type.c_str());
     }
     
-    // init first item, otherwise some classes won't be happy..
-    start(list[0].name);
-    pause();
+    if (appName != "TV_1" && appName != "TV_2") {
+        // init first item, otherwise some classes won't be happy..
+        start(list[0].name);
+        pause();
+    }
+
+    
     
     int myInt;
     ofNotifyEvent(buildGUIEvent,myInt,this);

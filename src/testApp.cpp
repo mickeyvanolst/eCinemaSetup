@@ -19,7 +19,7 @@ void testApp::setup(){
     
 	client.setup("mpe_settings.xml", this);
     
-    string appNameList[5] = {"left","middle","right","obj_01", "obj_02"};
+    string appNameList[5] = {"left","middle","right","TV_1", "TV_2"}; // middle replaced by TV_1 for testing
     appName = appNameList[client.getID()];
     
     handler->setup(appName);
@@ -36,6 +36,8 @@ void testApp::setup(){
     // read out the directory and check if all files are correct
     reader.setup(appName);
     reader.readDir();
+    
+    receiver.setup(8000);
     
     handler->createList(); // setting up our total list of apps and movies
     
@@ -127,7 +129,49 @@ void testApp::frameEvent() {
         ofDrawBitmapString("app: " + appName + "\nSyphon: " + ofToString(syphonOut), 20,20);
     }
     
-    
+    // check for waiting OSC messages
+	while(receiver.hasWaitingMessages()){
+		// get the next message
+		ofxOscMessage m;
+		receiver.getNextMessage(&m);
+        
+		// check for mouse moved message
+		if(m.getAddress() == "/1/encoder1"){
+            client.broadcast("tv1rot," + ofToString(m.getArgAsFloat(0)));
+		}
+		// check for mouse button message
+		else if(m.getAddress() == "/1/encoder2"){
+            client.broadcast("tv2rot," + ofToString(m.getArgAsFloat(0)));
+		}
+		else{
+			// unrecognized message: display on the bottom of the screen
+			string msg_string;
+			msg_string = m.getAddress();
+			msg_string += ": ";
+			for(int i = 0; i < m.getNumArgs(); i++){
+				// get the argument type
+				msg_string += m.getArgTypeName(i);
+				msg_string += ":";
+				// display the argument - make sure we get the right type
+				if(m.getArgType(i) == OFXOSC_TYPE_INT32){
+					msg_string += ofToString(m.getArgAsInt32(i));
+				}
+				else if(m.getArgType(i) == OFXOSC_TYPE_FLOAT){
+					msg_string += ofToString(m.getArgAsFloat(i));
+				}
+				else if(m.getArgType(i) == OFXOSC_TYPE_STRING){
+					msg_string += m.getArgAsString(i);
+				}
+				else{
+					msg_string += "unknown";
+				}
+			}
+            printf("OSC msg: %s\n", msg_string.c_str());
+            msg_string = "";
+		}
+        
+	}
+
     handleMessages(); // handle all messages from the MPE client
     
     // sending FPS value over the network to all cients every 200 milisec
@@ -265,6 +309,61 @@ void testApp::handleMessages(){
                     printf("middleFs: FALSE\n");
                 }
                 gui->middleFsBtn->setValue(ofToInt(splitMsg[1]));
+            }
+            
+            // toggle fullscreen of the TV 1 screen
+            if (splitMsg[0].compare("tv1Fs") == 0) {
+                if (appName == "TV_1" && ofToInt(splitMsg[1]) == 1) {
+                    ofToggleFullscreen();
+                    printf("tv1Fs: TRUE\n");
+                } else if(appName == "TV_1" && ofToInt(splitMsg[1]) == 0) {
+                    ofToggleFullscreen();
+                    printf("tv1Fs: FALSE\n");
+                }
+                gui->tv1FsBtn->setValue(ofToInt(splitMsg[1]));
+            }
+            
+            // toggle fullscreen of the TV 2 screen
+            if (splitMsg[0].compare("tv2Fs") == 0) {
+                if (appName == "TV_2" && ofToInt(splitMsg[1]) == 1) {
+                    ofToggleFullscreen();
+                    printf("tv2Fs: TRUE\n");
+                } else if(appName == "TV_2" && ofToInt(splitMsg[1]) == 0) {
+                    ofToggleFullscreen();
+                    printf("tv2Fs: FALSE\n");
+                }
+                gui->tv2FsBtn->setValue(ofToInt(splitMsg[1]));
+            }
+            
+            // set rotate val of the TV 1 screen
+            if (splitMsg[0].compare("tv1rot") == 0) {
+                float incoming = ofToFloat(splitMsg[1]);
+                if (incoming == 1.0) {
+                    if (gui->tv1rotVal > 99) {
+                        gui->tv1rotVal = 0;
+                    } else {
+                        gui->tv1rotVal += 1;
+                    }
+                } else if(incoming == 0) {
+                    if (gui->tv1rotVal < 1) {
+                        gui->tv1rotVal == 99;
+                    } else {
+                        gui->tv1rotVal -= 1;
+                    }
+                }
+                gui->tv1rot->setValue(gui->tv1rotVal);
+            }
+            
+            // set rotate val of the TV 2 screen
+            if (splitMsg[0].compare("tv2rot") == 0) {
+                float incoming = ofToFloat(splitMsg[1]);
+                if (incoming == 1.0) {
+                    gui->tv2rotVal += 1;
+                    gui->tv2rot->setValue(gui->tv2rotVal);
+                } else if(incoming == 0) {
+                    gui->tv2rotVal -= 1;
+                    gui->tv2rot->setValue(gui->tv2rotVal);
+                }
             }
             
             // turn syphon on or off, second value is the false/true

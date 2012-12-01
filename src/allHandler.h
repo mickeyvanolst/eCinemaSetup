@@ -33,6 +33,8 @@ public:
     void stop();
     void done(int & i);
     
+    string appName;
+    
     mpeClientTCP *client;
     handleChapters *reader;
 
