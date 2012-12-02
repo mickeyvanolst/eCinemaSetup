@@ -80,6 +80,8 @@ public:
     
     float tv1rotVal;
     float tv2rotVal;
+    float tv1rotTotVal;
+    float tv2rotTotVal;
     
     ofxUISlider     *chapCurPercent;
     float           chapCurTime;

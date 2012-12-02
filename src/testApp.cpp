@@ -382,61 +382,103 @@ void testApp::handleMessages(){
                 if (incoming == 1.0) {
                     if (gui->tv1rotVal > 359) {
                         gui->tv1rotVal = 0;
+                        //gui->tv1rotTotVal += 360;
                     } else {
                         gui->tv1rotVal += 3;
                     }
+                    gui->tv1rotTotVal += 3;
                 } else if(incoming == 0) {
                     if (gui->tv1rotVal < 1) {
                         gui->tv1rotVal = 359;
+                        //gui->tv1rotTotVal -= 360;
                     } else {
                         gui->tv1rotVal -= 3;
                     }
+                    gui->tv1rotTotVal -= 3;
                 } else {
                     gui -> tv1rotVal = incoming;
                 }
                 gui->tv1rot->setValue(gui->tv1rotVal);
                 handler->miniApp->main->tv1pos = gui->tv1rotVal;
+                handler->miniApp->main->totalTv1pos = gui->tv1rotTotVal;
             }
             
             // set rotate (OSC) val of the TV 2 screen
             if (splitMsg[0].compare("tv2rotOSC") == 0) {
                 float incoming = ofToFloat(splitMsg[1]);
+                
                 if (incoming == 1.0) {
                     if (gui->tv2rotVal > 359) {
                         gui->tv2rotVal = 0;
+                        //gui->tv2rotTotVal += 360;
                     } else {
                         gui->tv2rotVal += 3;
                     }
+                    gui->tv2rotTotVal += 3;
                 } else if(incoming == 0) {
                     if (gui->tv2rotVal < 1) {
                         gui->tv2rotVal = 359;
+                        //gui->tv2rotTotVal -= 360;
                     } else {
                         gui->tv2rotVal -= 3;
                     }
+                    gui->tv2rotTotVal -= 3;
                 } else {
                     gui -> tv2rotVal = incoming;
                 }
+
+                
                 gui->tv2rot->setValue(gui->tv2rotVal);
                 handler->miniApp->main->tv2pos = gui->tv2rotVal;
+                handler->miniApp->main->totalTv2pos = gui->tv2rotTotVal;
             }
             
             // set rotate val of the TV 1 screen
             if (splitMsg[0].compare("tv1rot") == 0) {
                 float incoming = ofToFloat(splitMsg[1]);
                 incoming = ofMap(incoming, 0.0, 1.0, 0.0, 360.0);
+                
+                if (gui->tv1rotVal > 270 && incoming < 90) {
+                    if (incoming < gui->tv1rotVal) {
+                        gui->tv1rotTotVal += 360;
+                    }
+                }
+                
+                if (gui->tv1rotVal < 90 && incoming > 270) {
+                    if (incoming > gui->tv1rotVal) {
+                        gui->tv1rotTotVal -= 360;
+                    }
+                }
+                
+                gui->tv1rotTotVal = gui->tv1rotTotVal - (gui->tv1rotVal - incoming);
                 gui -> tv1rotVal = incoming;
                 gui->tv1rot->setValue(gui->tv1rotVal);
                 handler->miniApp->main->tv1pos = gui->tv1rotVal;
+                handler->miniApp->main->totalTv1pos = gui->tv1rotTotVal;
             }
             
             // set rotate val of the TV 2 screen
             if (splitMsg[0].compare("tv2rot") == 0) {
                 float incoming = ofToFloat(splitMsg[1]);
                 incoming = ofMap(incoming, 0.0, 1.0, 0.0, 360.0);
-                printf("rot: %f\n",incoming);
-                gui -> tv2rotVal = incoming;
+                
+                if (gui->tv2rotVal > 270 && incoming < 90) {
+                    if (incoming < gui->tv2rotVal) {
+                        gui->tv2rotTotVal += 360;
+                    }
+                }
+                
+                if (gui->tv2rotVal < 90 && incoming > 270) {
+                    if (incoming > gui->tv2rotVal) {
+                        gui->tv2rotTotVal -= 360;
+                    }
+                }
+                
+                gui->tv2rotTotVal = gui->tv2rotTotVal - (gui->tv2rotVal - incoming);
+                gui->tv2rotVal = incoming;
                 gui->tv2rot->setValue(gui->tv2rotVal);
                 handler->miniApp->main->tv2pos = gui->tv2rotVal;
+                handler->miniApp->main->totalTv2pos = gui->tv2rotTotVal;
             }
             
             // ------- SCAN FOLDER --------

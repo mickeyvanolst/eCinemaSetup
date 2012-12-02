@@ -33,6 +33,9 @@ void myGUI::setup(string appID)
     
     tv1rotVal = 0;
     tv2rotVal = 0;
+    
+    tv1rotTotVal = 0;
+    tv2rotTotVal = 0;
 }
 
 //--------------------------------------------------------------
