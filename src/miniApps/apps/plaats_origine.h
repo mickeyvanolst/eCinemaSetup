@@ -23,7 +23,6 @@ public:
     void endOfMini();
     void scaleByHeight(int oW, int oH, int *nW, int nH);
     bool isImageInViewport(int x, int w);
-    void getBigX(int iNr);
     /*
     ofDirectory files;
 

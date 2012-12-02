@@ -12,7 +12,7 @@
 #include "mpeClientTCP.h"
 #include "mainMini.h" // our mini app base app, all mini apps will derive from this one
 
-#include "01_TestMini.h"
+#include "maker_kijker.h"
 #include "plaats_origine.h"
 
 class miniHandler {
@@ -41,7 +41,7 @@ public:
     ofEvent<int>        doneEvent;
     
     // ----- List of mini Apps -----
-    testMini        *myTestMini; // after 02_Rise of the Guardians
+    maker_kijker        *myMaker_kijker; // after 02_Rise of the Guardians
     plaats_origine  *myPlaats_origine; // after 03_Plaats en origine
     
 private:

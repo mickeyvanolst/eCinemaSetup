@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2229eeeff57d3e2c15c0faa8a0f3c79e /* 01_TestMini.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4f9c03b22fac464ebe9d04dbc7011490 /* 01_TestMini.cpp */; };
+		2229eeeff57d3e2c15c0faa8a0f3c79e /* maker_kijker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4f9c03b22fac464ebe9d04dbc7011490 /* maker_kijker.cpp */; };
 		474c1d1d83ed9a24527d2b2e0ece68f3 /* customPlayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = de26b22013b03f284194c13977f12875 /* customPlayer.cpp */; };
 		670637BF166BDE7800EB7BB6 /* ofxTransitions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 670637B4166BDE7800EB7BB6 /* ofxTransitions.cpp */; };
 		670637C0166BDE7800EB7BB6 /* ofxTweener.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 670637B6166BDE7800EB7BB6 /* ofxTweener.cpp */; };
@@ -117,8 +117,8 @@
 		2b1be93adc60a8cbf4d164369d3173a7 /* mainMini.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = mainMini.h; path = src/miniApps/mainMini.h; sourceTree = SOURCE_ROOT; };
 		45ec56d68ee7d214e37e6c1c874b0a56 /* mainMini.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = mainMini.cpp; path = src/miniApps/mainMini.cpp; sourceTree = SOURCE_ROOT; };
 		479479a0cdc85cf6c47bdf586a186433 /* miniHandler.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = miniHandler.h; path = src/miniApps/miniHandler.h; sourceTree = SOURCE_ROOT; };
-		4f999d580406446a250eb854cb3085f8 /* 01_TestMini.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = 01_TestMini.h; path = src/miniApps/apps/01_TestMini.h; sourceTree = SOURCE_ROOT; };
-		4f9c03b22fac464ebe9d04dbc7011490 /* 01_TestMini.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = 01_TestMini.cpp; path = src/miniApps/apps/01_TestMini.cpp; sourceTree = SOURCE_ROOT; };
+		4f999d580406446a250eb854cb3085f8 /* maker_kijker.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = maker_kijker.h; path = src/miniApps/apps/maker_kijker.h; sourceTree = SOURCE_ROOT; };
+		4f9c03b22fac464ebe9d04dbc7011490 /* maker_kijker.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = maker_kijker.cpp; path = src/miniApps/apps/maker_kijker.cpp; sourceTree = SOURCE_ROOT; };
 		670637B2166BDE7800EB7BB6 /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
 		670637B4166BDE7800EB7BB6 /* ofxTransitions.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxTransitions.cpp; sourceTree = "<group>"; };
 		670637B5166BDE7800EB7BB6 /* ofxTransitions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxTransitions.h; sourceTree = "<group>"; };
@@ -264,7 +264,6 @@
 		E7E077E715D3B6510020DFD4 /* QTKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QTKit.framework; path = /System/Library/Frameworks/QTKit.framework; sourceTree = "<absolute>"; };
 		E7F985F515E0DE99003869B5 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = /System/Library/Frameworks/Accelerate.framework; sourceTree = "<absolute>"; };
 		a7aa9473d3dae014c920972aab2488d3 /* chapterHandler.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = chapterHandler.cpp; path = src/chapterHandler/chapterHandler.cpp; sourceTree = SOURCE_ROOT; };
-		b0d39a78e7b17a13163d277bb782b24b /* Ball.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = Ball.h; path = src/miniApps/apps/Ball.h; sourceTree = SOURCE_ROOT; };
 		b4321621b62306afbe4494999f366ef0 /* chapterHandler.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = chapterHandler.h; path = src/chapterHandler/chapterHandler.h; sourceTree = SOURCE_ROOT; };
 		de26b22013b03f284194c13977f12875 /* customPlayer.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = customPlayer.cpp; path = src/videoPlayer/customPlayer.cpp; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
@@ -301,9 +300,8 @@
 		07ff7d44f0314ecd99e40c588dcfeab9 /* apps */ = {
 			isa = PBXGroup;
 			children = (
-				4f999d580406446a250eb854cb3085f8 /* 01_TestMini.h */,
-				4f9c03b22fac464ebe9d04dbc7011490 /* 01_TestMini.cpp */,
-				b0d39a78e7b17a13163d277bb782b24b /* Ball.h */,
+				4f999d580406446a250eb854cb3085f8 /* maker_kijker.h */,
+				4f9c03b22fac464ebe9d04dbc7011490 /* maker_kijker.cpp */,
 				6767B9AF166A4F68006E8130 /* plaats_origine.h */,
 				6767B9B0166A4F7C006E8130 /* plaats_origine.cpp */,
 			);
@@ -920,7 +918,7 @@
 				f29600af35c679e2e9a99fb859dccd66 /* allHandler.cpp in Sources */,
 				eba4b2c45f16b0e08fc7d644c73eed24 /* chapterHandler.cpp in Sources */,
 				d3a7d4bc795461110f8b5b623d15eed2 /* myGUI.cpp in Sources */,
-				2229eeeff57d3e2c15c0faa8a0f3c79e /* 01_TestMini.cpp in Sources */,
+				2229eeeff57d3e2c15c0faa8a0f3c79e /* maker_kijker.cpp in Sources */,
 				9521cdab721bdf2adfd29d5410cb7411 /* mainMini.cpp in Sources */,
 				ff327fb239dbf82631e5bd2772dc5d1b /* miniHandler.cpp in Sources */,
 				474c1d1d83ed9a24527d2b2e0ece68f3 /* customPlayer.cpp in Sources */,

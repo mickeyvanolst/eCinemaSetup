@@ -65,15 +65,37 @@ void plaats_origine::update(){
     durTime = ofGetElapsedTimeMillis() - initTime;
     Tweener.update();
     
+    
     bgMov.update();
-    Tweener.addTween(tBg, main->tv2pos, 5);
+    Tweener.addTween(tBg, main->totalTv2pos, 5);
+    
+    float numRotVal = 0;
+    while (numRotVal + 360 < main->totalTv2pos) {
+        numRotVal += 360;
+    }
+    
+    tBg = tBg - numRotVal;
+    printf("numRotVal: %f\n",numRotVal);
+    printf("tBg: %f\n",tBg);
+    
     tBg = ofMap(tBg, 0, 360, 0, 1);
+
     bgMov.setPosition(tBg);
+    
+    
     
     if (main->appName == "middle") {
         
         artMov.update();
-        Tweener.addTween(tArt, main->tv1pos, 5);
+        Tweener.addTween(tArt, main->totalTv1pos, 5);
+        
+        float numRotVal = 0;
+        while (numRotVal + 360 < main->totalTv1pos) {
+            numRotVal += 360;
+        }
+        
+        tArt = tArt - numRotVal;
+        
         tArt = ofMap(tArt, 0, 360, 0, 1);
         artMov.setPosition(tArt);
         
@@ -109,6 +131,8 @@ void plaats_origine::draw(){
         }
     }
      */
+    
+    
     
     if (bgMov.isLoaded()) {
         ofSetColor(255, 255, 255);

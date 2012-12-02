@@ -6,25 +6,27 @@
 //
 //
 
-#ifndef eCinemaSetup__1_TestMini_h
-#define eCinemaSetup__1_TestMini_h
+#ifndef eCinemaSetup__1_maker_kijkeri_h
+#define eCinemaSetup__1_maker_kijker_h
 
 #include "mainMini.h"
-#include "Ball.h"
+#include "ofxTweener.h"
 
-class testMini {
+class maker_kijker {
 public:
-    testMini(mainMini *_mai);
+    maker_kijker(mainMini *_mai);
     void setup();
     void update();
     void draw();
     void endOfMini();
     
+    ofQTKitPlayer glitchMov;
+    float tGl;
+    
     string afterChapter;
     
     mainMini *main;
 private:
-    vector<Ball*> balls;
     int initTime;
     int durTime;
 };
