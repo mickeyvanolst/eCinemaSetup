@@ -17,6 +17,7 @@ plaats_origine::plaats_origine(mainMini *_mai){
 void plaats_origine::setup(){
     initTime = ofGetElapsedTimeMillis();
 
+    /*
     ofSetLogLevel(OF_LOG_VERBOSE);
 	ofSetVerticalSync(true);
     
@@ -39,12 +40,27 @@ void plaats_origine::setup(){
 	}
     
     loader.startThread(false, false);
+     */
+    
+    ofBackground(255, 225, 255);
+    
+    moveArt.setParameters(10,easingsine,ofxTween::easeOut,0,1000,100,10);
+    
+    artMov.setPixelFormat(OF_PIXELS_RGBA);
+    ofQTKitDecodeMode decodeMode = OF_QTKIT_DECODE_PIXELS_AND_TEXTURE;
+    
+    artMov.loadMovie("app_content/plaats_origine/art.mov", decodeMode);
+    artMov.play();
 }
 
 //--------------------------------------------------------------
 void plaats_origine::update(){
     durTime = ofGetElapsedTimeMillis() - initTime;
-
+    
+    
+    
+    //artMov.setFrame(main->totalTv1pos);
+    artMov.update();
     
     
     // just for now to show the end of an interactive event can be triggered by time
@@ -57,7 +73,7 @@ void plaats_origine::update(){
 //--------------------------------------------------------------
 void plaats_origine::draw(){
     ofBackground(100, 200, 20);
-        
+    /*
     for (int i = 0; i < worldImg.size(); i++) {
         int xPos = 0;
         
@@ -69,9 +85,14 @@ void plaats_origine::draw(){
         
         int newWidth;
         scaleByHeight(worldImg.at(0)->getWidth(), worldImg.at(0)->getHeight(), &newWidth, main->client->getMHeight());
-        if (isImageInViewport(xPos, newWidth)) {
+        if (isImageInViewport(xPos+(main->totalTv1pos*2), newWidth)) {
             worldImg.at(i)->draw(xPos+(main->totalTv1pos*2),0,newWidth,main->client->getMHeight());
         }
+    }
+     */
+    
+    if (artMov.isLoaded()) {
+        artMov.draw(0, 0);
     }
 }
 
@@ -84,7 +105,7 @@ void plaats_origine::scaleByHeight(int oW, int oH, int *nW, int nH){
 
 //--------------------------------------------------------------
 bool plaats_origine::isImageInViewport(int x, int w){
-    if ((x+w) > 0 && x < main->client->getLWidth() ) {
+    if ((x+w) > 0 && x < main->client->getMWidth() ) {
         return true;
     } else {
         return false;

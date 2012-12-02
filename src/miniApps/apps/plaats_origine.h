@@ -10,8 +10,9 @@
 #define eCinemaSetup_plaats_origine_h
 
 #include "mainMini.h"
-#include "ofxThreadedImageLoader.h"
+//#include "ofxThreadedImageLoader.h"
 #include "plaats_origine.h"
+#include "ofxTween.h"
 
 class plaats_origine {
 public:
@@ -23,12 +24,19 @@ public:
     void scaleByHeight(int oW, int oH, int *nW, int nH);
     bool isImageInViewport(int x, int w);
     void getBigX(int iNr);
-    
+    /*
     ofDirectory files;
-    
+
     ofxThreadedImageLoader loader;
     vector<ofImage*> artImg;
     vector<ofImage*> worldImg;
+    */
+    
+    ofQTKitPlayer bgMov;
+    ofQTKitPlayer artMov;
+    
+    ofxTween moveArt;
+    ofxEasingSine	easingsine;
     
     string afterChapter;
     
