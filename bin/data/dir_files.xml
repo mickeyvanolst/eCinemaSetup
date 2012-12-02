@@ -4,14 +4,29 @@
         <left>
             <file>content/01_Introductie/L_Introductie.MOV</file>
             <name>L_Introductie.MOV</name>
+            <duration>0</duration>
+            <frames>0</frames>
+            <filesize>29892113</filesize>
+            <width>0</width>
+            <height>0</height>
         </left>
         <middle>
             <file>content/01_Introductie/M_Introductie.MOV</file>
             <name>M_Introductie.MOV</name>
+            <duration>0</duration>
+            <frames>0</frames>
+            <filesize>28902988</filesize>
+            <width>0</width>
+            <height>0</height>
         </middle>
         <right>
             <file>content/01_Introductie/R_Introductie.MOV</file>
             <name>R_Introductie.MOV</name>
+            <duration>0</duration>
+            <frames>0</frames>
+            <filesize>29785021</filesize>
+            <width>0</width>
+            <height>0</height>
         </right>
     </chapter>
     <chapter>
@@ -19,14 +34,29 @@
         <left>
             <file>content/02_Rise of the Guardians/L_Rise of the Guardians.mov</file>
             <name>L_Rise of the Guardians.mov</name>
+            <duration>0</duration>
+            <frames>0</frames>
+            <filesize>13947228</filesize>
+            <width>0</width>
+            <height>0</height>
         </left>
         <middle>
             <file>content/02_Rise of the Guardians/M_Rise of the Guardians.mov</file>
             <name>M_Rise of the Guardians.mov</name>
+            <duration>0</duration>
+            <frames>0</frames>
+            <filesize>13361165</filesize>
+            <width>0</width>
+            <height>0</height>
         </middle>
         <right>
             <file>content/02_Rise of the Guardians/R_Rise of the Guardians.mov</file>
             <name>R_Rise of the Guardians.mov</name>
+            <duration>0</duration>
+            <frames>0</frames>
+            <filesize>13756106</filesize>
+            <width>0</width>
+            <height>0</height>
         </right>
     </chapter>
     <chapter>
@@ -34,14 +64,29 @@
         <left>
             <file>content/03_Plaats en origine/L_Plaats en origine.MOV</file>
             <name>L_Plaats en origine.MOV</name>
+            <duration>0</duration>
+            <frames>0</frames>
+            <filesize>29207184</filesize>
+            <width>0</width>
+            <height>0</height>
         </left>
         <middle>
             <file>content/03_Plaats en origine/M_Plaats en origine.MOV</file>
             <name>M_Plaats en origine.MOV</name>
+            <duration>0</duration>
+            <frames>0</frames>
+            <filesize>29732267</filesize>
+            <width>0</width>
+            <height>0</height>
         </middle>
         <right>
             <file>content/03_Plaats en origine/R_Plaats en origine.MOV</file>
             <name>R_Plaats en origine.MOV</name>
+            <duration>0</duration>
+            <frames>0</frames>
+            <filesize>28486396</filesize>
+            <width>0</width>
+            <height>0</height>
         </right>
     </chapter>
 </movies>

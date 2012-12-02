@@ -41,8 +41,6 @@ void handleChapters::readDir(){
 		chapters.assign(dir.size(), Chapters());
 	}
     
-    tempMov = new ofVideoPlayer();
-    
 	// you can now iterate through the files and load them into the Chapters vector
 	for(int i = 0; i < (int)dir.size(); i++){
         
@@ -67,9 +65,6 @@ void handleChapters::readDir(){
                 int lastChapNumber = XML.addTag("chapter");
                 // writing chapter folder name to XML object
                 XML.setValue("chapter:name", chapters[i].name, lastChapNumber);
-                
-                //printf("tagNum: %i\n",lastChapNumber);
-                //printf("lastTagNumber: %i\n",lastTagNumber);
                 
                 // iterate through directory
                 for(int f = 0; f < (int)dir.size(); f++){
@@ -101,7 +96,7 @@ void handleChapters::readDir(){
 //                            chapters[i].left.height   = tempMov -> getHeight();
 //                            chapters[i].left.duration = tempMov -> getDuration();
 //                            chapters[i].left.numFrames = tempMov -> getTotalNumFrames();
-//                            //delete tempMov;
+                            //delete tempMov;
                             chapters[i].left.sameSettings = false; // figure this out later
                             
                             if( XML.pushTag("chapter", lastChapNumber) ){
@@ -109,11 +104,11 @@ void handleChapters::readDir(){
                                 // writing film info of this thing to XML
                                 XML.setValue("left:file", chapters[i].left.file, tagNum);
                                 XML.setValue("left:name", chapters[i].left.name, tagNum);
-//                                XML.setValue("left:duration", chapters[i].left.duration, tagNum);
-//                                XML.setValue("left:frames", chapters[i].left.numFrames, tagNum);
-//                                XML.setValue("left:filesize", chapters[i].left.filesize, tagNum);
-//                                XML.setValue("left:width", chapters[i].left.width, tagNum);
-//                                XML.setValue("left:height", chapters[i].left.height, tagNum);
+                                XML.setValue("left:duration", chapters[i].left.duration, tagNum);
+                                XML.setValue("left:frames", chapters[i].left.numFrames, tagNum);
+                                XML.setValue("left:filesize", chapters[i].left.filesize, tagNum);
+                                XML.setValue("left:width", chapters[i].left.width, tagNum);
+                                XML.setValue("left:height", chapters[i].left.height, tagNum);
                                 XML.popTag();
                             }
                         } else if(firstChar == "M"){ // middle screen duh
@@ -135,11 +130,11 @@ void handleChapters::readDir(){
                                 // writing film info of this thing to XML
                                 XML.setValue("middle:file", chapters[i].middle.file, tagNum);
                                 XML.setValue("middle:name", chapters[i].middle.name, tagNum);
-//                                XML.setValue("middle:duration", chapters[i].middle.duration, tagNum);
-//                                XML.setValue("middle:frames", chapters[i].left.numFrames, tagNum);
-//                                XML.setValue("middle:filesize", chapters[i].middle.filesize, tagNum);
-//                                XML.setValue("middle:width", chapters[i].middle.width, tagNum);
-//                                XML.setValue("middle:height", chapters[i].middle.height, tagNum);
+                                XML.setValue("middle:duration", chapters[i].middle.duration, tagNum);
+                                XML.setValue("middle:frames", chapters[i].left.numFrames, tagNum);
+                                XML.setValue("middle:filesize", chapters[i].middle.filesize, tagNum);
+                                XML.setValue("middle:width", chapters[i].middle.width, tagNum);
+                                XML.setValue("middle:height", chapters[i].middle.height, tagNum);
                                 XML.popTag();
                             }
                         } else if(firstChar == "R"){ // right screen duh
@@ -161,11 +156,11 @@ void handleChapters::readDir(){
                                 // writing film info of this thing to XML
                                 XML.setValue("right:file", chapters[i].right.file, tagNum);
                                 XML.setValue("right:name", chapters[i].right.name, tagNum);
-//                                XML.setValue("right:duration", chapters[i].right.duration, tagNum);
-//                                XML.setValue("right:frames", chapters[i].left.numFrames, tagNum);
-//                                XML.setValue("right:filesize", chapters[i].right.filesize, tagNum);
-//                                XML.setValue("right:width", chapters[i].right.width, tagNum);
-//                                XML.setValue("right:height", chapters[i].right.height, tagNum);
+                                XML.setValue("right:duration", chapters[i].right.duration, tagNum);
+                                XML.setValue("right:frames", chapters[i].left.numFrames, tagNum);
+                                XML.setValue("right:filesize", chapters[i].right.filesize, tagNum);
+                                XML.setValue("right:width", chapters[i].right.width, tagNum);
+                                XML.setValue("right:height", chapters[i].right.height, tagNum);
                                 XML.popTag();
                             }
                         }
@@ -198,8 +193,6 @@ void handleChapters::readDir(){
         partXML[i].part = totalXmlString.substr(i*chopLength,chopLength);
         partXML[i].checked = false;
     }
-    
-    delete tempMov;
 }
 
 //--------------------------------------------------------------
@@ -231,9 +224,7 @@ void handleChapters::checkFiles(){
                     chapters[i].inOrder = false;
                 }
             }
-            
         } else {
-            
             chapters[i].complete = false;
             
             // check separate to see which one is missing
@@ -256,13 +247,11 @@ void handleChapters::checkFiles(){
                 //printf("right!\n");
             }
         }
-        // change this back again when you figured out why the ofVideoPlayer hangs!
+        // this makes checking obsolete! Delete after you fixed the ofVideoPlayer thing!
         chapters[i].inOrder = true;
         chapters[i].complete = true;
-        
     }
     int myInt;
-    //ofNotifyEvent(buildGUIEvent,myInt,this);
     ofNotifyEvent(addAllVideosEvent,myInt,this);
 }
 
