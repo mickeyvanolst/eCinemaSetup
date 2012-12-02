@@ -12,7 +12,7 @@
 #include "mainMini.h"
 //#include "ofxThreadedImageLoader.h"
 #include "plaats_origine.h"
-#include "ofxTween.h"
+#include "ofxTweener.h"
 
 class plaats_origine {
 public:
@@ -35,8 +35,8 @@ public:
     ofQTKitPlayer bgMov;
     ofQTKitPlayer artMov;
     
-    ofxTween moveArt;
-    ofxEasingSine	easingsine;
+    float tBg;
+    float tArt;
     
     string afterChapter;
     

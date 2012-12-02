@@ -44,24 +44,43 @@ void plaats_origine::setup(){
     
     ofBackground(255, 225, 255);
     
-    moveArt.setParameters(10,easingsine,ofxTween::easeOut,0,1000,100,10);
-    
-    artMov.setPixelFormat(OF_PIXELS_RGBA);
     ofQTKitDecodeMode decodeMode = OF_QTKIT_DECODE_PIXELS_AND_TEXTURE;
     
-    artMov.loadMovie("app_content/plaats_origine/art.mov", decodeMode);
-    artMov.play();
+    tBg = 0;
+    bgMov.setPixelFormat(OF_PIXELS_BGRA);
+    bgMov.loadMovie("app_content/plaats_origine/interactive_test_omgeving_small.mp4", decodeMode);
+    bgMov.setPaused(true);
+    
+    if (main->appName == "middle") {
+        tArt = 0;
+        artMov.setPixelFormat(OF_PIXELS_RGBA);
+        artMov.loadMovie("app_content/plaats_origine/kunst.mov", decodeMode);
+        artMov.setPaused(true);
+    }
+
 }
 
 //--------------------------------------------------------------
 void plaats_origine::update(){
     durTime = ofGetElapsedTimeMillis() - initTime;
+    Tweener.update();
     
+    bgMov.update();
+    Tweener.addTween(tBg, main->tv2pos, 5);
+    tBg = ofMap(tBg, 0, 360, 0, 1);
+    bgMov.setPosition(tBg);
     
-    
-    //artMov.setFrame(main->totalTv1pos);
-    artMov.update();
-    
+    if (main->appName == "middle") {
+        
+        artMov.update();
+        Tweener.addTween(tArt, main->tv1pos, 5);
+        tArt = ofMap(tArt, 0, 360, 0, 1);
+        artMov.setPosition(tArt);
+        
+        // denker - 0
+        // mona - 38
+        // mondriaan - 68
+    }
     
     // just for now to show the end of an interactive event can be triggered by time
     // this should be the last thing you do in an update!!!!!!!
@@ -91,8 +110,13 @@ void plaats_origine::draw(){
     }
      */
     
-    if (artMov.isLoaded()) {
-        artMov.draw(0, 0);
+    if (bgMov.isLoaded()) {
+        ofSetColor(255, 255, 255);
+        bgMov.draw(0, 0);
+    }
+    
+    if (artMov.isLoaded() && main->appName == "middle") {
+        artMov.draw(main->client->getLWidth(), 0);
     }
 }
 
