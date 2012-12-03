@@ -19,9 +19,15 @@ public:
     void update();
     void draw();
     void endOfMini();
+    bool viewInRange();
     
-    ofQTKitPlayer glitchMov;
-    float tGl;
+    ofQTKitPlayer tv1Mov;
+    ofQTKitPlayer tv2Mov;
+    float tTV1;
+    float tTV2;
+    
+    ofRectangle viewportTV1;
+    ofRectangle viewportTV2;
     
     string afterChapter;
     
