@@ -14,6 +14,7 @@
 
 #include "maker_kijker.h"
 #include "plaats_origine.h"
+#include "zoetroop.h"
 
 class miniHandler {
 public:
@@ -42,7 +43,8 @@ public:
     
     // ----- List of mini Apps -----
     maker_kijker        *myMaker_kijker; // after 02_Rise of the Guardians
-    plaats_origine  *myPlaats_origine; // after 03_Plaats en origine
+    plaats_origine      *myPlaats_origine; // after 03_Plaats en origine
+    zoetroop            *myZoetroop;
     
 private:
 };

@@ -34,6 +34,9 @@ public:
     ofQTKitPlayer bgMov;
     ofQTKitPlayer artMov;
     
+    int curArt;
+    int curBg;
+    
     float tBg;
     float tArt;
     

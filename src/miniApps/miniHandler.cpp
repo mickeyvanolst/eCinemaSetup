@@ -18,6 +18,7 @@ miniHandler::miniHandler(mpeClientTCP * _cli){
     
     myMaker_kijker = NULL; // otherwise it will trigger anyways..
     myPlaats_origine = NULL;
+    myZoetroop = NULL;
 }
 
 //--------------------------------------------------------------
@@ -41,6 +42,9 @@ void miniHandler::update(){
         if (myPlaats_origine != NULL && curMiniApp == "plaats_origine" && appActive) {
             myPlaats_origine->update();
         }
+        if (myZoetroop != NULL && curMiniApp == "zoetroop" && appActive) {
+            myZoetroop->update();
+        }
     }
 }
 
@@ -53,6 +57,9 @@ void miniHandler::draw(){
     if (myPlaats_origine != NULL && curMiniApp == "plaats_origine" && appActive) {
         myPlaats_origine->draw();
     }
+    if (myZoetroop != NULL && curMiniApp == "zoetroop" && appActive) {
+        myZoetroop->draw();
+    }
 }
 
 //--------------------------------------------------------------
@@ -62,6 +69,9 @@ string miniHandler::appComesAfter(string prevChapter){
     }
     else if(prevChapter == "03_Plaats en origine") {
         return "plaats_origine";
+    }
+    else if(prevChapter == "04_Test chapter") {
+        return "zoetroop";
     }
     else {
         return "";
@@ -85,6 +95,12 @@ void miniHandler::startMini(string wichApp){
         curMiniApp = tempApp;
         pauseApp = false;
     }
+    if (tempApp.compare("zoetroop") == 0) {
+        myZoetroop = new zoetroop(main);
+        myZoetroop->setup();
+        curMiniApp = tempApp;
+        pauseApp = false;
+    }
     printf("tempApp: %s\n",tempApp.c_str());
     printf("curMiniApp: %s\n",curMiniApp.c_str());
 }
@@ -105,6 +121,13 @@ void miniHandler::stopMini(int & i){
     if (curMiniApp == "plaats_origine" && myPlaats_origine != NULL) {
         delete myPlaats_origine;
         myPlaats_origine = NULL;
+        curMiniApp = "";
+        int myInt;
+        ofNotifyEvent(doneEvent,myInt,this);
+    }
+    if (curMiniApp == "zoetroop" && myZoetroop != NULL) {
+        delete myZoetroop;
+        myZoetroop = NULL;
         curMiniApp = "";
         int myInt;
         ofNotifyEvent(doneEvent,myInt,this);

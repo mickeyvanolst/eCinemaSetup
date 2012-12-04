@@ -48,7 +48,17 @@ void plaats_origine::setup(){
     
     tBg = 0;
     bgMov.setPixelFormat(OF_PIXELS_BGRA);
-    bgMov.loadMovie("app_content/plaats_origine/interactive_test_omgeving_small.mp4", decodeMode);
+    
+    string bgString = "";
+    if (main->appName.compare("left") == 0) {
+        bgString = "L_BG.mp4";
+    } else if (main->appName.compare("middle") == 0) {
+        bgString = "M_BG.mp4";
+    } else if (main->appName.compare("right") == 0) {
+        bgString = "R_BG.mp4";
+    }
+    
+    bgMov.loadMovie("app_content/plaats_origine/" + bgString, decodeMode);
     bgMov.setPaused(true);
     
     if (main->appName == "middle") {
@@ -57,7 +67,7 @@ void plaats_origine::setup(){
         artMov.loadMovie("app_content/plaats_origine/kunst.mov", decodeMode);
         artMov.setPaused(true);
     }
-
+    
 }
 
 //--------------------------------------------------------------
@@ -66,42 +76,80 @@ void plaats_origine::update(){
     Tweener.update();
     
     
-    bgMov.update();
-    Tweener.addTween(tBg, main->totalTv2pos, 5);
+//    bgMov.update();
+//    Tweener.addTween(tBg, main->totalTv2pos, 5);
+//    
+//    float numRotVal = 0;
+//    while (numRotVal + 360 < main->totalTv2pos) {
+//        numRotVal += 360;
+//    }
+//    
+//    tBg = tBg - numRotVal;    
+//    tBg = ofMap(tBg, 0, 360, 0, 1);
+//
+//    bgMov.setPosition(tBg);
     
-    float numRotVal = 0;
-    while (numRotVal + 360 < main->totalTv2pos) {
-        numRotVal += 360;
+    bgMov.update();
+    printf("tv2pos: %f\n", main->tv2pos);
+    if (main->tv2pos > 0 && main->tv2pos < 120 && curBg != 1) {
+        Tweener.addTween(tBg, 60, 5);
+        printf("vliegveld\n");
+        curBg = 1;
+    } else if(main->tv2pos > 120 && main->tv2pos < 240 && curBg != 2) {
+        Tweener.addTween(tBg, 160, 5);
+        printf("rome\n");
+        curBg = 2;
+    } else if(main->tv2pos > 240 && curBg != 3){
+        Tweener.addTween(tBg, 270, 5);
+        printf("voetbal\n");
+        curBg = 3;
     }
     
-    tBg = tBg - numRotVal;
-    printf("numRotVal: %f\n",numRotVal);
-    printf("tBg: %f\n",tBg);
-    
-    tBg = ofMap(tBg, 0, 360, 0, 1);
-
-    bgMov.setPosition(tBg);
+    if (tBg != bgMov.getPosition()) {
+        float numRotMVal = 0;
+        while (numRotMVal + 360 < main->totalTv2pos) {
+            numRotMVal += 360;
+        }
+        
+        //tArt = tArt - numRotMVal;
+        
+        tBg = ofMap(tBg, 0, 360, 0, 1);
+        bgMov.setPosition(tBg); // value between 0-1
+    }
     
     
     
     if (main->appName == "middle") {
-        
         artMov.update();
-        Tweener.addTween(tArt, main->totalTv1pos, 5);
-        
-        float numRotVal = 0;
-        while (numRotVal + 360 < main->totalTv1pos) {
-            numRotVal += 360;
+        printf("tv1pos: %f\n", main->tv1pos);
+        if (main->tv1pos > 0 && main->tv1pos < 120 && curArt != 1) {
+            Tweener.addTween(tArt, 120, 5);
+            printf("mona\n");
+            // mona - 38
+            curArt = 1;
+        } else if(main->tv1pos > 120 && main->tv1pos < 240 && curArt != 2) {
+            Tweener.addTween(tArt, 240, 5);
+            printf("mondriaan\n");
+            // mondriaan - 68
+            curArt = 2;
+        } else if(main->tv1pos > 240 && curArt != 3){
+            Tweener.addTween(tArt, 0, 5);
+            printf("denker\n");
+            // denker - 0
+            curArt = 3;
         }
         
-        tArt = tArt - numRotVal;
-        
-        tArt = ofMap(tArt, 0, 360, 0, 1);
-        artMov.setPosition(tArt);
-        
-        // denker - 0
-        // mona - 38
-        // mondriaan - 68
+        if (tArt != artMov.getPosition()) {
+            float numRotMVal = 0;
+            while (numRotMVal + 360 < main->totalTv1pos) {
+                numRotMVal += 360;
+            }
+            
+            //tArt = tArt - numRotMVal;
+            
+            tArt = ofMap(tArt, 0, 360, 0, 1);
+            artMov.setPosition(tArt); // value between 0-1
+        }
     }
     
     // just for now to show the end of an interactive event can be triggered by time
@@ -136,7 +184,7 @@ void plaats_origine::draw(){
     
     if (bgMov.isLoaded()) {
         ofSetColor(255, 255, 255);
-        bgMov.draw(0, 0);
+        bgMov.draw(main->client->getXoffset(), 0);
     }
     
     if (artMov.isLoaded() && main->appName == "middle") {

@@ -17,6 +17,7 @@
 		6722E1511665892600329F37 /* ofxSyphonServer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 6722E1481665892600329F37 /* ofxSyphonServer.mm */; };
 		6722E15C166589C000329F37 /* Syphon.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6722E15B166589C000329F37 /* Syphon.framework */; };
 		674FC577166B63880076BF2E /* ofxThreadedImageLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 674FC575166B63880076BF2E /* ofxThreadedImageLoader.cpp */; };
+		6765C0FB166D224100093CC7 /* zoetroop.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6765C0FA166D224100093CC7 /* zoetroop.cpp */; };
 		6767B94E166A02D1006E8130 /* IpEndpointName.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6767B92A166A02D1006E8130 /* IpEndpointName.cpp */; };
 		6767B94F166A02D1006E8130 /* NetworkingUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6767B92F166A02D1006E8130 /* NetworkingUtils.cpp */; };
 		6767B950166A02D1006E8130 /* UdpSocket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6767B930166A02D1006E8130 /* UdpSocket.cpp */; };
@@ -140,6 +141,8 @@
 		674FC573166B63880076BF2E /* install.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = install.xml; sourceTree = "<group>"; };
 		674FC575166B63880076BF2E /* ofxThreadedImageLoader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxThreadedImageLoader.cpp; sourceTree = "<group>"; };
 		674FC576166B63880076BF2E /* ofxThreadedImageLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxThreadedImageLoader.h; sourceTree = "<group>"; };
+		6765C0F9166D1C8700093CC7 /* zoetroop.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = zoetroop.h; path = miniApps/apps/zoetroop.h; sourceTree = "<group>"; };
+		6765C0FA166D224100093CC7 /* zoetroop.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = zoetroop.cpp; path = miniApps/apps/zoetroop.cpp; sourceTree = "<group>"; };
 		6767B925166A02D1006E8130 /* install.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = install.xml; sourceTree = "<group>"; };
 		6767B92A166A02D1006E8130 /* IpEndpointName.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = IpEndpointName.cpp; sourceTree = "<group>"; };
 		6767B92B166A02D1006E8130 /* IpEndpointName.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IpEndpointName.h; sourceTree = "<group>"; };
@@ -304,6 +307,8 @@
 				4f9c03b22fac464ebe9d04dbc7011490 /* maker_kijker.cpp */,
 				6767B9AF166A4F68006E8130 /* plaats_origine.h */,
 				6767B9B0166A4F7C006E8130 /* plaats_origine.cpp */,
+				6765C0F9166D1C8700093CC7 /* zoetroop.h */,
+				6765C0FA166D224100093CC7 /* zoetroop.cpp */,
 			);
 			name = apps;
 			sourceTree = "<group>";
@@ -951,6 +956,7 @@
 				674FC577166B63880076BF2E /* ofxThreadedImageLoader.cpp in Sources */,
 				670637BF166BDE7800EB7BB6 /* ofxTransitions.cpp in Sources */,
 				670637C0166BDE7800EB7BB6 /* ofxTweener.cpp in Sources */,
+				6765C0FB166D224100093CC7 /* zoetroop.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
