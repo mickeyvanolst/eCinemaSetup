@@ -25,6 +25,8 @@ public:
     
     mainMini *main;
 private:
+    float sortaModulo(float remove, float totalVal);
+    
     int initTime;
     int durTime;
     

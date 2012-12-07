@@ -33,8 +33,8 @@ void mainMini::reset(){
 void mainMini::update(){
     tweener.update();
     // gets updated through miniHandler class
-    tweener.addTween(tv1speed, totalTv1pos - totalTv1prevPos, 0.1);
-    tweener.addTween(tv2speed, totalTv2pos - totalTv2prevPos, 0.1);
+    tweener.addTween(tv1speed, totalTv1pos - totalTv1prevPos, 1);
+    tweener.addTween(tv2speed, totalTv2pos - totalTv2prevPos, 1);
     
     totalTv1prevPos = totalTv1pos;
     totalTv2prevPos = totalTv2pos;

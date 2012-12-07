@@ -54,31 +54,19 @@ void maker_kijker::update(){
     tv1Mov.update();
     Tweener.addTween(tTV1, main->totalTv1pos, 5);
     
-    float numRot1Val = 0;
-    while (numRot1Val + 360 < main->totalTv1pos) {
-        numRot1Val += 360;
-    }
-
-    tTV1 = tTV1 - numRot1Val;
+    tTV1 = tTV1 - sortaModulo(360, main->totalTv1pos);
     viewportTV1.x = ofMap(tTV1, 0, 360, 0, main->client->getMWidth()) - main->client->getXoffset();
 
-    
     
     tv2Mov.update();
     Tweener.addTween(tTV2, main->totalTv2pos, 5);
     
-    float numRot2Val = 0;
-    while (numRot2Val + 360 < main->totalTv2pos) {
-        numRot2Val += 360;
-    }
-    
-    tTV2 = tTV2 - numRot2Val;
+    tTV2 = tTV2 - sortaModulo(360, main->totalTv2pos);
     viewportTV2.x = ofMap(tTV2, 0, 360, 0, main->client->getMWidth()) - main->client->getXoffset();
     
     
-    
-    // just for now to show the end of an interactive event can be triggered by time
-    // this should be the last thing you do in an update!!!!!!!
+// just for now to show the end of an interactive event can be triggered by time
+// this should be the last thing you do in an update!!!!!!!
 //    if (durTime > 10000) {
 //        endOfMini();
 //    }
@@ -87,8 +75,6 @@ void maker_kijker::update(){
 //--------------------------------------------------------------
 void maker_kijker::draw(){
     ofBackground(200, 200, 20);
-    
-
     
     // keep a copy of your viewport and transform matrices for later
 	ofPushView();
@@ -140,6 +126,15 @@ void maker_kijker::draw(){
 //--------------------------------------------------------------
 bool maker_kijker::viewInRange(){
     
+}
+
+//--------------------------------------------------------------
+float maker_kijker::sortaModulo(float remove, float totalVal){
+    float numTimesFit = 0;
+    while (numTimesFit + remove < totalVal) {
+        numTimesFit += remove;
+    }
+    return numTimesFit;
 }
 
 //--------------------------------------------------------------

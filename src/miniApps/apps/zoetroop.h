@@ -25,21 +25,17 @@ public:
     
     mainMini *main;
 private:
+    float sortaModulo(float timesFit, float totalVal);
+    
     long int initTime;
     long int durTime;
-    
-//    ofQTKitPlayer slowMov;
-//    ofQTKitPlayer normMov;
-//    ofQTKitPlayer fastMov;
     
     ofxImageSequence slowImgs;
     ofxImageSequence normImgs;
     ofxImageSequence fastImgs;
     
-    bool playing;
-    
-    ofxTweener tweener;
-    float tOne;
+    float tTV1;
+    float tweenTo;
 };
 
 #endif

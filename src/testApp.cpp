@@ -387,17 +387,17 @@ void testApp::handleMessages(){
                         gui->tv1rotVal = 0;
                         //gui->tv1rotTotVal += 360;
                     } else {
-                        gui->tv1rotVal += 3;
+                        gui->tv1rotVal += 6;
                     }
-                    gui->tv1rotTotVal += 3;
+                    gui->tv1rotTotVal += 6;
                 } else if(incoming == 0) {
                     if (gui->tv1rotVal < 1) {
                         gui->tv1rotVal = 359;
                         //gui->tv1rotTotVal -= 360;
                     } else {
-                        gui->tv1rotVal -= 3;
+                        gui->tv1rotVal -= 6;
                     }
-                    gui->tv1rotTotVal -= 3;
+                    gui->tv1rotTotVal -= 6;
                 } else {
                     gui -> tv1rotVal = incoming;
                 }
@@ -416,17 +416,17 @@ void testApp::handleMessages(){
                         gui->tv2rotVal = 0;
                         //gui->tv2rotTotVal += 360;
                     } else {
-                        gui->tv2rotVal += 3;
+                        gui->tv2rotVal += 6;
                     }
-                    gui->tv2rotTotVal += 3;
+                    gui->tv2rotTotVal += 6;
                 } else if(incoming == 0) {
                     if (gui->tv2rotVal < 1) {
                         gui->tv2rotVal = 359;
                         //gui->tv2rotTotVal -= 360;
                     } else {
-                        gui->tv2rotVal -= 3;
+                        gui->tv2rotVal -= 6;
                     }
-                    gui->tv2rotTotVal -= 3;
+                    gui->tv2rotTotVal -= 6;
                 } else {
                     gui -> tv2rotVal = incoming;
                 }
