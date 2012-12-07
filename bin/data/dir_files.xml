@@ -40,15 +40,6 @@
             <width>1920</width>
             <height>1080</height>
         </left>
-        <middle>
-            <file>content/02_Rise of the Guardians/M_Rise of the Guardians.mov</file>
-            <name>M_Rise of the Guardians.mov</name>
-            <duration>10</duration>
-            <frames>241</frames>
-            <filesize>13361165</filesize>
-            <width>1920</width>
-            <height>1080</height>
-        </middle>
         <right>
             <file>content/02_Rise of the Guardians/R_Rise of the Guardians.mov</file>
             <name>R_Rise of the Guardians.mov</name>

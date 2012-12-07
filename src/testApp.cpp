@@ -169,7 +169,6 @@ void testApp::frameEvent() {
             printf("OSC msg: %s\n", msg_string.c_str());
             msg_string = "";
 		}
-        
 	}
 
     handleMessages(); // handle all messages from the MPE client
@@ -218,12 +217,14 @@ void testApp::handleMessages(){
             
             // checking if the XML we've written is the same everywhere, otherwise it means not all directories are the same
             if (splitMsg[0].compare("checkXML") == 0) {
-                if (splitMsg[3].compare(reader.partXML[ofToInt(splitMsg[2])].part) != 0) {
-                    // the (ridiculous) long space after the sentence send to the outputframe is because otherwise it won't show...
-                    outputString = "In app " + splitMsg[1] + " zijn niet alle bestanden correct!                              .";
-                    gui->outputFrame->setTextString(outputString);
-                } else {
-                    //printf("all files in ORDER!\n");
+                if (ofToInt(splitMsg[2]) < reader.partXML.size()) {
+                    if (splitMsg[3].compare(reader.partXML[ofToInt(splitMsg[2])].part) != 0) {
+                        // the (ridiculous) long space after the sentence send to the outputframe is because otherwise it won't show...
+                        outputString = "In app " + splitMsg[1] + " zijn niet alle bestanden correct!                              .";
+                        gui->outputFrame->setTextString(outputString);
+                    } else {
+                        //printf("all files in ORDER!\n");
+                    }
                 }
                 reader.partXML[ofToInt(splitMsg[2])].checked = true;
             }

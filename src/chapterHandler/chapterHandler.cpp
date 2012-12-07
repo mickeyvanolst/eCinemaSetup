@@ -24,7 +24,7 @@ void handleChapters::setup(string ID){
 
 //--------------------------------------------------------------
 void handleChapters::update(){
-    
+
 }
 
 //--------------------------------------------------------------
@@ -95,14 +95,23 @@ void handleChapters::readDir(){
                             chapters[i].left.name = dir.getName(f);
                             chapters[i].left.filesize = file.getSize();
                             
-                            tempMov = new ofVideoPlayer();
-                            if (tempMov->loadMovie(chapters[i].left.file)) {
-                                chapters[i].left.width    = tempMov->getWidth();
-                                chapters[i].left.height   = tempMov->getHeight();
-                                chapters[i].left.duration = tempMov->getDuration();
-                                chapters[i].left.numFrames = tempMov->getTotalNumFrames();
+                            //tempMov = new ofVideoPlayer();
+                            //tempMov.loadMovie(chapters[i].left.file);
+                            ofVideoPlayer *vid = new ofVideoPlayer;
+                            vid->loadMovie(chapters[i].left.file);
+                            //vid->play();
+                            //vid->marked=false;  
+                            videos.push_back(vid);
+
+                            if (videos.back()->isLoaded()) {
+                                chapters[i].left.width    = videos.back()->getWidth();
+                                chapters[i].left.height   = videos.back()->getHeight();
+                                chapters[i].left.duration = videos.back()->getDuration();
+                                chapters[i].left.numFrames = videos.back()->getTotalNumFrames();
                             }
-                            delete tempMov;
+
+                            
+                            //delete tempMov;
                             //tempMov.close();
                             chapters[i].left.sameSettings = false; // figure this out later
                             
@@ -123,15 +132,21 @@ void handleChapters::readDir(){
                             chapters[i].middle.name = dir.getName(f);
                             chapters[i].middle.filesize = file.getSize();
                             
-                            tempMov = new ofVideoPlayer();
-                            if (tempMov->loadMovie(chapters[i].middle.file)) {
-                                chapters[i].middle.width    = tempMov->getWidth();
-                                chapters[i].middle.height   = tempMov->getHeight();
-                                chapters[i].middle.duration = tempMov->getDuration();
-                                chapters[i].middle.numFrames = tempMov->getTotalNumFrames();
+                            //tempMov = new ofVideoPlayer();
+                            //tempMov.loadMovie(chapters[i].middle.file);
+                            ofVideoPlayer *vid = new ofVideoPlayer;
+                            vid->loadMovie(chapters[i].middle.file);
+                            //vid->play();
+                            //vid->marked=false;
+                            videos.push_back(vid);
+                            
+                            if (videos.back()->isLoaded()) {
+                                chapters[i].middle.width    = videos.back()->getWidth();
+                                chapters[i].middle.height   = videos.back()->getHeight();
+                                chapters[i].middle.duration = videos.back()->getDuration();
+                                chapters[i].middle.numFrames = videos.back()->getTotalNumFrames();
                             }
-                            delete tempMov;
-                            //tempMov.close();
+    
                             chapters[i].middle.sameSettings = false; // figure this out later
                             
                             if( XML.pushTag("chapter", lastChapNumber) ){
@@ -151,15 +166,17 @@ void handleChapters::readDir(){
                             chapters[i].right.name = dir.getName(f);
                             chapters[i].right.filesize = file.getSize();
                             
-                            tempMov = new ofVideoPlayer();
-                            if (tempMov->loadMovie(chapters[i].right.file)) {
-                                chapters[i].right.width    = tempMov->getWidth();
-                                chapters[i].right.height   = tempMov->getHeight();
-                                chapters[i].right.duration = tempMov->getDuration();
-                                chapters[i].right.numFrames = tempMov->getTotalNumFrames();
+                            ofVideoPlayer *vid = new ofVideoPlayer;
+                            vid->loadMovie(chapters[i].right.file);
+                            videos.push_back(vid);
+
+                            if (videos.back()->isLoaded()) {
+                                chapters[i].right.width    = videos.back()->getWidth();
+                                chapters[i].right.height   = videos.back()->getHeight();
+                                chapters[i].right.duration = videos.back()->getDuration();
+                                chapters[i].right.numFrames = videos.back()->getTotalNumFrames();
                             }
-                            delete tempMov;
-                            //tempMov.close();
+                            
                             chapters[i].right.sameSettings = false; // figure this out later
                             
                             if( XML.pushTag("chapter", lastChapNumber) ){
@@ -204,8 +221,15 @@ void handleChapters::readDir(){
         partXML[i].part = totalXmlString.substr(i*chopLength,chopLength);
         partXML[i].checked = false;
     }
-
-    //delete tempMov;
+    
+    // deleting the videoplayer instances we just used
+    vector<ofVideoPlayer*>::iterator its;
+    for(its = videos.begin(); its != videos.end(); its++){
+        (*its)->~ofVideoPlayer();
+        videos.erase(its);
+        break;
+        
+    }
 }
 
 //--------------------------------------------------------------
