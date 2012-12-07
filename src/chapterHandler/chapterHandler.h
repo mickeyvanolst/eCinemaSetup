@@ -14,7 +14,7 @@
 #define chapterHandler
 
 class handleChapters {
-    
+
 public:
     handleChapters();
     
@@ -54,9 +54,6 @@ public:
     };
     vector<Chapters>    chapters;
     
-    // need to load movies to get some actual data on them
-    ofVideoPlayer*  tempMov;
-    
     // xml stuff
     ofxXmlSettings XML;
     string xmlStructure;
@@ -77,7 +74,8 @@ public:
     
     
 private:
-
+    // need to load movies to get some actual data on them
+    ofVideoPlayer  *tempMov;
 };
 
 #endif

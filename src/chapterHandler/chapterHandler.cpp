@@ -41,7 +41,7 @@ void handleChapters::readDir(){
 		chapters.assign(dir.size(), Chapters());
 	}
     
-    tempMov = new ofVideoPlayer();
+    //tempMov = new ofVideoPlayer();
     
 	// you can now iterate through the files and load them into the Chapters vector
 	for(int i = 0; i < (int)dir.size(); i++){
@@ -95,13 +95,15 @@ void handleChapters::readDir(){
                             chapters[i].left.name = dir.getName(f);
                             chapters[i].left.filesize = file.getSize();
                             
-                            //tempMov = new ofVideoPlayer();
-                            tempMov -> loadMovie(chapters[i].left.file);
-                            chapters[i].left.width    = tempMov -> getWidth();
-                            chapters[i].left.height   = tempMov -> getHeight();
-                            chapters[i].left.duration = tempMov -> getDuration();
-                            chapters[i].left.numFrames = tempMov -> getTotalNumFrames();
-                            //delete tempMov;
+                            tempMov = new ofVideoPlayer();
+                            if (tempMov->loadMovie(chapters[i].left.file)) {
+                                chapters[i].left.width    = tempMov->getWidth();
+                                chapters[i].left.height   = tempMov->getHeight();
+                                chapters[i].left.duration = tempMov->getDuration();
+                                chapters[i].left.numFrames = tempMov->getTotalNumFrames();
+                            }
+                            delete tempMov;
+                            //tempMov.close();
                             chapters[i].left.sameSettings = false; // figure this out later
                             
                             if( XML.pushTag("chapter", lastChapNumber) ){
@@ -121,13 +123,15 @@ void handleChapters::readDir(){
                             chapters[i].middle.name = dir.getName(f);
                             chapters[i].middle.filesize = file.getSize();
                             
-                            //tempMov = new ofVideoPlayer();
-                            tempMov -> loadMovie(chapters[i].middle.file);
-                            chapters[i].middle.width    = tempMov -> getWidth();
-                            chapters[i].middle.height   = tempMov -> getHeight();
-                            chapters[i].middle.duration = tempMov -> getDuration();
-                            chapters[i].middle.numFrames = tempMov -> getTotalNumFrames();
-                            //delete tempMov;
+                            tempMov = new ofVideoPlayer();
+                            if (tempMov->loadMovie(chapters[i].middle.file)) {
+                                chapters[i].middle.width    = tempMov->getWidth();
+                                chapters[i].middle.height   = tempMov->getHeight();
+                                chapters[i].middle.duration = tempMov->getDuration();
+                                chapters[i].middle.numFrames = tempMov->getTotalNumFrames();
+                            }
+                            delete tempMov;
+                            //tempMov.close();
                             chapters[i].middle.sameSettings = false; // figure this out later
                             
                             if( XML.pushTag("chapter", lastChapNumber) ){
@@ -147,13 +151,15 @@ void handleChapters::readDir(){
                             chapters[i].right.name = dir.getName(f);
                             chapters[i].right.filesize = file.getSize();
                             
-                            //tempMov = new ofVideoPlayer();
-                            tempMov -> loadMovie(chapters[i].right.file);
-                            chapters[i].right.width    = tempMov -> getWidth();
-                            chapters[i].right.height   = tempMov -> getHeight();
-                            chapters[i].right.duration = tempMov -> getDuration();
-                            chapters[i].right.numFrames = tempMov -> getTotalNumFrames();
-                            //delete tempMov;
+                            tempMov = new ofVideoPlayer();
+                            if (tempMov->loadMovie(chapters[i].right.file)) {
+                                chapters[i].right.width    = tempMov->getWidth();
+                                chapters[i].right.height   = tempMov->getHeight();
+                                chapters[i].right.duration = tempMov->getDuration();
+                                chapters[i].right.numFrames = tempMov->getTotalNumFrames();
+                            }
+                            delete tempMov;
+                            //tempMov.close();
                             chapters[i].right.sameSettings = false; // figure this out later
                             
                             if( XML.pushTag("chapter", lastChapNumber) ){
@@ -199,7 +205,7 @@ void handleChapters::readDir(){
         partXML[i].checked = false;
     }
 
-    delete tempMov;
+    //delete tempMov;
 }
 
 //--------------------------------------------------------------
