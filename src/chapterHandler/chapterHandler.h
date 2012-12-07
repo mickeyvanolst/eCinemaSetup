@@ -14,7 +14,7 @@
 #define chapterHandler
 
 class handleChapters {
-
+    
 public:
     handleChapters();
     
@@ -29,7 +29,7 @@ public:
     // read dir stuff
     ofDirectory     dir;
     ofFile          file;
-        
+    
     // okay might seem weird, but we need two vector objects for storing
     // all this info before we write it to an XML, just wanna be safe
     struct FilmInfo {
@@ -54,12 +54,6 @@ public:
     };
     vector<Chapters>    chapters;
     
-<<<<<<< HEAD
-=======
-    // need to load movies to get some actual data on them
-    ofVideoPlayer  *tempMov;
-    
->>>>>>> chapterHandler-noInfo
     // xml stuff
     ofxXmlSettings XML;
     string xmlStructure;
@@ -75,6 +69,7 @@ public:
     int lastTagNumber;
     int lastChapNumber;
     
+    //ofEvent<int>        buildGUIEvent;
     ofEvent<int>        addAllVideosEvent;
     
     

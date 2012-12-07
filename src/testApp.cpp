@@ -186,23 +186,14 @@ void testApp::handleMessages(){
             
             // checking if the XML we've written is the same everywhere, otherwise it means not all directories are the same
             if (splitMsg[0].compare("checkXML") == 0) {
-<<<<<<< HEAD
                 if (ofToInt(splitMsg[2]) < reader.partXML.size()) {
                     if (splitMsg[3].compare(reader.partXML[ofToInt(splitMsg[2])].part) != 0) {
-                        // the (ridiculous) long space after the sentence send to the outputframe is because otherwise it won't show...
+                        // the (ridiculous) long empty space after the sentence send to the outputframe is because otherwise it won't show...
                         outputString = "In app " + splitMsg[1] + " zijn niet alle bestanden correct!                              .";
                         gui->outputFrame->setTextString(outputString);
                     } else {
                         //printf("all files in ORDER!\n");
                     }
-=======
-                if (splitMsg[3].compare(reader.partXML[ofToInt(splitMsg[2])].part) != 0) {
-                    // the (ridiculous) long empty space after the sentence send to the outputframe is because otherwise it won't show...
-                    outputString = "In app " + splitMsg[1] + " zijn niet alle bestanden correct!                              .";
-                    gui->outputFrame->setTextString(outputString);
-                } else {
-                    //printf("all files in ORDER!\n");
->>>>>>> chapterHandler-noInfo
                 }
                 reader.partXML[ofToInt(splitMsg[2])].checked = true;
             }
@@ -437,7 +428,7 @@ void testApp::handleMessages(){
                 } else {
                     gui -> tv2rotVal = incoming;
                 }
-
+                
                 
                 gui->tv2rot->setValue(gui->tv2rotVal);
                 handler->miniApp->main->tv2pos = gui->tv2rotVal;
