@@ -25,14 +25,17 @@ void myGUI::setup(string appID)
 {
     appName = appID;
     
-    // yay we can send events from class to class regardless of hiarchie!
+    // yay we can send events from class to class regardless of hiarachie!
     ofAddListener(handler->buildGUIEvent, this, &myGUI::buildGUI);
     
     prevMsg = "";
     prevMsgCounter = 0;
     
-    tv1rotVal = 50;
-    tv2rotVal = 50;
+    tv1rotVal = 0;
+    tv2rotVal = 0;
+    
+    tv1rotTotVal = 0;
+    tv2rotTotVal = 0;
 }
 
 //--------------------------------------------------------------
@@ -321,7 +324,7 @@ void myGUI::setGUI1()
     syphonRaBtn = (ofxUIToggle *) gui1->addWidgetRight(new ofxUIToggle("RA SYPHON", true, dim, dim));
     
     gui1->addSpacer(length-xInit, 2);
-    gui1->addWidgetDown(new ofxUILabel("FPS ALLE APPS", OFX_UI_FONT_MEDIUM));
+    gui1->addWidgetDown(new ofxUILabel("FPS ALL APPS", OFX_UI_FONT_MEDIUM));
     fpsLaSlider = (ofxUISlider *) gui1->addSlider("LA", 0.0, 100.0, 0.0, length-xInit, dim);
     fpsMaSlider = (ofxUISlider *) gui1->addSlider("MA", 0.0, 100.0, 0.0, length-xInit, dim);
     fpsRaSlider = (ofxUISlider *) gui1->addSlider("RA", 0.0, 100.0, 0.0, length-xInit, dim);
@@ -384,13 +387,13 @@ void myGUI::setGUI3()
 	gui3->addWidgetDown(new ofxUILabel(" ", OFX_UI_FONT_LARGE));
     
     gui3->addSpacer(length-xInit, 2);
-	gui3->addWidgetDown(new ofxUILabel("TOTALE PROGRESSIE", OFX_UI_FONT_MEDIUM));
+	gui3->addWidgetDown(new ofxUILabel("TOTAL PROGRESS", OFX_UI_FONT_MEDIUM));
 	totalPercent = (ofxUISlider *) gui3->addSlider("PROCENT", 0.0, 100.0, 0.0, length-xInit, dim);
     
     gui3->addSpacer(length-xInit, 2);
     gui3->addWidgetDown(new ofxUILabel("INTERACTIVE OBJECTS", OFX_UI_FONT_MEDIUM));
-    tv1rot = (ofxUIRotarySlider *) gui3->addWidgetDown(new ofxUIRotarySlider(80, 0.0, 100.0, tv1rotVal, "TV_1_ROT"));
-    tv2rot = (ofxUIRotarySlider *) gui3->addWidgetRight(new ofxUIRotarySlider(80, 0.0, 100.0, tv2rotVal, "TV_2_ROT"));
+    tv1rot = (ofxUIRotarySlider *) gui3->addWidgetDown(new ofxUIRotarySlider(80, 0.0, 360.0, tv1rotVal, "TV_1_ROT"));
+    tv2rot = (ofxUIRotarySlider *) gui3->addWidgetRight(new ofxUIRotarySlider(80, 0.0, 360.0, tv2rotVal, "TV_2_ROT"));
     
     gui3->addSpacer(length-xInit, 2);
     gui3->addLabelButton("SCAN FOLDER", false, length-xInit);

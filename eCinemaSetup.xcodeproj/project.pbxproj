@@ -7,13 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2229eeeff57d3e2c15c0faa8a0f3c79e /* 01_TestMini.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4f9c03b22fac464ebe9d04dbc7011490 /* 01_TestMini.cpp */; };
+		2229eeeff57d3e2c15c0faa8a0f3c79e /* maker_kijker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4f9c03b22fac464ebe9d04dbc7011490 /* maker_kijker.cpp */; };
 		474c1d1d83ed9a24527d2b2e0ece68f3 /* customPlayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = de26b22013b03f284194c13977f12875 /* customPlayer.cpp */; };
+		670637BF166BDE7800EB7BB6 /* ofxTransitions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 670637B4166BDE7800EB7BB6 /* ofxTransitions.cpp */; };
+		670637C0166BDE7800EB7BB6 /* ofxTweener.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 670637B6166BDE7800EB7BB6 /* ofxTweener.cpp */; };
 		6722E14E1665892600329F37 /* Syphon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6722E13E1665892600329F37 /* Syphon.framework */; };
 		6722E14F1665892600329F37 /* SyphonNameboundClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 6722E1411665892600329F37 /* SyphonNameboundClient.m */; };
 		6722E1501665892600329F37 /* ofxSyphonClient.mm in Sources */ = {isa = PBXBuildFile; fileRef = 6722E1461665892600329F37 /* ofxSyphonClient.mm */; };
 		6722E1511665892600329F37 /* ofxSyphonServer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 6722E1481665892600329F37 /* ofxSyphonServer.mm */; };
 		6722E15C166589C000329F37 /* Syphon.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6722E15B166589C000329F37 /* Syphon.framework */; };
+		674FC577166B63880076BF2E /* ofxThreadedImageLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 674FC575166B63880076BF2E /* ofxThreadedImageLoader.cpp */; };
+		6765C0FB166D224100093CC7 /* zoetroop.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6765C0FA166D224100093CC7 /* zoetroop.cpp */; };
 		6767B94E166A02D1006E8130 /* IpEndpointName.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6767B92A166A02D1006E8130 /* IpEndpointName.cpp */; };
 		6767B94F166A02D1006E8130 /* NetworkingUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6767B92F166A02D1006E8130 /* NetworkingUtils.cpp */; };
 		6767B950166A02D1006E8130 /* UdpSocket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6767B930166A02D1006E8130 /* UdpSocket.cpp */; };
@@ -27,6 +31,7 @@
 		6767B958166A02D1006E8130 /* ofxOscMessage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6767B948166A02D1006E8130 /* ofxOscMessage.cpp */; };
 		6767B959166A02D1006E8130 /* ofxOscReceiver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6767B94A166A02D1006E8130 /* ofxOscReceiver.cpp */; };
 		6767B95A166A02D1006E8130 /* ofxOscSender.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6767B94C166A02D1006E8130 /* ofxOscSender.cpp */; };
+		6767B9B1166A4F7C006E8130 /* plaats_origine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6767B9B0166A4F7C006E8130 /* plaats_origine.cpp */; };
 		678D1A401665679800757A80 /* mpeClientTCP.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 678D1A3D1665679800757A80 /* mpeClientTCP.cpp */; };
 		678D1CC51665680300757A80 /* tinyxml.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 678D1CBE1665680300757A80 /* tinyxml.cpp */; };
 		678D1CC61665680300757A80 /* tinyxmlerror.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 678D1CC01665680300757A80 /* tinyxmlerror.cpp */; };
@@ -113,8 +118,13 @@
 		2b1be93adc60a8cbf4d164369d3173a7 /* mainMini.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = mainMini.h; path = src/miniApps/mainMini.h; sourceTree = SOURCE_ROOT; };
 		45ec56d68ee7d214e37e6c1c874b0a56 /* mainMini.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = mainMini.cpp; path = src/miniApps/mainMini.cpp; sourceTree = SOURCE_ROOT; };
 		479479a0cdc85cf6c47bdf586a186433 /* miniHandler.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = miniHandler.h; path = src/miniApps/miniHandler.h; sourceTree = SOURCE_ROOT; };
-		4f999d580406446a250eb854cb3085f8 /* 01_TestMini.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = 01_TestMini.h; path = src/miniApps/apps/01_TestMini.h; sourceTree = SOURCE_ROOT; };
-		4f9c03b22fac464ebe9d04dbc7011490 /* 01_TestMini.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = 01_TestMini.cpp; path = src/miniApps/apps/01_TestMini.cpp; sourceTree = SOURCE_ROOT; };
+		4f999d580406446a250eb854cb3085f8 /* maker_kijker.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = maker_kijker.h; path = src/miniApps/apps/maker_kijker.h; sourceTree = SOURCE_ROOT; };
+		4f9c03b22fac464ebe9d04dbc7011490 /* maker_kijker.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = maker_kijker.cpp; path = src/miniApps/apps/maker_kijker.cpp; sourceTree = SOURCE_ROOT; };
+		670637B2166BDE7800EB7BB6 /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
+		670637B4166BDE7800EB7BB6 /* ofxTransitions.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxTransitions.cpp; sourceTree = "<group>"; };
+		670637B5166BDE7800EB7BB6 /* ofxTransitions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxTransitions.h; sourceTree = "<group>"; };
+		670637B6166BDE7800EB7BB6 /* ofxTweener.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxTweener.cpp; sourceTree = "<group>"; };
+		670637B7166BDE7800EB7BB6 /* ofxTweener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxTweener.h; sourceTree = "<group>"; };
 		67166B9F166583BF00C9537B /* Instructions.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Instructions.txt; sourceTree = "<group>"; };
 		67166BA0166583BF00C9537B /* install.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = install.xml; sourceTree = "<group>"; };
 		67166BA2166583BF00C9537B /* ofxDirList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxDirList.h; sourceTree = "<group>"; };
@@ -128,6 +138,11 @@
 		6722E1471665892600329F37 /* ofxSyphonServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxSyphonServer.h; sourceTree = "<group>"; };
 		6722E1481665892600329F37 /* ofxSyphonServer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ofxSyphonServer.mm; sourceTree = "<group>"; };
 		6722E15B166589C000329F37 /* Syphon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Syphon.framework; path = ../../../addons/ofxSyphon/libs/Syphon/lib/osx/Syphon.framework; sourceTree = "<group>"; };
+		674FC573166B63880076BF2E /* install.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = install.xml; sourceTree = "<group>"; };
+		674FC575166B63880076BF2E /* ofxThreadedImageLoader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxThreadedImageLoader.cpp; sourceTree = "<group>"; };
+		674FC576166B63880076BF2E /* ofxThreadedImageLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxThreadedImageLoader.h; sourceTree = "<group>"; };
+		6765C0F9166D1C8700093CC7 /* zoetroop.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = zoetroop.h; path = miniApps/apps/zoetroop.h; sourceTree = "<group>"; };
+		6765C0FA166D224100093CC7 /* zoetroop.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = zoetroop.cpp; path = miniApps/apps/zoetroop.cpp; sourceTree = "<group>"; };
 		6767B925166A02D1006E8130 /* install.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = install.xml; sourceTree = "<group>"; };
 		6767B92A166A02D1006E8130 /* IpEndpointName.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = IpEndpointName.cpp; sourceTree = "<group>"; };
 		6767B92B166A02D1006E8130 /* IpEndpointName.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IpEndpointName.h; sourceTree = "<group>"; };
@@ -161,6 +176,8 @@
 		6767B94B166A02D1006E8130 /* ofxOscReceiver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxOscReceiver.h; sourceTree = "<group>"; };
 		6767B94C166A02D1006E8130 /* ofxOscSender.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxOscSender.cpp; sourceTree = "<group>"; };
 		6767B94D166A02D1006E8130 /* ofxOscSender.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxOscSender.h; sourceTree = "<group>"; };
+		6767B9AF166A4F68006E8130 /* plaats_origine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = plaats_origine.h; path = miniApps/apps/plaats_origine.h; sourceTree = "<group>"; };
+		6767B9B0166A4F7C006E8130 /* plaats_origine.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = plaats_origine.cpp; path = miniApps/apps/plaats_origine.cpp; sourceTree = "<group>"; };
 		678D1A3D1665679800757A80 /* mpeClientTCP.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mpeClientTCP.cpp; sourceTree = "<group>"; };
 		678D1A3E1665679800757A80 /* mpeClientTCP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mpeClientTCP.h; sourceTree = "<group>"; };
 		678D1A3F1665679800757A80 /* ofxMostPixelsEver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxMostPixelsEver.h; sourceTree = "<group>"; };
@@ -250,7 +267,6 @@
 		E7E077E715D3B6510020DFD4 /* QTKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QTKit.framework; path = /System/Library/Frameworks/QTKit.framework; sourceTree = "<absolute>"; };
 		E7F985F515E0DE99003869B5 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = /System/Library/Frameworks/Accelerate.framework; sourceTree = "<absolute>"; };
 		a7aa9473d3dae014c920972aab2488d3 /* chapterHandler.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = chapterHandler.cpp; path = src/chapterHandler/chapterHandler.cpp; sourceTree = SOURCE_ROOT; };
-		b0d39a78e7b17a13163d277bb782b24b /* Ball.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = Ball.h; path = src/miniApps/apps/Ball.h; sourceTree = SOURCE_ROOT; };
 		b4321621b62306afbe4494999f366ef0 /* chapterHandler.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = chapterHandler.h; path = src/chapterHandler/chapterHandler.h; sourceTree = SOURCE_ROOT; };
 		de26b22013b03f284194c13977f12875 /* customPlayer.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = customPlayer.cpp; path = src/videoPlayer/customPlayer.cpp; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
@@ -287,9 +303,12 @@
 		07ff7d44f0314ecd99e40c588dcfeab9 /* apps */ = {
 			isa = PBXGroup;
 			children = (
-				4f9c03b22fac464ebe9d04dbc7011490 /* 01_TestMini.cpp */,
-				4f999d580406446a250eb854cb3085f8 /* 01_TestMini.h */,
-				b0d39a78e7b17a13163d277bb782b24b /* Ball.h */,
+				4f999d580406446a250eb854cb3085f8 /* maker_kijker.h */,
+				4f9c03b22fac464ebe9d04dbc7011490 /* maker_kijker.cpp */,
+				6767B9AF166A4F68006E8130 /* plaats_origine.h */,
+				6767B9B0166A4F7C006E8130 /* plaats_origine.cpp */,
+				6765C0F9166D1C8700093CC7 /* zoetroop.h */,
+				6765C0FA166D224100093CC7 /* zoetroop.cpp */,
 			);
 			name = apps;
 			sourceTree = "<group>";
@@ -297,8 +316,8 @@
 		52282f97f75febaa2a674ca8d02598b5 /* videoPlayer */ = {
 			isa = PBXGroup;
 			children = (
-				de26b22013b03f284194c13977f12875 /* customPlayer.cpp */,
 				970ac9e9302a052a8528c9a019334a29 /* customPlayer.h */,
+				de26b22013b03f284194c13977f12875 /* customPlayer.cpp */,
 			);
 			name = videoPlayer;
 			sourceTree = "<group>";
@@ -306,13 +325,34 @@
 		525b55d492f76f3cb735402fd8efe249 /* miniApps */ = {
 			isa = PBXGroup;
 			children = (
-				07ff7d44f0314ecd99e40c588dcfeab9 /* apps */,
-				45ec56d68ee7d214e37e6c1c874b0a56 /* mainMini.cpp */,
-				2b1be93adc60a8cbf4d164369d3173a7 /* mainMini.h */,
-				0f4174da8d9adf73aa2b0fe20950b3de /* miniHandler.cpp */,
 				479479a0cdc85cf6c47bdf586a186433 /* miniHandler.h */,
+				0f4174da8d9adf73aa2b0fe20950b3de /* miniHandler.cpp */,
+				2b1be93adc60a8cbf4d164369d3173a7 /* mainMini.h */,
+				45ec56d68ee7d214e37e6c1c874b0a56 /* mainMini.cpp */,
+				07ff7d44f0314ecd99e40c588dcfeab9 /* apps */,
 			);
 			name = miniApps;
+			sourceTree = "<group>";
+		};
+		670637A3166BDE7800EB7BB6 /* ofxTweener */ = {
+			isa = PBXGroup;
+			children = (
+				670637B2166BDE7800EB7BB6 /* README */,
+				670637B3166BDE7800EB7BB6 /* src */,
+			);
+			name = ofxTweener;
+			path = ../../../addons/ofxTweener;
+			sourceTree = "<group>";
+		};
+		670637B3166BDE7800EB7BB6 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				670637B4166BDE7800EB7BB6 /* ofxTransitions.cpp */,
+				670637B5166BDE7800EB7BB6 /* ofxTransitions.h */,
+				670637B6166BDE7800EB7BB6 /* ofxTweener.cpp */,
+				670637B7166BDE7800EB7BB6 /* ofxTweener.h */,
+			);
+			path = src;
 			sourceTree = "<group>";
 		};
 		67166B9D166583BF00C9537B /* ofxDirList */ = {
@@ -403,6 +443,25 @@
 				6722E1461665892600329F37 /* ofxSyphonClient.mm */,
 				6722E1471665892600329F37 /* ofxSyphonServer.h */,
 				6722E1481665892600329F37 /* ofxSyphonServer.mm */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
+		674FC572166B63880076BF2E /* ofxThreadedImageLoader */ = {
+			isa = PBXGroup;
+			children = (
+				674FC573166B63880076BF2E /* install.xml */,
+				674FC574166B63880076BF2E /* src */,
+			);
+			name = ofxThreadedImageLoader;
+			path = ../../../addons/ofxThreadedImageLoader;
+			sourceTree = "<group>";
+		};
+		674FC574166B63880076BF2E /* src */ = {
+			isa = PBXGroup;
+			children = (
+				674FC575166B63880076BF2E /* ofxThreadedImageLoader.cpp */,
+				674FC576166B63880076BF2E /* ofxThreadedImageLoader.h */,
 			);
 			path = src;
 			sourceTree = "<group>";
@@ -656,8 +715,8 @@
 		98b3eae9507512159ab7edfe85e9f211 /* chapterHandler */ = {
 			isa = PBXGroup;
 			children = (
-				a7aa9473d3dae014c920972aab2488d3 /* chapterHandler.cpp */,
 				b4321621b62306afbe4494999f366ef0 /* chapterHandler.h */,
+				a7aa9473d3dae014c920972aab2488d3 /* chapterHandler.cpp */,
 			);
 			name = chapterHandler;
 			sourceTree = "<group>";
@@ -665,8 +724,8 @@
 		9c1e03ed636188a91cb83ca1ede7d2b0 /* GUI */ = {
 			isa = PBXGroup;
 			children = (
-				048aa1d476f4fadc6607fa8a111aee17 /* myGUI.cpp */,
 				230004da15b739f33ac6d4b09e731857 /* myGUI.h */,
+				048aa1d476f4fadc6607fa8a111aee17 /* myGUI.cpp */,
 			);
 			name = GUI;
 			sourceTree = "<group>";
@@ -674,7 +733,9 @@
 		BB4B014C10F69532006C3DED /* addons */ = {
 			isa = PBXGroup;
 			children = (
+				670637A3166BDE7800EB7BB6 /* ofxTweener */,
 				6767B924166A02D1006E8130 /* ofxOsc */,
+				674FC572166B63880076BF2E /* ofxThreadedImageLoader */,
 				6722E1271665892600329F37 /* ofxSyphon */,
 				67166B9D166583BF00C9537B /* ofxDirList */,
 				678D1CC91665681400757A80 /* ofxNetwork */,
@@ -751,10 +812,10 @@
 			isa = PBXGroup;
 			children = (
 				E4B69E1D0A3A1BDC003C02F2 /* main.cpp */,
-				E4B69E1E0A3A1BDC003C02F2 /* testApp.cpp */,
 				E4B69E1F0A3A1BDC003C02F2 /* testApp.h */,
-				69b5d05241fe6db26915d3d4e0eecdd3 /* allHandler.cpp */,
+				E4B69E1E0A3A1BDC003C02F2 /* testApp.cpp */,
 				10c7f2a2283488c0a925b516272a7bbc /* allHandler.h */,
+				69b5d05241fe6db26915d3d4e0eecdd3 /* allHandler.cpp */,
 				98b3eae9507512159ab7edfe85e9f211 /* chapterHandler */,
 				9c1e03ed636188a91cb83ca1ede7d2b0 /* GUI */,
 				525b55d492f76f3cb735402fd8efe249 /* miniApps */,
@@ -862,7 +923,7 @@
 				f29600af35c679e2e9a99fb859dccd66 /* allHandler.cpp in Sources */,
 				eba4b2c45f16b0e08fc7d644c73eed24 /* chapterHandler.cpp in Sources */,
 				d3a7d4bc795461110f8b5b623d15eed2 /* myGUI.cpp in Sources */,
-				2229eeeff57d3e2c15c0faa8a0f3c79e /* 01_TestMini.cpp in Sources */,
+				2229eeeff57d3e2c15c0faa8a0f3c79e /* maker_kijker.cpp in Sources */,
 				9521cdab721bdf2adfd29d5410cb7411 /* mainMini.cpp in Sources */,
 				ff327fb239dbf82631e5bd2772dc5d1b /* miniHandler.cpp in Sources */,
 				474c1d1d83ed9a24527d2b2e0ece68f3 /* customPlayer.cpp in Sources */,
@@ -891,6 +952,11 @@
 				6767B958166A02D1006E8130 /* ofxOscMessage.cpp in Sources */,
 				6767B959166A02D1006E8130 /* ofxOscReceiver.cpp in Sources */,
 				6767B95A166A02D1006E8130 /* ofxOscSender.cpp in Sources */,
+				6767B9B1166A4F7C006E8130 /* plaats_origine.cpp in Sources */,
+				674FC577166B63880076BF2E /* ofxThreadedImageLoader.cpp in Sources */,
+				670637BF166BDE7800EB7BB6 /* ofxTransitions.cpp in Sources */,
+				670637C0166BDE7800EB7BB6 /* ofxTweener.cpp in Sources */,
+				6765C0FB166D224100093CC7 /* zoetroop.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

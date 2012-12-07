@@ -16,6 +16,10 @@ mainMini::mainMini(mpeClientTCP *_cli){
 //--------------------------------------------------------------
 void mainMini::setup(string id){
     appName         = id;
+    tv1pos          = 0;
+    tv2pos          = 0;
+    totalTv1pos     = 0;
+    totalTv2pos     = 0;
 }
 
 //--------------------------------------------------------------

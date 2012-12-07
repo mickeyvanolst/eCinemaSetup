@@ -16,7 +16,9 @@ miniHandler::miniHandler(mpeClientTCP * _cli){
     pauseApp = false;
     appActive = false;
     
-    myTestMini = NULL; // otherwise it will trigger anyways..
+    myMaker_kijker = NULL; // otherwise it will trigger anyways..
+    myPlaats_origine = NULL;
+    myZoetroop = NULL;
 }
 
 //--------------------------------------------------------------
@@ -34,8 +36,14 @@ void miniHandler::setup(string id){
 void miniHandler::update(){
     // not yet finished here, need to figure out how to do this with several mini apps etc
     if (!pauseApp) {
-        if (myTestMini != NULL && curMiniApp == "01_TestMini" && appActive) {
-            myTestMini->update();
+        if (myMaker_kijker != NULL && curMiniApp == "maker_kijker" && appActive) {
+            myMaker_kijker->update();
+        }
+        if (myPlaats_origine != NULL && curMiniApp == "plaats_origine" && appActive) {
+            myPlaats_origine->update();
+        }
+        if (myZoetroop != NULL && curMiniApp == "zoetroop" && appActive) {
+            myZoetroop->update();
         }
     }
 }
@@ -43,16 +51,29 @@ void miniHandler::update(){
 //--------------------------------------------------------------
 void miniHandler::draw(){
     // not yet finished here, need to figure out how to do this with several mini apps etc
-    if (myTestMini != NULL && curMiniApp == "01_TestMini" && appActive) {
-        myTestMini->draw();
+    if (myMaker_kijker != NULL && curMiniApp == "maker_kijker" && appActive) {
+        myMaker_kijker->draw();
+    }
+    if (myPlaats_origine != NULL && curMiniApp == "plaats_origine" && appActive) {
+        myPlaats_origine->draw();
+    }
+    if (myZoetroop != NULL && curMiniApp == "zoetroop" && appActive) {
+        myZoetroop->draw();
     }
 }
 
 //--------------------------------------------------------------
 string miniHandler::appComesAfter(string prevChapter){
     if (prevChapter == "02_Rise of the Guardians") {
-        return "01_TestMini";
-    } else {
+        return "maker_kijker";
+    }
+    else if(prevChapter == "03_Plaats en origine") {
+        return "plaats_origine";
+    }
+    else if(prevChapter == "04_Test chapter") {
+        return "zoetroop";
+    }
+    else {
         return "";
     }
 }
@@ -62,9 +83,21 @@ void miniHandler::startMini(string wichApp){
     string tempApp = wichApp;
     appActive = true;
     // for some reason the string is not always recognized as the same, but does printf the same
-    if (tempApp.compare("01_TestMini") == 0) {
-        myTestMini = new testMini(main);
-        myTestMini->setup();
+    if (tempApp.compare("maker_kijker") == 0) {
+        myMaker_kijker = new maker_kijker(main);
+        myMaker_kijker->setup();
+        curMiniApp = tempApp;
+        pauseApp = false;
+    }
+    if (tempApp.compare("plaats_origine") == 0) {
+        myPlaats_origine = new plaats_origine(main);
+        myPlaats_origine->setup();
+        curMiniApp = tempApp;
+        pauseApp = false;
+    }
+    if (tempApp.compare("zoetroop") == 0) {
+        myZoetroop = new zoetroop(main);
+        myZoetroop->setup();
         curMiniApp = tempApp;
         pauseApp = false;
     }
@@ -78,9 +111,23 @@ void miniHandler::stopMini(int & i){
     printf("mini app said it's time for bed\n");
     appActive = false;
     
-    if (curMiniApp == "01_TestMini" && myTestMini != NULL) {
-        delete myTestMini;
-        myTestMini = NULL;
+    if (curMiniApp == "maker_kijker" && myMaker_kijker != NULL) {
+        delete myMaker_kijker;
+        myMaker_kijker = NULL;
+        curMiniApp = "";
+        int myInt;
+        ofNotifyEvent(doneEvent,myInt,this);
+    }
+    if (curMiniApp == "plaats_origine" && myPlaats_origine != NULL) {
+        delete myPlaats_origine;
+        myPlaats_origine = NULL;
+        curMiniApp = "";
+        int myInt;
+        ofNotifyEvent(doneEvent,myInt,this);
+    }
+    if (curMiniApp == "zoetroop" && myZoetroop != NULL) {
+        delete myZoetroop;
+        myZoetroop = NULL;
         curMiniApp = "";
         int myInt;
         ofNotifyEvent(doneEvent,myInt,this);

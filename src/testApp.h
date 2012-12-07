@@ -11,7 +11,6 @@
 #include "ofxOsc.h"
 #include "myGUI.h"
 
-
 class testApp : public ofBaseApp, public mpeClientListener {
     
 public:
@@ -29,39 +28,33 @@ public:
     void windowResized(int w, int h);
     void handleMessages();
     
-    // MPE stuff, need some sort of setup command after first contact
+    // MPE's way of doing an update/draw, everything updates from here
     void frameEvent();
+    
+    // was private, now public!
+    mpeClientTCP        client; 
+    // allHandler, deals with both apps and video's
+    allHandler          *handler;
+    // handleChapters, reading the files and see whats in it, also writes to XML
+    handleChapters      reader;
+    // GUI stuff
+    myGUI               *gui;
+    // needed for touch osc (iPad) to simulate our interactive objects
+    ofxOscReceiver      receiver;
+    // we draw into this and send the Fbo trough syphon
+    ofFbo               appFbo;
+    ofxSyphonServer     syphonServer;
     
     string appNameList[5];
     string appName;
     
-    long int nextCounter;
+    string outputString; // string connected to the output window of the GUI
     
-    // needed for touch osc to simulate our interactive objects
-    ofxOscReceiver receiver;
+    long int fpsCounter; // every app may only send fps once every 200ms
+    long int nextCounter; // counter so the next button doesn't get triggerd by every app that thinks it's time to move to another chapter
     
-    ofFbo appFbo;
-    
-    // was private, now public!
-    mpeClientTCP client;
-    
-    // handling chapters, reading the files and see whats in it
-    handleChapters reader;
-    
-    // allHandler, deals with both apps and video's
-    allHandler *handler;
-    
-    ofxSyphonServer syphonServer;
     bool syphonOut;
     bool drawScreen;
-    
-    long int fpsCounter;
-    
-    bool firstFrameEvent;
-    
-    // GUI stuff
-    myGUI *gui;
-    string outputString;
     
 private:
     

@@ -54,6 +54,12 @@ public:
     };
     vector<Chapters>    chapters;
     
+<<<<<<< HEAD
+=======
+    // need to load movies to get some actual data on them
+    ofVideoPlayer  *tempMov;
+    
+>>>>>>> chapterHandler-noInfo
     // xml stuff
     ofxXmlSettings XML;
     string xmlStructure;
@@ -69,7 +75,6 @@ public:
     int lastTagNumber;
     int lastChapNumber;
     
-    //ofEvent<int>        buildGUIEvent;
     ofEvent<int>        addAllVideosEvent;
     
     

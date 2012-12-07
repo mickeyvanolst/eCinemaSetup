@@ -28,6 +28,12 @@ public:
     
     int appCounter;
     
+    float tv1pos;
+    float tv2pos;
+    
+    float totalTv1pos;
+    float totalTv2pos;
+    
     ofEvent<int>        doneEvent;
 };
 
