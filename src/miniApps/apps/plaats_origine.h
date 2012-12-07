@@ -38,6 +38,7 @@ public:
     int curBg;
     
     float tBg;
+    float tweenTo;
     float tArt;
     
     string afterChapter;

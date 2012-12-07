@@ -59,6 +59,7 @@ void plaats_origine::setup(){
     }
     
     bgMov.loadMovie("app_content/plaats_origine/" + bgString, decodeMode);
+    curBg = 0; // false
     bgMov.setPaused(true);
     
     if (main->appName == "middle") {
@@ -90,22 +91,29 @@ void plaats_origine::update(){
 //    bgMov.setPosition(tBg);
     
     bgMov.update();
-    printf("tv2pos: %f\n", main->tv2pos);
-    if (main->tv2pos > 0 && main->tv2pos < 120 && curBg != 1) {
-        Tweener.addTween(tBg, 60, 5);
+    //printf("tv2pos: %f\n", main->tv2pos);
+    if (main->tv2pos >= 0 && main->tv2pos < 90 && curBg != 1) {
+        tweenTo = 60;
         printf("vliegveld\n");
         curBg = 1;
-    } else if(main->tv2pos > 120 && main->tv2pos < 240 && curBg != 2) {
-        Tweener.addTween(tBg, 160, 5);
+    } else if(main->tv2pos > 90 && main->tv2pos < 180 && curBg != 2) {
+        tweenTo = 160;
         printf("rome\n");
         curBg = 2;
-    } else if(main->tv2pos > 240 && curBg != 3){
-        Tweener.addTween(tBg, 270, 5);
+    } else if(main->tv2pos > 180 && main->tv2pos < 270 && curBg != 3){
+        tweenTo = 270;
         printf("voetbal\n");
         curBg = 3;
+    } else if(main->tv2pos > 270 && curBg != 4){
+        tweenTo = 370;
+        printf("straat\n");
+        curBg = 4;
+    }
+    if (tBg != tweenTo) {
+        Tweener.addTween(tBg, tweenTo, 5);
     }
     
-    if (tBg != bgMov.getPosition()) {
+    if (bgMov.getPosition() != tweenTo) {
         float numRotMVal = 0;
         while (numRotMVal + 360 < main->totalTv2pos) {
             numRotMVal += 360;
@@ -115,13 +123,14 @@ void plaats_origine::update(){
         
         tBg = ofMap(tBg, 0, 360, 0, 1);
         bgMov.setPosition(tBg); // value between 0-1
+        //printf("curBgFr: %i\n",bgMov.getCurrentFrame());
     }
     
     
     
     if (main->appName == "middle") {
         artMov.update();
-        printf("tv1pos: %f\n", main->tv1pos);
+        //printf("tv1pos: %f\n", main->tv1pos);
         if (main->tv1pos > 0 && main->tv1pos < 120 && curArt != 1) {
             Tweener.addTween(tArt, 120, 5);
             printf("mona\n");
@@ -184,11 +193,11 @@ void plaats_origine::draw(){
     
     if (bgMov.isLoaded()) {
         ofSetColor(255, 255, 255);
-        bgMov.draw(main->client->getXoffset(), 0);
+        bgMov.draw(main->client->getXoffset(), main->client->getYoffset());
     }
     
     if (artMov.isLoaded() && main->appName == "middle") {
-        artMov.draw(main->client->getLWidth(), 0);
+        artMov.draw(main->client->getLWidth(), main->client->getYoffset());
     }
 }
 
