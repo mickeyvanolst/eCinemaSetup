@@ -41,8 +41,6 @@ void handleChapters::readDir(){
 		chapters.assign(dir.size(), Chapters());
 	}
     
-    //tempMov = new ofVideoPlayer();
-    
 	// you can now iterate through the files and load them into the Chapters vector
 	for(int i = 0; i < (int)dir.size(); i++){
         
@@ -95,12 +93,8 @@ void handleChapters::readDir(){
                             chapters[i].left.name = dir.getName(f);
                             chapters[i].left.filesize = file.getSize();
                             
-                            //tempMov = new ofVideoPlayer();
-                            //tempMov.loadMovie(chapters[i].left.file);
                             ofVideoPlayer *vid = new ofVideoPlayer;
                             vid->loadMovie(chapters[i].left.file);
-                            //vid->play();
-                            //vid->marked=false;
                             videos.push_back(vid);
                             
                             if (videos.back()->isLoaded()) {
@@ -110,9 +104,6 @@ void handleChapters::readDir(){
                                 chapters[i].left.numFrames = videos.back()->getTotalNumFrames();
                             }
                             
-                            
-                            //delete tempMov;
-                            //tempMov.close();
                             chapters[i].left.sameSettings = false; // figure this out later
                             
                             if( XML.pushTag("chapter", lastChapNumber) ){
@@ -132,12 +123,8 @@ void handleChapters::readDir(){
                             chapters[i].middle.name = dir.getName(f);
                             chapters[i].middle.filesize = file.getSize();
                             
-                            //tempMov = new ofVideoPlayer();
-                            //tempMov.loadMovie(chapters[i].middle.file);
                             ofVideoPlayer *vid = new ofVideoPlayer;
                             vid->loadMovie(chapters[i].middle.file);
-                            //vid->play();
-                            //vid->marked=false;
                             videos.push_back(vid);
                             
                             if (videos.back()->isLoaded()) {

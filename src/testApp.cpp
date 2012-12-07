@@ -380,6 +380,7 @@ void testApp::handleMessages(){
             
             // set rotate (OSC) val of the TV 1 screen
             if (splitMsg[0].compare("tv1rotOSC") == 0) {
+                handler->miniApp->main->totalTv1prevPos = gui->tv1rotTotVal;
                 float incoming = ofToFloat(splitMsg[1]);
                 if (incoming == 1.0) {
                     if (gui->tv1rotVal > 359) {
@@ -407,6 +408,7 @@ void testApp::handleMessages(){
             
             // set rotate (OSC) val of the TV 2 screen
             if (splitMsg[0].compare("tv2rotOSC") == 0) {
+                handler->miniApp->main->totalTv2prevPos = gui->tv2rotTotVal;
                 float incoming = ofToFloat(splitMsg[1]);
                 
                 if (incoming == 1.0) {
@@ -437,6 +439,8 @@ void testApp::handleMessages(){
             
             // set rotate val of the TV 1 screen
             if (splitMsg[0].compare("tv1rot") == 0) {
+                handler->miniApp->main->totalTv1prevPos = gui->tv1rotTotVal;
+                
                 float incoming = ofToFloat(splitMsg[1]);
                 incoming = ofMap(incoming, 0.0, 1.0, 0.0, 360.0);
                 
@@ -461,6 +465,8 @@ void testApp::handleMessages(){
             
             // set rotate val of the TV 2 screen
             if (splitMsg[0].compare("tv2rot") == 0) {
+                handler->miniApp->main->totalTv2prevPos = gui->tv2rotTotVal;
+                
                 float incoming = ofToFloat(splitMsg[1]);
                 incoming = ofMap(incoming, 0.0, 1.0, 0.0, 360.0);
                 

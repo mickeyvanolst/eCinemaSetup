@@ -34,6 +34,8 @@ void miniHandler::setup(string id){
 
 //--------------------------------------------------------------
 void miniHandler::update(){
+    main->update(); // so the speedvals of the rotation get calculated
+    
     // not yet finished here, need to figure out how to do this with several mini apps etc
     if (!pauseApp) {
         if (myMaker_kijker != NULL && curMiniApp == "maker_kijker" && appActive) {

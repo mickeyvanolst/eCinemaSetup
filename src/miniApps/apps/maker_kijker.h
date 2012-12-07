@@ -21,6 +21,13 @@ public:
     void endOfMini();
     bool viewInRange();
     
+    string afterChapter;
+    
+    mainMini *main;
+private:
+    int initTime;
+    int durTime;
+    
     ofQTKitPlayer tv1Mov;
     ofQTKitPlayer tv2Mov;
     float tTV1;
@@ -28,13 +35,6 @@ public:
     
     ofRectangle viewportTV1;
     ofRectangle viewportTV2;
-    
-    string afterChapter;
-    
-    mainMini *main;
-private:
-    int initTime;
-    int durTime;
 };
 
 #endif

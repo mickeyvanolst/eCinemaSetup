@@ -11,6 +11,7 @@
 
 #include "mainMini.h"
 #include "ofxTweener.h"
+#include "ofxImageSequence.h"
 
 class zoetroop {
 public:
@@ -20,18 +21,25 @@ public:
     void draw();
     void endOfMini();
     
-    ofQTKitPlayer slowMov;
-    ofQTKitPlayer normMov;
-    ofQTKitPlayer fastMov;
-    
-    ofxTweener tweener;
-    
     string afterChapter;
     
     mainMini *main;
 private:
     long int initTime;
     long int durTime;
+    
+//    ofQTKitPlayer slowMov;
+//    ofQTKitPlayer normMov;
+//    ofQTKitPlayer fastMov;
+    
+    ofxImageSequence slowImgs;
+    ofxImageSequence normImgs;
+    ofxImageSequence fastImgs;
+    
+    bool playing;
+    
+    ofxTweener tweener;
+    float tOne;
 };
 
 #endif

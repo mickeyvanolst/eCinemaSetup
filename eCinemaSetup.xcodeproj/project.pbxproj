@@ -42,6 +42,7 @@
 		678D1CDA1665681400757A80 /* ofxTCPServer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 678D1CD41665681400757A80 /* ofxTCPServer.cpp */; };
 		678D1CDB1665681400757A80 /* ofxUDPManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 678D1CD61665681400757A80 /* ofxUDPManager.cpp */; };
 		678D1CDF166568C800757A80 /* BROKENFIXED.icns in CopyFiles */ = {isa = PBXBuildFile; fileRef = 678D1CDD166568A300757A80 /* BROKENFIXED.icns */; };
+		67D1900316726202002FF0A7 /* ofxImageSequence.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67D18FFA16726202002FF0A7 /* ofxImageSequence.cpp */; };
 		9521cdab721bdf2adfd29d5410cb7411 /* mainMini.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45ec56d68ee7d214e37e6c1c874b0a56 /* mainMini.cpp */; };
 		BBAB23CB13894F3D00AA2426 /* GLUT.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = BBAB23BE13894E4700AA2426 /* GLUT.framework */; };
 		E4328149138ABC9F0047C5CB /* openFrameworksDebug.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E4328148138ABC890047C5CB /* openFrameworksDebug.a */; };
@@ -240,6 +241,8 @@
 		678D1CD61665681400757A80 /* ofxUDPManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxUDPManager.cpp; sourceTree = "<group>"; };
 		678D1CD71665681400757A80 /* ofxUDPManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxUDPManager.h; sourceTree = "<group>"; };
 		678D1CDD166568A300757A80 /* BROKENFIXED.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = BROKENFIXED.icns; sourceTree = "<group>"; };
+		67D18FFA16726202002FF0A7 /* ofxImageSequence.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxImageSequence.cpp; sourceTree = "<group>"; };
+		67D18FFB16726202002FF0A7 /* ofxImageSequence.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxImageSequence.h; sourceTree = "<group>"; };
 		69b5d05241fe6db26915d3d4e0eecdd3 /* allHandler.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = allHandler.cpp; path = src/allHandler.cpp; sourceTree = SOURCE_ROOT; };
 		970ac9e9302a052a8528c9a019334a29 /* customPlayer.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = customPlayer.h; path = src/videoPlayer/customPlayer.h; sourceTree = SOURCE_ROOT; };
 		BBAB23BE13894E4700AA2426 /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = ../../../libs/glut/lib/osx/GLUT.framework; sourceTree = "<group>"; };
@@ -712,6 +715,24 @@
 			path = src;
 			sourceTree = "<group>";
 		};
+		67D18FDB16726202002FF0A7 /* ofxImageSequence */ = {
+			isa = PBXGroup;
+			children = (
+				67D18FF916726202002FF0A7 /* src */,
+			);
+			name = ofxImageSequence;
+			path = ../../../addons/ofxImageSequence;
+			sourceTree = "<group>";
+		};
+		67D18FF916726202002FF0A7 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				67D18FFA16726202002FF0A7 /* ofxImageSequence.cpp */,
+				67D18FFB16726202002FF0A7 /* ofxImageSequence.h */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
 		98b3eae9507512159ab7edfe85e9f211 /* chapterHandler */ = {
 			isa = PBXGroup;
 			children = (
@@ -733,6 +754,7 @@
 		BB4B014C10F69532006C3DED /* addons */ = {
 			isa = PBXGroup;
 			children = (
+				67D18FDB16726202002FF0A7 /* ofxImageSequence */,
 				670637A3166BDE7800EB7BB6 /* ofxTweener */,
 				6767B924166A02D1006E8130 /* ofxOsc */,
 				674FC572166B63880076BF2E /* ofxThreadedImageLoader */,
@@ -957,6 +979,7 @@
 				670637BF166BDE7800EB7BB6 /* ofxTransitions.cpp in Sources */,
 				670637C0166BDE7800EB7BB6 /* ofxTweener.cpp in Sources */,
 				6765C0FB166D224100093CC7 /* zoetroop.cpp in Sources */,
+				67D1900316726202002FF0A7 /* ofxImageSequence.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

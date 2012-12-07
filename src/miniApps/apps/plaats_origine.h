@@ -31,6 +31,13 @@ public:
     vector<ofImage*> worldImg;
     */
     
+    string afterChapter;
+    
+    mainMini *main;
+private:
+    int initTime;
+    int durTime;
+    
     ofQTKitPlayer bgMov;
     ofQTKitPlayer artMov;
     
@@ -40,13 +47,6 @@ public:
     float tBg;
     float tweenTo;
     float tArt;
-    
-    string afterChapter;
-    
-    mainMini *main;
-private:
-    int initTime;
-    int durTime;
 };
 
 #endif

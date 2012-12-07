@@ -11,8 +11,9 @@
 
 #include "ofMain.h"
 #include "mpeClientTCP.h"
+#include "ofxTweener.h"
 
-// this is our base app, this class should contain all functions and variables that would be needed throughout the mini apps. For instance the ability to use the MPE client and to play movies etc
+// this is our base app, this class should contain all functions and variables that would be needed throughout the mini apps. For instance the ability to use the MPE client and get the values from our interactive objects
 
 class mainMini : ofBaseApp {
 public:
@@ -34,7 +35,15 @@ public:
     float totalTv1pos;
     float totalTv2pos;
     
+    float totalTv1prevPos;
+    float totalTv2prevPos;
+    
+    float tv1speed;
+    float tv2speed;
+    
     ofEvent<int>        doneEvent;
+private:
+    ofxTweener  tweener;
 };
 
 #endif
