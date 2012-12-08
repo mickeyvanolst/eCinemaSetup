@@ -35,6 +35,8 @@ private:
     ofxImageSequence fastImgs;
     
     float tTV1;
+    float ptTV1;
+    
     float tweenTo;
 };
 

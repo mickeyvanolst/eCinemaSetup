@@ -47,3 +47,6 @@ Thumbs.db
 *.mov
 *.MOV
 *.mp4
+
+# mini app directory #
+app_content/

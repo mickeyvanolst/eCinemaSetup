@@ -31,6 +31,7 @@ void zoetroop::setup(){
 	//slowImgs.setFrameRate(10); //set to ten frames per second for Muybridge's horse.
     
     tTV1 = main->totalTv1pos;
+    ptTV1 = tTV1;
 }
 
 //--------------------------------------------------------------
@@ -38,7 +39,9 @@ void zoetroop::update(){
     durTime = ofGetElapsedTimeMillis() - initTime;
     Tweener.update();
     
-    Tweener.addTween(tTV1, main->totalTv1pos, main->tv1speed);
+    
+    Tweener.addTween(tTV1, main->totalTv1pos, 8,  &ofxTransitions::easeOutSine);
+    //Tweener.addTween(tTV1, main->totalTv1pos, 8);
     tTV1 = tTV1 - sortaModulo(360, tTV1);
     
     
@@ -61,13 +64,26 @@ void zoetroop::draw(){
         curPercent = 0;
     }
     
-    if (main->tv1speed > 5.5 || main->tv1speed < -5.5) {
+    printf("tTV1: %f\n",tTV1);
+    printf("ptTV1: %f\n",ptTV1);
+    
+    if (tTV1 - ptTV1 > 18) {
         fastImgs.getFrameAtPercent(curPercent)->draw(0, 0);
-    } else if(main->tv1speed > 3.5 || main->tv1speed < -3.5) {
+    } else if(tTV1 - ptTV1 > 12) {
         normImgs.getFrameAtPercent(curPercent)->draw(0, 0);
     } else {
         slowImgs.getFrameAtPercent(curPercent)->draw(0, 0);
     }
+
+    ofSetColor(255, 0, 0);
+    
+    ofPushMatrix();
+    ofTranslate(150, 150);
+    ofRotate(tTV1);
+    ofRect(-25, -25, 50, 50);
+    ofPopMatrix();
+    
+    ptTV1 = tTV1;
 }
 
 //--------------------------------------------------------------
