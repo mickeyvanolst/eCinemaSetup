@@ -10,9 +10,9 @@
 #define eCinemaSetup_plaats_origine_h
 
 #include "mainMini.h"
-//#include "ofxThreadedImageLoader.h"
 #include "plaats_origine.h"
 #include "ofxTweener.h"
+#include "ofxXmlSettings.h"
 
 class plaats_origine {
 public:
@@ -23,29 +23,34 @@ public:
     void endOfMini();
     void scaleByHeight(int oW, int oH, int *nW, int nH);
     bool isImageInViewport(int x, int w);
-    /*
-    ofDirectory files;
-
-    ofxThreadedImageLoader loader;
-    vector<ofImage*> artImg;
-    vector<ofImage*> worldImg;
-    */
     
     string afterChapter;
     
     mainMini *main;
 private:
+    float sortaModulo(float timesFit, float totalVal);
+    void loadXML(string file, bool printResult);
+    
     int initTime;
     int durTime;
     
     ofQTKitPlayer bgMov;
     ofQTKitPlayer artMov;
     
+    ofxXmlSettings XML;
+    
+    struct Cuepoints {
+        string name;
+        int frame;
+    };
+    
+    vector<Cuepoints> artCuePoints;
+    vector<Cuepoints> bgCuePoints;
+    
     int curArt;
     int curBg;
     
     float tBg;
-    float tweenTo;
     float tArt;
 };
 
