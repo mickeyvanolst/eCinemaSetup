@@ -30,6 +30,7 @@ public:
 private:
     float sortaModulo(float timesFit, float totalVal);
     void loadXML(string file, bool printResult);
+    double floor0( double value );
     
     int initTime;
     int durTime;
@@ -52,6 +53,8 @@ private:
     
     float tBg;
     float tArt;
+    
+    string output;
 };
 
 #endif

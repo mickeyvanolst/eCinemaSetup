@@ -21,7 +21,7 @@ void plaats_origine::setup(){
     
     ofQTKitDecodeMode decodeMode = OF_QTKIT_DECODE_PIXELS_AND_TEXTURE;
     
-    bgMov.loadMovie("app_content/plaats_origine/" + main->appName + ".mp4", decodeMode);
+    bgMov.loadMovie("app_content/plaats_origine/" + main->appName + ".mov", decodeMode);
     bgMov.setPixelFormat(OF_PIXELS_RGB);
     tBg = 0;
     curBg = 0;
@@ -32,7 +32,7 @@ void plaats_origine::setup(){
         artMov.setPixelFormat(OF_PIXELS_BGRA);
         tArt = 0;
         curArt = 0;
-        Tweener.addTween(tArt, bgCuePoints[curArt].frame, 5);
+        Tweener.addTween(tArt, artCuePoints[curArt].frame, 5);
     }
 }
 
@@ -40,34 +40,59 @@ void plaats_origine::setup(){
 void plaats_origine::update(){
     durTime = ofGetElapsedTimeMillis() - initTime;
     Tweener.update();
-        
+    
     for (int i = 0; i < bgCuePoints.size(); i++) {
         if (curBg != i && main->tv1pos >= i*(360/bgCuePoints.size()) && main->tv1pos < (i+1)*(360/bgCuePoints.size())) {
+            
+            if (bgCuePoints[i].frame - tBg > bgMov.getTotalNumFrames()/2) {
+                output = "go down";
+                tBg += bgMov.getTotalNumFrames();
+                Tweener.addTween(tBg,bgCuePoints[i].frame, 5);
+            } else if(bgCuePoints[i].frame +(bgMov.getTotalNumFrames()-tBg) < bgMov.getTotalNumFrames()/2) {
+                output = "go up";
+                Tweener.addTween(tBg,bgCuePoints[i].frame + bgMov.getTotalNumFrames(), 5);
+            } else {
+                output = "normal";
+                Tweener.addTween(tBg,bgCuePoints[i].frame, 5);
+            }
             curBg = i;
-            Tweener.addTween(tBg, bgCuePoints[curBg].frame, 5);
-            //tBg = ofMap(tBg, 0, bgMov.getTotalNumFrames(), 0, 1);
-            printf("%s\n",bgCuePoints[curBg].name.c_str());
         }
     }
     
     if (tBg != bgMov.getCurrentFrame()) {
-        //bgMov.setPosition(tBg);
+        if (tBg > bgMov.getTotalNumFrames()) {
+            tBg = tBg - sortaModulo(bgMov.getTotalNumFrames()-1, tBg);
+            // take off -1 of totalframes in case cuepoint is zero
+        } 
         bgMov.setFrame(int(tBg));
     }
     bgMov.update();
     
+    
     if (main->appName == "middle") {
         for (int i = 0; i < artCuePoints.size(); i++) {
             if (curArt != i && main->tv2pos >= i*(360/artCuePoints.size()) && main->tv2pos < (i+1)*(360/artCuePoints.size())) {
+                
+                if (artCuePoints[i].frame - tArt > artMov.getTotalNumFrames()/2) {
+                    output = "go down";
+                    tArt += artMov.getTotalNumFrames();
+                    Tweener.addTween(tArt,artCuePoints[i].frame, 1, &ofxTransitions::easeInSine);
+                } else if(artCuePoints[i].frame +(artMov.getTotalNumFrames()-tArt) < artMov.getTotalNumFrames()/2) {
+                    output = "go up";
+                    Tweener.addTween(tArt,artCuePoints[i].frame + artMov.getTotalNumFrames(), 1, &ofxTransitions::easeInSine);
+                } else {
+                    output = "normal";
+                    Tweener.addTween(tArt,artCuePoints[i].frame, 1, &ofxTransitions::easeInSine);
+                }
                 curArt = i;
-                Tweener.addTween(tArt, artCuePoints[curArt].frame, 5);
-                //tArt = ofMap(tArt, 0, artMov.getTotalNumFrames(), 0, 1);
-                printf("%s\n",artCuePoints[curArt].name.c_str());
             }
         }
         
         if (tArt != artMov.getCurrentFrame()) {
-            //artMov.setPosition(tArt);
+            if (tArt > artMov.getTotalNumFrames()) {
+                tArt = tArt - sortaModulo(artMov.getTotalNumFrames()-1, tArt);
+                // take off -1 of totalframes in case cuepoint is zero
+            }
             artMov.setFrame(int(tArt));
         }
         artMov.update();
@@ -88,6 +113,36 @@ void plaats_origine::draw(){
     
     if (main->appName == "middle") {
         artMov.draw(main->client->getXoffset(),0);
+        
+        bool dispTestMeter = true;
+        if (dispTestMeter) {
+            ofPushMatrix();
+            ofTranslate(main->client->getXoffset()+100, 400);
+            ofSetColor(255, 0, 0);
+            ofRect(0, 0, artMov.getTotalNumFrames(), 5);
+            ofSetColor(0, 0, 0);
+            for (int i = 0; i < artCuePoints.size(); i++) {
+                ofRect(artCuePoints[i].frame, 0, 1, 10);
+            }
+            ofSetColor(255, 255, 255);
+            ofRect(tArt, 0, 1, 5);
+            
+            ofDrawBitmapString(output, 0, 50);
+            ofPopMatrix();
+            
+            ofPushMatrix();
+            ofTranslate(main->client->getXoffset()+100, 600);
+            ofSetColor(255, 255, 0);
+            ofRect(0, 0, bgMov.getTotalNumFrames(), 5);
+            ofSetColor(0, 0, 0);
+            for (int i = 0; i < bgCuePoints.size(); i++) {
+                ofRect(bgCuePoints[i].frame, 0, 1, 10);
+            }
+            ofSetColor(255, 0, 255);
+            ofRect(tBg, 0, 1, 5);
+            ofPopMatrix();
+            
+        }
     }
 }
 
@@ -160,6 +215,13 @@ void plaats_origine::loadXML(string file, bool printResult){
             }
         }
     }
+}
+
+double plaats_origine::floor0( double value ){
+    if (value < 0.0)
+        return ceil( value );
+    else
+        return floor( value );
 }
 
 //--------------------------------------------------------------
