@@ -174,329 +174,337 @@ void testApp::handleMessages(){
         vector<string> msg = client.getDataMessage();
         
         // check if there's a , in there should make it so that it also accepts one value, but i'm too lazy for that..
-        if (msg[0].find(",") > 0) {
-            vector<string> splitMsg = ofSplitString(msg[0], ",");
-            
-            // will be captured further on, annoying to keep seeing these messages..
-            if (splitMsg[0].compare("FRAMERATE") == 0) {
-                // do nothing
-            } else {
-                printf("MESSAGE: %s\n",splitMsg[0].c_str());
+        printf("msg size: %li ",msg.size());
+        if (msg.empty()) {
+            printf("it's empty\n");
+        } else {
+            for (int b = 0; b < msg.size(); b++) {
+                printf("msg: %s", msg[b].c_str());
             }
-            
-            // checking if the XML we've written is the same everywhere, otherwise it means not all directories are the same
-            if (splitMsg[0].compare("checkXML") == 0 && splitMsg.size() == 4) {
-                if (ofToInt(splitMsg[2]) < reader.partXML.size()) {
-                    if (splitMsg[3].compare(reader.partXML[ofToInt(splitMsg[2])].part) != 0) {
-                        // the (ridiculous) long empty space after the sentence send to the outputframe is because otherwise it won't show...
-                        outputString = "In app " + splitMsg[1] + " zijn niet alle bestanden correct!                              .";
-                        gui->outputFrame->setTextString(outputString);
-                    } else {
-                        //printf("all files in ORDER!\n");
+            if (msg[0].find(",") > 0) {
+                vector<string> splitMsg = ofSplitString(msg[0], ",");
+                
+                // will be captured further on, annoying to keep seeing these messages..
+                if (splitMsg[0].compare("FRAMERATE") == 0) {
+                    // do nothing
+                } else {
+                    printf("MESSAGE: %s\n",splitMsg[0].c_str());
+                }
+                
+                // checking if the XML we've written is the same everywhere, otherwise it means not all directories are the same
+                if (splitMsg[0].compare("checkXML") == 0 && splitMsg.size() == 4) {
+                    if (ofToInt(splitMsg[2]) < reader.partXML.size()) {
+                        if (splitMsg[3].compare(reader.partXML[ofToInt(splitMsg[2])].part) != 0) {
+                            // the (ridiculous) long empty space after the sentence send to the outputframe is because otherwise it won't show...
+                            outputString = "In app " + splitMsg[1] + " zijn niet alle bestanden correct!                              .";
+                            gui->outputFrame->setTextString(outputString);
+                        } else {
+                            //printf("all files in ORDER!\n");
+                        }
+                    }
+                    reader.partXML[ofToInt(splitMsg[2])].checked = true;
+                }
+                
+                // =========== GUI COLUMN 1 ===========
+                
+                // ----------- DRAW SCREEN ------------
+                
+                // turn drawing on the screen on or off, second value is the false/true
+                if (splitMsg[0].compare("drawLa") == 0  && splitMsg.size() == 2) {
+                    if (appName == "left" && ofToInt(splitMsg[1]) == 1) {
+                        drawScreen = true;
+                        printf("drawLA: TRUE\n");
+                    } else if(appName == "left" && ofToInt(splitMsg[1]) == 0) {
+                        drawScreen = false;
+                        printf("drawLA: FALSE\n");
+                    }
+                    gui->drawLaBtn->setValue(ofToInt(splitMsg[1]));
+                }
+                
+                // turn drawing on the screen on or off, second value is the false/true
+                if (splitMsg[0].compare("drawRa") == 0 && splitMsg.size() == 2) {
+                    if (appName == "right" && ofToInt(splitMsg[1]) == 1) {
+                        drawScreen = true;
+                        printf("drawRA: TRUE\n");
+                    } else if(appName == "right" && ofToInt(splitMsg[1]) == 0) {
+                        drawScreen = false;
+                        printf("drawRA: FALSE\n");
+                    }
+                    gui->drawRaBtn->setValue(ofToInt(splitMsg[1]));
+                }
+                
+                // ------------ FULLSCREEN ------------
+                
+                // toggle fullscreen of the main screen
+                if (splitMsg[0].compare("middleFs") == 0 && splitMsg.size() == 2) {
+                    if (appName == "middle" && ofToInt(splitMsg[1]) == 1) {
+                        ofToggleFullscreen();
+                        printf("middleFs: TRUE\n");
+                    } else if(appName == "middle" && ofToInt(splitMsg[1]) == 0) {
+                        ofToggleFullscreen();
+                        printf("middleFs: FALSE\n");
+                    }
+                    gui->middleFsBtn->setValue(ofToInt(splitMsg[1]));
+                }
+                
+                // toggle fullscreen of the TV 1 screen
+                if (splitMsg[0].compare("tv1Fs") == 0 && splitMsg.size() == 2) {
+                    if (appName == "TV_1" && ofToInt(splitMsg[1]) == 1) {
+                        ofToggleFullscreen();
+                        printf("tv1Fs: TRUE\n");
+                    } else if(appName == "TV_1" && ofToInt(splitMsg[1]) == 0) {
+                        ofToggleFullscreen();
+                        printf("tv1Fs: FALSE\n");
+                    }
+                    gui->tv1FsBtn->setValue(ofToInt(splitMsg[1]));
+                }
+                
+                // toggle fullscreen of the TV 2 screen
+                if (splitMsg[0].compare("tv2Fs") == 0 && splitMsg.size() == 2) {
+                    if (appName == "TV_2" && ofToInt(splitMsg[1]) == 1) {
+                        ofToggleFullscreen();
+                        printf("tv2Fs: TRUE\n");
+                    } else if(appName == "TV_2" && ofToInt(splitMsg[1]) == 0) {
+                        ofToggleFullscreen();
+                        printf("tv2Fs: FALSE\n");
+                    }
+                    gui->tv2FsBtn->setValue(ofToInt(splitMsg[1]));
+                }
+                
+                // ------------ SYPHON OUT ------------
+                
+                // turn syphon on or off, second value is the false/true
+                if (splitMsg[0].compare("syphonLa") == 0 && splitMsg.size() == 2) {
+                    if (appName == "left" && ofToInt(splitMsg[1]) == 1) {
+                        syphonOut = true;
+                        printf("syphonLA: TRUE\n");
+                    } else if(appName == "left" && ofToInt(splitMsg[1]) == 0) {
+                        syphonOut = false;
+                        printf("syphonLA: FALSE\n");
+                    }
+                    gui->syphonLaBtn->setValue(ofToInt(splitMsg[1]));
+                }
+                
+                // turn syphon on or off, second value is the false/true
+                if (splitMsg[0].compare("syphonRa") == 0 && splitMsg.size() == 2) {
+                    if (appName == "right" && ofToInt(splitMsg[1]) == 1) {
+                        syphonOut = true;
+                        printf("syphonRA: TRUE\n");
+                    } else if(appName == "right" && ofToInt(splitMsg[1]) == 0) {
+                        syphonOut = false;
+                        printf("syphonRA: FALSE\n");
+                    }
+                    gui->syphonRaBtn->setValue(ofToInt(splitMsg[1]));
+                }
+                
+                // ------------ FPS ALL APPS ------------
+                
+                // setting framerate for all apps
+                if (splitMsg[0].compare("FRAMERATE") == 0 && splitMsg.size() == 3) {
+                    //printf("CLIENT ID: %s FPS: %s\n",splitMsg[1].c_str(), splitMsg[2].c_str());
+                    
+                    // setting value to the right fps slider
+                    switch (ofToInt(splitMsg[1])) {
+                        case 0:
+                            gui->fpsLaSlider->setValue(ofToInt(splitMsg[2]));
+                            break;
+                        case 1:
+                            gui->fpsMaSlider->setValue(ofToInt(splitMsg[2]));
+                            break;
+                        case 2:
+                            gui->fpsRaSlider->setValue(ofToInt(splitMsg[2]));
+                            break;
+                        case 3:
+                            gui->fps01Slider->setValue(ofToInt(splitMsg[2]));
+                            break;
+                        case 4:
+                            gui->fps02Slider->setValue(ofToInt(splitMsg[2]));
+                            break;
+                        default:
+                            break;
                     }
                 }
-                reader.partXML[ofToInt(splitMsg[2])].checked = true;
-            }
-            
-            // =========== GUI COLUMN 1 ===========
-            
-            // ----------- DRAW SCREEN ------------
-            
-            // turn drawing on the screen on or off, second value is the false/true
-            if (splitMsg[0].compare("drawLa") == 0  && splitMsg.size() == 2) {
-                if (appName == "left" && ofToInt(splitMsg[1]) == 1) {
-                    drawScreen = true;
-                    printf("drawLA: TRUE\n");
-                } else if(appName == "left" && ofToInt(splitMsg[1]) == 0) {
-                    drawScreen = false;
-                    printf("drawLA: FALSE\n");
-                }
-                gui->drawLaBtn->setValue(ofToInt(splitMsg[1]));
-            }
-            
-            // turn drawing on the screen on or off, second value is the false/true
-            if (splitMsg[0].compare("drawRa") == 0 && splitMsg.size() == 2) {
-                if (appName == "right" && ofToInt(splitMsg[1]) == 1) {
-                    drawScreen = true;
-                    printf("drawRA: TRUE\n");
-                } else if(appName == "right" && ofToInt(splitMsg[1]) == 0) {
-                    drawScreen = false;
-                    printf("drawRA: FALSE\n");
-                }
-                gui->drawRaBtn->setValue(ofToInt(splitMsg[1]));
-            }
-            
-            // ------------ FULLSCREEN ------------
-            
-            // toggle fullscreen of the main screen
-            if (splitMsg[0].compare("middleFs") == 0 && splitMsg.size() == 2) {
-                if (appName == "middle" && ofToInt(splitMsg[1]) == 1) {
-                    ofToggleFullscreen();
-                    printf("middleFs: TRUE\n");
-                } else if(appName == "middle" && ofToInt(splitMsg[1]) == 0) {
-                    ofToggleFullscreen();
-                    printf("middleFs: FALSE\n");
-                }
-                gui->middleFsBtn->setValue(ofToInt(splitMsg[1]));
-            }
-            
-            // toggle fullscreen of the TV 1 screen
-            if (splitMsg[0].compare("tv1Fs") == 0 && splitMsg.size() == 2) {
-                if (appName == "TV_1" && ofToInt(splitMsg[1]) == 1) {
-                    ofToggleFullscreen();
-                    printf("tv1Fs: TRUE\n");
-                } else if(appName == "TV_1" && ofToInt(splitMsg[1]) == 0) {
-                    ofToggleFullscreen();
-                    printf("tv1Fs: FALSE\n");
-                }
-                gui->tv1FsBtn->setValue(ofToInt(splitMsg[1]));
-            }
-            
-            // toggle fullscreen of the TV 2 screen
-            if (splitMsg[0].compare("tv2Fs") == 0 && splitMsg.size() == 2) {
-                if (appName == "TV_2" && ofToInt(splitMsg[1]) == 1) {
-                    ofToggleFullscreen();
-                    printf("tv2Fs: TRUE\n");
-                } else if(appName == "TV_2" && ofToInt(splitMsg[1]) == 0) {
-                    ofToggleFullscreen();
-                    printf("tv2Fs: FALSE\n");
-                }
-                gui->tv2FsBtn->setValue(ofToInt(splitMsg[1]));
-            }
-            
-            // ------------ SYPHON OUT ------------
-            
-            // turn syphon on or off, second value is the false/true
-            if (splitMsg[0].compare("syphonLa") == 0 && splitMsg.size() == 2) {
-                if (appName == "left" && ofToInt(splitMsg[1]) == 1) {
-                    syphonOut = true;
-                    printf("syphonLA: TRUE\n");
-                } else if(appName == "left" && ofToInt(splitMsg[1]) == 0) {
-                    syphonOut = false;
-                    printf("syphonLA: FALSE\n");
-                }
-                gui->syphonLaBtn->setValue(ofToInt(splitMsg[1]));
-            }
-            
-            // turn syphon on or off, second value is the false/true
-            if (splitMsg[0].compare("syphonRa") == 0 && splitMsg.size() == 2) {
-                if (appName == "right" && ofToInt(splitMsg[1]) == 1) {
-                    syphonOut = true;
-                    printf("syphonRA: TRUE\n");
-                } else if(appName == "right" && ofToInt(splitMsg[1]) == 0) {
-                    syphonOut = false;
-                    printf("syphonRA: FALSE\n");
-                }
-                gui->syphonRaBtn->setValue(ofToInt(splitMsg[1]));
-            }
-            
-            // ------------ FPS ALL APPS ------------
-            
-            // setting framerate for all apps
-            if (splitMsg[0].compare("FRAMERATE") == 0 && splitMsg.size() == 3) {
-                //printf("CLIENT ID: %s FPS: %s\n",splitMsg[1].c_str(), splitMsg[2].c_str());
                 
-                // setting value to the right fps slider
-                switch (ofToInt(splitMsg[1])) {
-                    case 0:
-                        gui->fpsLaSlider->setValue(ofToInt(splitMsg[2]));
-                        break;
-                    case 1:
-                        gui->fpsMaSlider->setValue(ofToInt(splitMsg[2]));
-                        break;
-                    case 2:
-                        gui->fpsRaSlider->setValue(ofToInt(splitMsg[2]));
-                        break;
-                    case 3:
-                        gui->fps01Slider->setValue(ofToInt(splitMsg[2]));
-                        break;
-                    case 4:
-                        gui->fps02Slider->setValue(ofToInt(splitMsg[2]));
-                        break;
-                    default:
-                        break;
+                // ------------ SHOOT ------------
+                
+                // just to fire of a red colored ofBackground to check for latency
+                if (splitMsg[0].compare("shoot") == 0 && splitMsg.size() == 2) {
+                    ofBackground(255, 0, 0);
                 }
-            }
-            
-            // ------------ SHOOT ------------
-            
-            // just to fire of a red colored ofBackground to check for latency
-            if (splitMsg[0].compare("shoot") == 0 && splitMsg.size() == 2) {
-                ofBackground(255, 0, 0);
-            }
-            
-            // =========== GUI COLUMN 2 ===========
-            
-            // ----------- CHAPTER LIST -----------
-            
-            // play a certain item from the allHandler list
-            if (splitMsg[0].compare("handlerStart") == 0 && splitMsg.size() == 3) {
-                printf("play: %s - %s\n",splitMsg[1].c_str(),splitMsg[2].c_str());
-                gui->resetRotation();
-                handler->start(splitMsg[1]);
-            }
-            
-            // -------- PLAY/PAUSE/PREV/NEXT ---------
-            
-            // play control
-            if (splitMsg[0].compare("play") == 0 && splitMsg.size() == 2) {
-                handler->resume();
-            }
-            
-            // pause control
-            if (splitMsg[0].compare("pause") == 0 && splitMsg.size() == 2) {
-                handler->pause();
-            }
-            
-            // prev control
-            if (splitMsg[0].compare("prev") == 0 && splitMsg.size() == 2) {
-                gui->resetRotation();
-                handler->startPrev();
-            }
-            
-            // next control
-            if (splitMsg[0].compare("next") == 0 && splitMsg.size() == 2) {
-                if ((ofGetElapsedTimeMillis() - nextCounter ) > 100) {
+                
+                // =========== GUI COLUMN 2 ===========
+                
+                // ----------- CHAPTER LIST -----------
+                
+                // play a certain item from the allHandler list
+                if (splitMsg[0].compare("handlerStart") == 0 && splitMsg.size() == 3) {
+                    printf("play: %s - %s\n",splitMsg[1].c_str(),splitMsg[2].c_str());
                     gui->resetRotation();
-                    handler->startNext();
-                    nextCounter = ofGetElapsedTimeMillis();
+                    handler->start(splitMsg[1]);
                 }
-            }
-            
-            // ----------- PLAY ALL -----------
-            
-            // turn playAll on or off, second value is the false/true
-            if (splitMsg[0].compare("playAll") == 0 && splitMsg.size() == 2) {
-                if (ofToInt(splitMsg[1]) == 1) {
-                    handler->bPlayAll = true;
-                    printf("playAll: TRUE\n");
-                } else if(ofToInt(splitMsg[1]) == 0) {
-                    handler->bPlayAll = false;
-                    printf("playAll: FALSE\n");
-                }
-                gui->playAllBtn->setValue(ofToInt(splitMsg[1]));
-            }
-            
-            // =========== GUI COLUMN 3 ===========
-            
-            // ------- INTERACTIVE OBJECTS --------
-            
-            // set rotate (OSC) val of the TV 1 screen
-            if (splitMsg[0].compare("tv1rotOSC") == 0 && splitMsg.size() == 2) {
-                handler->miniApp->main->totalTv1prevPos = gui->tv1rotTotVal;
-                float incoming = ofToFloat(splitMsg[1]);
-                int addNr = 10;
                 
-                if (incoming == 1.0) {
-                    if (gui->tv1rotVal > 359) {
-                        gui->tv1rotVal = 0;
-                    } else {
-                        gui->tv1rotVal += addNr;
+                // -------- PLAY/PAUSE/PREV/NEXT ---------
+                
+                // play control
+                if (splitMsg[0].compare("play") == 0 && splitMsg.size() == 2) {
+                    handler->resume();
+                }
+                
+                // pause control
+                if (splitMsg[0].compare("pause") == 0 && splitMsg.size() == 2) {
+                    handler->pause();
+                }
+                
+                // prev control
+                if (splitMsg[0].compare("prev") == 0 && splitMsg.size() == 2) {
+                    gui->resetRotation();
+                    handler->startPrev();
+                }
+                
+                // next control
+                if (splitMsg[0].compare("next") == 0 && splitMsg.size() == 2) {
+                    if ((ofGetElapsedTimeMillis() - nextCounter ) > 100) {
+                        gui->resetRotation();
+                        handler->startNext();
+                        nextCounter = ofGetElapsedTimeMillis();
                     }
+                }
+                
+                // ----------- PLAY ALL -----------
+                
+                // turn playAll on or off, second value is the false/true
+                if (splitMsg[0].compare("playAll") == 0 && splitMsg.size() == 2) {
+                    if (ofToInt(splitMsg[1]) == 1) {
+                        handler->bPlayAll = true;
+                        printf("playAll: TRUE\n");
+                    } else if(ofToInt(splitMsg[1]) == 0) {
+                        handler->bPlayAll = false;
+                        printf("playAll: FALSE\n");
+                    }
+                    gui->playAllBtn->setValue(ofToInt(splitMsg[1]));
+                }
+                
+                // =========== GUI COLUMN 3 ===========
+                
+                // ------- INTERACTIVE OBJECTS --------
+                
+                // set rotate (OSC) val of the TV 1 screen
+                if (splitMsg[0].compare("tv1rotOSC") == 0 && splitMsg.size() == 2) {
+                    handler->miniApp->main->totalTv1prevPos = gui->tv1rotTotVal;
+                    float incoming = ofToFloat(splitMsg[1]);
+                    int addNr = 10;
+                    
+                    if (incoming == 1.0) {
+                        if (gui->tv1rotVal > 359) {
+                            gui->tv1rotVal = 0;
+                        } else {
+                            gui->tv1rotVal += addNr;
+                        }
+                        gui->tv1rotTotVal += addNr;
+                    } else if(incoming == 0) {
+                        addNr = addNr*-1;
+                        if (gui->tv1rotVal < 1) {
+                            gui->tv1rotVal = 359;
+                        } else {
+                            gui->tv1rotVal += addNr;
+                        }
+                        gui->tv1rotTotVal += addNr;
+                    }
+                    
+                    gui->tv1rot->setValue(gui->tv1rotVal);
                     gui->tv1rotTotVal += addNr;
-                } else if(incoming == 0) {
-                    addNr = addNr*-1;
-                    if (gui->tv1rotVal < 1) {
-                        gui->tv1rotVal = 359;
-                    } else {
-                        gui->tv1rotVal += addNr;
-                    }
-                    gui->tv1rotTotVal += addNr;
+                    handler->miniApp->main->tv1pos = gui->tv1rotVal;
+                    handler->miniApp->main->totalTv1pos = gui->tv1rotTotVal;
                 }
                 
-                gui->tv1rot->setValue(gui->tv1rotVal);
-                gui->tv1rotTotVal += addNr;
-                handler->miniApp->main->tv1pos = gui->tv1rotVal;
-                handler->miniApp->main->totalTv1pos = gui->tv1rotTotVal;
-            }
-            
-            // set rotate (OSC) val of the TV 2 screen
-            if (splitMsg[0].compare("tv2rotOSC") == 0 && splitMsg.size() == 2) {
-                handler->miniApp->main->totalTv2prevPos = gui->tv2rotTotVal;
-                float incoming = ofToFloat(splitMsg[1]);
-                int addNr = 10;
-                
-                if (incoming == 1.0) {
-                    if (gui->tv2rotVal > 359) {
-                        gui->tv2rotVal = 0;
-                    } else {
-                        gui->tv2rotVal += addNr;
+                // set rotate (OSC) val of the TV 2 screen
+                if (splitMsg[0].compare("tv2rotOSC") == 0 && splitMsg.size() == 2) {
+                    handler->miniApp->main->totalTv2prevPos = gui->tv2rotTotVal;
+                    float incoming = ofToFloat(splitMsg[1]);
+                    int addNr = 10;
+                    
+                    if (incoming == 1.0) {
+                        if (gui->tv2rotVal > 359) {
+                            gui->tv2rotVal = 0;
+                        } else {
+                            gui->tv2rotVal += addNr;
+                        }
+                        gui->tv2rotTotVal += addNr;
+                    } else if(incoming == 0) {
+                        addNr = addNr*-1;
+                        if (gui->tv2rotVal < 1) {
+                            gui->tv2rotVal = 359;
+                        } else {
+                            gui->tv2rotVal += addNr;
+                        }
+                        gui->tv2rotTotVal += addNr;
                     }
+                    
+                    gui->tv2rot->setValue(gui->tv2rotVal);
                     gui->tv2rotTotVal += addNr;
-                } else if(incoming == 0) {
-                    addNr = addNr*-1;
-                    if (gui->tv2rotVal < 1) {
-                        gui->tv2rotVal = 359;
-                    } else {
-                        gui->tv2rotVal += addNr;
-                    }
-                    gui->tv2rotTotVal += addNr;
+                    handler->miniApp->main->tv2pos = gui->tv2rotVal;
+                    handler->miniApp->main->totalTv2pos = gui->tv2rotTotVal;
                 }
                 
-                gui->tv2rot->setValue(gui->tv2rotVal);
-                gui->tv2rotTotVal += addNr;
-                handler->miniApp->main->tv2pos = gui->tv2rotVal;
-                handler->miniApp->main->totalTv2pos = gui->tv2rotTotVal;
-            }
-            
-            // set rotate val of the TV 1 screen
-            if (splitMsg[0].compare("tv1rot") == 0 && splitMsg.size() == 2) {
-                handler->miniApp->main->totalTv1prevPos = gui->tv1rotTotVal;
-                
-                float incoming = ofToFloat(splitMsg[1]);
-                incoming = ofMap(incoming, 0.0, 1.0, 0.0, 360.0);
-                
-                if (gui->tv1rotVal > 270 && incoming < 90) {
-                    if (incoming < gui->tv1rotVal) {
-                        gui->tv1rotTotVal += 360;
+                // set rotate val of the TV 1 screen
+                if (splitMsg[0].compare("tv1rot") == 0 && splitMsg.size() == 2) {
+                    handler->miniApp->main->totalTv1prevPos = gui->tv1rotTotVal;
+                    
+                    float incoming = ofToFloat(splitMsg[1]);
+                    incoming = ofMap(incoming, 0.0, 1.0, 0.0, 360.0);
+                    
+                    if (gui->tv1rotVal > 270 && incoming < 90) {
+                        if (incoming < gui->tv1rotVal) {
+                            gui->tv1rotTotVal += 360;
+                        }
                     }
+                    
+                    if (gui->tv1rotVal < 90 && incoming > 270) {
+                        if (incoming > gui->tv1rotVal) {
+                            gui->tv1rotTotVal -= 360;
+                        }
+                    }
+                    
+                    gui->tv1rotTotVal = gui->tv1rotTotVal - (gui->tv1rotVal - incoming);
+                    gui -> tv1rotVal = incoming;
+                    
+                    gui->tv1rot->setValue(gui->tv1rotVal);
+                    handler->miniApp->main->tv1pos = gui->tv1rotVal;
+                    handler->miniApp->main->totalTv1pos = gui->tv1rotTotVal;
                 }
                 
-                if (gui->tv1rotVal < 90 && incoming > 270) {
-                    if (incoming > gui->tv1rotVal) {
-                        gui->tv1rotTotVal -= 360;
+                // set rotate val of the TV 2 screen
+                if (splitMsg[0].compare("tv2rot") == 0 && splitMsg.size() == 2) {
+                    handler->miniApp->main->totalTv2prevPos = gui->tv2rotTotVal;
+                    
+                    float incoming = ofToFloat(splitMsg[1]);
+                    incoming = ofMap(incoming, 0.0, 1.0, 0.0, 360.0);
+                    
+                    if (gui->tv2rotVal > 270 && incoming < 90) {
+                        if (incoming < gui->tv2rotVal) {
+                            gui->tv2rotTotVal += 360;
+                        }
                     }
+                    
+                    if (gui->tv2rotVal < 90 && incoming > 270) {
+                        if (incoming > gui->tv2rotVal) {
+                            gui->tv2rotTotVal -= 360;
+                        }
+                    }
+                    
+                    gui->tv2rotTotVal = gui->tv2rotTotVal - (gui->tv2rotVal - incoming);
+                    gui->tv2rotVal = incoming;
+                    gui->tv2rot->setValue(gui->tv2rotVal);
+                    handler->miniApp->main->tv2pos = gui->tv2rotVal;
+                    handler->miniApp->main->totalTv2pos = gui->tv2rotTotVal;
                 }
                 
-                gui->tv1rotTotVal = gui->tv1rotTotVal - (gui->tv1rotVal - incoming);
-                gui -> tv1rotVal = incoming;
+                // ------- SCAN FOLDER --------
                 
-                gui->tv1rot->setValue(gui->tv1rotVal);
-                handler->miniApp->main->tv1pos = gui->tv1rotVal;
-                handler->miniApp->main->totalTv1pos = gui->tv1rotTotVal;
-            }
-            
-            // set rotate val of the TV 2 screen
-            if (splitMsg[0].compare("tv2rot") == 0 && splitMsg.size() == 2) {
-                handler->miniApp->main->totalTv2prevPos = gui->tv2rotTotVal;
-                
-                float incoming = ofToFloat(splitMsg[1]);
-                incoming = ofMap(incoming, 0.0, 1.0, 0.0, 360.0);
-                
-                if (gui->tv2rotVal > 270 && incoming < 90) {
-                    if (incoming < gui->tv2rotVal) {
-                        gui->tv2rotTotVal += 360;
-                    }
+                // read directory of chapterHandler
+                if (splitMsg[0].compare("readDir") == 0 && splitMsg.size() == 2) {
+                    reader.readDir();
                 }
-                
-                if (gui->tv2rotVal < 90 && incoming > 270) {
-                    if (incoming > gui->tv2rotVal) {
-                        gui->tv2rotTotVal -= 360;
-                    }
-                }
-                
-                gui->tv2rotTotVal = gui->tv2rotTotVal - (gui->tv2rotVal - incoming);
-                gui->tv2rotVal = incoming;
-                gui->tv2rot->setValue(gui->tv2rotVal);
-                handler->miniApp->main->tv2pos = gui->tv2rotVal;
-                handler->miniApp->main->totalTv2pos = gui->tv2rotTotVal;
-            }
-            
-            // ------- SCAN FOLDER --------
-            
-            // read directory of chapterHandler
-            if (splitMsg[0].compare("readDir") == 0 && splitMsg.size() == 2) {
-                reader.readDir();
             }
         }
     }

@@ -143,6 +143,7 @@ void allHandler::start(string name){
         miniApp->startMini(list[activeID].name);
     } else if(list[activeID].type.compare("mov") == 0) {
         // this is a movie
+        printf("film name: %s\n", list[activeID].name.c_str());
         player->startPlayer(list[activeID].chapterID);
     }
     printf("starting: %s - id:%i type: %s\n",list[activeID].name.c_str(), activeID, list[activeID].type.c_str());
