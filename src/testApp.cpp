@@ -332,6 +332,7 @@ void testApp::handleMessages(){
             // play a certain item from the allHandler list
             if (splitMsg[0].compare("handlerStart") == 0 && splitMsg.size() == 3) {
                 printf("play: %s - %s\n",splitMsg[1].c_str(),splitMsg[2].c_str());
+                gui->resetRotation();
                 handler->start(splitMsg[1]);
             }
             
@@ -349,12 +350,14 @@ void testApp::handleMessages(){
             
             // prev control
             if (splitMsg[0].compare("prev") == 0 && splitMsg.size() == 2) {
+                gui->resetRotation();
                 handler->startPrev();
             }
             
             // next control
             if (splitMsg[0].compare("next") == 0 && splitMsg.size() == 2) {
                 if ((ofGetElapsedTimeMillis() - nextCounter ) > 100) {
+                    gui->resetRotation();
                     handler->startNext();
                     nextCounter = ofGetElapsedTimeMillis();
                 }

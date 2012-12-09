@@ -29,7 +29,7 @@ void miniHandler::setup(string id){
     //startMini("01_TestMini"); // for some reason this only works when triggered at start, not through broadcast..
     
     // Listeners
-    ofAddListener(main->doneEvent, this, &miniHandler::stopMini);
+    ofAddListener(main->doneEvent, this, &miniHandler::doneMini);
 }
 
 //--------------------------------------------------------------
@@ -53,14 +53,16 @@ void miniHandler::update(){
 //--------------------------------------------------------------
 void miniHandler::draw(){
     // not yet finished here, need to figure out how to do this with several mini apps etc
-    if (myMaker_kijker != NULL && curMiniApp == "maker_kijker" && appActive) {
-        myMaker_kijker->draw();
-    }
-    if (myPlaats_origine != NULL && curMiniApp == "plaats_origine" && appActive) {
-        myPlaats_origine->draw();
-    }
-    if (myZoetroop != NULL && curMiniApp == "zoetroop" && appActive) {
-        myZoetroop->draw();
+    if (!pauseApp) {
+        if (myMaker_kijker != NULL && curMiniApp == "maker_kijker" && appActive) {
+            myMaker_kijker->draw();
+        }
+        if (myPlaats_origine != NULL && curMiniApp == "plaats_origine" && appActive) {
+            myPlaats_origine->draw();
+        }
+        if (myZoetroop != NULL && curMiniApp == "zoetroop" && appActive) {
+            myZoetroop->draw();
+        }
     }
 }
 
@@ -113,26 +115,34 @@ void miniHandler::stopMini(int & i){
     printf("mini app said it's time for bed\n");
     appActive = false;
     
+    setNull();
+}
+
+//--------------------------------------------------------------
+void miniHandler::doneMini(int & i){
+    // not yet finished here, need to figure out how to do this with several mini apps etc
+    
+    setNull();
+    
+    int myInt;
+    ofNotifyEvent(doneEvent,myInt,this);
+}
+//--------------------------------------------------------------
+void miniHandler::setNull(){
     if (curMiniApp == "maker_kijker" && myMaker_kijker != NULL) {
         delete myMaker_kijker;
         myMaker_kijker = NULL;
         curMiniApp = "";
-        int myInt;
-        ofNotifyEvent(doneEvent,myInt,this);
     }
     if (curMiniApp == "plaats_origine" && myPlaats_origine != NULL) {
         delete myPlaats_origine;
         myPlaats_origine = NULL;
         curMiniApp = "";
-        int myInt;
-        ofNotifyEvent(doneEvent,myInt,this);
     }
     if (curMiniApp == "zoetroop" && myZoetroop != NULL) {
         delete myZoetroop;
         myZoetroop = NULL;
         curMiniApp = "";
-        int myInt;
-        ofNotifyEvent(doneEvent,myInt,this);
     }
 }
 

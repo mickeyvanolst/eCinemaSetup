@@ -24,6 +24,7 @@ public:
     void draw();
     void startMini(string wichApp);
     void stopMini(int & i);
+    void doneMini(int & i);
     void pauseMini();
     void playMini();
     void killMini();
@@ -47,6 +48,7 @@ public:
     zoetroop            *myZoetroop;
     
 private:
+    void setNull();
 };
 
 #endif

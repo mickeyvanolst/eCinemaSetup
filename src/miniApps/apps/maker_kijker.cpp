@@ -67,9 +67,9 @@ void maker_kijker::update(){
     
 // just for now to show the end of an interactive event can be triggered by time
 // this should be the last thing you do in an update!!!!!!!
-//    if (durTime > 10000) {
-//        endOfMini();
-//    }
+    if (durTime > 10000) {
+        endOfMini();
+    }
 }
 
 //--------------------------------------------------------------
@@ -118,9 +118,6 @@ void maker_kijker::draw(){
 	// restore the old viewport (now full view and oF coords)
 	ofPopView();
 	//--
-    
-    
-    
 }
 
 //--------------------------------------------------------------

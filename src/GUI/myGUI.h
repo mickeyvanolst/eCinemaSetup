@@ -31,6 +31,8 @@ public:
 	void setGUI3();
     void exit();
     
+    void resetRotation();
+    
     ofxUICanvas *gui1;
 	ofxUICanvas *gui2;
 	ofxUICanvas *gui3;

@@ -246,6 +246,17 @@ void myGUI::guiEvent(ofxUIEventArgs &e)
 }
 
 //--------------------------------------------------------------
+void myGUI::resetRotation()
+{
+    tv1rotVal       = 0;
+    tv2rotVal       = 0;
+    tv1rotTotVal    = 0;
+    tv2rotTotVal    = 0;
+    tv1rot->setValue(0);
+    tv2rot->setValue(0);
+}
+
+//--------------------------------------------------------------
 void myGUI::exit()
 {
 	delete gui1;
