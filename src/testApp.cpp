@@ -117,7 +117,7 @@ void testApp::frameEvent() {
     // texture get's send, if it's a miniApp, we send the FBO
     if (syphonOut) {
         if (handler->list[handler->activeID].type.compare("mov") == 0) {
-            syphonServer.publishTexture(&handler->player->players[handler->player->activeVid].vid.getTextureReference());
+            syphonServer.publishTexture(&handler->player->players[handler->player->activeVid]->getTextureReference());
         } else if(handler->list[handler->activeID].type.compare("app") == 0) {
             syphonServer.publishTexture(&appFbo.getTextureReference());
         }

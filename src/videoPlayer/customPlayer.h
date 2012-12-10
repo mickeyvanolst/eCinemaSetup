@@ -29,10 +29,7 @@ public:
     void playPlayer();
     void startPlayer(int whichVid);
     
-    struct Players {
-        ofVideoPlayer   vid;
-    };
-    vector<Players>     players;
+    vector<ofVideoPlayer*> players;
     
     string              appName;
     int                 activeVid;
