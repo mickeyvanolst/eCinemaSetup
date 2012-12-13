@@ -9,15 +9,19 @@
 #include "myGUI.h"
 
 //--------------------------------------------------------------
-myGUI::myGUI(mpeClientTCP *_cli, allHandler *_all)
+myGUI::myGUI()
 {
-    client      = _cli;
-    handler     = _all;
-    
     gui1 = NULL;
     gui2 = NULL;
     gui3 = NULL;
     
+}
+
+//--------------------------------------------------------------
+void myGUI::init(mpeClientTCP *_cli, allHandler *_all)
+{
+    client      = _cli;
+    handler     = _all;
 }
 
 //--------------------------------------------------------------

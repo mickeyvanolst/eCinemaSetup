@@ -4,8 +4,8 @@
 
 testApp::testApp()
 {
-    handler     = new allHandler(&client, &reader);
-    gui         = new myGUI(&client, handler);
+    handler.init(&client, &reader);
+    gui.init(&client, &handler);
 }
 
 //--------------------------------------------------------------
@@ -22,21 +22,18 @@ void testApp::setup(){
     string appNameList[5] = {"left","middle","right","TV_1", "TV_2"};
     appName = appNameList[client.getID()];
     
-    
-    handler->setup(appName);
-    gui->setup(appName);
+    handler.setup(appName);
+    gui.setup(appName);
     receiver.setup(8000); // OSC
     
     client.start();
     
-    // set the random seed if needed (MPE thing)
-	//ofSeedRandom(1);
     
     // read out the directory and check if all files are correct
     reader.setup(appName);
     reader.readDir();
     
-    handler->createList(); // setting up our total list of apps and movies
+    handler.createList(); // setting up our total list of apps and movies
     
     // syphon is ON by default at the left and right app
     if (appName == "left" || appName == "right") {
@@ -80,7 +77,7 @@ void testApp::frameEvent() {
     ofBackground(50, 50, 50);
     ofSetColor(255, 255, 255);
     
-    handler->update();
+    handler.update();
     
     // some clearing needed for syphon output
     if (syphonOut) {
@@ -90,20 +87,20 @@ void testApp::frameEvent() {
     }
     
     // start capturing in the FBO if there is a miniApp playing
-    if (syphonOut && handler->list[handler->activeID].type.compare("app") == 0) {
+    if (syphonOut && handler.list[handler.activeID].type.compare("app") == 0) {
         ofClear(255,255,255, 0);
         appFbo.begin();
     }
     
     // we can turn off drawing the screen at the left and right app because it gets send to syphon anyway
-    if (!drawScreen && handler->list[handler->activeID].type.compare("app") == 0) {
-        handler->draw();
+    if (!drawScreen && handler.list[handler.activeID].type.compare("app") == 0) {
+        handler.draw();
     } else if(drawScreen) {
-        handler->draw();
+        handler.draw();
     }
     
     // wraps up drawing into the FBO if it's an app, and also checks if it needs to be drawn to the screen
-    if (syphonOut && handler->list[handler->activeID].type.compare("app") == 0) {
+    if (syphonOut && handler.list[handler.activeID].type.compare("app") == 0) {
         appFbo.end();
         ofSetColor(255, 255, 255);
         if (drawScreen) {
@@ -116,9 +113,9 @@ void testApp::frameEvent() {
     // send out a syphon feed, should only be possible for left and right app, in case it's a video the video's
     // texture get's send, if it's a miniApp, we send the FBO
     if (syphonOut) {
-        if (handler->list[handler->activeID].type.compare("mov") == 0) {
-            syphonServer.publishTexture(&handler->player->players[handler->player->activeVid]->getTextureReference());
-        } else if(handler->list[handler->activeID].type.compare("app") == 0) {
+        if (handler.list[handler.activeID].type.compare("mov") == 0) {
+            syphonServer.publishTexture(&handler.player.players[handler.player.activeVid].getTextureReference());
+        } else if(handler.list[handler.activeID].type.compare("app") == 0) {
             syphonServer.publishTexture(&appFbo.getTextureReference());
         }
     }
@@ -155,15 +152,15 @@ void testApp::frameEvent() {
     }
     
     // sending values from player to gui, later change this to variable binding
-    gui->chapCurPercent->setValue(handler->player->chapCurPercent);
-    gui->chapTotalTime->setLabel("TOTAL: " + ofToString(handler->player->chapTotalTime) + " SEC");
-    gui->totalPercent->setValue(handler->player->totalProgress);
-    gui->playBtn->setValue(handler->player->isPlaying);
-    gui->pauseBtn->setValue(!handler->player->isPlaying);
+    gui.chapCurPercent->setValue(handler.player.chapCurPercent);
+    gui.chapTotalTime->setLabel("TOTAL: " + ofToString(handler.player.chapTotalTime) + " SEC");
+    gui.totalPercent->setValue(handler.player.totalProgress);
+    gui.playBtn->setValue(handler.player.isPlaying);
+    gui.pauseBtn->setValue(!handler.player.isPlaying);
     
     // this for loop sets the buttons true or false each time,
-    for (int i = 0; i < handler->list.size(); i++) {
-        gui->listBtn[i].btn->setValue(handler->list[i].active);
+    for (int i = 0; i < handler.list.size(); i++) {
+        gui.listBtn[i].btn->setValue(handler.list[i].active);
     }
 }
 
@@ -197,7 +194,7 @@ void testApp::handleMessages(){
                         if (splitMsg[3].compare(reader.partXML[ofToInt(splitMsg[2])].part) != 0) {
                             // the (ridiculous) long empty space after the sentence send to the outputframe is because otherwise it won't show...
                             outputString = "In app " + splitMsg[1] + " zijn niet alle bestanden correct!                              .";
-                            gui->outputFrame->setTextString(outputString);
+                            gui.outputFrame->setTextString(outputString);
                         } else {
                             //printf("all files in ORDER!\n");
                         }
@@ -218,7 +215,7 @@ void testApp::handleMessages(){
                         drawScreen = false;
                         printf("drawLA: FALSE\n");
                     }
-                    gui->drawLaBtn->setValue(ofToInt(splitMsg[1]));
+                    gui.drawLaBtn->setValue(ofToInt(splitMsg[1]));
                 }
                 
                 // turn drawing on the screen on or off, second value is the false/true
@@ -230,7 +227,7 @@ void testApp::handleMessages(){
                         drawScreen = false;
                         printf("drawRA: FALSE\n");
                     }
-                    gui->drawRaBtn->setValue(ofToInt(splitMsg[1]));
+                    gui.drawRaBtn->setValue(ofToInt(splitMsg[1]));
                 }
                 
                 // ------------ FULLSCREEN ------------
@@ -244,7 +241,7 @@ void testApp::handleMessages(){
                         ofToggleFullscreen();
                         printf("middleFs: FALSE\n");
                     }
-                    gui->middleFsBtn->setValue(ofToInt(splitMsg[1]));
+                    gui.middleFsBtn->setValue(ofToInt(splitMsg[1]));
                 }
                 
                 // toggle fullscreen of the TV 1 screen
@@ -256,7 +253,7 @@ void testApp::handleMessages(){
                         ofToggleFullscreen();
                         printf("tv1Fs: FALSE\n");
                     }
-                    gui->tv1FsBtn->setValue(ofToInt(splitMsg[1]));
+                    gui.tv1FsBtn->setValue(ofToInt(splitMsg[1]));
                 }
                 
                 // toggle fullscreen of the TV 2 screen
@@ -268,7 +265,7 @@ void testApp::handleMessages(){
                         ofToggleFullscreen();
                         printf("tv2Fs: FALSE\n");
                     }
-                    gui->tv2FsBtn->setValue(ofToInt(splitMsg[1]));
+                    gui.tv2FsBtn->setValue(ofToInt(splitMsg[1]));
                 }
                 
                 // ------------ SYPHON OUT ------------
@@ -282,7 +279,7 @@ void testApp::handleMessages(){
                         syphonOut = false;
                         printf("syphonLA: FALSE\n");
                     }
-                    gui->syphonLaBtn->setValue(ofToInt(splitMsg[1]));
+                    gui.syphonLaBtn->setValue(ofToInt(splitMsg[1]));
                 }
                 
                 // turn syphon on or off, second value is the false/true
@@ -294,7 +291,7 @@ void testApp::handleMessages(){
                         syphonOut = false;
                         printf("syphonRA: FALSE\n");
                     }
-                    gui->syphonRaBtn->setValue(ofToInt(splitMsg[1]));
+                    gui.syphonRaBtn->setValue(ofToInt(splitMsg[1]));
                 }
                 
                 // ------------ FPS ALL APPS ------------
@@ -306,19 +303,19 @@ void testApp::handleMessages(){
                     // setting value to the right fps slider
                     switch (ofToInt(splitMsg[1])) {
                         case 0:
-                            gui->fpsLaSlider->setValue(ofToInt(splitMsg[2]));
+                            gui.fpsLaSlider->setValue(ofToInt(splitMsg[2]));
                             break;
                         case 1:
-                            gui->fpsMaSlider->setValue(ofToInt(splitMsg[2]));
+                            gui.fpsMaSlider->setValue(ofToInt(splitMsg[2]));
                             break;
                         case 2:
-                            gui->fpsRaSlider->setValue(ofToInt(splitMsg[2]));
+                            gui.fpsRaSlider->setValue(ofToInt(splitMsg[2]));
                             break;
                         case 3:
-                            gui->fps01Slider->setValue(ofToInt(splitMsg[2]));
+                            gui.fps01Slider->setValue(ofToInt(splitMsg[2]));
                             break;
                         case 4:
-                            gui->fps02Slider->setValue(ofToInt(splitMsg[2]));
+                            gui.fps02Slider->setValue(ofToInt(splitMsg[2]));
                             break;
                         default:
                             break;
@@ -339,33 +336,33 @@ void testApp::handleMessages(){
                 // play a certain item from the allHandler list
                 if (splitMsg[0].compare("handlerStart") == 0 && splitMsg.size() == 3) {
                     printf("play: %s - %s\n",splitMsg[1].c_str(),splitMsg[2].c_str());
-                    gui->resetRotation();
-                    handler->start(splitMsg[1]);
+                    gui.resetRotation();
+                    handler.start(splitMsg[1]);
                 }
                 
                 // -------- PLAY/PAUSE/PREV/NEXT ---------
                 
                 // play control
                 if (splitMsg[0].compare("play") == 0 && splitMsg.size() == 2) {
-                    handler->resume();
+                    handler.resume();
                 }
                 
                 // pause control
                 if (splitMsg[0].compare("pause") == 0 && splitMsg.size() == 2) {
-                    handler->pause();
+                    handler.pause();
                 }
                 
                 // prev control
                 if (splitMsg[0].compare("prev") == 0 && splitMsg.size() == 2) {
-                    gui->resetRotation();
-                    handler->startPrev();
+                    gui.resetRotation();
+                    handler.startPrev();
                 }
                 
                 // next control
                 if (splitMsg[0].compare("next") == 0 && splitMsg.size() == 2) {
                     if ((ofGetElapsedTimeMillis() - nextCounter ) > 100) {
-                        gui->resetRotation();
-                        handler->startNext();
+                        gui.resetRotation();
+                        handler.startNext();
                         nextCounter = ofGetElapsedTimeMillis();
                     }
                 }
@@ -375,13 +372,13 @@ void testApp::handleMessages(){
                 // turn playAll on or off, second value is the false/true
                 if (splitMsg[0].compare("playAll") == 0 && splitMsg.size() == 2) {
                     if (ofToInt(splitMsg[1]) == 1) {
-                        handler->bPlayAll = true;
+                        handler.bPlayAll = true;
                         printf("playAll: TRUE\n");
                     } else if(ofToInt(splitMsg[1]) == 0) {
-                        handler->bPlayAll = false;
+                        handler.bPlayAll = false;
                         printf("playAll: FALSE\n");
                     }
-                    gui->playAllBtn->setValue(ofToInt(splitMsg[1]));
+                    gui.playAllBtn->setValue(ofToInt(splitMsg[1]));
                 }
                 
                 // =========== GUI COLUMN 3 ===========
@@ -390,113 +387,113 @@ void testApp::handleMessages(){
                 
                 // set rotate (OSC) val of the TV 1 screen
                 if (splitMsg[0].compare("tv1rotOSC") == 0 && splitMsg.size() == 2) {
-                    handler->miniApp->main->totalTv1prevPos = gui->tv1rotTotVal;
+                    handler.miniApp.main.totalTv1prevPos = gui.tv1rotTotVal;
                     float incoming = ofToFloat(splitMsg[1]);
                     int addNr = 10;
                     
                     if (incoming == 1.0) {
-                        if (gui->tv1rotVal > 359) {
-                            gui->tv1rotVal = 0;
+                        if (gui.tv1rotVal > 359) {
+                            gui.tv1rotVal = 0;
                         } else {
-                            gui->tv1rotVal += addNr;
+                            gui.tv1rotVal += addNr;
                         }
-                        gui->tv1rotTotVal += addNr;
+                        gui.tv1rotTotVal += addNr;
                     } else if(incoming == 0) {
                         addNr = addNr*-1;
-                        if (gui->tv1rotVal < 1) {
-                            gui->tv1rotVal = 359;
+                        if (gui.tv1rotVal < 1) {
+                            gui.tv1rotVal = 359;
                         } else {
-                            gui->tv1rotVal += addNr;
+                            gui.tv1rotVal += addNr;
                         }
-                        gui->tv1rotTotVal += addNr;
+                        gui.tv1rotTotVal += addNr;
                     }
                     
-                    gui->tv1rot->setValue(gui->tv1rotVal);
-                    gui->tv1rotTotVal += addNr;
-                    handler->miniApp->main->tv1pos = gui->tv1rotVal;
-                    handler->miniApp->main->totalTv1pos = gui->tv1rotTotVal;
+                    gui.tv1rot->setValue(gui.tv1rotVal);
+                    gui.tv1rotTotVal += addNr;
+                    handler.miniApp.main.tv1pos = gui.tv1rotVal;
+                    handler.miniApp.main.totalTv1pos = gui.tv1rotTotVal;
                 }
                 
                 // set rotate (OSC) val of the TV 2 screen
                 if (splitMsg[0].compare("tv2rotOSC") == 0 && splitMsg.size() == 2) {
-                    handler->miniApp->main->totalTv2prevPos = gui->tv2rotTotVal;
+                    handler.miniApp.main.totalTv2prevPos = gui.tv2rotTotVal;
                     float incoming = ofToFloat(splitMsg[1]);
                     int addNr = 10;
                     
                     if (incoming == 1.0) {
-                        if (gui->tv2rotVal > 359) {
-                            gui->tv2rotVal = 0;
+                        if (gui.tv2rotVal > 359) {
+                            gui.tv2rotVal = 0;
                         } else {
-                            gui->tv2rotVal += addNr;
+                            gui.tv2rotVal += addNr;
                         }
-                        gui->tv2rotTotVal += addNr;
+                        gui.tv2rotTotVal += addNr;
                     } else if(incoming == 0) {
                         addNr = addNr*-1;
-                        if (gui->tv2rotVal < 1) {
-                            gui->tv2rotVal = 359;
+                        if (gui.tv2rotVal < 1) {
+                            gui.tv2rotVal = 359;
                         } else {
-                            gui->tv2rotVal += addNr;
+                            gui.tv2rotVal += addNr;
                         }
-                        gui->tv2rotTotVal += addNr;
+                        gui.tv2rotTotVal += addNr;
                     }
                     
-                    gui->tv2rot->setValue(gui->tv2rotVal);
-                    gui->tv2rotTotVal += addNr;
-                    handler->miniApp->main->tv2pos = gui->tv2rotVal;
-                    handler->miniApp->main->totalTv2pos = gui->tv2rotTotVal;
+                    gui.tv2rot->setValue(gui.tv2rotVal);
+                    gui.tv2rotTotVal += addNr;
+                    handler.miniApp.main.tv2pos = gui.tv2rotVal;
+                    handler.miniApp.main.totalTv2pos = gui.tv2rotTotVal;
                 }
                 
                 // set rotate val of the TV 1 screen
                 if (splitMsg[0].compare("tv1rot") == 0 && splitMsg.size() == 2) {
-                    handler->miniApp->main->totalTv1prevPos = gui->tv1rotTotVal;
+                    handler.miniApp.main.totalTv1prevPos = gui.tv1rotTotVal;
                     
                     float incoming = ofToFloat(splitMsg[1]);
                     incoming = ofMap(incoming, 0.0, 1.0, 0.0, 360.0);
                     
-                    if (gui->tv1rotVal > 270 && incoming < 90) {
-                        if (incoming < gui->tv1rotVal) {
-                            gui->tv1rotTotVal += 360;
+                    if (gui.tv1rotVal > 270 && incoming < 90) {
+                        if (incoming < gui.tv1rotVal) {
+                            gui.tv1rotTotVal += 360;
                         }
                     }
                     
-                    if (gui->tv1rotVal < 90 && incoming > 270) {
-                        if (incoming > gui->tv1rotVal) {
-                            gui->tv1rotTotVal -= 360;
+                    if (gui.tv1rotVal < 90 && incoming > 270) {
+                        if (incoming > gui.tv1rotVal) {
+                            gui.tv1rotTotVal -= 360;
                         }
                     }
                     
-                    gui->tv1rotTotVal = gui->tv1rotTotVal - (gui->tv1rotVal - incoming);
-                    gui -> tv1rotVal = incoming;
+                    gui.tv1rotTotVal = gui.tv1rotTotVal - (gui.tv1rotVal - incoming);
+                    gui.tv1rotVal = incoming;
                     
-                    gui->tv1rot->setValue(gui->tv1rotVal);
-                    handler->miniApp->main->tv1pos = gui->tv1rotVal;
-                    handler->miniApp->main->totalTv1pos = gui->tv1rotTotVal;
+                    gui.tv1rot->setValue(gui.tv1rotVal);
+                    handler.miniApp.main.tv1pos = gui.tv1rotVal;
+                    handler.miniApp.main.totalTv1pos = gui.tv1rotTotVal;
                 }
                 
                 // set rotate val of the TV 2 screen
                 if (splitMsg[0].compare("tv2rot") == 0 && splitMsg.size() == 2) {
-                    handler->miniApp->main->totalTv2prevPos = gui->tv2rotTotVal;
+                    handler.miniApp.main.totalTv2prevPos = gui.tv2rotTotVal;
                     
                     float incoming = ofToFloat(splitMsg[1]);
                     incoming = ofMap(incoming, 0.0, 1.0, 0.0, 360.0);
                     
-                    if (gui->tv2rotVal > 270 && incoming < 90) {
-                        if (incoming < gui->tv2rotVal) {
-                            gui->tv2rotTotVal += 360;
+                    if (gui.tv2rotVal > 270 && incoming < 90) {
+                        if (incoming < gui.tv2rotVal) {
+                            gui.tv2rotTotVal += 360;
                         }
                     }
                     
-                    if (gui->tv2rotVal < 90 && incoming > 270) {
-                        if (incoming > gui->tv2rotVal) {
-                            gui->tv2rotTotVal -= 360;
+                    if (gui.tv2rotVal < 90 && incoming > 270) {
+                        if (incoming > gui.tv2rotVal) {
+                            gui.tv2rotTotVal -= 360;
                         }
                     }
                     
-                    gui->tv2rotTotVal = gui->tv2rotTotVal - (gui->tv2rotVal - incoming);
-                    gui->tv2rotVal = incoming;
-                    gui->tv2rot->setValue(gui->tv2rotVal);
-                    handler->miniApp->main->tv2pos = gui->tv2rotVal;
-                    handler->miniApp->main->totalTv2pos = gui->tv2rotTotVal;
+                    gui.tv2rotTotVal = gui.tv2rotTotVal - (gui.tv2rotVal - incoming);
+                    gui.tv2rotVal = incoming;
+                    gui.tv2rot->setValue(gui.tv2rotVal);
+                    handler.miniApp.main.tv2pos = gui.tv2rotVal;
+                    handler.miniApp.main.totalTv2pos = gui.tv2rotTotVal;
                 }
                 
                 // ------- SCAN FOLDER --------
@@ -520,7 +517,7 @@ void testApp::keyPressed(int key){
             break;
     }
     
-    gui->keyPressed(key); // so we can toggle visibility by pressing 'h'
+    gui.keyPressed(key); // so we can toggle visibility by pressing 'h'
 }
 
 //--------------------------------------------------------------

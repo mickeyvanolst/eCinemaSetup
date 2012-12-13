@@ -9,7 +9,12 @@
 #include "plaats_origine.h"
 
 //--------------------------------------------------------------
-plaats_origine::plaats_origine(mainMini *_mai){
+plaats_origine::plaats_origine(){
+    
+}
+
+//--------------------------------------------------------------
+void plaats_origine::init(mainMini *_mai){
     main = _mai;
 }
 

@@ -15,7 +15,9 @@
 
 class zoetroop {
 public:
-    zoetroop(mainMini *_mai);
+    zoetroop();
+    
+    void init(mainMini *_mai);
     void setup();
     void update();
     void draw();

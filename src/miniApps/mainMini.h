@@ -17,7 +17,9 @@
 
 class mainMini : ofBaseApp {
 public:
-    mainMini(mpeClientTCP *_cli);
+    mainMini();
+    
+    void init(mpeClientTCP *_cli);
     void setup(string id);
     void update();
     void reset();

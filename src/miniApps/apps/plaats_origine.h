@@ -16,7 +16,9 @@
 
 class plaats_origine {
 public:
-    plaats_origine(mainMini *_mai);
+    plaats_origine();
+    
+    void init(mainMini *_mai);
     void setup();
     void update();
     void draw();

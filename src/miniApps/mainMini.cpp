@@ -9,7 +9,12 @@
 #include "mainMini.h"
 
 //--------------------------------------------------------------
-mainMini::mainMini(mpeClientTCP *_cli){
+mainMini::mainMini(){
+    
+}
+
+//--------------------------------------------------------------
+void mainMini::init(mpeClientTCP *_cli){
     client = _cli;
 }
 

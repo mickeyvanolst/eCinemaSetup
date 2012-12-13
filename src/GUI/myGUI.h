@@ -18,8 +18,9 @@
 class myGUI {
 
 public:
-    myGUI(mpeClientTCP *_cli, allHandler *_all);
-
+    myGUI();
+    
+    void init(mpeClientTCP *_cli, allHandler *_all);
     void setup(string appID);
     void keyPressed(int key);
     

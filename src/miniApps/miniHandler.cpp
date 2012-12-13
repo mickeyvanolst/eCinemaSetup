@@ -9,43 +9,53 @@
 #include "miniHandler.h"
 
 //--------------------------------------------------------------
-miniHandler::miniHandler(mpeClientTCP * _cli){
-    client = _cli;
-    main = new mainMini(client);
+miniHandler::miniHandler(){
+    
+    //main = new mainMini(client);
     curMiniApp = "";
     pauseApp = false;
     appActive = false;
     
-    myMaker_kijker = NULL; // otherwise it will trigger anyways..
-    myPlaats_origine = NULL;
-    myZoetroop = NULL;
+//    myMaker_kijker = NULL; // otherwise it will trigger anyways..
+//    myPlaats_origine = NULL;
+//    myZoetroop = NULL;
+}
+
+//--------------------------------------------------------------
+void miniHandler::init(mpeClientTCP * _cli){
+    client = _cli;
+    main.init(_cli);
+    
+    myZoetroop.init(&main);
+    myPlaats_origine.init(&main);
+    myMaker_kijker.init(&main);
 }
 
 //--------------------------------------------------------------
 void miniHandler::setup(string id){
     appName = id;
-    main->setup(appName);
+    main.setup(appName);
     
     //startMini("01_TestMini"); // for some reason this only works when triggered at start, not through broadcast..
     
     // Listeners
-    ofAddListener(main->doneEvent, this, &miniHandler::doneMini);
+    ofAddListener(main.doneEvent, this, &miniHandler::doneMini);
 }
 
 //--------------------------------------------------------------
 void miniHandler::update(){
-    main->update(); // so the speedvals of the rotation get calculated
+    main.update(); // so the speedvals of the rotation get calculated
     
     // not yet finished here, need to figure out how to do this with several mini apps etc
     if (!pauseApp) {
-        if (myMaker_kijker != NULL && curMiniApp == "maker_kijker" && appActive) {
-            myMaker_kijker->update();
+        if (curMiniApp == "maker_kijker" && appActive) {
+            myMaker_kijker.update();
         }
-        if (myPlaats_origine != NULL && curMiniApp == "plaats_origine" && appActive) {
-            myPlaats_origine->update();
+        if (curMiniApp == "plaats_origine" && appActive) {
+            myPlaats_origine.update();
         }
-        if (myZoetroop != NULL && curMiniApp == "zoetroop" && appActive) {
-            myZoetroop->update();
+        if (curMiniApp == "zoetroop" && appActive) {
+            myZoetroop.update();
         }
     }
 }
@@ -54,14 +64,14 @@ void miniHandler::update(){
 void miniHandler::draw(){
     // not yet finished here, need to figure out how to do this with several mini apps etc
     if (!pauseApp) {
-        if (myMaker_kijker != NULL && curMiniApp == "maker_kijker" && appActive) {
-            myMaker_kijker->draw();
+        if (curMiniApp == "maker_kijker" && appActive) {
+            myMaker_kijker.draw();
         }
-        if (myPlaats_origine != NULL && curMiniApp == "plaats_origine" && appActive) {
-            myPlaats_origine->draw();
+        if (curMiniApp == "plaats_origine" && appActive) {
+            myPlaats_origine.draw();
         }
-        if (myZoetroop != NULL && curMiniApp == "zoetroop" && appActive) {
-            myZoetroop->draw();
+        if (curMiniApp == "zoetroop" && appActive) {
+            myZoetroop.draw();
         }
     }
 }
@@ -88,20 +98,23 @@ void miniHandler::startMini(string wichApp){
     appActive = true;
     // for some reason the string is not always recognized as the same, but does printf the same
     if (tempApp.compare("maker_kijker") == 0) {
-        myMaker_kijker = new maker_kijker(main);
-        myMaker_kijker->setup();
+        //myMaker_kijker = new maker_kijker(main);
+        
+        myMaker_kijker.setup();
         curMiniApp = tempApp;
         pauseApp = false;
     }
     if (tempApp.compare("plaats_origine") == 0) {
-        myPlaats_origine = new plaats_origine(main);
-        myPlaats_origine->setup();
+        //myPlaats_origine = new plaats_origine(main);
+        
+        myPlaats_origine.setup();
         curMiniApp = tempApp;
         pauseApp = false;
     }
     if (tempApp.compare("zoetroop") == 0) {
-        myZoetroop = new zoetroop(main);
-        myZoetroop->setup();
+        //myZoetroop = new zoetroop(main);
+        
+        myZoetroop.setup();
         curMiniApp = tempApp;
         pauseApp = false;
     }
@@ -129,21 +142,21 @@ void miniHandler::doneMini(int & i){
 }
 //--------------------------------------------------------------
 void miniHandler::setNull(){
-    if (curMiniApp == "maker_kijker" && myMaker_kijker != NULL) {
-        delete myMaker_kijker;
-        myMaker_kijker = NULL;
-        curMiniApp = "";
-    }
-    if (curMiniApp == "plaats_origine" && myPlaats_origine != NULL) {
-        delete myPlaats_origine;
-        myPlaats_origine = NULL;
-        curMiniApp = "";
-    }
-    if (curMiniApp == "zoetroop" && myZoetroop != NULL) {
-        delete myZoetroop;
-        myZoetroop = NULL;
-        curMiniApp = "";
-    }
+//    if (curMiniApp == "maker_kijker" && myMaker_kijker != NULL) {
+//        delete myMaker_kijker;
+//        myMaker_kijker = NULL;
+//        curMiniApp = "";
+//    }
+//    if (curMiniApp == "plaats_origine" && myPlaats_origine != NULL) {
+//        delete myPlaats_origine;
+//        myPlaats_origine = NULL;
+//        curMiniApp = "";
+//    }
+//    if (curMiniApp == "zoetroop" && myZoetroop != NULL) {
+//        delete myZoetroop;
+//        myZoetroop = NULL;
+//        curMiniApp = "";
+//    }
 }
 
 //--------------------------------------------------------------

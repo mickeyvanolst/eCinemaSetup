@@ -9,9 +9,9 @@
 #include "customPlayer.h"
 
 //--------------------------------------------------------------
-customPlayer::customPlayer(handleChapters *_rea)
+customPlayer::customPlayer()
 {
-    reader = _rea;
+    //reader = _rea;
     
     ofSetVerticalSync(true);
     ofEnableAlphaBlending();
@@ -34,21 +34,26 @@ customPlayer::customPlayer(handleChapters *_rea)
 }
 
 //--------------------------------------------------------------
-void customPlayer::setup(string ID)
+void customPlayer::init(handleChapters *_rea)
 {
-    appName = ID;
+    reader = _rea;
+}
+
+//--------------------------------------------------------------
+void customPlayer::setup(string _name)
+{
+    myAppName = _name;
     ofAddListener(reader->addAllVideosEvent, this, &customPlayer::addAllVideos);
 }
 
 //--------------------------------------------------------------
 void customPlayer::update()
 {
-    players[activeVid]->update();
+    players[activeVid].update();
     //players[activeVid].vid.idleMovie(); - deprecated
     // send a message to allHandler the video is done
     
-    
-    if (players[activeVid]->getIsMovieDone() && !isDone) {
+    if (players[activeVid].getIsMovieDone() && !isDone) {
         int myInt;
         ofNotifyEvent(doneEvent,myInt,this);
         printf("customPlayer - video is done, sending notifyEvent\n");
@@ -60,10 +65,10 @@ void customPlayer::update()
 //--------------------------------------------------------------
 void customPlayer::addPlayer(string videoDir)
 {    
-    ofVideoPlayer *vid = new ofVideoPlayer;
+    ofVideoPlayer vid;
     printf("adding movie: %s at players[%li]\n",videoDir.c_str(), players.size());
-    vid->loadMovie(videoDir);
-    vid->setLoopState(OF_LOOP_NONE);
+    vid.loadMovie(videoDir);
+    vid.setLoopState(OF_LOOP_NONE);
     players.push_back(vid);
     stopPlayer();
     
@@ -71,7 +76,7 @@ void customPlayer::addPlayer(string videoDir)
     totMovsFrames = 0.0;
     for (int i = 0; i < players.size(); i++) {
         if(i >= 0) {
-            totMovsFrames += float(players[i]->getTotalNumFrames());
+            totMovsFrames += float(players[i].getTotalNumFrames());
         } else {
             totMovsFrames = 0.0;
         }
@@ -85,11 +90,11 @@ void customPlayer::addAllVideos(int & i)
     removeAllPlayers();
     for (int i = 0; i < reader->chapters.size(); i++) {
         if(reader->chapters[i].complete && reader->chapters[i].inOrder){
-            if (appName == "left") {
+            if (myAppName == "left") {
                 addPlayer(reader->chapters[i].left.file);
-            } else if(appName == "middle") {
+            } else if(myAppName == "middle") {
                 addPlayer(reader->chapters[i].middle.file);
-            } else if(appName == "right") {
+            } else if(myAppName == "right") {
                 addPlayer(reader->chapters[i].right.file);
             }
         }
@@ -102,17 +107,17 @@ void customPlayer::addAllVideos(int & i)
 void customPlayer::draw(int x, int y)
 {
     // calulating stuff to show in the GUI
-    float tempCurFrame      = players[activeVid]->getCurrentFrame();
-    float tempTotFrame      = players[activeVid]->getTotalNumFrames();
+    float tempCurFrame      = players[activeVid].getCurrentFrame();
+    float tempTotFrame      = players[activeVid].getTotalNumFrames();
     float tempPercent       = tempCurFrame / tempTotFrame * 100.0;
     float tempTotPercent    = (tempCurFrame + totPrevMovsFrames) / totMovsFrames * 100.0;
     
-    chapTotalTime = int(players[activeVid]->getDuration() );
+    chapTotalTime = int(players[activeVid].getDuration() );
     chapCurPercent = tempPercent;
     totalProgress = tempTotPercent;
     
     // actually drawing the video
-    players[activeVid]->draw(x,y);
+    players[activeVid].draw(x,y);
     
 
     // this is still a bit sketchy, not sure if I should update all video's in order to
@@ -129,14 +134,14 @@ void customPlayer::startPlayer(int whichVid)
     activeVid = whichVid;
     printf("customplayer: play vid nr: %i\n",activeVid);
     //players[activeVid].vid.setFrame(1);
-    players[activeVid]->play();
+    players[activeVid].play();
     // pause the one that might be playing and play the new one
     
     // calculate new value for total amount of frames of previous films
     totPrevMovsFrames = 0.0;
     for (int i = 0; i < activeVid; i++) {
         if(i >= 0) {
-            totPrevMovsFrames += float(players[i]->getTotalNumFrames());
+            totPrevMovsFrames += float(players[i].getTotalNumFrames());
         } else {
             totPrevMovsFrames = 0.0;
         }
@@ -147,7 +152,7 @@ void customPlayer::startPlayer(int whichVid)
 void customPlayer::pausePlayer()
 {
     if (isPlaying) {
-        players[activeVid]->setPaused(true);
+        players[activeVid].setPaused(true);
         isPlaying = false;
     }
 }
@@ -156,9 +161,9 @@ void customPlayer::pausePlayer()
 void customPlayer::stopPlayer()
 {
     if (isPlaying) {
-        players[activeVid]->setPaused(true);
-        players[activeVid]->setPosition(0);
-        players[activeVid]->stop();
+        players[activeVid].setPaused(true);
+        players[activeVid].setPosition(0);
+        players[activeVid].stop();
         isPlaying = false;
         printf("customPlayer - stopPlayer\n");
     }
@@ -168,7 +173,7 @@ void customPlayer::stopPlayer()
 void customPlayer::playPlayer()
 {
     if (!isPlaying) {
-        players[activeVid]->play();
+        players[activeVid].play();
         isPlaying = true;
     }
 }
@@ -177,12 +182,10 @@ void customPlayer::playPlayer()
 void customPlayer::removeAllPlayers()
 {
     // deleting the videoplayer instances we just used
-    vector<ofVideoPlayer*>::iterator its;
-    for(its = players.begin(); its != players.end(); its++){
-        (*its)->~ofVideoPlayer();
-        players.erase(its);
-        break;
+    for (int i = 0; i < players.size(); i++) {
+        players[i].close();
     }
+    players.erase(players.begin(), players.end());
     printf("removed all players!\n");
     
     totPrevMovsFrames = 0;

@@ -9,15 +9,23 @@
 #include "allHandler.h"
 
 //--------------------------------------------------------------
-allHandler::allHandler(mpeClientTCP *_cli, handleChapters *_rea){
-    client  = _cli;
-    reader  = _rea;
-    player      = new customPlayer(reader);
-    miniApp     = new miniHandler(client);
+allHandler::allHandler(){
+    //player      = new customPlayer(reader);
+    //miniApp     = new miniHandler(client);
 
     activeID = -1; // negative so at least we know something's wrong
     bPlayAll = true;
 }
+
+
+//--------------------------------------------------------------
+void allHandler::init(mpeClientTCP *_cli, handleChapters *_rea){
+    client  = _cli;
+    reader  = _rea;
+    player.init(_rea);
+    miniApp.init(_cli);
+}
+
 
 //--------------------------------------------------------------
 void allHandler::setup(string appName){
@@ -25,14 +33,14 @@ void allHandler::setup(string appName){
     appName = appName;
     
     // customp player, also needs to know who he is
-    player->setup(appName);
+    player.setup(appName);
     
     // our miniApp handler, this should handle all interactive chapters
-    miniApp->setup(appName);
+    miniApp.setup(appName);
     
     // adding listeners (still have to add this)
-    ofAddListener(miniApp->doneEvent, this, &allHandler::done);
-    ofAddListener(player->doneEvent, this, &allHandler::done);
+    ofAddListener(miniApp.doneEvent, this, &allHandler::done);
+    ofAddListener(player.doneEvent, this, &allHandler::done);
 }
 
 //--------------------------------------------------------------
@@ -49,10 +57,10 @@ void allHandler::createList(){
         list[curChap+numApps].chapterID = curChap;
         
         // checks after every movie if there should be an app next
-        if (miniApp->appComesAfter(reader->chapters[curChap].name) != "") {
+        if (miniApp.appComesAfter(reader->chapters[curChap].name) != "") {
             numApps++;
             list.push_back(TotProg());
-            list[curChap+numApps].name = miniApp->appComesAfter(reader->chapters[curChap].name);
+            list[curChap+numApps].name = miniApp.appComesAfter(reader->chapters[curChap].name);
             list[curChap+numApps].type = "app";
         }
     }
@@ -77,10 +85,10 @@ void allHandler::createList(){
 void allHandler::update(){
     if (list[activeID].type.compare("app") == 0) {
         // this is an app
-        miniApp->update();
+        miniApp.update();
     } else if(list[activeID].type.compare("mov") == 0) {
         // this is a movie
-        player->update();
+        player.update();
     }
 }
 
@@ -88,10 +96,10 @@ void allHandler::update(){
 void allHandler::draw(){
     if (list[activeID].type.compare("app") == 0) {
         // this is an app
-        miniApp->draw();
+        miniApp.draw();
     } else if(list[activeID].type.compare("mov") == 0) {
         // this is a movie
-        player->draw(client->getXoffset(),client->getYoffset());
+        player.draw(client->getXoffset(),client->getYoffset());
     }
 }
 
@@ -120,10 +128,10 @@ void allHandler::start(string name){
                 if (list[activeID].type.compare("app") == 0) {
                     // this is an app
                     int myInt; // bleh, ofListener stuff..
-                    miniApp->stopMini(myInt);
+                    miniApp.stopMini(myInt);
                 } else if(list[activeID].type.compare("mov") == 0) {
                     // this is a movie
-                    player->stopPlayer();
+                    player.stopPlayer();
                 }
             }
             
@@ -140,11 +148,11 @@ void allHandler::start(string name){
     // actually starting something --
     if (list[activeID].type.compare("app") == 0) {
         // this is an app
-        miniApp->startMini(list[activeID].name);
+        miniApp.startMini(list[activeID].name);
     } else if(list[activeID].type.compare("mov") == 0) {
         // this is a movie
         printf("film name: %s\n", list[activeID].name.c_str());
-        player->startPlayer(list[activeID].chapterID);
+        player.startPlayer(list[activeID].chapterID);
     }
     printf("starting: %s - id:%i type: %s\n",list[activeID].name.c_str(), activeID, list[activeID].type.c_str());
 }
@@ -168,10 +176,10 @@ void allHandler::startPrev(){
 void allHandler::pause(){
     if (list[activeID].type.compare("app") == 0) {
         // this is an app
-        miniApp->pauseMini();
+        miniApp.pauseMini();
     } else if(list[activeID].type.compare("mov") == 0) {
         // this is a movie
-        player->pausePlayer();
+        player.pausePlayer();
     }
 }
 
@@ -179,10 +187,10 @@ void allHandler::pause(){
 void allHandler::resume(){
     if (list[activeID].type.compare("app") == 0) {
         // this is an app
-        miniApp->playMini();
+        miniApp.playMini();
     } else if(list[activeID].type.compare("mov") == 0) {
         // this is a movie
-        player->playPlayer();
+        player.playPlayer();
     }
 }
 

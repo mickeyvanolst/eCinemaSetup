@@ -14,7 +14,9 @@
 
 class maker_kijker {
 public:
-    maker_kijker(mainMini *_mai);
+    maker_kijker();
+    
+    void init(mainMini *_mai);
     void setup();
     void update();
     void draw();

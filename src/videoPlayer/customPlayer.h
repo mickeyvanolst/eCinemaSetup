@@ -14,9 +14,10 @@
 class customPlayer {
     
 public:
-    customPlayer(handleChapters *_rea);
+    customPlayer();
     
-    void setup(string ID);
+    void init(handleChapters *_rea);
+    void setup(string _name);
     void update();
     void draw(int x, int y);
     
@@ -29,12 +30,12 @@ public:
     void playPlayer();
     void startPlayer(int whichVid);
     
-    vector<ofVideoPlayer*> players;
+    vector<ofVideoPlayer> players;
     
-    string              appName;
     int                 activeVid;
     bool                isPlaying;
     bool                isDone;
+    string              myAppName;
     
     handleChapters      *reader;
     

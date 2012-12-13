@@ -75,7 +75,7 @@ public:
     
 private:
     // need to load movies to get some actual data on them
-    vector<ofVideoPlayer*> videos;
+    vector<ofVideoPlayer> videos;
 };
 
 #endif

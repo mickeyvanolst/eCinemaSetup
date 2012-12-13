@@ -34,11 +34,11 @@ public:
     // was private, now public!
     mpeClientTCP        client; 
     // allHandler, deals with both apps and video's
-    allHandler          *handler;
+    allHandler          handler;
     // handleChapters, reading the files and see whats in it, also writes to XML
     handleChapters      reader;
     // GUI stuff
-    myGUI               *gui;
+    myGUI               gui;
     // needed for touch osc (iPad) to simulate our interactive objects
     ofxOscReceiver      receiver;
     // we draw into this and send the Fbo trough syphon

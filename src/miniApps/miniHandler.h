@@ -18,7 +18,9 @@
 
 class miniHandler {
 public:
-    miniHandler(mpeClientTCP * _cli);
+    miniHandler();
+    
+    void init(mpeClientTCP * _cli);
     void setup(string id);
     void update();
     void draw();
@@ -38,14 +40,14 @@ public:
     bool appActive;
     
     mpeClientTCP *client;
-    mainMini *main;
+    mainMini main;
     
     ofEvent<int>        doneEvent;
     
     // ----- List of mini Apps -----
-    maker_kijker        *myMaker_kijker; // after 02_Rise of the Guardians
-    plaats_origine      *myPlaats_origine; // after 03_Plaats en origine
-    zoetroop            *myZoetroop;
+    maker_kijker        myMaker_kijker; // after 02_Rise of the Guardians
+    plaats_origine      myPlaats_origine; // after 03_Plaats en origine
+    zoetroop            myZoetroop;
     
 private:
     void setNull();

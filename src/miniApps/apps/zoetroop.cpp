@@ -9,7 +9,12 @@
 #include "zoetroop.h"
 
 //--------------------------------------------------------------
-zoetroop::zoetroop(mainMini *_mai){
+zoetroop::zoetroop(){
+    
+}
+
+//--------------------------------------------------------------
+void zoetroop::init(mainMini *_mai){
     main = _mai;
 }
 

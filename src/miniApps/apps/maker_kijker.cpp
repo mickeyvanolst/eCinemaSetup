@@ -9,7 +9,11 @@
 #include "maker_kijker.h"
 
 //--------------------------------------------------------------
-maker_kijker::maker_kijker(mainMini *_mai){
+maker_kijker::maker_kijker(){
+    
+}
+
+void maker_kijker::init(mainMini *_mai){
     main = _mai;
 }
 

@@ -93,15 +93,14 @@ void handleChapters::readDir(){
                             chapters[i].left.name = dir.getName(f);
                             chapters[i].left.filesize = file.getSize();
                             
-                            ofVideoPlayer *vid = new ofVideoPlayer;
-                            vid->loadMovie(chapters[i].left.file);
+                            ofVideoPlayer vid;
                             videos.push_back(vid);
                             
-                            if (videos.back()->isLoaded()) {
-                                chapters[i].left.width    = videos.back()->getWidth();
-                                chapters[i].left.height   = videos.back()->getHeight();
-                                chapters[i].left.duration = videos.back()->getDuration();
-                                chapters[i].left.numFrames = videos.back()->getTotalNumFrames();
+                            if (videos.back().loadMovie(chapters[i].left.file)) {
+                                chapters[i].left.width     = videos.back().getWidth();
+                                chapters[i].left.height    = videos.back().getHeight();
+                                chapters[i].left.duration  = videos.back().getDuration();
+                                chapters[i].left.numFrames = videos.back().getTotalNumFrames();
                             }
                             
                             chapters[i].left.sameSettings = false; // figure this out later
@@ -123,15 +122,14 @@ void handleChapters::readDir(){
                             chapters[i].middle.name = dir.getName(f);
                             chapters[i].middle.filesize = file.getSize();
                             
-                            ofVideoPlayer *vid = new ofVideoPlayer;
-                            vid->loadMovie(chapters[i].middle.file);
+                            ofVideoPlayer vid;
                             videos.push_back(vid);
                             
-                            if (videos.back()->isLoaded()) {
-                                chapters[i].middle.width    = videos.back()->getWidth();
-                                chapters[i].middle.height   = videos.back()->getHeight();
-                                chapters[i].middle.duration = videos.back()->getDuration();
-                                chapters[i].middle.numFrames = videos.back()->getTotalNumFrames();
+                            if (videos.back().loadMovie(chapters[i].middle.file)) {
+                                chapters[i].middle.width     = videos.back().getWidth();
+                                chapters[i].middle.height    = videos.back().getHeight();
+                                chapters[i].middle.duration  = videos.back().getDuration();
+                                chapters[i].middle.numFrames = videos.back().getTotalNumFrames();
                             }
                             
                             chapters[i].middle.sameSettings = false; // figure this out later
@@ -153,15 +151,14 @@ void handleChapters::readDir(){
                             chapters[i].right.name = dir.getName(f);
                             chapters[i].right.filesize = file.getSize();
                             
-                            ofVideoPlayer *vid = new ofVideoPlayer;
-                            vid->loadMovie(chapters[i].right.file);
+                            ofVideoPlayer vid;
                             videos.push_back(vid);
                             
-                            if (videos.back()->isLoaded()) {
-                                chapters[i].right.width    = videos.back()->getWidth();
-                                chapters[i].right.height   = videos.back()->getHeight();
-                                chapters[i].right.duration = videos.back()->getDuration();
-                                chapters[i].right.numFrames = videos.back()->getTotalNumFrames();
+                            if (videos.back().loadMovie(chapters[i].right.file)) {
+                                chapters[i].right.width     = videos.back().getWidth();
+                                chapters[i].right.height    = videos.back().getHeight();
+                                chapters[i].right.duration  = videos.back().getDuration();
+                                chapters[i].right.numFrames = videos.back().getTotalNumFrames();
                             }
                             
                             chapters[i].right.sameSettings = false; // figure this out later
@@ -210,13 +207,13 @@ void handleChapters::readDir(){
     }
     
     // deleting the videoplayer instances we just used
-    vector<ofVideoPlayer*>::iterator its;
-    for(its = videos.begin(); its != videos.end(); its++){
-        (*its)->~ofVideoPlayer();
-        videos.erase(its);
-        break;
-        
+
+    
+    for (int i = 0; i < videos.size(); i++) {
+        videos[i].close();
     }
+    videos.erase(videos.begin(), videos.end());
+    
 }
 
 //--------------------------------------------------------------
