@@ -9,6 +9,7 @@
 #include "chapterHandler.h"
 #include "allHandler.h"
 #include "ofxOsc.h"
+#include "ofxMidi.h"
 #include "myGUI.h"
 
 class testApp : public ofBaseApp, public mpeClientListener {
@@ -17,6 +18,7 @@ public:
     void setup();
     void update();
     void draw();
+    void exit();
     
     void keyPressed(int key);
     void keyReleased(int key);
@@ -26,6 +28,10 @@ public:
     void mouseReleased(int x, int y, int button);
     void windowResized(int w, int h);
     void handleMessages();
+    
+    // MIDI for the audio connection (on a nother laptop)
+    ofxMidiOut midiOut;
+	int midiChannel;
     
     // MPE's way of doing an update/draw, everything updates from here
     void frameEvent();

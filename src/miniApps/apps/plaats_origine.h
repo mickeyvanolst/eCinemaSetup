@@ -12,13 +12,14 @@
 #include "mainMini.h"
 #include "plaats_origine.h"
 #include "ofxTweener.h"
+#include "ofxMidi.h"
 #include "ofxXmlSettings.h"
 
 class plaats_origine {
 public:
     plaats_origine();
     
-    void init(mainMini *_mai);
+    void init(mainMini *_mai, ofxMidiOut *_midi);
     void setup();
     void update();
     void draw();
@@ -28,6 +29,7 @@ public:
     
     string afterChapter;
     
+    ofxMidiOut *midiOut;
     mainMini *main;
 private:
     float sortaModulo(float timesFit, float totalVal);

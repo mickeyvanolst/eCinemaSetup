@@ -4,7 +4,7 @@
 
 testApp::testApp()
 {
-    handler.init(&client, &reader);
+    handler.init(&client, &reader, &midiOut);
     gui.init(&client, &handler);
 }
 
@@ -25,6 +25,10 @@ void testApp::setup(){
     handler.setup(appName);
     gui.setup(appName);
     receiver.setup(8000); // OSC
+    
+	midiOut.listPorts();
+	midiOut.openPort(0);
+    midiChannel = 1;
     
     client.start();
     
@@ -127,7 +131,6 @@ void testApp::frameEvent() {
     
     // check for waiting OSC messages, this is just for testing with the iPad and touchOSC,
     // will be replaced by real objects
-    //string oscString[3] = {"tvRotOSC", ",x", ",x"};
     int val1 = 0;
     int val2 = 0;
 	while(receiver.hasWaitingMessages()){
@@ -135,36 +138,26 @@ void testApp::frameEvent() {
 		ofxOscMessage m;
 		receiver.getNextMessage(&m);
         
-		// check for mouse moved message
+		// check encoder 1
 		if(m.getAddress() == "/1/encoder1"){
-            //client.broadcast("tv1rotOSC," + ofToString(m.getArgAsFloat(0)));
-            //cout << "--1\n";
-            //oscVals[1] = "," + ofToString(m.getArgAsFloat(0));
             if (m.getArgAsFloat(0) == 0) {
                 val1 -= 1;
             } else if(m.getArgAsFloat(0) == 1) {
                 val1 += 1;
             }
-		} else {
-            //oscVals[2] = ",x";
-        }
-		// check for mouse button message
+		}
+		// check encoder 2
 		if(m.getAddress() == "/1/encoder2"){
-            //client.broadcast("tv2rotOSC," + ofToString(m.getArgAsFloat(0)));
-            //cout << "-----------2\n";
-            //oscVals[2] = "," + ofToString(m.getArgAsFloat(0));
             if (m.getArgAsFloat(0) == 0) {
                 val2 -= 1;
             } else if(m.getArgAsFloat(0) == 1) {
                 val2 += 1;
             }
-		} else {
-            //oscVals[2] = ",x";
-        }
+		}
 	}
     string sendVals = "tvRotOSC," + ofToString(val1) + "," + ofToString(val2);
     if (val1 == 0 && val2 == 0) {
-
+        // do nothing
     } else {
         client.broadcast(sendVals);
         //cout << sendVals << "\n";
@@ -471,64 +464,6 @@ void testApp::handleMessages(){
                     }
                 }
                 
-//                // set rotate (OSC) val of the TV 1 screen
-//                if (splitMsg[0].compare("tv1rotOSC") == 0 && splitMsg.size() == 2) {
-//                    handler.miniApp.main.totalTv1prevPos = gui.tv1rotTotVal;
-//                    float incoming = ofToFloat(splitMsg[1]);
-//                    int addNr = 10;
-//                    //cout << "[" << wichApp << "]\n";
-//                    
-//                    if (incoming == 1.0) {
-//                        if (gui.tv1rotVal > 359) {
-//                            gui.tv1rotVal = 0;
-//                        } else {
-//                            gui.tv1rotVal += addNr;
-//                        }
-//                        gui.tv1rotTotVal += addNr;
-//                    } else if(incoming == 0) {
-//                        addNr = addNr*-1;
-//                        if (gui.tv1rotVal < 1) {
-//                            gui.tv1rotVal = 359;
-//                        } else {
-//                            gui.tv1rotVal += addNr;
-//                        }
-//                        gui.tv1rotTotVal += addNr;
-//                    }
-//                    
-//                    gui.tv1rot->setValue(gui.tv1rotVal);
-//                    gui.tv1rotTotVal += addNr;
-//                    handler.miniApp.main.tv1pos = gui.tv1rotVal;
-//                    handler.miniApp.main.totalTv1pos = gui.tv1rotTotVal;
-//                }
-//                
-//                // set rotate (OSC) val of the TV 2 screen
-//                if (splitMsg[0].compare("tv2rotOSC") == 0 && splitMsg.size() == 2) {
-//                    handler.miniApp.main.totalTv2prevPos = gui.tv2rotTotVal;
-//                    float incoming = ofToFloat(splitMsg[1]);
-//                    int addNr = 10;
-//                    if (incoming == 1.0) {
-//                        if (gui.tv2rotVal > 359) {
-//                            gui.tv2rotVal = 0;
-//                        } else {
-//                            gui.tv2rotVal += addNr;
-//                        }
-//                        gui.tv2rotTotVal += addNr;
-//                    } else if(incoming == 0) {
-//                        addNr = addNr*-1;
-//                        if (gui.tv2rotVal < 1) {
-//                            gui.tv2rotVal = 359;
-//                        } else {
-//                            gui.tv2rotVal += addNr;
-//                        }
-//                        gui.tv2rotTotVal += addNr;
-//                    }
-//                    
-//                    gui.tv2rot->setValue(gui.tv2rotVal);
-//                    gui.tv2rotTotVal += addNr;
-//                    handler.miniApp.main.tv2pos = gui.tv2rotVal;
-//                    handler.miniApp.main.totalTv2pos = gui.tv2rotTotVal;
-//                }
-                
                 // set rotate val of the TV 1 screen
                 if (splitMsg[0].compare("tv1rot") == 0 && splitMsg.size() == 2) {
                     handler.miniApp.main.totalTv1prevPos = gui.tv1rotTotVal;
@@ -635,4 +570,11 @@ void testApp::mouseReleased(int x, int y, int button){
 //--------------------------------------------------------------
 void testApp::windowResized(int w, int h){
     
+}
+
+//--------------------------------------------------------------
+void testApp::exit() {
+	
+	// clean up
+	midiOut.closePort();
 }

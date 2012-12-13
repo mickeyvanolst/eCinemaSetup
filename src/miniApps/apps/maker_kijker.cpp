@@ -13,8 +13,9 @@ maker_kijker::maker_kijker(){
     
 }
 
-void maker_kijker::init(mainMini *_mai){
+void maker_kijker::init(mainMini *_mai, ofxMidiOut * _midi){
     main = _mai;
+    midiOut = _midi;
 }
 
 //--------------------------------------------------------------

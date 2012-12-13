@@ -14,8 +14,9 @@ plaats_origine::plaats_origine(){
 }
 
 //--------------------------------------------------------------
-void plaats_origine::init(mainMini *_mai){
+void plaats_origine::init(mainMini *_mai, ofxMidiOut *_midi){
     main = _mai;
+    midiOut = _midi;
 }
 
 //--------------------------------------------------------------

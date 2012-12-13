@@ -11,6 +11,7 @@
 
 #include "mpeClientTCP.h"
 #include "mainMini.h" // our mini app base app, all mini apps will derive from this one
+#include "ofxMidi.h"
 
 #include "maker_kijker.h"
 #include "plaats_origine.h"
@@ -20,7 +21,7 @@ class miniHandler {
 public:
     miniHandler();
     
-    void init(mpeClientTCP * _cli);
+    void init(mpeClientTCP * _cli, ofxMidiOut * _midi);
     void setup(string id);
     void update();
     void draw();
@@ -40,6 +41,7 @@ public:
     bool appActive;
     
     mpeClientTCP *client;
+    ofxMidiOut *midiOut;
     mainMini main;
     
     ofEvent<int>        doneEvent;

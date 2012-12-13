@@ -14,8 +14,9 @@ zoetroop::zoetroop(){
 }
 
 //--------------------------------------------------------------
-void zoetroop::init(mainMini *_mai){
+void zoetroop::init(mainMini *_mai, ofxMidiOut *_midi){
     main = _mai;
+    midiOut = _midi;
 }
 
 //--------------------------------------------------------------
@@ -48,7 +49,7 @@ void zoetroop::update(){
     Tweener.addTween(tTV1, main->totalTv1pos, 8,  &ofxTransitions::easeOutSine);
     //Tweener.addTween(tTV1, main->totalTv1pos, 8);
     tTV1 = tTV1 - sortaModulo(360, tTV1);
-    
+    midiOut->sendNoteOn(1,45, tTV1);
     
     // just for now to show the end of an interactive event can be triggered by time
     // this should be the last thing you do in an update!!!!!!!

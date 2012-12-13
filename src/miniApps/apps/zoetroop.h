@@ -12,12 +12,13 @@
 #include "mainMini.h"
 #include "ofxTweener.h"
 #include "ofxImageSequence.h"
+#include "ofxMidi.h"
 
 class zoetroop {
 public:
     zoetroop();
     
-    void init(mainMini *_mai);
+    void init(mainMini *_mai, ofxMidiOut * _midi);
     void setup();
     void update();
     void draw();
@@ -25,6 +26,7 @@ public:
     
     string afterChapter;
     
+    ofxMidiOut *midiOut;
     mainMini *main;
 private:
     float sortaModulo(float timesFit, float totalVal);

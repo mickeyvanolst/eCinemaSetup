@@ -19,11 +19,12 @@ allHandler::allHandler(){
 
 
 //--------------------------------------------------------------
-void allHandler::init(mpeClientTCP *_cli, handleChapters *_rea){
+void allHandler::init(mpeClientTCP *_cli, handleChapters *_rea, ofxMidiOut * _midi){
     client  = _cli;
     reader  = _rea;
+    midiOut = _midi;
     player.init(_rea);
-    miniApp.init(_cli);
+    miniApp.init(_cli, _midi);
 }
 
 

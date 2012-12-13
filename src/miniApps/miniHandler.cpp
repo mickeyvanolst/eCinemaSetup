@@ -22,13 +22,14 @@ miniHandler::miniHandler(){
 }
 
 //--------------------------------------------------------------
-void miniHandler::init(mpeClientTCP * _cli){
+void miniHandler::init(mpeClientTCP * _cli, ofxMidiOut * _midi){
     client = _cli;
     main.init(_cli);
+    midiOut = _midi;
     
-    myZoetroop.init(&main);
-    myPlaats_origine.init(&main);
-    myMaker_kijker.init(&main);
+    myZoetroop.init(&main, _midi);
+    myPlaats_origine.init(&main, _midi);
+    myMaker_kijker.init(&main, _midi);
 }
 
 //--------------------------------------------------------------

@@ -11,12 +11,13 @@
 
 #include "mainMini.h"
 #include "ofxTweener.h"
+#include "ofxMidi.h"
 
 class maker_kijker {
 public:
     maker_kijker();
     
-    void init(mainMini *_mai);
+    void init(mainMini *_mai, ofxMidiOut * _midi);
     void setup();
     void update();
     void draw();
@@ -25,6 +26,7 @@ public:
     
     string afterChapter;
     
+    ofxMidiOut *midiOut;
     mainMini *main;
 private:
     float sortaModulo(float remove, float totalVal);
