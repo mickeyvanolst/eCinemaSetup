@@ -19,7 +19,7 @@ void testApp::setup(){
     
 	client.setup("mpe_settings.xml", this);
     
-    string appNameList[5] = {"left","middle","right","TV_1", "TV_2"};
+    string appNameList[5] = {"left","middle","right"}; // ,"TV_1", "TV_2"
     appName = appNameList[client.getID()];
     
     handler.setup(appName);
@@ -27,7 +27,6 @@ void testApp::setup(){
     receiver.setup(8000); // OSC
     
     client.start();
-    
     
     // read out the directory and check if all files are correct
     reader.setup(appName);
@@ -128,6 +127,9 @@ void testApp::frameEvent() {
     
     // check for waiting OSC messages, this is just for testing with the iPad and touchOSC,
     // will be replaced by real objects
+    //string oscString[3] = {"tvRotOSC", ",x", ",x"};
+    int val1 = 0;
+    int val2 = 0;
 	while(receiver.hasWaitingMessages()){
 		// get the next message
 		ofxOscMessage m;
@@ -135,13 +137,38 @@ void testApp::frameEvent() {
         
 		// check for mouse moved message
 		if(m.getAddress() == "/1/encoder1"){
-            client.broadcast("tv1rotOSC," + ofToString(m.getArgAsFloat(0)));
-		}
+            //client.broadcast("tv1rotOSC," + ofToString(m.getArgAsFloat(0)));
+            //cout << "--1\n";
+            //oscVals[1] = "," + ofToString(m.getArgAsFloat(0));
+            if (m.getArgAsFloat(0) == 0) {
+                val1 -= 1;
+            } else if(m.getArgAsFloat(0) == 1) {
+                val1 += 1;
+            }
+		} else {
+            //oscVals[2] = ",x";
+        }
 		// check for mouse button message
-		else if(m.getAddress() == "/1/encoder2"){
-            client.broadcast("tv2rotOSC," + ofToString(m.getArgAsFloat(0)));
-		}
+		if(m.getAddress() == "/1/encoder2"){
+            //client.broadcast("tv2rotOSC," + ofToString(m.getArgAsFloat(0)));
+            //cout << "-----------2\n";
+            //oscVals[2] = "," + ofToString(m.getArgAsFloat(0));
+            if (m.getArgAsFloat(0) == 0) {
+                val2 -= 1;
+            } else if(m.getArgAsFloat(0) == 1) {
+                val2 += 1;
+            }
+		} else {
+            //oscVals[2] = ",x";
+        }
 	}
+    string sendVals = "tvRotOSC," + ofToString(val1) + "," + ofToString(val2);
+    if (val1 == 0 && val2 == 0) {
+
+    } else {
+        client.broadcast(sendVals);
+        //cout << sendVals << "\n";
+    }
     
     handleMessages(); // handle all messages from the MPE client
     
@@ -171,13 +198,13 @@ void testApp::handleMessages(){
         vector<string> msg = client.getDataMessage();
         
         // check if there's a , in there should make it so that it also accepts one value, but i'm too lazy for that..
-        printf("msg size: %li ",msg.size());
+        //printf("msg size: %li ",msg.size());
         if (msg.empty()) {
             printf("it's empty\n");
         } else {
-            for (int b = 0; b < msg.size(); b++) {
-                printf("msg: %s", msg[b].c_str());
-            }
+            //for (int b = 0; b < msg.size(); b++) {
+            //    printf("msg: %s", msg[b].c_str());
+            //}
             if (msg[0].find(",") > 0) {
                 vector<string> splitMsg = ofSplitString(msg[0], ",");
                 
@@ -185,7 +212,7 @@ void testApp::handleMessages(){
                 if (splitMsg[0].compare("FRAMERATE") == 0) {
                     // do nothing
                 } else {
-                    printf("MESSAGE: %s\n",splitMsg[0].c_str());
+                    //printf("MESSAGE: %s\n",splitMsg[0].c_str());
                 }
                 
                 // checking if the XML we've written is the same everywhere, otherwise it means not all directories are the same
@@ -385,63 +412,122 @@ void testApp::handleMessages(){
                 
                 // ------- INTERACTIVE OBJECTS --------
                 
-                // set rotate (OSC) val of the TV 1 screen
-                if (splitMsg[0].compare("tv1rotOSC") == 0 && splitMsg.size() == 2) {
-                    handler.miniApp.main.totalTv1prevPos = gui.tv1rotTotVal;
-                    float incoming = ofToFloat(splitMsg[1]);
-                    int addNr = 10;
-                    
-                    if (incoming == 1.0) {
-                        if (gui.tv1rotVal > 359) {
-                            gui.tv1rotVal = 0;
-                        } else {
-                            gui.tv1rotVal += addNr;
+                // set rotate (OSC) val of TV 1 and 2
+                if (splitMsg[0].compare("tvRotOSC") == 0 && splitMsg.size() == 3) {
+                    if (splitMsg[1].compare("0") != 0) {
+                        handler.miniApp.main.totalTv1prevPos = gui.tv1rotTotVal;
+                        float incoming1 = ofToFloat(splitMsg[1]);
+                        int addNr1 = 5 * incoming1;
+                        //cout << "[" << wichApp << "]\n";
+                        
+                        if (incoming1 > 0) {
+                            if (gui.tv1rotVal > 359) {
+                                gui.tv1rotVal = 0;
+                            } else {
+                                gui.tv1rotVal += addNr1;
+                            }
+                            gui.tv1rotTotVal += addNr1;
+                        } else if(incoming1 < 0) {
+                            //addNr1 = addNr1*-1;
+                            if (gui.tv1rotVal < 1) {
+                                gui.tv1rotVal = 359;
+                            } else {
+                                gui.tv1rotVal += addNr1;
+                            }
+                            gui.tv1rotTotVal += addNr1;
                         }
-                        gui.tv1rotTotVal += addNr;
-                    } else if(incoming == 0) {
-                        addNr = addNr*-1;
-                        if (gui.tv1rotVal < 1) {
-                            gui.tv1rotVal = 359;
-                        } else {
-                            gui.tv1rotVal += addNr;
-                        }
-                        gui.tv1rotTotVal += addNr;
+                        
+                        gui.tv1rot->setValue(gui.tv1rotVal);
+                        gui.tv1rotTotVal += addNr1;
+                        handler.miniApp.main.tv1pos = gui.tv1rotVal;
+                        handler.miniApp.main.totalTv1pos = gui.tv1rotTotVal;
                     }
                     
-                    gui.tv1rot->setValue(gui.tv1rotVal);
-                    gui.tv1rotTotVal += addNr;
-                    handler.miniApp.main.tv1pos = gui.tv1rotVal;
-                    handler.miniApp.main.totalTv1pos = gui.tv1rotTotVal;
+                    if (splitMsg[2].compare("0") != 0) {
+                        handler.miniApp.main.totalTv2prevPos = gui.tv2rotTotVal;
+                        float incoming2 = ofToFloat(splitMsg[2]);
+                        int addNr2 = 5 * incoming2;
+                        if (incoming2 > 0) {
+                            if (gui.tv2rotVal > 359) {
+                                gui.tv2rotVal = 0;
+                            } else {
+                                gui.tv2rotVal += addNr2;
+                            }
+                            gui.tv2rotTotVal += addNr2;
+                        } else if(incoming2 < 0) {
+                            //addNr2 = addNr2*-1;
+                            if (gui.tv2rotVal < 1) {
+                                gui.tv2rotVal = 359;
+                            } else {
+                                gui.tv2rotVal += addNr2;
+                            }
+                            gui.tv2rotTotVal += addNr2;
+                        }
+                        
+                        gui.tv2rot->setValue(gui.tv2rotVal);
+                        gui.tv2rotTotVal += addNr2;
+                        handler.miniApp.main.tv2pos = gui.tv2rotVal;
+                        handler.miniApp.main.totalTv2pos = gui.tv2rotTotVal;
+                    }
                 }
                 
-                // set rotate (OSC) val of the TV 2 screen
-                if (splitMsg[0].compare("tv2rotOSC") == 0 && splitMsg.size() == 2) {
-                    handler.miniApp.main.totalTv2prevPos = gui.tv2rotTotVal;
-                    float incoming = ofToFloat(splitMsg[1]);
-                    int addNr = 10;
-                    
-                    if (incoming == 1.0) {
-                        if (gui.tv2rotVal > 359) {
-                            gui.tv2rotVal = 0;
-                        } else {
-                            gui.tv2rotVal += addNr;
-                        }
-                        gui.tv2rotTotVal += addNr;
-                    } else if(incoming == 0) {
-                        addNr = addNr*-1;
-                        if (gui.tv2rotVal < 1) {
-                            gui.tv2rotVal = 359;
-                        } else {
-                            gui.tv2rotVal += addNr;
-                        }
-                        gui.tv2rotTotVal += addNr;
-                    }
-                    
-                    gui.tv2rot->setValue(gui.tv2rotVal);
-                    gui.tv2rotTotVal += addNr;
-                    handler.miniApp.main.tv2pos = gui.tv2rotVal;
-                    handler.miniApp.main.totalTv2pos = gui.tv2rotTotVal;
-                }
+//                // set rotate (OSC) val of the TV 1 screen
+//                if (splitMsg[0].compare("tv1rotOSC") == 0 && splitMsg.size() == 2) {
+//                    handler.miniApp.main.totalTv1prevPos = gui.tv1rotTotVal;
+//                    float incoming = ofToFloat(splitMsg[1]);
+//                    int addNr = 10;
+//                    //cout << "[" << wichApp << "]\n";
+//                    
+//                    if (incoming == 1.0) {
+//                        if (gui.tv1rotVal > 359) {
+//                            gui.tv1rotVal = 0;
+//                        } else {
+//                            gui.tv1rotVal += addNr;
+//                        }
+//                        gui.tv1rotTotVal += addNr;
+//                    } else if(incoming == 0) {
+//                        addNr = addNr*-1;
+//                        if (gui.tv1rotVal < 1) {
+//                            gui.tv1rotVal = 359;
+//                        } else {
+//                            gui.tv1rotVal += addNr;
+//                        }
+//                        gui.tv1rotTotVal += addNr;
+//                    }
+//                    
+//                    gui.tv1rot->setValue(gui.tv1rotVal);
+//                    gui.tv1rotTotVal += addNr;
+//                    handler.miniApp.main.tv1pos = gui.tv1rotVal;
+//                    handler.miniApp.main.totalTv1pos = gui.tv1rotTotVal;
+//                }
+//                
+//                // set rotate (OSC) val of the TV 2 screen
+//                if (splitMsg[0].compare("tv2rotOSC") == 0 && splitMsg.size() == 2) {
+//                    handler.miniApp.main.totalTv2prevPos = gui.tv2rotTotVal;
+//                    float incoming = ofToFloat(splitMsg[1]);
+//                    int addNr = 10;
+//                    if (incoming == 1.0) {
+//                        if (gui.tv2rotVal > 359) {
+//                            gui.tv2rotVal = 0;
+//                        } else {
+//                            gui.tv2rotVal += addNr;
+//                        }
+//                        gui.tv2rotTotVal += addNr;
+//                    } else if(incoming == 0) {
+//                        addNr = addNr*-1;
+//                        if (gui.tv2rotVal < 1) {
+//                            gui.tv2rotVal = 359;
+//                        } else {
+//                            gui.tv2rotVal += addNr;
+//                        }
+//                        gui.tv2rotTotVal += addNr;
+//                    }
+//                    
+//                    gui.tv2rot->setValue(gui.tv2rotVal);
+//                    gui.tv2rotTotVal += addNr;
+//                    handler.miniApp.main.tv2pos = gui.tv2rotVal;
+//                    handler.miniApp.main.totalTv2pos = gui.tv2rotTotVal;
+//                }
                 
                 // set rotate val of the TV 1 screen
                 if (splitMsg[0].compare("tv1rot") == 0 && splitMsg.size() == 2) {

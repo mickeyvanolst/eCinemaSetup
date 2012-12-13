@@ -12,7 +12,6 @@
 #include "myGUI.h"
 
 class testApp : public ofBaseApp, public mpeClientListener {
-    
 public:
     testApp();
     void setup();
@@ -30,6 +29,8 @@ public:
     
     // MPE's way of doing an update/draw, everything updates from here
     void frameEvent();
+    
+    //int global = singleton::Instance();
     
     // was private, now public!
     mpeClientTCP        client; 

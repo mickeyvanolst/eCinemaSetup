@@ -40,8 +40,9 @@ public:
     
     bool hideGUI;
     
-    mpeClientTCP *client;
-    allHandler *handler;
+    mpeClientTCP    *client;
+    allHandler      *handler;
+    customPlayer    *player;
     
     string appName;
     
@@ -85,6 +86,8 @@ public:
     float tv2rotVal;
     float tv1rotTotVal;
     float tv2rotTotVal;
+    
+    
     
     ofxUISlider     *chapCurPercent;
     float           chapCurTime;

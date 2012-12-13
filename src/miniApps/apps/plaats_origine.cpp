@@ -105,9 +105,9 @@ void plaats_origine::update(){
     
     // just for now to show the end of an interactive event can be triggered by time
     // this should be the last thing you do in an update!!!!!!!
-    if (durTime > 10000) {
-        endOfMini();
-    }
+//    if (durTime > 10000) {
+//        endOfMini();
+//    }
 }
 
 //--------------------------------------------------------------

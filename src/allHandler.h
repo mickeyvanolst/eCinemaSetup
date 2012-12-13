@@ -36,8 +36,8 @@ public:
     
     string appName;
     
-    mpeClientTCP *client;
-    handleChapters *reader;
+    mpeClientTCP    *client;
+    handleChapters  *reader;
 
     miniHandler miniApp;
     

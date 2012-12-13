@@ -31,7 +31,6 @@ void allHandler::init(mpeClientTCP *_cli, handleChapters *_rea){
 void allHandler::setup(string appName){
     
     appName = appName;
-    
     // customp player, also needs to know who he is
     player.setup(appName);
     

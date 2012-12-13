@@ -52,9 +52,9 @@ void zoetroop::update(){
     
     // just for now to show the end of an interactive event can be triggered by time
     // this should be the last thing you do in an update!!!!!!!
-    if (durTime > 10000) {
-        endOfMini();
-    }
+//    if (durTime > 10000) {
+//        endOfMini();
+//    }
 }
 
 //--------------------------------------------------------------
@@ -69,8 +69,10 @@ void zoetroop::draw(){
         curPercent = 0;
     }
     
-    printf("tTV1: %f\n",tTV1);
-    printf("ptTV1: %f\n",ptTV1);
+    cout << "total TV1: " << main->totalTv1pos << "\n";
+    
+//    printf("tTV1: %f\n",tTV1);
+//    printf("ptTV1: %f\n",ptTV1);
     
     if (tTV1 - ptTV1 > 18) {
         fastImgs.getFrameAtPercent(curPercent)->draw(0, 0);
