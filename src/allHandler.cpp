@@ -15,16 +15,17 @@ allHandler::allHandler(){
 
     activeID = -1; // negative so at least we know something's wrong
     bPlayAll = true;
+    bMidi = true;
 }
 
 
 //--------------------------------------------------------------
-void allHandler::init(mpeClientTCP *_cli, handleChapters *_rea, ofxMidiOut * _midi){
+void allHandler::init(mpeClientTCP *_cli, handleChapters *_rea, ofxMidiOut * _midi, float *_tv1rotVal, float *_tv2rotVal, float *_tv1rotTotVal, float *_tv2rotTotVal){
     client  = _cli;
     reader  = _rea;
     midiOut = _midi;
     player.init(_rea);
-    miniApp.init(_cli, _midi);
+    miniApp.init(_cli, _midi, &bMidi, _tv1rotVal, _tv2rotVal, _tv1rotTotVal, _tv2rotTotVal);
 }
 
 

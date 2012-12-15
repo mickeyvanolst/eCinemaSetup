@@ -45,10 +45,9 @@ void plaats_origine::setup(){
 //--------------------------------------------------------------
 void plaats_origine::update(){
     durTime = ofGetElapsedTimeMillis() - initTime;
-    Tweener.update();
     
     for (int i = 0; i < bgCuePoints.size(); i++) {
-        if (curBg != i && main->tv1pos >= i*(360/bgCuePoints.size()) && main->tv1pos < (i+1)*(360/bgCuePoints.size())) {
+        if (curBg != i && *main->tv1pos >= i*(360/bgCuePoints.size()) && *main->tv1pos < (i+1)*(360/bgCuePoints.size())) {
             
             if (bgCuePoints[i].frame - tBg > bgMov.getTotalNumFrames()/2) {
                 output = "go down";
@@ -77,7 +76,7 @@ void plaats_origine::update(){
     
     if (main->appName == "middle") {
         for (int i = 0; i < artCuePoints.size(); i++) {
-            if (curArt != i && main->tv2pos >= i*(360/artCuePoints.size()) && main->tv2pos < (i+1)*(360/artCuePoints.size())) {
+            if (curArt != i && *main->tv2pos >= i*(360/artCuePoints.size()) && *main->tv2pos < (i+1)*(360/artCuePoints.size())) {
                 
                 if (artCuePoints[i].frame - tArt > artMov.getTotalNumFrames()/2) {
                     output = "go down";
@@ -103,6 +102,8 @@ void plaats_origine::update(){
         }
         artMov.update();
     }
+    
+    Tweener.update();
     
     // just for now to show the end of an interactive event can be triggered by time
     // this should be the last thing you do in an update!!!!!!!

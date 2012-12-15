@@ -20,7 +20,7 @@ class allHandler {
 public:
     allHandler(); 
     
-    void init(mpeClientTCP *_cli, handleChapters *_rea, ofxMidiOut * _midi);
+    void init(mpeClientTCP *_cli, handleChapters *_rea, ofxMidiOut * _midi, float *_tv1rotVal, float *_tv2rotVal, float *_tv1rotTotVal, float *_tv2rotTotVal);
     void setup(string appName);
     void createList();
     void update();
@@ -36,6 +36,8 @@ public:
     void done(int & i);
     
     string appName;
+    
+    bool bMidi;
     
     ofxMidiOut      *midiOut;
     mpeClientTCP    *client;

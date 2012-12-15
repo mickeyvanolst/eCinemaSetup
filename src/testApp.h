@@ -28,6 +28,7 @@ public:
     void mouseReleased(int x, int y, int button);
     void windowResized(int w, int h);
     void handleMessages();
+    void resetRotation();
     
     // MIDI for the audio connection (on a nother laptop)
     ofxMidiOut midiOut;
@@ -62,6 +63,12 @@ public:
     
     bool syphonOut;
     bool drawScreen;
+    
+    float tv1rotVal;
+    float tv2rotVal;
+    
+    float tv1rotTotVal;
+    float tv2rotTotVal;
     
 private:
     

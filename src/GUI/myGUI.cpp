@@ -18,10 +18,15 @@ myGUI::myGUI()
 }
 
 //--------------------------------------------------------------
-void myGUI::init(mpeClientTCP *_cli, allHandler *_all)
+void myGUI::init(mpeClientTCP *_cli, allHandler *_all, float *_tv1rotVal, float *_tv2rotVal, float *_tv1rotTotVal, float *_tv2rotTotVal)
 {
-    client      = _cli;
-    handler     = _all;
+    client       = _cli;
+    handler      = _all;
+    
+    tv1rotVal    = _tv1rotVal;
+    tv2rotVal    = _tv2rotVal;
+    tv1rotTotVal = _tv1rotTotVal;
+    tv2rotTotVal = _tv2rotTotVal;
 }
 
 //--------------------------------------------------------------
@@ -34,12 +39,6 @@ void myGUI::setup(string appID)
     
     prevMsg = "";
     prevMsgCounter = 0;
-    
-    tv1rotVal = 0;
-    tv2rotVal = 0;
-    
-    tv1rotTotVal = 0;
-    tv2rotTotVal = 0;
 }
 
 //--------------------------------------------------------------
@@ -99,6 +98,12 @@ void myGUI::guiEvent(ofxUIEventArgs &e)
             syphonLaBtn->setValue(!syphonLaBtn->getValue());
         }
         
+//        if(name == "MIDI OUT")
+//        {
+//            ofxUIToggle *button = (ofxUIToggle *) e.widget;
+//            midiOutBtn->setValue(!midiOutBtn->getValue());
+//        }
+        
         if(name == "RA SYPHON")
         {
             ofxUIToggle *button = (ofxUIToggle *) e.widget;
@@ -151,6 +156,7 @@ void myGUI::guiEvent(ofxUIEventArgs &e)
         if (name == "TV_1_ROT") {
             ofxUIRotarySlider *button = (ofxUIRotarySlider *) e.widget;
             client->broadcast("tv1rot," + ofToString(tv1rot->getValue()));
+            cout << "gui - tv1val: " << tv1rot->getValue() << "\n";
         }
         
         if (name == "TV_2_ROT") {
@@ -228,6 +234,16 @@ void myGUI::guiEvent(ofxUIEventArgs &e)
             }
         }
         
+//        if(name == "MIDI OUT")
+//        {
+//            ofxUIToggle *button = (ofxUIToggle *) e.widget;
+//            if (midiOutBtn->getValue() == 1) {
+//                //client->broadcast("midiOut,1");
+//            } else {
+//                //client->broadcast("midiOut,0");
+//            }
+//        }
+        
         if(name == "RA SYPHON")
         {
             ofxUIToggle *button = (ofxUIToggle *) e.widget;
@@ -247,17 +263,6 @@ void myGUI::guiEvent(ofxUIEventArgs &e)
         }
 
     }
-}
-
-//--------------------------------------------------------------
-void myGUI::resetRotation()
-{
-    tv1rotVal       = 0;
-    tv2rotVal       = 0;
-    tv1rotTotVal    = 0;
-    tv2rotTotVal    = 0;
-    tv1rot->setValue(0);
-    tv2rot->setValue(0);
 }
 
 //--------------------------------------------------------------
@@ -339,12 +344,14 @@ void myGUI::setGUI1()
     syphonRaBtn = (ofxUIToggle *) gui1->addWidgetRight(new ofxUIToggle("RA SYPHON", true, dim, dim));
     
     gui1->addSpacer(length-xInit, 2);
+	gui1->addWidgetDown(new ofxUILabel("MIDI OUTPUT", OFX_UI_FONT_MEDIUM));
+    midiOutBtn = (ofxUIToggle *) gui1->addWidgetDown(new ofxUIToggle("LA MIDI", &handler->bMidi, dim, dim));
+    
+    gui1->addSpacer(length-xInit, 2);
     gui1->addWidgetDown(new ofxUILabel("FPS ALL APPS", OFX_UI_FONT_MEDIUM));
     fpsLaSlider = (ofxUISlider *) gui1->addSlider("LA", 0.0, 100.0, 0.0, length-xInit, dim);
     fpsMaSlider = (ofxUISlider *) gui1->addSlider("MA", 0.0, 100.0, 0.0, length-xInit, dim);
     fpsRaSlider = (ofxUISlider *) gui1->addSlider("RA", 0.0, 100.0, 0.0, length-xInit, dim);
-    fps01Slider = (ofxUISlider *) gui1->addSlider("01", 0.0, 100.0, 0.0, length-xInit, dim);
-    fps02Slider = (ofxUISlider *) gui1->addSlider("02", 0.0, 100.0, 0.0, length-xInit, dim);
     
     gui1->addSpacer(length-xInit, 2);
     gui1->addLabelButton("SHOOT", false, length-xInit);
@@ -404,11 +411,10 @@ void myGUI::setGUI3()
     gui3->addSpacer(length-xInit, 2);
 	gui3->addWidgetDown(new ofxUILabel("TOTAL PROGRESS", OFX_UI_FONT_MEDIUM));
 	totalPercent = (ofxUISlider *) gui3->addSlider("PROCENT", 0.0, 100.0, 0.0, length-xInit, dim);
-    
     gui3->addSpacer(length-xInit, 2);
     gui3->addWidgetDown(new ofxUILabel("INTERACTIVE OBJECTS", OFX_UI_FONT_MEDIUM));
-    tv1rot = (ofxUIRotarySlider *) gui3->addWidgetDown(new ofxUIRotarySlider(80, 0.0, 360.0, tv1rotVal, "TV_1_ROT"));
-    tv2rot = (ofxUIRotarySlider *) gui3->addWidgetRight(new ofxUIRotarySlider(80, 0.0, 360.0, tv2rotVal, "TV_2_ROT"));
+    tv1rot = (ofxUIRotarySlider *) gui3->addWidgetDown(new ofxUIRotarySlider(80, 0.0, 360.0, *tv2rotVal, "TV_1_ROT"));
+    tv2rot = (ofxUIRotarySlider *) gui3->addWidgetRight(new ofxUIRotarySlider(80, 0.0, 360.0, *tv2rotVal, "TV_2_ROT"));
     
     gui3->addSpacer(length-xInit, 2);
     gui3->addLabelButton("SCAN FOLDER", false, length-xInit);

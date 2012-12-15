@@ -14,19 +14,22 @@ mainMini::mainMini(){
 }
 
 //--------------------------------------------------------------
-void mainMini::init(mpeClientTCP *_cli){
+void mainMini::init(mpeClientTCP *_cli, bool *_bMidi, float *_tv1rotVal, float *_tv2rotVal, float *_tv1rotTotVal, float *_tv2rotTotVal){
     client = _cli;
+    bMidi = _bMidi;
+    
+    tv1pos          = _tv1rotVal;
+    tv2pos          = _tv2rotVal;
+    totalTv1pos     = _tv1rotTotVal;
+    totalTv2pos     = _tv2rotTotVal;
+    totalTv1prevPos = *totalTv1pos;
+    totalTv2prevPos = *totalTv2pos;
+    
 }
 
 //--------------------------------------------------------------
 void mainMini::setup(string id){
     appName         = id;
-    tv1pos          = 0;
-    tv2pos          = 0;
-    totalTv1pos     = 0;
-    totalTv2pos     = 0;
-    totalTv1prevPos = totalTv1pos;
-    totalTv2prevPos = totalTv2pos;
 }
 
 //--------------------------------------------------------------
@@ -36,15 +39,7 @@ void mainMini::reset(){
 
 //--------------------------------------------------------------
 void mainMini::update(){
-//    tweener.update();
-    // gets updated through miniHandler class
-//    tweener.addTween(tv1speed, totalTv1pos - totalTv1prevPos, 1);
-//    tweener.addTween(tv2speed, totalTv2pos - totalTv2prevPos, 1);
-//    
-//    totalTv1prevPos = totalTv1pos;
-//    totalTv2prevPos = totalTv2pos;
     
-    //printf("tv1speed: %f\n", tv1speed);
 }
 
 //--------------------------------------------------------------

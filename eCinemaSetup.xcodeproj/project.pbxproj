@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2229eeeff57d3e2c15c0faa8a0f3c79e /* maker_kijker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4f9c03b22fac464ebe9d04dbc7011490 /* maker_kijker.cpp */; };
 		474c1d1d83ed9a24527d2b2e0ece68f3 /* customPlayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = de26b22013b03f284194c13977f12875 /* customPlayer.cpp */; };
 		670637BF166BDE7800EB7BB6 /* ofxTransitions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 670637B4166BDE7800EB7BB6 /* ofxTransitions.cpp */; };
 		670637C0166BDE7800EB7BB6 /* ofxTweener.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 670637B6166BDE7800EB7BB6 /* ofxTweener.cpp */; };
@@ -16,6 +15,7 @@
 		6722E1501665892600329F37 /* ofxSyphonClient.mm in Sources */ = {isa = PBXBuildFile; fileRef = 6722E1461665892600329F37 /* ofxSyphonClient.mm */; };
 		6722E1511665892600329F37 /* ofxSyphonServer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 6722E1481665892600329F37 /* ofxSyphonServer.mm */; };
 		6722E15C166589C000329F37 /* Syphon.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6722E15B166589C000329F37 /* Syphon.framework */; };
+		673D7E02167B8860009C7FD8 /* intentie_interpretatie.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 673D7E01167B8860009C7FD8 /* intentie_interpretatie.cpp */; };
 		674FC577166B63880076BF2E /* ofxThreadedImageLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 674FC575166B63880076BF2E /* ofxThreadedImageLoader.cpp */; };
 		6765C0FB166D224100093CC7 /* zoetroop.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6765C0FA166D224100093CC7 /* zoetroop.cpp */; };
 		6767B94E166A02D1006E8130 /* IpEndpointName.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6767B92A166A02D1006E8130 /* IpEndpointName.cpp */; };
@@ -130,8 +130,6 @@
 		2b1be93adc60a8cbf4d164369d3173a7 /* mainMini.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = mainMini.h; path = src/miniApps/mainMini.h; sourceTree = SOURCE_ROOT; };
 		45ec56d68ee7d214e37e6c1c874b0a56 /* mainMini.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = mainMini.cpp; path = src/miniApps/mainMini.cpp; sourceTree = SOURCE_ROOT; };
 		479479a0cdc85cf6c47bdf586a186433 /* miniHandler.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = miniHandler.h; path = src/miniApps/miniHandler.h; sourceTree = SOURCE_ROOT; };
-		4f999d580406446a250eb854cb3085f8 /* maker_kijker.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = maker_kijker.h; path = src/miniApps/apps/maker_kijker.h; sourceTree = SOURCE_ROOT; };
-		4f9c03b22fac464ebe9d04dbc7011490 /* maker_kijker.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = maker_kijker.cpp; path = src/miniApps/apps/maker_kijker.cpp; sourceTree = SOURCE_ROOT; };
 		670637B2166BDE7800EB7BB6 /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
 		670637B4166BDE7800EB7BB6 /* ofxTransitions.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxTransitions.cpp; sourceTree = "<group>"; };
 		670637B5166BDE7800EB7BB6 /* ofxTransitions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxTransitions.h; sourceTree = "<group>"; };
@@ -150,6 +148,8 @@
 		6722E1471665892600329F37 /* ofxSyphonServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxSyphonServer.h; sourceTree = "<group>"; };
 		6722E1481665892600329F37 /* ofxSyphonServer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ofxSyphonServer.mm; sourceTree = "<group>"; };
 		6722E15B166589C000329F37 /* Syphon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Syphon.framework; path = ../../../addons/ofxSyphon/libs/Syphon/lib/osx/Syphon.framework; sourceTree = "<group>"; };
+		673D7E00167B8850009C7FD8 /* intentie_interpretatie.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = intentie_interpretatie.h; path = miniApps/apps/intentie_interpretatie.h; sourceTree = "<group>"; };
+		673D7E01167B8860009C7FD8 /* intentie_interpretatie.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = intentie_interpretatie.cpp; path = miniApps/apps/intentie_interpretatie.cpp; sourceTree = "<group>"; };
 		674FC573166B63880076BF2E /* install.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = install.xml; sourceTree = "<group>"; };
 		674FC575166B63880076BF2E /* ofxThreadedImageLoader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxThreadedImageLoader.cpp; sourceTree = "<group>"; };
 		674FC576166B63880076BF2E /* ofxThreadedImageLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxThreadedImageLoader.h; sourceTree = "<group>"; };
@@ -342,12 +342,12 @@
 		07ff7d44f0314ecd99e40c588dcfeab9 /* apps */ = {
 			isa = PBXGroup;
 			children = (
-				4f999d580406446a250eb854cb3085f8 /* maker_kijker.h */,
-				4f9c03b22fac464ebe9d04dbc7011490 /* maker_kijker.cpp */,
 				6767B9AF166A4F68006E8130 /* plaats_origine.h */,
 				6767B9B0166A4F7C006E8130 /* plaats_origine.cpp */,
 				6765C0F9166D1C8700093CC7 /* zoetroop.h */,
 				6765C0FA166D224100093CC7 /* zoetroop.cpp */,
+				673D7E00167B8850009C7FD8 /* intentie_interpretatie.h */,
+				673D7E01167B8860009C7FD8 /* intentie_interpretatie.cpp */,
 			);
 			name = apps;
 			sourceTree = "<group>";
@@ -949,8 +949,8 @@
 				69b5d05241fe6db26915d3d4e0eecdd3 /* allHandler.cpp */,
 				98b3eae9507512159ab7edfe85e9f211 /* chapterHandler */,
 				9c1e03ed636188a91cb83ca1ede7d2b0 /* GUI */,
-				525b55d492f76f3cb735402fd8efe249 /* miniApps */,
 				52282f97f75febaa2a674ca8d02598b5 /* videoPlayer */,
+				525b55d492f76f3cb735402fd8efe249 /* miniApps */,
 			);
 			path = src;
 			sourceTree = SOURCE_ROOT;
@@ -1057,7 +1057,6 @@
 				f29600af35c679e2e9a99fb859dccd66 /* allHandler.cpp in Sources */,
 				eba4b2c45f16b0e08fc7d644c73eed24 /* chapterHandler.cpp in Sources */,
 				d3a7d4bc795461110f8b5b623d15eed2 /* myGUI.cpp in Sources */,
-				2229eeeff57d3e2c15c0faa8a0f3c79e /* maker_kijker.cpp in Sources */,
 				9521cdab721bdf2adfd29d5410cb7411 /* mainMini.cpp in Sources */,
 				ff327fb239dbf82631e5bd2772dc5d1b /* miniHandler.cpp in Sources */,
 				474c1d1d83ed9a24527d2b2e0ece68f3 /* customPlayer.cpp in Sources */,
@@ -1100,6 +1099,7 @@
 				6781C40A167A9466000948F9 /* ofxMidiIn.cpp in Sources */,
 				6781C40B167A9466000948F9 /* ofxMidiMessage.cpp in Sources */,
 				6781C40C167A9466000948F9 /* ofxMidiOut.cpp in Sources */,
+				673D7E02167B8860009C7FD8 /* intentie_interpretatie.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

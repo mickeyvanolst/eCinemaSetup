@@ -20,7 +20,7 @@ class myGUI {
 public:
     myGUI();
     
-    void init(mpeClientTCP *_cli, allHandler *_all);
+    void init(mpeClientTCP *_cli, allHandler *_all, float *_tv1rotVal, float *_tv2rotVal, float *_tv1rotTotVal, float *_tv2rotTotVal);
     void setup(string appID);
     void keyPressed(int key);
     
@@ -64,6 +64,8 @@ public:
     ofxUIToggle     *syphonLaBtn;
     ofxUIToggle     *syphonRaBtn;
     
+    ofxUIToggle     *midiOutBtn;
+    
     int             activeChap;
     
     struct BtnList {
@@ -82,12 +84,10 @@ public:
     ofxUIRotarySlider   *tv1rot;
     ofxUIRotarySlider   *tv2rot;
     
-    float tv1rotVal;
-    float tv2rotVal;
-    float tv1rotTotVal;
-    float tv2rotTotVal;
-    
-    
+    float *tv1rotVal;
+    float *tv2rotVal;
+    float *tv1rotTotVal;
+    float *tv2rotTotVal;
     
     ofxUISlider     *chapCurPercent;
     float           chapCurTime;
@@ -96,8 +96,6 @@ public:
     ofxUISlider     *fpsLaSlider;
     ofxUISlider     *fpsMaSlider;
     ofxUISlider     *fpsRaSlider;
-    ofxUISlider     *fps01Slider;
-    ofxUISlider     *fps02Slider;
     
     ofxUITextArea   *outputFrame;
     

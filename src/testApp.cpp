@@ -4,8 +4,13 @@
 
 testApp::testApp()
 {
-    handler.init(&client, &reader, &midiOut);
-    gui.init(&client, &handler);
+    tv1rotVal    = 0;
+    tv2rotVal    = 0;
+    tv1rotTotVal = 0;
+    tv2rotTotVal = 0;
+    
+    handler.init(&client, &reader, &midiOut, &tv1rotVal, &tv2rotVal, &tv1rotTotVal, &tv2rotTotVal);
+    gui.init(&client, &handler, &tv1rotVal, &tv2rotVal, &tv1rotTotVal, &tv2rotTotVal);
 }
 
 //--------------------------------------------------------------
@@ -13,7 +18,8 @@ void testApp::setup(){
 	// initialize app
 	ofSetFrameRate(30);
     ofEnableSmoothing();
-    ofEnableAlphaBlending();
+    //ofEnableAlphaBlending();
+    ofSetVerticalSync(true);
 	ofSetBackgroundAuto(false); // otherwise it will flicker during every framedrop
     ofBackground(50, 50, 50);
     
@@ -75,6 +81,8 @@ void testApp::frameEvent() {
             i = 1000; // suppose no one would like to see things done this way but it works
         }
     }
+    
+    //cout << "TV1: " << tv1rotVal << "\n";
     
     // clear the screen
     ofBackground(50, 50, 50);
@@ -331,12 +339,6 @@ void testApp::handleMessages(){
                         case 2:
                             gui.fpsRaSlider->setValue(ofToInt(splitMsg[2]));
                             break;
-                        case 3:
-                            gui.fps01Slider->setValue(ofToInt(splitMsg[2]));
-                            break;
-                        case 4:
-                            gui.fps02Slider->setValue(ofToInt(splitMsg[2]));
-                            break;
                         default:
                             break;
                     }
@@ -356,7 +358,7 @@ void testApp::handleMessages(){
                 // play a certain item from the allHandler list
                 if (splitMsg[0].compare("handlerStart") == 0 && splitMsg.size() == 3) {
                     printf("play: %s - %s\n",splitMsg[1].c_str(),splitMsg[2].c_str());
-                    gui.resetRotation();
+                    resetRotation();
                     handler.start(splitMsg[1]);
                 }
                 
@@ -374,14 +376,14 @@ void testApp::handleMessages(){
                 
                 // prev control
                 if (splitMsg[0].compare("prev") == 0 && splitMsg.size() == 2) {
-                    gui.resetRotation();
+                    resetRotation();
                     handler.startPrev();
                 }
                 
                 // next control
                 if (splitMsg[0].compare("next") == 0 && splitMsg.size() == 2) {
                     if ((ofGetElapsedTimeMillis() - nextCounter ) > 100) {
-                        gui.resetRotation();
+                        resetRotation();
                         handler.startNext();
                         nextCounter = ofGetElapsedTimeMillis();
                     }
@@ -407,114 +409,110 @@ void testApp::handleMessages(){
                 
                 // set rotate (OSC) val of TV 1 and 2
                 if (splitMsg[0].compare("tvRotOSC") == 0 && splitMsg.size() == 3) {
+                    int addNr1;
                     if (splitMsg[1].compare("0") != 0) {
-                        handler.miniApp.main.totalTv1prevPos = gui.tv1rotTotVal;
+                        handler.miniApp.main.totalTv1prevPos = tv1rotTotVal;
                         float incoming1 = ofToFloat(splitMsg[1]);
-                        int addNr1 = 5 * incoming1;
-                        //cout << "[" << wichApp << "]\n";
+                        addNr1 = 5 * incoming1;
                         
                         if (incoming1 > 0) {
-                            if (gui.tv1rotVal > 359) {
-                                gui.tv1rotVal = 0;
+                            if (tv1rotVal > 359) {
+                                tv1rotVal = 0;
                             } else {
-                                gui.tv1rotVal += addNr1;
+                                tv1rotVal += addNr1;
                             }
-                            gui.tv1rotTotVal += addNr1;
+                            tv1rotTotVal += addNr1;
                         } else if(incoming1 < 0) {
-                            //addNr1 = addNr1*-1;
-                            if (gui.tv1rotVal < 1) {
-                                gui.tv1rotVal = 359;
+                            if (tv1rotVal < 1) {
+                                tv1rotVal = 359;
                             } else {
-                                gui.tv1rotVal += addNr1;
+                                tv1rotVal += addNr1;
                             }
-                            gui.tv1rotTotVal += addNr1;
+                            tv1rotTotVal += addNr1;
                         }
                         
-                        gui.tv1rot->setValue(gui.tv1rotVal);
-                        gui.tv1rotTotVal += addNr1;
-                        handler.miniApp.main.tv1pos = gui.tv1rotVal;
-                        handler.miniApp.main.totalTv1pos = gui.tv1rotTotVal;
+                        gui.tv1rot->setValue(tv1rotVal);
+                        tv1rotTotVal += addNr1;
                     }
                     
+                    int addNr2;
                     if (splitMsg[2].compare("0") != 0) {
-                        handler.miniApp.main.totalTv2prevPos = gui.tv2rotTotVal;
+                        handler.miniApp.main.totalTv2prevPos = tv2rotTotVal;
                         float incoming2 = ofToFloat(splitMsg[2]);
-                        int addNr2 = 5 * incoming2;
+                        addNr2 = 5 * incoming2;
                         if (incoming2 > 0) {
-                            if (gui.tv2rotVal > 359) {
-                                gui.tv2rotVal = 0;
+                            if (tv2rotVal > 359) {
+                                tv2rotVal = 0;
                             } else {
-                                gui.tv2rotVal += addNr2;
+                                tv2rotVal += addNr2;
                             }
-                            gui.tv2rotTotVal += addNr2;
-                        } else if(incoming2 < 0) {
-                            //addNr2 = addNr2*-1;
-                            if (gui.tv2rotVal < 1) {
-                                gui.tv2rotVal = 359;
+                            tv2rotTotVal += addNr2;
+                        } else if(incoming2 < 0) {  
+                            if (tv2rotVal < 1) {
+                                tv2rotVal = 359;
                             } else {
-                                gui.tv2rotVal += addNr2;
+                                tv2rotVal += addNr2;
                             }
-                            gui.tv2rotTotVal += addNr2;
+                            tv2rotTotVal += addNr2;
                         }
                         
-                        gui.tv2rot->setValue(gui.tv2rotVal);
-                        gui.tv2rotTotVal += addNr2;
-                        handler.miniApp.main.tv2pos = gui.tv2rotVal;
-                        handler.miniApp.main.totalTv2pos = gui.tv2rotTotVal;
+                        gui.tv2rot->setValue(tv2rotVal);
+                        tv2rotTotVal += addNr2;
+                    }
+                    
+                    // there's a bit of a nasty workaround here, if both values are changing, somehow this goes half speed, so we need to overdo it in order to have the same effect.
+                    if (splitMsg[1].compare("0") != 0 && splitMsg[2].compare("0") != 0) {
+                        tv1rotTotVal += addNr1;
+                        gui.tv1rot->setValue(tv1rotVal);
+                        tv2rotTotVal += addNr2;
+                        gui.tv2rot->setValue(tv2rotVal);
                     }
                 }
                 
                 // set rotate val of the TV 1 screen
                 if (splitMsg[0].compare("tv1rot") == 0 && splitMsg.size() == 2) {
-                    handler.miniApp.main.totalTv1prevPos = gui.tv1rotTotVal;
+                    handler.miniApp.main.totalTv1prevPos = tv1rotTotVal;
                     
                     float incoming = ofToFloat(splitMsg[1]);
                     incoming = ofMap(incoming, 0.0, 1.0, 0.0, 360.0);
                     
-                    if (gui.tv1rotVal > 270 && incoming < 90) {
-                        if (incoming < gui.tv1rotVal) {
-                            gui.tv1rotTotVal += 360;
+                    if (tv1rotVal > 270 && incoming < 90) {
+                        if (incoming < tv1rotVal) {
+                            tv1rotTotVal += 360;
                         }
                     }
                     
-                    if (gui.tv1rotVal < 90 && incoming > 270) {
-                        if (incoming > gui.tv1rotVal) {
-                            gui.tv1rotTotVal -= 360;
+                    if (tv1rotVal < 90 && incoming > 270) {
+                        if (incoming > tv1rotVal) {
+                            tv1rotTotVal -= 360;
                         }
                     }
                     
-                    gui.tv1rotTotVal = gui.tv1rotTotVal - (gui.tv1rotVal - incoming);
-                    gui.tv1rotVal = incoming;
-                    
-                    gui.tv1rot->setValue(gui.tv1rotVal);
-                    handler.miniApp.main.tv1pos = gui.tv1rotVal;
-                    handler.miniApp.main.totalTv1pos = gui.tv1rotTotVal;
+                    tv1rotTotVal = tv1rotTotVal - (tv1rotVal - incoming);
+                    tv1rotVal = incoming;
                 }
                 
                 // set rotate val of the TV 2 screen
                 if (splitMsg[0].compare("tv2rot") == 0 && splitMsg.size() == 2) {
-                    handler.miniApp.main.totalTv2prevPos = gui.tv2rotTotVal;
+                    handler.miniApp.main.totalTv2prevPos = tv2rotTotVal;
                     
                     float incoming = ofToFloat(splitMsg[1]);
                     incoming = ofMap(incoming, 0.0, 1.0, 0.0, 360.0);
                     
-                    if (gui.tv2rotVal > 270 && incoming < 90) {
-                        if (incoming < gui.tv2rotVal) {
-                            gui.tv2rotTotVal += 360;
+                    if (tv2rotVal > 270 && incoming < 90) {
+                        if (incoming < tv2rotVal) {
+                            tv2rotTotVal += 360;
                         }
                     }
                     
-                    if (gui.tv2rotVal < 90 && incoming > 270) {
-                        if (incoming > gui.tv2rotVal) {
-                            gui.tv2rotTotVal -= 360;
+                    if (tv2rotVal < 90 && incoming > 270) {
+                        if (incoming > tv2rotVal) {
+                            tv2rotTotVal -= 360;
                         }
                     }
                     
-                    gui.tv2rotTotVal = gui.tv2rotTotVal - (gui.tv2rotVal - incoming);
-                    gui.tv2rotVal = incoming;
-                    gui.tv2rot->setValue(gui.tv2rotVal);
-                    handler.miniApp.main.tv2pos = gui.tv2rotVal;
-                    handler.miniApp.main.totalTv2pos = gui.tv2rotTotVal;
+                    tv2rotTotVal = tv2rotTotVal - (tv2rotVal - incoming);
+                    tv2rotVal = incoming;
                 }
                 
                 // ------- SCAN FOLDER --------
@@ -526,6 +524,17 @@ void testApp::handleMessages(){
             }
         }
     }
+}
+
+//--------------------------------------------------------------
+void testApp::resetRotation()
+{
+    tv1rotVal       = 0;
+    tv2rotVal       = 0;
+    tv1rotTotVal    = 0;
+    tv2rotTotVal    = 0;
+    gui.tv1rot->setValue(0);
+    gui.tv2rot->setValue(0);
 }
 
 //--------------------------------------------------------------

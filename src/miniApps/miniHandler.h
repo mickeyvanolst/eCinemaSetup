@@ -10,18 +10,18 @@
 #define eCinemaSetup_miniHandler_h
 
 #include "mpeClientTCP.h"
-#include "mainMini.h" // our mini app base app, all mini apps will derive from this one
+#include "mainMini.h" // our mini app base app, all mini apps will be connected to this one
 #include "ofxMidi.h"
 
-#include "maker_kijker.h"
 #include "plaats_origine.h"
 #include "zoetroop.h"
+#include "intentie_interpretatie.h"
 
 class miniHandler {
 public:
     miniHandler();
     
-    void init(mpeClientTCP * _cli, ofxMidiOut * _midi);
+    void init(mpeClientTCP * _cli, ofxMidiOut * _midi, bool *_bMidi, float *_tv1rotVal, float *_tv2rotVal, float *_tv1rotTotVal, float *_tv2rotTotVal);
     void setup(string id);
     void update();
     void draw();
@@ -39,6 +39,7 @@ public:
     string curMiniApp;
     bool pauseApp;
     bool appActive;
+    bool *bMidi;
     
     mpeClientTCP *client;
     ofxMidiOut *midiOut;
@@ -47,9 +48,10 @@ public:
     ofEvent<int>        doneEvent;
     
     // ----- List of mini Apps -----
-    maker_kijker        myMaker_kijker; // after 02_Rise of the Guardians
-    plaats_origine      myPlaats_origine; // after 03_Plaats en origine
-    zoetroop            myZoetroop;
+    plaats_origine          myPlaats_origine; // after 03_Plaats en origine
+    zoetroop                myZoetroop; // after 04_Test chapter
+    intentie_interpretatie  myIntentie_interpretatie; // after 02_New test
+    
     
 private:
     void setNull();

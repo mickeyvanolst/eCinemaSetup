@@ -34,12 +34,17 @@ private:
     long int initTime;
     long int durTime;
     
+    long int combTvPos;
+    
     ofxImageSequence slowImgs;
     ofxImageSequence normImgs;
     ofxImageSequence fastImgs;
     
-    float tTV1;
-    float ptTV1;
+    int fastTime;
+    
+    float tTV;
+    float tTVmod;
+    float ptTV;
     
     float tweenTo;
 };

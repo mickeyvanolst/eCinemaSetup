@@ -19,7 +19,7 @@ class mainMini : ofBaseApp {
 public:
     mainMini();
     
-    void init(mpeClientTCP *_cli);
+    void init(mpeClientTCP *_cli, bool *_bMidi, float *_tv1rotVal, float *_tv2rotVal, float *_tv1rotTotVal, float *_tv2rotTotVal);
     void setup(string id);
     void update();
     void reset();
@@ -29,13 +29,15 @@ public:
     mpeClientTCP *client;
     string appName;
     
+    bool *bMidi;
+    
     int appCounter;
     
-    float tv1pos;
-    float tv2pos;
+    float *tv1pos;
+    float *tv2pos;
     
-    float totalTv1pos;
-    float totalTv2pos;
+    float *totalTv1pos;
+    float *totalTv2pos;
     
     float totalTv1prevPos;
     float totalTv2prevPos;
