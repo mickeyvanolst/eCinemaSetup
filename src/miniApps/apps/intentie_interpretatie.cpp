@@ -71,30 +71,32 @@ void intentie_interpretatie::draw(){
         int tempWidth = 0;
         scaleByHeight(Vid1.getWidth(), Vid1.getHeight(), &tempWidth, main->client->getLHeight());
         ofPushView();
-            ofPushView();
-                ofViewport(viewport1);
-                ofSetupScreen();
-                
-                if (Vid1.isLoaded()) {
-                    ofSetColor(255, 255, 255);
-                    // notice we're not using getXoffset, this is because the viewport gets fucked up then..
-                    Vid1.draw(0 - ((tempWidth - viewport1.width)), main->client->getYoffset(), tempWidth, main->client->getMHeight());
-                }
-            ofPopView();
-            //--
-            
-            ofPushView();
-                ofViewport(viewport2);
-                ofSetupScreen();
-                
-                if (Vid2.isLoaded()) {
-                    ofSetColor(255, 255, 255);
-                    // notice we're not using getXoffset, this is because the viewport gets fucked up then..
-                    Vid2.draw(0 - ((tempWidth - viewport2.width)), main->client->getYoffset(), tempWidth, main->client->getMHeight());
-                }
-            ofPopView();
+            ofViewport(viewport1);
+            ofSetupScreen();
+            glScalef(1, -1, 1);
+            glTranslatef(0, -ofGetHeight(), 0);
+        
+            if (Vid1.isLoaded()) {
+                ofSetColor(255, 255, 255);
+                Vid1.draw(0 - ((tempWidth - viewport1.width)/2), 0, tempWidth, main->client->getLHeight());
+            }
         ofPopView();
+        
         //--
+
+        tempWidth = 0;
+        scaleByHeight(Vid2.getWidth(), Vid2.getHeight(), &tempWidth, main->client->getLHeight());
+        ofPushView();
+        ofViewport(viewport2);
+        ofSetupScreen();
+        glScalef(1, -1, 1);
+        glTranslatef(0, -ofGetHeight(), 0);
+        
+        if (Vid2.isLoaded()) {
+            ofSetColor(255, 255, 255);
+            Vid2.draw((ofGetWidth()/2) - ((tempWidth - viewport2.width)/2), 0, tempWidth, main->client->getLHeight());
+        }
+        ofPopView();
         
 
     } else {
