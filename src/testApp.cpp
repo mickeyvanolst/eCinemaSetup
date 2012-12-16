@@ -578,7 +578,6 @@ void testApp::windowResized(int w, int h){
 
 //--------------------------------------------------------------
 void testApp::exit() {
-	
 	// clean up
 	midiOut.closePort();
 }

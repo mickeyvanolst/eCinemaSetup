@@ -22,6 +22,7 @@ public:
     void update();
     void draw();
     void scaleByHeight(int oW, int oH, int *nW, int nH);
+    void exit();
     void endOfMini();
     
     string afterChapter;

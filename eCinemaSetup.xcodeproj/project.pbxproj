@@ -16,6 +16,7 @@
 		6722E1511665892600329F37 /* ofxSyphonServer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 6722E1481665892600329F37 /* ofxSyphonServer.mm */; };
 		6722E15C166589C000329F37 /* Syphon.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6722E15B166589C000329F37 /* Syphon.framework */; };
 		673D7E02167B8860009C7FD8 /* intentie_interpretatie.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 673D7E01167B8860009C7FD8 /* intentie_interpretatie.cpp */; };
+		67491C90167E2BC00065BE61 /* interview_bezoekers.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67491C8F167E2BC00065BE61 /* interview_bezoekers.cpp */; };
 		674FC577166B63880076BF2E /* ofxThreadedImageLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 674FC575166B63880076BF2E /* ofxThreadedImageLoader.cpp */; };
 		6765C0FB166D224100093CC7 /* zoetroop.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6765C0FA166D224100093CC7 /* zoetroop.cpp */; };
 		6767B94E166A02D1006E8130 /* IpEndpointName.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6767B92A166A02D1006E8130 /* IpEndpointName.cpp */; };
@@ -150,6 +151,8 @@
 		6722E15B166589C000329F37 /* Syphon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Syphon.framework; path = ../../../addons/ofxSyphon/libs/Syphon/lib/osx/Syphon.framework; sourceTree = "<group>"; };
 		673D7E00167B8850009C7FD8 /* intentie_interpretatie.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = intentie_interpretatie.h; path = miniApps/apps/intentie_interpretatie.h; sourceTree = "<group>"; };
 		673D7E01167B8860009C7FD8 /* intentie_interpretatie.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = intentie_interpretatie.cpp; path = miniApps/apps/intentie_interpretatie.cpp; sourceTree = "<group>"; };
+		67491C8E167E2BAC0065BE61 /* interview_bezoekers.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = interview_bezoekers.h; path = miniApps/apps/interview_bezoekers.h; sourceTree = "<group>"; };
+		67491C8F167E2BC00065BE61 /* interview_bezoekers.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = interview_bezoekers.cpp; path = miniApps/apps/interview_bezoekers.cpp; sourceTree = "<group>"; };
 		674FC573166B63880076BF2E /* install.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = install.xml; sourceTree = "<group>"; };
 		674FC575166B63880076BF2E /* ofxThreadedImageLoader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxThreadedImageLoader.cpp; sourceTree = "<group>"; };
 		674FC576166B63880076BF2E /* ofxThreadedImageLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxThreadedImageLoader.h; sourceTree = "<group>"; };
@@ -342,6 +345,8 @@
 		07ff7d44f0314ecd99e40c588dcfeab9 /* apps */ = {
 			isa = PBXGroup;
 			children = (
+				67491C8E167E2BAC0065BE61 /* interview_bezoekers.h */,
+				67491C8F167E2BC00065BE61 /* interview_bezoekers.cpp */,
 				6767B9AF166A4F68006E8130 /* plaats_origine.h */,
 				6767B9B0166A4F7C006E8130 /* plaats_origine.cpp */,
 				6765C0F9166D1C8700093CC7 /* zoetroop.h */,
@@ -1100,6 +1105,7 @@
 				6781C40B167A9466000948F9 /* ofxMidiMessage.cpp in Sources */,
 				6781C40C167A9466000948F9 /* ofxMidiOut.cpp in Sources */,
 				673D7E02167B8860009C7FD8 /* intentie_interpretatie.cpp in Sources */,
+				67491C90167E2BC00065BE61 /* interview_bezoekers.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -27,6 +27,7 @@ public:
     void done();
     float sortaModulo(float timesFit, float totalVal);
     void scaleByHeight(int oW, int oH, int *nW, int nH);
+    void scaleByWidth(int oW, int oH, int nW, int *nH);
     
     mpeClientTCP *client;
     string appName;

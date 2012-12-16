@@ -23,6 +23,7 @@ public:
     void update();
     void draw();
     void endOfMini();
+    void exit();
     
     string afterChapter;
     

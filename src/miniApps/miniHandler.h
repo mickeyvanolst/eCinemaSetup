@@ -16,6 +16,7 @@
 #include "plaats_origine.h"
 #include "zoetroop.h"
 #include "intentie_interpretatie.h"
+#include "interview_bezoekers.h"
 
 class miniHandler {
 public:
@@ -51,10 +52,22 @@ public:
     plaats_origine          myPlaats_origine; // after 03_Plaats en origine
     zoetroop                myZoetroop; // after 04_Test chapter
     intentie_interpretatie  myIntentie_interpretatie; // after 02_New test
+    interview_bezoekers     myInterview_bezoekers;
+    
+    // chapter they come after
+    string plaats_origine;
+    string zoetroop;
+    string intentie_interpretatie;
+    string interview_bezoekers;
+    
+    string plaats_origineComesAfter;
+    string zoetroopComesAfter;
+    string intentie_interpretatieComesAfter;
+    string interview_bezoekersComesAfter;
     
     
 private:
-    void setNull();
+    
 };
 
 #endif

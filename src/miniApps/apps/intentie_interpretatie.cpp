@@ -216,6 +216,12 @@ void intentie_interpretatie::draw(){
 }
 
 //--------------------------------------------------------------
+void intentie_interpretatie::exit(){
+    Vid1.close();
+    Vid2.close();
+}
+
+//--------------------------------------------------------------
 void intentie_interpretatie::endOfMini(){
     main->done();
 }

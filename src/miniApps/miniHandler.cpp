@@ -24,6 +24,19 @@ void miniHandler::init(mpeClientTCP * _cli, ofxMidiOut * _midi, bool *_bMidi, fl
     myZoetroop.init(&main, _midi);
     myPlaats_origine.init(&main, _midi);
     myIntentie_interpretatie.init(&main, _midi);
+    myInterview_bezoekers.init(&main, _midi);
+    
+    // setting after what chapter the interactive chapter should play.
+    plaats_origineComesAfter            = "03_Plaats en origine";
+    zoetroopComesAfter                  = "04_Test chapter";
+    intentie_interpretatieComesAfter    = "02_New test";
+    interview_bezoekersComesAfter       = "01_Introductie";
+    
+    // manually setting class names into strings..
+    plaats_origine                      = "myPlaats_origine";
+    zoetroop                            = "zoetroop";
+    intentie_interpretatie              = "intentie_interpretatie";
+    interview_bezoekers                 = "interview_bezoekers";
 }
 
 //--------------------------------------------------------------
@@ -41,14 +54,17 @@ void miniHandler::update(){
     
     // not yet finished here, need to figure out how to do this with several mini apps etc
     if (!pauseApp) {
-        if (curMiniApp == "plaats_origine" && appActive) {
+        if (curMiniApp == plaats_origine && appActive) {
             myPlaats_origine.update();
         }
-        if (curMiniApp == "zoetroop" && appActive) {
+        if (curMiniApp == zoetroop && appActive) {
             myZoetroop.update();
         }
-        if (curMiniApp == "intentie_interpretatie" && appActive) {
+        if (curMiniApp == intentie_interpretatie && appActive) {
             myIntentie_interpretatie.update();
+        }
+        if (curMiniApp == interview_bezoekers && appActive) {
+            myInterview_bezoekers.update();
         }
     }
 }
@@ -57,28 +73,34 @@ void miniHandler::update(){
 void miniHandler::draw(){
     // not yet finished here, need to figure out how to do this with several mini apps etc
     if (!pauseApp) {
-        if (curMiniApp == "plaats_origine" && appActive) {
+        if (curMiniApp == plaats_origine && appActive) {
             myPlaats_origine.draw();
         }
-        if (curMiniApp == "zoetroop" && appActive) {
+        if (curMiniApp == zoetroop && appActive) {
             myZoetroop.draw();
         }
-        if (curMiniApp == "intentie_interpretatie" && appActive) {
+        if (curMiniApp == intentie_interpretatie && appActive) {
             myIntentie_interpretatie.draw();
+        }
+        if (curMiniApp == interview_bezoekers && appActive) {
+            myInterview_bezoekers.draw();
         }
     }
 }
 
 //--------------------------------------------------------------
 string miniHandler::appComesAfter(string prevChapter){
-    if(prevChapter == "03_Plaats en origine") {
-        return "plaats_origine";
+    if(prevChapter == plaats_origineComesAfter) {
+        return plaats_origine;
     }
-    else if(prevChapter == "04_Test chapter") {
-        return "zoetroop";
+    else if(prevChapter == zoetroopComesAfter) {
+        return zoetroop;
     }
-    else if(prevChapter == "02_New test") {
-        return "intentie_interpretatie";
+    else if(prevChapter == intentie_interpretatieComesAfter) {
+        return intentie_interpretatie;
+    }
+    else if(prevChapter == interview_bezoekersComesAfter) {
+        return interview_bezoekers;
     }
     else {
         return "";
@@ -90,18 +112,23 @@ void miniHandler::startMini(string wichApp){
     string tempApp = wichApp;
     appActive = true;
     // for some reason the string is not always recognized as the same, but does printf the same
-    if (tempApp.compare("plaats_origine") == 0) {
+    if (tempApp.compare(plaats_origine) == 0) {
         myPlaats_origine.setup();
         curMiniApp = tempApp;
         pauseApp = false;
     }
-    if (tempApp.compare("zoetroop") == 0) {
+    if (tempApp.compare(zoetroop) == 0) {
         myZoetroop.setup();
         curMiniApp = tempApp;
         pauseApp = false;
     }
-    if (tempApp.compare("intentie_interpretatie") == 0) {
+    if (tempApp.compare(intentie_interpretatie) == 0) {
         myIntentie_interpretatie.setup();
+        curMiniApp = tempApp;
+        pauseApp = false;
+    }
+    if (tempApp.compare(interview_bezoekers) == 0) {
+        myInterview_bezoekers.setup();
         curMiniApp = tempApp;
         pauseApp = false;
     }
@@ -115,21 +142,27 @@ void miniHandler::stopMini(int & i){
     printf("mini app said it's time for bed\n");
     appActive = false;
     
-    setNull();
+    if (curMiniApp == plaats_origine) {
+        myPlaats_origine.exit();
+    }
+    if (curMiniApp == zoetroop) {
+        myZoetroop.exit();
+    }
+    if (curMiniApp == intentie_interpretatie) {
+        myIntentie_interpretatie.exit();
+    }
+    if (curMiniApp == interview_bezoekers) {
+        myInterview_bezoekers.exit();
+    }
 }
 
 //--------------------------------------------------------------
 void miniHandler::doneMini(int & i){
     // not yet finished here, need to figure out how to do this with several mini apps etc
     
-    setNull();
-    
     int myInt;
+    stopMini(myInt);
     ofNotifyEvent(doneEvent,myInt,this);
-}
-//--------------------------------------------------------------
-void miniHandler::setNull(){
-    // no longer needed
 }
 
 //--------------------------------------------------------------

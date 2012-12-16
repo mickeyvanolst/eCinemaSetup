@@ -31,11 +31,10 @@ public:
 	void setGUI2();
 	void setGUI3();
     void exit();
-    
-    void resetRotation();
+    void windowResized(int w, int h);
     
     ofxUICanvas *gui1;
-	ofxUICanvas *gui2;
+	ofxUIScrollableCanvas *gui2;
 	ofxUICanvas *gui3;
     
     bool hideGUI;

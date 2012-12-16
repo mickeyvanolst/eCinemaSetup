@@ -30,7 +30,7 @@ void plaats_origine::setup(){
     
     ofQTKitDecodeMode decodeMode = OF_QTKIT_DECODE_PIXELS_AND_TEXTURE;
     
-    bgMov.loadMovie("app_content/plaats_origine/" + main->appName + ".mov", decodeMode);
+    bgMov.loadMovie("app_content/plaats_origine/" + main->appName + ".mov");
     bgMov.setPixelFormat(OF_PIXELS_RGB);
     tBg = 0;
     curBg = 0;
@@ -122,8 +122,9 @@ void plaats_origine::draw(){
     bgMov.draw(main->client->getXoffset(), 0);
     
     if (main->appName == "middle") {
+        ofEnableAlphaBlending();
         artMov.draw(main->client->getXoffset(),0);
-        
+        ofDisableAlphaBlending();
         bool dispTestMeter = true;
         if (dispTestMeter) {
             ofPushMatrix();
@@ -168,7 +169,7 @@ bool plaats_origine::isImageInViewport(int x, int w){
 //--------------------------------------------------------------
 void plaats_origine::loadXML(string file, bool printResult){
     if (!XML.loadFile(file)) {
-        printf("failed loading cuepoints.xml\n");
+        cout << "failed loading " << file << "\n";
     } else {
         XML.pushTag("cuepoints");
         
@@ -216,6 +217,12 @@ double plaats_origine::floor0( double value ){
         return ceil( value );
     else
         return floor( value );
+}
+
+//--------------------------------------------------------------
+void plaats_origine::exit(){
+    bgMov.close();
+    artMov.close();
 }
 
 //--------------------------------------------------------------

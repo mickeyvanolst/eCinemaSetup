@@ -25,6 +25,7 @@ public:
     void draw();
     void endOfMini();
     bool isImageInViewport(int x, int w);
+    void exit();
     
     string afterChapter;
     
@@ -37,7 +38,7 @@ private:
     int initTime;
     int durTime;
     
-    ofQTKitPlayer bgMov;
+    ofVideoPlayer bgMov;
     ofQTKitPlayer artMov;
     
     ofxXmlSettings XML;

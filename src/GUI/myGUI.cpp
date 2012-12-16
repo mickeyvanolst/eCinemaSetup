@@ -268,13 +268,9 @@ void myGUI::guiEvent(ofxUIEventArgs &e)
 //--------------------------------------------------------------
 void myGUI::exit()
 {
-	delete gui1;
+    delete gui1;
 	delete gui2;
 	delete gui3;
-    
-    gui1 = NULL;
-    gui2 = NULL;
-    gui3 = NULL;
 }
 
 //--------------------------------------------------------------
@@ -365,7 +361,11 @@ void myGUI::setGUI2()
 	float xInit = OFX_UI_GLOBAL_WIDGET_SPACING;
     float length = 255-xInit;
     
-    gui2 = new ofxUICanvas(length+xInit+2, 5, length+xInit, ofGetHeight());
+    gui2 = new ofxUIScrollableCanvas(length+xInit+2, 5, length+xInit, ofGetHeight());
+    gui2->setScrollAreaToScreen();
+    //gui2->setScrollArea(length+xInit, 0, dim, ofGetHeight());
+    gui2->setScrollableDirections(false, true);
+    
 	gui2->addWidgetDown(new ofxUILabel("Press 'h' to Hide GUIs", OFX_UI_FONT_LARGE));
     
     gui2->addSpacer(length-xInit, 2);
@@ -396,6 +396,9 @@ void myGUI::setGUI2()
     prevBtn = (ofxUIImageButton *) gui2->addWidgetRight(new ofxUIImageButton(dim*2, dim*2, false, "GUI/next.png", "NEXT BUTTON"));
     
     playAllBtn = (ofxUIToggle *) gui2->addLabelToggle("PLAY ALL", true);
+    
+    gui2->autoSizeToFitWidgets();
+    gui2->getRect()->setWidth(length+xInit);
     
 	ofAddListener(gui2->newGUIEvent,this,&myGUI::guiEvent);
 }
@@ -431,4 +434,10 @@ void myGUI::setGUI3()
     outputFrame = (ofxUITextArea *) gui3->addWidgetDown(new ofxUITextArea("OUTPUT FRAME", "", length-xInit, 128));
     
 	ofAddListener(gui3->newGUIEvent,this,&myGUI::guiEvent);
+}
+
+//--------------------------------------------------------------
+void myGUI::windowResized(int w, int h)
+{
+    gui2->getRect()->setWidth(ofGetWidth());
 }

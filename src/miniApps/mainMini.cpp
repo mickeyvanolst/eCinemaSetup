@@ -68,6 +68,13 @@ void mainMini::scaleByHeight(int oW, int oH, int *nW, int nH){
 }
 
 //--------------------------------------------------------------
+void mainMini::scaleByWidth(int oW, int oH, int nW, int *nH){
+    //original height / original width x new width = new height
+    float newVal = (float(oH) / float(oW)) * float(nW);
+    (*nH) = int(newVal);
+}
+
+//--------------------------------------------------------------
 void mainMini::done(){
     int myInt;
     ofNotifyEvent(doneEvent,myInt,this); // trigger listener at miniHandler which will execute stopMini
