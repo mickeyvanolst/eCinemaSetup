@@ -48,6 +48,26 @@ void mainMini::draw(){
 }
 
 //--------------------------------------------------------------
+float mainMini::sortaModulo(float timesFit, float totalVal){
+    float returnVal = 0.0;
+    if (timesFit <= totalVal) {
+        while (returnVal + timesFit < totalVal) {
+            returnVal += timesFit;
+        }
+        return returnVal;
+    } else {
+        return returnVal;
+    }
+}
+
+//--------------------------------------------------------------
+void mainMini::scaleByHeight(int oW, int oH, int *nW, int nH){
+    //original width / original height x new height = new width
+    float newVal = (float(oW) / float(oH)) * float(nH);
+    (*nW) = int(newVal);
+}
+
+//--------------------------------------------------------------
 void mainMini::done(){
     int myInt;
     ofNotifyEvent(doneEvent,myInt,this); // trigger listener at miniHandler which will execute stopMini

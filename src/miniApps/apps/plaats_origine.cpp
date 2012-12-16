@@ -23,6 +23,9 @@ void plaats_origine::init(mainMini *_mai, ofxMidiOut *_midi){
 void plaats_origine::setup(){
     initTime = ofGetElapsedTimeMillis();
     
+    ofClear(255, 255, 255);
+    ofBackground(0, 0, 0);
+    
     loadXML("app_content/plaats_origine/cueponts.xml", true);
     
     ofQTKitDecodeMode decodeMode = OF_QTKIT_DECODE_PIXELS_AND_TEXTURE;
@@ -66,7 +69,7 @@ void plaats_origine::update(){
     
     if (tBg != bgMov.getCurrentFrame()) {
         if (tBg > bgMov.getTotalNumFrames()) {
-            tBg = tBg - sortaModulo(bgMov.getTotalNumFrames()-1, tBg);
+            tBg = tBg - main->sortaModulo(bgMov.getTotalNumFrames()-1, tBg);
             // take off -1 of totalframes in case cuepoint is zero
         } 
         bgMov.setFrame(int(tBg));
@@ -95,7 +98,7 @@ void plaats_origine::update(){
         
         if (tArt != artMov.getCurrentFrame()) {
             if (tArt > artMov.getTotalNumFrames()) {
-                tArt = tArt - sortaModulo(artMov.getTotalNumFrames()-1, tArt);
+                tArt = tArt - main->sortaModulo(artMov.getTotalNumFrames()-1, tArt);
                 // take off -1 of totalframes in case cuepoint is zero
             }
             artMov.setFrame(int(tArt));
@@ -154,28 +157,12 @@ void plaats_origine::draw(){
 }
 
 //--------------------------------------------------------------
-void plaats_origine::scaleByHeight(int oW, int oH, int *nW, int nH){
-    //original width / original height x new height = new width
-    float newVal = (float(oW) / float(oH)) * float(nH);
-    (*nW) = int(newVal);
-}
-
-//--------------------------------------------------------------
 bool plaats_origine::isImageInViewport(int x, int w){
     if ((x+w) > 0 && x < main->client->getMWidth() ) {
         return true;
     } else {
         return false;
     }
-}
-
-//--------------------------------------------------------------
-float plaats_origine::sortaModulo(float timesFit, float totalVal){
-    float returnVal = 0.0;
-    while (returnVal + timesFit < totalVal) {
-        returnVal += timesFit;
-    }
-    return returnVal;
 }
 
 //--------------------------------------------------------------

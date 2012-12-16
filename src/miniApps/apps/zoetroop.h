@@ -29,7 +29,6 @@ public:
     ofxMidiOut *midiOut;
     mainMini *main;
 private:
-    float sortaModulo(float timesFit, float totalVal);
     
     long int initTime;
     long int durTime;

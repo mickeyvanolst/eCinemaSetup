@@ -22,8 +22,8 @@ void zoetroop::init(mainMini *_mai, ofxMidiOut *_midi){
 //--------------------------------------------------------------
 void zoetroop::setup(){
     initTime = ofGetElapsedTimeMillis();
-    
-    ofBackground(255, 255, 255);
+    ofClear(255, 255, 255);
+    ofBackground(0, 0, 0);
     
     //    if (main->appName == "left") {
     //        normImgs.loadSequence("app_content/zoetroop/Zoe_Int_Left");
@@ -59,7 +59,7 @@ void zoetroop::update(){
     combTvPos = (*main->totalTv1pos + *main->totalTv2pos)*1.5;
     
     Tweener.addTween(tTV, combTvPos, 8,  &ofxTransitions::easeOutSine);
-    tTVmod = tTV - sortaModulo(360, tTV);
+    tTVmod = tTV - main->sortaModulo(360, tTV);
     
     if (*main->bMidi && main->appName == "left") {
         //midiOut->sendNoteOn(1,45, tTV1);
@@ -126,13 +126,4 @@ void zoetroop::draw(){
 //--------------------------------------------------------------
 void zoetroop::endOfMini(){
     main->done();
-}
-
-//--------------------------------------------------------------
-float zoetroop::sortaModulo(float timesFit, float totalVal){
-    float returnVal = 0.0;
-    while (returnVal + timesFit < totalVal) {
-        returnVal += timesFit;
-    }
-    return returnVal;
 }

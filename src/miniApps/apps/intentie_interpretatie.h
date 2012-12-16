@@ -11,6 +11,7 @@
 
 #include "mainMini.h"
 #include "ofxMidi.h"
+#include "ofxTweener.h"
 
 class intentie_interpretatie {
 public:
@@ -29,7 +30,6 @@ public:
     mainMini *main;
     
 private:
-    bool allIsWell;
     
     long int initTime;
     long int durTime;
@@ -37,8 +37,23 @@ private:
     ofVideoPlayer Vid1;
     ofVideoPlayer Vid2;
     
+    int numFrames[4];
+    int totalFrames;
+    
+    int curActive;
+    int mainCurFrame;
+    int clipCurFrame;
+    
+    int frameRepeat;
+    
     ofRectangle viewport1;
     ofRectangle viewport2;
+    
+    float prevTv1totPos;
+    float prevTv2totPos;
+    
+    float prevTv1pos;
+    float prevTv2Pos;
 };
 
 #endif

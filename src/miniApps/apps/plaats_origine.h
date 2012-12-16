@@ -24,7 +24,6 @@ public:
     void update();
     void draw();
     void endOfMini();
-    void scaleByHeight(int oW, int oH, int *nW, int nH);
     bool isImageInViewport(int x, int w);
     
     string afterChapter;
@@ -32,7 +31,6 @@ public:
     ofxMidiOut *midiOut;
     mainMini *main;
 private:
-    float sortaModulo(float timesFit, float totalVal);
     void loadXML(string file, bool printResult);
     double floor0( double value );
     
