@@ -25,7 +25,7 @@ void testApp::setup(){
     
 	client.setup("mpe_settings.xml", this);
     
-    string appNameList[5] = {"left","middle","right"}; // ,"TV_1", "TV_2"
+    string appNameList[3] = {"left","middle","right"}; // ,"TV_1", "TV_2"
     appName = appNameList[client.getID()];
     
     handler.setup(appName);
@@ -57,7 +57,7 @@ void testApp::setup(){
     nextCounter = 0;
     outputString = "";
     
-    appFbo.allocate(client.getLWidth(), client.getLHeight(),GL_RGB);
+    appFbo.allocate(client.getMWidth(), client.getMHeight(),GL_RGB);
 }
 
 //--------------------------------------------------------------
@@ -103,12 +103,7 @@ void testApp::frameEvent() {
         appFbo.begin();
     }
     
-    // we can turn off drawing the screen at the left and right app because it gets send to syphon anyway
-    if (!drawScreen && handler.list[handler.activeID].type.compare("app") == 0) {
-        handler.draw();
-    } else if(drawScreen) {
-        handler.draw();
-    }
+    handler.draw();
     
     // wraps up drawing into the FBO if it's an app, and also checks if it needs to be drawn to the screen
     if (syphonOut && handler.list[handler.activeID].type.compare("app") == 0) {
@@ -272,29 +267,29 @@ void testApp::handleMessages(){
                     gui.middleFsBtn->setValue(ofToInt(splitMsg[1]));
                 }
                 
-                // toggle fullscreen of the TV 1 screen
-                if (splitMsg[0].compare("tv1Fs") == 0 && splitMsg.size() == 2) {
-                    if (appName == "TV_1" && ofToInt(splitMsg[1]) == 1) {
-                        ofToggleFullscreen();
-                        printf("tv1Fs: TRUE\n");
-                    } else if(appName == "TV_1" && ofToInt(splitMsg[1]) == 0) {
-                        ofToggleFullscreen();
-                        printf("tv1Fs: FALSE\n");
-                    }
-                    gui.tv1FsBtn->setValue(ofToInt(splitMsg[1]));
-                }
-                
-                // toggle fullscreen of the TV 2 screen
-                if (splitMsg[0].compare("tv2Fs") == 0 && splitMsg.size() == 2) {
-                    if (appName == "TV_2" && ofToInt(splitMsg[1]) == 1) {
-                        ofToggleFullscreen();
-                        printf("tv2Fs: TRUE\n");
-                    } else if(appName == "TV_2" && ofToInt(splitMsg[1]) == 0) {
-                        ofToggleFullscreen();
-                        printf("tv2Fs: FALSE\n");
-                    }
-                    gui.tv2FsBtn->setValue(ofToInt(splitMsg[1]));
-                }
+//                // toggle fullscreen of the TV 1 screen
+//                if (splitMsg[0].compare("tv1Fs") == 0 && splitMsg.size() == 2) {
+//                    if (appName == "TV_1" && ofToInt(splitMsg[1]) == 1) {
+//                        ofToggleFullscreen();
+//                        printf("tv1Fs: TRUE\n");
+//                    } else if(appName == "TV_1" && ofToInt(splitMsg[1]) == 0) {
+//                        ofToggleFullscreen();
+//                        printf("tv1Fs: FALSE\n");
+//                    }
+//                    gui.tv1FsBtn->setValue(ofToInt(splitMsg[1]));
+//                }
+//                
+//                // toggle fullscreen of the TV 2 screen
+//                if (splitMsg[0].compare("tv2Fs") == 0 && splitMsg.size() == 2) {
+//                    if (appName == "TV_2" && ofToInt(splitMsg[1]) == 1) {
+//                        ofToggleFullscreen();
+//                        printf("tv2Fs: TRUE\n");
+//                    } else if(appName == "TV_2" && ofToInt(splitMsg[1]) == 0) {
+//                        ofToggleFullscreen();
+//                        printf("tv2Fs: FALSE\n");
+//                    }
+//                    gui.tv2FsBtn->setValue(ofToInt(splitMsg[1]));
+//                }
                 
                 // ------------ SYPHON OUT ------------
                 

@@ -41,10 +41,7 @@ public:
     
     float totalTv1prevPos;
     float totalTv2prevPos;
-    
-    float tv1speed;
-    float tv2speed;
-    
+
     ofEvent<int>        doneEvent;
 private:
     ofxTweener  tweener;

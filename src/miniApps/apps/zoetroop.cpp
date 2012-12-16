@@ -23,7 +23,7 @@ void zoetroop::init(mainMini *_mai, ofxMidiOut *_midi){
 void zoetroop::setup(){
     initTime = ofGetElapsedTimeMillis();
     
-    ofBackground(255, 225, 255);
+    ofBackground(255, 255, 255);
     
     //    if (main->appName == "left") {
     //        normImgs.loadSequence("app_content/zoetroop/Zoe_Int_Left");
@@ -65,12 +65,11 @@ void zoetroop::update(){
         //midiOut->sendNoteOn(1,45, tTV1);
         //cout << "midi!\n";
     }
-    
     //cout << (tTV - ptTV) << "\n";
     
     // just for now to show the end of an interactive event can be triggered by time
     // this should be the last thing you do in an update!!!!!!!
-    if (fastTime > 200) {
+    if (fastTime > 200 && int(*main->totalTv1pos) != int(main->totalTv1prevPos) && int(*main->totalTv2pos) != int(main->totalTv2prevPos)) {
         cout << "yaaay\n";
         endOfMini();
     }
@@ -88,15 +87,15 @@ void zoetroop::draw(){
         curPercent = 0;
     }
     
-    if (tTVmod - ptTV > 28) {
+    if (tTV - ptTV > 28) {
         fastImgs.getFrameAtPercent(curPercent)->draw(0, 0);
         fastTime++;
-    } else if(tTVmod - ptTV > 20) {
+    } else if(tTV - ptTV > 20) {
         normImgs.getFrameAtPercent(curPercent)->draw(0, 0);
+        fastTime = 0;
     } else {
         slowImgs.getFrameAtPercent(curPercent)->draw(0, 0);
     }
-
     
     //normImgs.getFrameAtPercent(curPercent)->draw(0, 0);
     bool visualTest = true;
@@ -121,7 +120,7 @@ void zoetroop::draw(){
         ofPopMatrix();
     }
     
-    ptTV = tTVmod;
+    ptTV = tTV;
 }
 
 //--------------------------------------------------------------

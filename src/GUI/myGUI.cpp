@@ -71,7 +71,7 @@ void myGUI::guiEvent(ofxUIEventArgs &e)
         if(name == "RA DRAW")
         {
             ofxUIToggle *button = (ofxUIToggle *) e.widget;
-            drawLaBtn->setValue(!drawRaBtn->getValue());
+            drawRaBtn->setValue(!drawRaBtn->getValue());
         }
         
         if(name == "MIDDLE FS")

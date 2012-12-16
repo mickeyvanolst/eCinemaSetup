@@ -20,6 +20,7 @@ public:
     void setup();
     void update();
     void draw();
+    void scaleByHeight(int oW, int oH, int *nW, int nH);
     void endOfMini();
     
     string afterChapter;
@@ -28,8 +29,16 @@ public:
     mainMini *main;
     
 private:
+    bool allIsWell;
+    
     long int initTime;
     long int durTime;
+    
+    ofVideoPlayer Vid1;
+    ofVideoPlayer Vid2;
+    
+    ofRectangle viewport1;
+    ofRectangle viewport2;
 };
 
 #endif

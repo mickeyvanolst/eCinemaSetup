@@ -53,7 +53,7 @@ public:
     ofFbo               appFbo;
     ofxSyphonServer     syphonServer;
     
-    string appNameList[5];
+    string appNameList[3];
     string appName;
     
     string outputString; // string connected to the output window of the GUI
