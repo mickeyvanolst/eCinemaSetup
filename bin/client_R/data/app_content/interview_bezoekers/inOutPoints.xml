@@ -1,0 +1,30 @@
+<settings>
+	<rotate>90</rotate>
+</settings>
+<inoutpoints>
+	<video>
+		<filename>57354.mov</filename>
+		<inFrame>150</inFrame>
+		<outFrame>330</outFrame>
+	</video>
+	<video>
+		<filename>M0025234.mov</filename>
+		<inFrame>1164</inFrame>
+		<outFrame>1290</outFrame>
+	</video>
+	<video>
+		<filename>_M00234.mov</filename>
+		<inFrame>0</inFrame>
+		<outFrame>50</outFrame>
+	</video>
+	<video>
+		<filename>M0023234 kopie.mov</filename>
+		<inFrame>0</inFrame>
+		<outFrame>64</outFrame>
+	</video>
+	<video>
+		<filename>M0023234.mov</filename>
+		<inFrame>0</inFrame>
+		<outFrame>64</outFrame>
+	</video>
+</inoutpoints>

@@ -49,4 +49,9 @@ Thumbs.db
 *.mp4
 
 # mini app directory #
-app_content/
+.png
+*.png
+.PNG
+*.PNG
+.jpg
+.jpeg
