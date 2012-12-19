@@ -186,7 +186,7 @@ void intentie_interpretatie::draw(){
             ofViewport(viewport1);
             ofSetupScreen();
             glScalef(1, -1, 1);
-            glTranslatef(0, -ofGetHeight(), 0);
+            glTranslatef(0, -main->client->getLHeight(), 0);
         
             if (Vid1.isLoaded()) {
                 ofSetColor(255, 255, 255);
@@ -202,14 +202,16 @@ void intentie_interpretatie::draw(){
         ofViewport(viewport2);
         ofSetupScreen();
         glScalef(1, -1, 1);
-        glTranslatef(0, -ofGetHeight(), 0);
+        glTranslatef(0, -main->client->getLHeight(), 0);
         
         if (Vid2.isLoaded()) {
             ofSetColor(255, 255, 255);
             Vid2.draw(0 - ((tempWidth - viewport2.width)/2), 0, tempWidth, main->client->getLHeight());
         }
         ofPopView();
-
+        
+        ofSetColor(255, 0, 0);
+        ofRect(0, 0, 150, 150);
     } else { // Middle app
         ofBackground(0, 0, 0);
     }

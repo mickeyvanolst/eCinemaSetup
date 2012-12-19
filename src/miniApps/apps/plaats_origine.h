@@ -38,7 +38,7 @@ private:
     int initTime;
     int durTime;
     
-    ofVideoPlayer bgMov;
+    ofQTKitPlayer bgMov;
     ofQTKitPlayer artMov;
     
     ofxXmlSettings XML;

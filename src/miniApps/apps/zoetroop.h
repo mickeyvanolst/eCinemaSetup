@@ -31,6 +31,8 @@ public:
     mainMini *main;
 private:
     
+    ofxXmlSettings XML;
+    
     long int initTime;
     long int durTime;
     

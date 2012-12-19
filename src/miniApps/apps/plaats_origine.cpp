@@ -30,18 +30,18 @@ void plaats_origine::setup(){
     
     ofQTKitDecodeMode decodeMode = OF_QTKIT_DECODE_PIXELS_AND_TEXTURE;
     
-    bgMov.loadMovie("app_content/plaats_origine/" + main->appName + ".mov");
+    bgMov.loadMovie("app_content/plaats_origine/" + main->appName + ".mov", decodeMode);
     bgMov.setPixelFormat(OF_PIXELS_RGB);
     tBg = 0;
     curBg = 0;
-    Tweener.addTween(tBg, bgCuePoints[curBg].frame, 5);
+    Tweener.addTween(tBg, bgCuePoints[curBg].frame, 1, &ofxTransitions::linear);
     
     if (main->appName == "middle") {
         artMov.loadMovie("app_content/plaats_origine/kunst.mov", decodeMode);
         artMov.setPixelFormat(OF_PIXELS_BGRA);
         tArt = 0;
         curArt = 0;
-        Tweener.addTween(tArt, artCuePoints[curArt].frame, 5);
+        Tweener.addTween(tArt, artCuePoints[curArt].frame, 1, &ofxTransitions::linear);
     }
 }
 
@@ -55,13 +55,13 @@ void plaats_origine::update(){
             if (bgCuePoints[i].frame - tBg > bgMov.getTotalNumFrames()/2) {
                 output = "go down";
                 tBg += bgMov.getTotalNumFrames();
-                Tweener.addTween(tBg,bgCuePoints[i].frame, 5);
+                Tweener.addTween(tBg,bgCuePoints[i].frame, 1, &ofxTransitions::linear);
             } else if(bgCuePoints[i].frame +(bgMov.getTotalNumFrames()-tBg) < bgMov.getTotalNumFrames()/2) {
                 output = "go up";
-                Tweener.addTween(tBg,bgCuePoints[i].frame + bgMov.getTotalNumFrames(), 5);
+                Tweener.addTween(tBg,bgCuePoints[i].frame + bgMov.getTotalNumFrames(), 1, &ofxTransitions::linear);
             } else {
                 output = "normal";
-                Tweener.addTween(tBg,bgCuePoints[i].frame, 5);
+                Tweener.addTween(tBg,bgCuePoints[i].frame, 1, &ofxTransitions::linear);
             }
             curBg = i;
         }
@@ -72,7 +72,12 @@ void plaats_origine::update(){
             tBg = tBg - main->sortaModulo(bgMov.getTotalNumFrames()-1, tBg);
             // take off -1 of totalframes in case cuepoint is zero
         } 
-        bgMov.setFrame(int(tBg));
+        //bgMov.setFrame(int(tBg));
+        
+        float pos = ofMap(int(tBg), 0, bgMov.getTotalNumFrames(), 0, 1);
+        bgMov.setPosition(pos);
+        cout << "tBg: " << tBg << "\n";
+        cout << "curFrame: " << bgMov.getCurrentFrame() << "\n";
     }
     bgMov.update();
     
@@ -84,13 +89,13 @@ void plaats_origine::update(){
                 if (artCuePoints[i].frame - tArt > artMov.getTotalNumFrames()/2) {
                     output = "go down";
                     tArt += artMov.getTotalNumFrames();
-                    Tweener.addTween(tArt,artCuePoints[i].frame, 1, &ofxTransitions::easeInSine);
+                    Tweener.addTween(tArt,artCuePoints[i].frame, 1, &ofxTransitions::linear);
                 } else if(artCuePoints[i].frame +(artMov.getTotalNumFrames()-tArt) < artMov.getTotalNumFrames()/2) {
                     output = "go up";
-                    Tweener.addTween(tArt,artCuePoints[i].frame + artMov.getTotalNumFrames(), 1, &ofxTransitions::easeInSine);
+                    Tweener.addTween(tArt,artCuePoints[i].frame + artMov.getTotalNumFrames(), 1, &ofxTransitions::linear);
                 } else {
                     output = "normal";
-                    Tweener.addTween(tArt,artCuePoints[i].frame, 1, &ofxTransitions::easeInSine);
+                    Tweener.addTween(tArt,artCuePoints[i].frame, 1, &ofxTransitions::linear);
                 }
                 curArt = i;
             }

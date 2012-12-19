@@ -26,6 +26,7 @@ void miniHandler::init(mpeClientTCP * _cli, ofxMidiOut * _midi, bool *_bMidi, fl
     myIntentie_interpretatie.init(&main, _midi);
     myInterview_bezoekers.init(&main, _midi);
     
+    // setting after what chapter the interactive chapter should play.
     if (XML.loadFile("app_content/contentOrder.xml")) {
         XML.pushTag("order");
         plaats_origineComesAfter            = XML.getValue("plaas_origine:after", "", 0);
@@ -36,13 +37,6 @@ void miniHandler::init(mpeClientTCP * _cli, ofxMidiOut * _midi, bool *_bMidi, fl
     } else {
         cout << "loading contentOrder.xml failed, needed for interactive chapters\n";
     }
-    
-    
-    // setting after what chapter the interactive chapter should play.
-//    plaats_origineComesAfter            = "shizzaaah";
-//    zoetroopComesAfter                  = "4 Hoofdstuk Techniek";
-//    intentie_interpretatieComesAfter    = "7 Hoofdstuk Maker vs Kijker";
-//    interview_bezoekersComesAfter       = "2_2 Hoofdstuk Identiteit";
     
     // manually setting class names into strings..
     plaats_origine                      = "myPlaats_origine";

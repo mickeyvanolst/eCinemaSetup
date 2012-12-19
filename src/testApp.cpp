@@ -57,7 +57,7 @@ void testApp::setup(){
     nextCounter = 0;
     outputString = "";
     
-    appFbo.allocate(client.getMWidth(), client.getMHeight(),GL_RGB);
+    appFbo.allocate(client.getLWidth(), client.getLHeight(),GL_RGB);
 }
 
 //--------------------------------------------------------------
@@ -101,16 +101,21 @@ void testApp::frameEvent() {
     if (syphonOut && handler.list[handler.activeID].type.compare("app") == 0) {
         ofClear(255,255,255, 0);
         appFbo.begin();
+        ofPushMatrix();
+        ofTranslate(-client.getXoffset(), 0);
     }
     
     handler.draw();
+
     
     // wraps up drawing into the FBO if it's an app, and also checks if it needs to be drawn to the screen
     if (syphonOut && handler.list[handler.activeID].type.compare("app") == 0) {
+        ofPopMatrix();
         appFbo.end();
+        
         ofSetColor(255, 255, 255);
         if (drawScreen) {
-            appFbo.draw(0,0);
+            appFbo.draw(client.getXoffset(),0);
         } else {
             ofBackground(50, 50, 50);
         }
@@ -381,6 +386,9 @@ void testApp::handleMessages(){
                         resetRotation();
                         handler.startNext();
                         nextCounter = ofGetElapsedTimeMillis();
+                        appFbo.begin();
+                        ofClear(255,255,255, 0);
+                        appFbo.end();
                     }
                 }
                 

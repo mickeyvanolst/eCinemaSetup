@@ -25,22 +25,21 @@ void zoetroop::setup(){
     ofClear(255, 255, 255);
     ofBackground(0, 0, 0);
     
-    //    if (main->appName == "left") {
-    //        normImgs.loadSequence("app_content/zoetroop/Zoe_Int_Left");
-    //    } else if(main->appName == "middle") {
-    //        normImgs.loadSequence("app_content/zoetroop/Zoe_Int_Middle");
-    //    } else if(main->appName == "right") {
-    //        normImgs.loadSequence("app_content/zoetroop/Zoe_Int_Right");
-    //    }
+    if(XML.loadFile("app_content/zoetroop/loadSettings.xml")){
+        XML.pushTag("settings");
+            normImgs.loadSequence("app_content/zoetroop/" + XML.getValue(main->appName + ":folder", "", 0));
+        XML.popTag();
+    } else {
+        cout << "no loadSettings.xml found..\n";
+    }
 
+//    slowImgs.loadSequence("app_content/zoetroop/archief/dog_img");
+//    normImgs.loadSequence("app_content/zoetroop/archief/horse_img");
+//    fastImgs.loadSequence("app_content/zoetroop/archief/cheetah_img");
     
-    slowImgs.loadSequence("app_content/zoetroop/archief/dog_img");
-    normImgs.loadSequence("app_content/zoetroop/archief/horse_img");
-    fastImgs.loadSequence("app_content/zoetroop/archief/cheetah_img");
-    
-	slowImgs.preloadAllFrames();	//this way there is no stutter when loading frames
+//	slowImgs.preloadAllFrames();	//this way there is no stutter when loading frames
     normImgs.preloadAllFrames();
-    fastImgs.preloadAllFrames();
+//    fastImgs.preloadAllFrames();
     
 	//slowImgs.setFrameRate(10); //set to ten frames per second
     
@@ -87,17 +86,17 @@ void zoetroop::draw(){
         curPercent = 0;
     }
     
-    if (tTV - ptTV > 28) {
-        fastImgs.getFrameAtPercent(curPercent)->draw(0, 0);
-        fastTime++;
-    } else if(tTV - ptTV > 20) {
-        normImgs.getFrameAtPercent(curPercent)->draw(0, 0);
-        fastTime = 0;
-    } else {
-        slowImgs.getFrameAtPercent(curPercent)->draw(0, 0);
-    }
+//    if (tTV - ptTV > 28) {
+//        fastImgs.getFrameAtPercent(curPercent)->draw(0, 0);
+//        fastTime++;
+//    } else if(tTV - ptTV > 20) {
+//        normImgs.getFrameAtPercent(curPercent)->draw(0, 0);
+//        fastTime = 0;
+//    } else {
+//        slowImgs.getFrameAtPercent(curPercent)->draw(0, 0);
+//    }
     
-    //normImgs.getFrameAtPercent(curPercent)->draw(0, 0);
+    normImgs.getFrameAtPercent(curPercent)->draw(0, 0);
     bool visualTest = true;
     if (visualTest) {
         ofSetColor(255, 0, 0);

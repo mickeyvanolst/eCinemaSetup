@@ -1,5 +1,35 @@
 <movies>
     <chapter>
+        <name>04_Test chapter</name>
+        <left>
+            <file>content/04_Test chapter/L_Introductie.MOV</file>
+            <name>L_Introductie.MOV</name>
+            <duration>11</duration>
+            <frames>334</frames>
+            <filesize>29892113</filesize>
+            <width>1920</width>
+            <height>1080</height>
+        </left>
+        <middle>
+            <file>content/04_Test chapter/M_Introductie.MOV</file>
+            <name>M_Introductie.MOV</name>
+            <duration>10</duration>
+            <frames>334</frames>
+            <filesize>28902988</filesize>
+            <width>1920</width>
+            <height>1080</height>
+        </middle>
+        <right>
+            <file>content/04_Test chapter/R_Introductie.MOV</file>
+            <name>R_Introductie.MOV</name>
+            <duration>11</duration>
+            <frames>334</frames>
+            <filesize>29785021</filesize>
+            <width>1920</width>
+            <height>1080</height>
+        </right>
+    </chapter>
+    <chapter>
         <name>2_2 Hoofdstuk Identiteit</name>
         <left>
             <file>content/2_2 Hoofdstuk Identiteit/LINKS_H2.2.mov</file>
