@@ -1,0 +1,11 @@
+stap 1:
+
+Open terminal en type: cd [dump de map er in waar server_jar staat]
+
+stap 2:
+
+type: java -jar mpeServer.jar -debug1 -framerate30 -screens3
+
+stap 3:
+
+Run alledrie de versies van de app, ze zullen naast elkaar komen te staan

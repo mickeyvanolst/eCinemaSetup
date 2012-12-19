@@ -12,6 +12,7 @@
 #include "mpeClientTCP.h"
 #include "mainMini.h" // our mini app base app, all mini apps will be connected to this one
 #include "ofxMidi.h"
+#include "ofxXmlSettings.h"
 
 #include "plaats_origine.h"
 #include "zoetroop.h"
@@ -67,6 +68,7 @@ public:
     
     
 private:
+    ofxXmlSettings XML;
     
 };
 

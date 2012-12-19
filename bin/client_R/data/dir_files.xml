@@ -1,121 +1,91 @@
 <movies>
     <chapter>
-        <name>01_Introductie</name>
+        <name>2_2 Hoofdstuk Identiteit</name>
         <left>
-            <file>content/01_Introductie/L_Introductie.MOV</file>
-            <name>L_Introductie.MOV</name>
-            <duration>11</duration>
-            <frames>334</frames>
-            <filesize>29892113</filesize>
-            <width>1920</width>
+            <file>content/2_2 Hoofdstuk Identiteit/LINKS_H2.2.mov</file>
+            <name>LINKS_H2.2.mov</name>
+            <duration>480</duration>
+            <frames>12000</frames>
+            <filesize>121375622</filesize>
+            <width>1536</width>
             <height>1080</height>
         </left>
         <middle>
-            <file>content/01_Introductie/M_Introductie.MOV</file>
-            <name>M_Introductie.MOV</name>
-            <duration>10</duration>
-            <frames>334</frames>
-            <filesize>28902988</filesize>
+            <file>content/2_2 Hoofdstuk Identiteit/MIDDLE_H2.2.mov</file>
+            <name>MIDDLE_H2.2.mov</name>
+            <duration>480</duration>
+            <frames>12000</frames>
+            <filesize>123736697</filesize>
             <width>1920</width>
             <height>1080</height>
         </middle>
         <right>
-            <file>content/01_Introductie/R_Introductie.MOV</file>
-            <name>R_Introductie.MOV</name>
-            <duration>11</duration>
-            <frames>334</frames>
-            <filesize>29785021</filesize>
-            <width>1920</width>
+            <file>content/2_2 Hoofdstuk Identiteit/RECHTS_H2.2.mov</file>
+            <name>RECHTS_H2.2.mov</name>
+            <duration>480</duration>
+            <frames>12000</frames>
+            <filesize>121381210</filesize>
+            <width>1536</width>
             <height>1080</height>
         </right>
     </chapter>
     <chapter>
-        <name>02_New test</name>
+        <name>4 Hoofdstuk Techniek</name>
         <left>
-            <file>content/02_New test/L_New test.MOV</file>
-            <name>L_New test.MOV</name>
-            <duration>11</duration>
-            <frames>335</frames>
-            <filesize>29962069</filesize>
-            <width>1920</width>
+            <file>content/4 Hoofdstuk Techniek/LINKS_H4_V01.mov</file>
+            <name>LINKS_H4_V01.mov</name>
+            <duration>180</duration>
+            <frames>4500</frames>
+            <filesize>928786842</filesize>
+            <width>1536</width>
             <height>1080</height>
         </left>
         <middle>
-            <file>content/02_New test/M_New test.MOV</file>
-            <name>M_New test.MOV</name>
-            <duration>11</duration>
-            <frames>335</frames>
-            <filesize>29684805</filesize>
+            <file>content/4 Hoofdstuk Techniek/MIDDLE_H4_V01.mov</file>
+            <name>MIDDLE_H4_V01.mov</name>
+            <duration>180</duration>
+            <frames>4500</frames>
+            <filesize>1446054660</filesize>
             <width>1920</width>
             <height>1080</height>
         </middle>
         <right>
-            <file>content/02_New test/R_New test.MOV</file>
-            <name>R_New test.MOV</name>
-            <duration>10</duration>
-            <frames>335</frames>
-            <filesize>29207184</filesize>
-            <width>1920</width>
+            <file>content/4 Hoofdstuk Techniek/RECHTS_H4_V01.mov</file>
+            <name>RECHTS_H4_V01.mov</name>
+            <duration>180</duration>
+            <frames>4500</frames>
+            <filesize>900860008</filesize>
+            <width>1536</width>
             <height>1080</height>
         </right>
     </chapter>
     <chapter>
-        <name>03_Plaats en origine</name>
+        <name>7 Hoofdstuk Maker vs Kijker</name>
         <left>
-            <file>content/03_Plaats en origine/L_Plaats en origine.MOV</file>
-            <name>L_Plaats en origine.MOV</name>
-            <duration>10</duration>
-            <frames>330</frames>
-            <filesize>29207184</filesize>
-            <width>1920</width>
+            <file>content/7 Hoofdstuk Maker vs Kijker/LINKS_H7.mov</file>
+            <name>LINKS_H7.mov</name>
+            <duration>539</duration>
+            <frames>13475</frames>
+            <filesize>199527454</filesize>
+            <width>1536</width>
             <height>1080</height>
         </left>
         <middle>
-            <file>content/03_Plaats en origine/M_Plaats en origine.MOV</file>
-            <name>M_Plaats en origine.MOV</name>
-            <duration>11</duration>
-            <frames>330</frames>
-            <filesize>29732267</filesize>
+            <file>content/7 Hoofdstuk Maker vs Kijker/MIDDEL_H7.mov</file>
+            <name>MIDDEL_H7.mov</name>
+            <duration>539</duration>
+            <frames>13475</frames>
+            <filesize>242816317</filesize>
             <width>1920</width>
             <height>1080</height>
         </middle>
         <right>
-            <file>content/03_Plaats en origine/R_Plaats en origine.MOV</file>
-            <name>R_Plaats en origine.MOV</name>
-            <duration>10</duration>
-            <frames>330</frames>
-            <filesize>28486396</filesize>
-            <width>1920</width>
-            <height>1080</height>
-        </right>
-    </chapter>
-    <chapter>
-        <name>04_Test chapter</name>
-        <left>
-            <file>content/04_Test chapter/L_Introductie.MOV</file>
-            <name>L_Introductie.MOV</name>
-            <duration>11</duration>
-            <frames>334</frames>
-            <filesize>29892113</filesize>
-            <width>1920</width>
-            <height>1080</height>
-        </left>
-        <middle>
-            <file>content/04_Test chapter/M_Introductie.MOV</file>
-            <name>M_Introductie.MOV</name>
-            <duration>10</duration>
-            <frames>334</frames>
-            <filesize>28902988</filesize>
-            <width>1920</width>
-            <height>1080</height>
-        </middle>
-        <right>
-            <file>content/04_Test chapter/R_Introductie.MOV</file>
-            <name>R_Introductie.MOV</name>
-            <duration>11</duration>
-            <frames>334</frames>
-            <filesize>29785021</filesize>
-            <width>1920</width>
+            <file>content/7 Hoofdstuk Maker vs Kijker/RECHTS_H7.mov</file>
+            <name>RECHTS_H7.mov</name>
+            <duration>539</duration>
+            <frames>13475</frames>
+            <filesize>412280300</filesize>
+            <width>1536</width>
             <height>1080</height>
         </right>
     </chapter>
