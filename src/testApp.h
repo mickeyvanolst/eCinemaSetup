@@ -29,6 +29,8 @@ public:
     void windowResized(int w, int h);
     void handleMessages();
     void resetRotation();
+    void scaleByHeight(int oW, int oH, int *nW, int nH);
+    void scaleByWidth(int oW, int oH, int nW, int *nH);
     
     // MIDI for the audio connection (on a nother laptop)
     ofxMidiOut midiOut;

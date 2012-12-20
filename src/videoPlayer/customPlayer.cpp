@@ -117,7 +117,7 @@ void customPlayer::draw(int x, int y)
     totalProgress = tempTotPercent;
     
     // actually drawing the video
-    players[activeVid].draw(x,y);
+    players[activeVid].draw(x,y,ofGetWidth(),ofGetHeight()); // ajust this later
     
 
     // this is still a bit sketchy, not sure if I should update all video's in order to

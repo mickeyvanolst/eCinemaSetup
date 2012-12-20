@@ -40,27 +40,27 @@
 		</cuepoint>
 		<cuepoint>
 			<name>buddha</name>
-			<frame>24</frame>
+			<frame>25</frame>
 		</cuepoint>
 		<cuepoint>
 			<name>soup</name>
-			<frame>48</frame>
+			<frame>50</frame>
 		</cuepoint>
 		<cuepoint>
 			<name>monolith</name>
-			<frame>72</frame>
+			<frame>75</frame>
 		</cuepoint>
 		<cuepoint>
 			<name>camera</name>
-			<frame>96</frame>
+			<frame>100</frame>
 		</cuepoint>
 		<cuepoint>
 			<name>tvstack</name>
-			<frame>120</frame>
+			<frame>125</frame>
 		</cuepoint>
 		<cuepoint>
 			<name>thinker</name>
-			<frame>144</frame>
+			<frame>150</frame>
 		</cuepoint>
 	</artwork>
 </cuepoints>

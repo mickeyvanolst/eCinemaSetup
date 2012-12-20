@@ -115,7 +115,7 @@ void testApp::frameEvent() {
         
         ofSetColor(255, 255, 255);
         if (drawScreen) {
-            appFbo.draw(client.getXoffset(),0);
+            appFbo.draw(client.getXoffset(),0,ofGetWidth(),ofGetHeight()); // ajust this later
         } else {
             ofBackground(50, 50, 50);
         }
@@ -530,6 +530,20 @@ void testApp::handleMessages(){
 }
 
 //--------------------------------------------------------------
+void testApp::scaleByHeight(int oW, int oH, int *nW, int nH){
+    //original width / original height x new height = new width
+    float newVal = (float(oW) / float(oH)) * float(nH);
+    (*nW) = int(newVal);
+}
+
+//--------------------------------------------------------------
+void testApp::scaleByWidth(int oW, int oH, int nW, int *nH){
+    //original height / original width x new width = new height
+    float newVal = (float(oH) / float(oW)) * float(nW);
+    (*nH) = int(newVal);
+}
+
+//--------------------------------------------------------------
 void testApp::resetRotation()
 {
     tv1rotVal       = 0;
@@ -561,7 +575,7 @@ void testApp::keyReleased(int key){
 
 //--------------------------------------------------------------
 void testApp::mouseMoved(int x, int y ){
-    
+
 }
 
 //--------------------------------------------------------------

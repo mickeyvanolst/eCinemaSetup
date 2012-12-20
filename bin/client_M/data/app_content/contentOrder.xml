@@ -1,14 +1,14 @@
 <order>
 	<plaas_origine>
-		<after>04_Test chapter</after>
+		<after>02_2_Identiteit</after>
 	</plaas_origine>
 	<zoetroop>
-		<after>4 Hoofdstuk Techniek</after>
+		<after>03_Plaats en origine</after>
 	</zoetroop>
 	<intentie_interpretatie>
-		<after>7 Hoofdstuk Maker vs Kijker</after>
+		<after>05_Beleving</after>
 	</intentie_interpretatie>
 	<interview_bezoekers>
-		<after>2_2 Hoofdstuk Identiteit</after>
+		<after>02_1_Identiteit</after>
 	</interview_bezoekers>
 </order>

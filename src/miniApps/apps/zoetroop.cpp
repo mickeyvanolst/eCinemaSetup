@@ -27,7 +27,8 @@ void zoetroop::setup(){
     
     if(XML.loadFile("app_content/zoetroop/loadSettings.xml")){
         XML.pushTag("settings");
-            normImgs.loadSequence("app_content/zoetroop/" + XML.getValue(main->appName + ":folder", "", 0));
+            normImgs.loadSequence("app_content/zoetroop/" + XML.getValue(main->appName + ":introfolder", "", 0));
+            fastImgs.loadSequence("app_content/zoetroop/" + XML.getValue(main->appName + ":repeatfolder", "", 0));
         XML.popTag();
     } else {
         cout << "no loadSettings.xml found..\n";
@@ -39,7 +40,7 @@ void zoetroop::setup(){
     
 //	slowImgs.preloadAllFrames();	//this way there is no stutter when loading frames
     normImgs.preloadAllFrames();
-//    fastImgs.preloadAllFrames();
+    fastImgs.preloadAllFrames();
     
 	//slowImgs.setFrameRate(10); //set to ten frames per second
     
@@ -76,7 +77,7 @@ void zoetroop::update(){
 
 //--------------------------------------------------------------
 void zoetroop::draw(){
-    ofBackground(200, 200, 20);
+    ofBackground(0, 0, 0);
     
     float curPercent = ofMap(tTVmod, 0, 360.0, 0, 1, true);
     
@@ -96,8 +97,15 @@ void zoetroop::draw(){
 //        slowImgs.getFrameAtPercent(curPercent)->draw(0, 0);
 //    }
     
-    normImgs.getFrameAtPercent(curPercent)->draw(0, 0);
-    bool visualTest = true;
+    if (tTV - ptTV > 25) {
+        fastImgs.getFrameAtPercent(curPercent)->draw(main->client->getXoffset(), 0);
+        fastTime++;
+    } else {
+        normImgs.getFrameAtPercent(curPercent)->draw(main->client->getXoffset(), 0);
+    }
+    
+    //normImgs.getFrameAtPercent(curPercent)->draw(0, 0);
+    bool visualTest = false;
     if (visualTest) {
         ofSetColor(255, 0, 0);
         ofPushMatrix();

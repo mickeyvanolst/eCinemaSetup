@@ -58,7 +58,7 @@ void plaats_origine::update(){
                 Tweener.addTween(tBg,bgCuePoints[i].frame, 1, &ofxTransitions::linear);
             } else if(bgCuePoints[i].frame +(bgMov.getTotalNumFrames()-tBg) < bgMov.getTotalNumFrames()/2) {
                 output = "go up";
-                Tweener.addTween(tBg,bgCuePoints[i].frame + bgMov.getTotalNumFrames(), 1, &ofxTransitions::linear);
+                Tweener.addTween(tBg,bgCuePoints[i].frame + (bgMov.getTotalNumFrames()), 1, &ofxTransitions::linear);
             } else {
                 output = "normal";
                 Tweener.addTween(tBg,bgCuePoints[i].frame, 1, &ofxTransitions::linear);
@@ -69,15 +69,22 @@ void plaats_origine::update(){
     
     if (tBg != bgMov.getCurrentFrame()) {
         if (tBg > bgMov.getTotalNumFrames()) {
-            tBg = tBg - main->sortaModulo(bgMov.getTotalNumFrames()-1, tBg);
+            tBg = tBg - main->sortaModulo(bgMov.getTotalNumFrames(), tBg);
             // take off -1 of totalframes in case cuepoint is zero
         } 
         //bgMov.setFrame(int(tBg));
         
         float pos = ofMap(int(tBg), 0, bgMov.getTotalNumFrames(), 0, 1);
+        
+        // sketchy stuff, fix please!
+        if (bgMov.getCurrentFrame() == 200) {
+            tBg = 0;
+            pos = 0;
+        }
         bgMov.setPosition(pos);
         cout << "tBg: " << tBg << "\n";
         cout << "curFrame: " << bgMov.getCurrentFrame() << "\n";
+        cout << output << "\n";
     }
     bgMov.update();
     
@@ -103,10 +110,22 @@ void plaats_origine::update(){
         
         if (tArt != artMov.getCurrentFrame()) {
             if (tArt > artMov.getTotalNumFrames()) {
-                tArt = tArt - main->sortaModulo(artMov.getTotalNumFrames()-1, tArt);
+                tArt = tArt - main->sortaModulo(artMov.getTotalNumFrames(), tArt);
                 // take off -1 of totalframes in case cuepoint is zero
             }
-            artMov.setFrame(int(tArt));
+            //artMov.setFrame(int(tArt));
+            
+            float pos = ofMap(int(tArt), 0, artMov.getTotalNumFrames(), 0, 1);
+            
+            // sketchy stuff, fix please!
+            if (artMov.getCurrentFrame() == 200) {
+                tArt = 0;
+                pos = 0;
+            }
+            artMov.setPosition(pos);
+//            cout << "tBg: " << tBg << "\n";
+//            cout << "curFrame: " << bgMov.getCurrentFrame() << "\n";
+//            cout << output << "\n";
         }
         artMov.update();
     }
@@ -122,7 +141,7 @@ void plaats_origine::update(){
 
 //--------------------------------------------------------------
 void plaats_origine::draw(){
-    ofBackground(100, 200, 20);
+    ofBackground(0, 0, 0);
     
     bgMov.draw(main->client->getXoffset(), 0);
     
@@ -130,7 +149,8 @@ void plaats_origine::draw(){
         ofEnableAlphaBlending();
         artMov.draw(main->client->getXoffset(),0);
         ofDisableAlphaBlending();
-        bool dispTestMeter = true;
+        
+        bool dispTestMeter = false;
         if (dispTestMeter) {
             ofPushMatrix();
             ofTranslate(main->client->getXoffset()+100, 400);
