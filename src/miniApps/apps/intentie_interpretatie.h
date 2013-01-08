@@ -10,14 +10,14 @@
 #define eCinemaSetup_intentie_interpretatie_h
 
 #include "mainMini.h"
-#include "ofxMidi.h"
+#include "ofxOsc.h"
 #include "ofxTweener.h"
 
 class intentie_interpretatie {
 public:
     intentie_interpretatie();
     
-    void init(mainMini *_mai, ofxMidiOut * _midi);
+    void init(mainMini *_mai, ofxOscSender * _osc);
     void setup();
     void update();
     void draw();
@@ -27,7 +27,7 @@ public:
     
     string afterChapter;
     
-    ofxMidiOut *midiOut;
+    ofxOscSender *oscOut;
     mainMini *main;
     
 private:

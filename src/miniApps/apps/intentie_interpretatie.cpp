@@ -13,9 +13,9 @@ intentie_interpretatie::intentie_interpretatie(){
 }
 
 //--------------------------------------------------------------
-void intentie_interpretatie::init(mainMini *_mai, ofxMidiOut *_midi){
+void intentie_interpretatie::init(mainMini *_mai, ofxOscSender *_osc){
     main = _mai;
-    midiOut = _midi;
+    oscOut = _osc;
 }
 
 //--------------------------------------------------------------
@@ -179,18 +179,26 @@ void intentie_interpretatie::update(){
 //--------------------------------------------------------------
 void intentie_interpretatie::draw(){
     if (main->appName != "middle") {
-        ofBackground(20, 200, 20);
+        ofBackground(0, 200, 0);
         int tempWidth = 0;
         main->scaleByHeight(Vid1.getWidth(), Vid1.getHeight(), &tempWidth, main->client->getLHeight());
         ofPushView();
             ofViewport(viewport1);
-            ofSetupScreen();
-            glScalef(1, -1, 1);
-            glTranslatef(0, -main->client->getLHeight(), 0);
+            //ofSetupScreen();
+            glScalef(-1, -1, 1);
+            glTranslatef(-main->client->getXoffset(), -main->client->getLHeight(), 0);
         
             if (Vid1.isLoaded()) {
                 ofSetColor(255, 255, 255);
-                Vid1.draw(0 - ((tempWidth - viewport1.width)/2), 0, tempWidth, main->client->getLHeight());
+                ofPushMatrix();
+                ofSetRectMode(OF_RECTMODE_CENTER);
+                ofRotate(180);
+                ofTranslate(tempWidth, 0, 0 );
+                
+                Vid1.draw(-tempWidth/2, (-main->client->getLHeight()/2), tempWidth*2, main->client->getLHeight());
+                //Vid1.draw(0 - ((tempWidth - viewport1.width)/2), (-main->client->getLHeight()/2), tempWidth, main->client->getLHeight());
+                ofSetRectMode(OF_RECTMODE_CORNER);
+                ofPopMatrix();
             }
         ofPopView();
         
@@ -200,18 +208,24 @@ void intentie_interpretatie::draw(){
         main->scaleByHeight(Vid2.getWidth(), Vid2.getHeight(), &tempWidth, main->client->getLHeight());
         ofPushView();
         ofViewport(viewport2);
-        ofSetupScreen();
-        glScalef(1, -1, 1);
-        glTranslatef(0, -main->client->getLHeight(), 0);
+        //ofSetupScreen();
+        glScalef(-1, -1, 1);
+        glTranslatef(-main->client->getXoffset(), -main->client->getLHeight(), 0);
         
-        if (Vid2.isLoaded()) {
+        if (Vid1.isLoaded()) {
             ofSetColor(255, 255, 255);
-            Vid2.draw(0 - ((tempWidth - viewport2.width)/2), 0, tempWidth, main->client->getLHeight());
+            ofPushMatrix();
+            ofSetRectMode(OF_RECTMODE_CENTER);
+            ofRotate(180);
+            ofTranslate(tempWidth, 0, 0 );
+            Vid2.draw(-tempWidth/2, (-main->client->getLHeight()/2), tempWidth*2, main->client->getLHeight());
+            //Vid1.draw(0 - ((tempWidth - viewport1.width)/2), (-main->client->getLHeight()/2), tempWidth, main->client->getLHeight());
+            ofSetRectMode(OF_RECTMODE_CORNER);
+            ofPopMatrix();
         }
         ofPopView();
-        
-        ofSetColor(255, 0, 0);
-        ofRect(0, 0, 150, 150);
+        ofSetColor(0, 0, 0);
+        ofRect(main->client->getXoffset(), 50, 40, 50);
     } else { // Middle app
         ofBackground(0, 0, 0);
     }

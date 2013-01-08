@@ -10,14 +10,14 @@
 #define eCinemaSetup_interview_bezoekers_h
 
 #include "mainMini.h"
-#include "ofxMidi.h"
+#include "ofxOsc.h"
 #include "ofxXmlSettings.h"
 
 class interview_bezoekers {
 public:
     interview_bezoekers();
     
-    void init(mainMini *_mai, ofxMidiOut *_midi);
+    void init(mainMini *_mai, ofxOscSender *_osc);
     void setup();
     void update();
     void draw();
@@ -27,7 +27,7 @@ public:
     
     string afterChapter;
     
-    ofxMidiOut *midiOut;
+    ofxOscSender *oscOut;
     mainMini *main;
     
 private:

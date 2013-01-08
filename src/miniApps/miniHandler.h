@@ -11,7 +11,7 @@
 
 #include "mpeClientTCP.h"
 #include "mainMini.h" // our mini app base app, all mini apps will be connected to this one
-#include "ofxMidi.h"
+#include "ofxOsc.h"
 #include "ofxXmlSettings.h"
 
 #include "plaats_origine.h"
@@ -23,7 +23,7 @@ class miniHandler {
 public:
     miniHandler();
     
-    void init(mpeClientTCP * _cli, ofxMidiOut * _midi, bool *_bMidi, float *_tv1rotVal, float *_tv2rotVal, float *_tv1rotTotVal, float *_tv2rotTotVal);
+    void init(mpeClientTCP * _cli, ofxOscSender * _osc, bool *_bOsc, float *_tv1rotVal, float *_tv2rotVal, float *_tv1rotTotVal, float *_tv2rotTotVal);
     void setup(string id);
     void update();
     void draw();
@@ -41,10 +41,10 @@ public:
     string curMiniApp;
     bool pauseApp;
     bool appActive;
-    bool *bMidi;
+    bool *bOsc;
     
     mpeClientTCP *client;
-    ofxMidiOut *midiOut;
+    ofxOscSender *oscOut;
     mainMini main;
     
     ofEvent<int>        doneEvent;

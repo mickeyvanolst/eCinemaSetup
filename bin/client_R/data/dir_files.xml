@@ -1,5 +1,35 @@
 <movies>
     <chapter>
+        <name>02_1_Identiteit</name>
+        <left>
+            <file>content/02_1_Identiteit/L_02_Identiteit.mov</file>
+            <name>L_02_Identiteit.mov</name>
+            <duration>480</duration>
+            <frames>12000</frames>
+            <filesize>141357373</filesize>
+            <width>1536</width>
+            <height>1080</height>
+        </left>
+        <middle>
+            <file>content/02_1_Identiteit/M_02_Identiteit.mov</file>
+            <name>M_02_Identiteit.mov</name>
+            <duration>664</duration>
+            <frames>12000</frames>
+            <filesize>130379142</filesize>
+            <width>702</width>
+            <height>395</height>
+        </middle>
+        <right>
+            <file>content/02_1_Identiteit/R_02_Identiteit.mov</file>
+            <name>R_02_Identiteit.mov</name>
+            <duration>480</duration>
+            <frames>12000</frames>
+            <filesize>148777164</filesize>
+            <width>1536</width>
+            <height>1080</height>
+        </right>
+    </chapter>
+    <chapter>
         <name>02_2_Identiteit</name>
         <left>
             <file>content/02_2_Identiteit/L_02_2_Identiteit.mov</file>
@@ -75,7 +105,7 @@
             <name>M_04_Techniek.mov</name>
             <duration>180</duration>
             <frames>4500</frames>
-            <filesize>1445842374</filesize>
+            <filesize>1445852218</filesize>
             <width>1920</width>
             <height>1080</height>
         </middle>
@@ -95,8 +125,8 @@
             <file>content/07_Maker vs kijker/L_07_Maker vs kijker.mov</file>
             <name>L_07_Maker vs kijker.mov</name>
             <duration>539</duration>
-            <frames>13475</frames>
-            <filesize>199527454</filesize>
+            <frames>32340</frames>
+            <filesize>137837092</filesize>
             <width>1536</width>
             <height>1080</height>
         </left>
@@ -104,8 +134,8 @@
             <file>content/07_Maker vs kijker/M_07_Maker vs kijker.mov</file>
             <name>M_07_Maker vs kijker.mov</name>
             <duration>539</duration>
-            <frames>13475</frames>
-            <filesize>242816317</filesize>
+            <frames>32340</frames>
+            <filesize>210831024</filesize>
             <width>1920</width>
             <height>1080</height>
         </middle>
@@ -113,8 +143,8 @@
             <file>content/07_Maker vs kijker/R_07_Maker vs kijker.mov</file>
             <name>R_07_Maker vs kijker.mov</name>
             <duration>539</duration>
-            <frames>13475</frames>
-            <filesize>412280300</filesize>
+            <frames>32340</frames>
+            <filesize>208664077</filesize>
             <width>1536</width>
             <height>1080</height>
         </right>

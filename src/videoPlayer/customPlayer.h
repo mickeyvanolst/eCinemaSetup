@@ -32,6 +32,7 @@ public:
     
     vector<ofVideoPlayer> players;
     
+    
     int                 activeVid;
     bool                isPlaying;
     bool                isDone;

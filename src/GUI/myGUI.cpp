@@ -18,7 +18,7 @@ myGUI::myGUI()
 }
 
 //--------------------------------------------------------------
-void myGUI::init(mpeClientTCP *_cli, allHandler *_all, float *_tv1rotVal, float *_tv2rotVal, float *_tv1rotTotVal, float *_tv2rotTotVal)
+void myGUI::init(mpeClientTCP *_cli, allHandler *_all, float *_tv1rotVal, float *_tv2rotVal, float *_tv1rotTotVal, float *_tv2rotTotVal, string *_oscOutIp, int *_oscOutPort)
 {
     client       = _cli;
     handler      = _all;
@@ -27,6 +27,9 @@ void myGUI::init(mpeClientTCP *_cli, allHandler *_all, float *_tv1rotVal, float 
     tv2rotVal    = _tv2rotVal;
     tv1rotTotVal = _tv1rotTotVal;
     tv2rotTotVal = _tv2rotTotVal;
+    
+    oscOutIp     = _oscOutIp;
+    oscOutPort   = _oscOutPort;
 }
 
 //--------------------------------------------------------------
@@ -98,11 +101,11 @@ void myGUI::guiEvent(ofxUIEventArgs &e)
             syphonLaBtn->setValue(!syphonLaBtn->getValue());
         }
         
-//        if(name == "MIDI OUT")
-//        {
-//            ofxUIToggle *button = (ofxUIToggle *) e.widget;
-//            midiOutBtn->setValue(!midiOutBtn->getValue());
-//        }
+        if(name == "OSC OUT")
+        {
+            ofxUIToggle *button = (ofxUIToggle *) e.widget;
+            oscOutBtn->setValue(!oscOutBtn->getValue());
+        }
         
         if(name == "RA SYPHON")
         {
@@ -234,15 +237,15 @@ void myGUI::guiEvent(ofxUIEventArgs &e)
             }
         }
         
-//        if(name == "MIDI OUT")
-//        {
-//            ofxUIToggle *button = (ofxUIToggle *) e.widget;
-//            if (midiOutBtn->getValue() == 1) {
-//                //client->broadcast("midiOut,1");
-//            } else {
-//                //client->broadcast("midiOut,0");
-//            }
-//        }
+        if(name == "OSC OUT")
+        {
+            ofxUIToggle *button = (ofxUIToggle *) e.widget;
+            if (oscOutBtn->getValue() == 1) {
+                client->broadcast("oscOut,1");
+            } else {
+                client->broadcast("oscOut,0");
+            }
+        }
         
         if(name == "RA SYPHON")
         {
@@ -340,8 +343,9 @@ void myGUI::setGUI1()
     syphonRaBtn = (ofxUIToggle *) gui1->addWidgetRight(new ofxUIToggle("RA SYPHON", true, dim, dim));
     
     gui1->addSpacer(length-xInit, 2);
-	gui1->addWidgetDown(new ofxUILabel("MIDI OUTPUT", OFX_UI_FONT_MEDIUM));
-    midiOutBtn = (ofxUIToggle *) gui1->addWidgetDown(new ofxUIToggle("LA MIDI", &handler->bMidi, dim, dim));
+	gui1->addWidgetDown(new ofxUILabel("OSC OUTPUT", OFX_UI_FONT_MEDIUM));
+    gui1->addWidgetDown(new ofxUILabel(*oscOutIp + "  " + ofToString(*oscOutPort), OFX_UI_FONT_SMALL));
+    oscOutBtn = (ofxUIToggle *) gui1->addWidgetDown(new ofxUIToggle("OSC OUT (LA)", &handler->bOsc, dim, dim));
     
     gui1->addSpacer(length-xInit, 2);
     gui1->addWidgetDown(new ofxUILabel("FPS ALL APPS", OFX_UI_FONT_MEDIUM));

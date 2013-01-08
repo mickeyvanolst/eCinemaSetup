@@ -10,7 +10,7 @@
 #include "mpeClientTCP.h"
 #include "chapterHandler.h"
 #include "miniHandler.h"
-#include "ofxMidi.h"
+#include "ofxOsc.h"
 #include "customPlayer.h"
 
 #ifndef eCinemaSetup_allHandler_h
@@ -20,7 +20,7 @@ class allHandler {
 public:
     allHandler(); 
     
-    void init(mpeClientTCP *_cli, handleChapters *_rea, ofxMidiOut * _midi, float *_tv1rotVal, float *_tv2rotVal, float *_tv1rotTotVal, float *_tv2rotTotVal);
+    void init(mpeClientTCP *_cli, handleChapters *_rea, ofxOscSender * _osc, float *_tv1rotVal, float *_tv2rotVal, float *_tv1rotTotVal, float *_tv2rotTotVal);
     void setup(string appName);
     void createList();
     void update();
@@ -37,9 +37,9 @@ public:
     
     string appName;
     
-    bool bMidi;
+    bool bOsc;
     
-    ofxMidiOut      *midiOut;
+    ofxOscSender      *oscOut;
     mpeClientTCP    *client;
     handleChapters  *reader;
 

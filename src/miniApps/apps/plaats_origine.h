@@ -12,14 +12,14 @@
 #include "mainMini.h"
 #include "plaats_origine.h"
 #include "ofxTweener.h"
-#include "ofxMidi.h"
+#include "ofxOsc.h"
 #include "ofxXmlSettings.h"
 
 class plaats_origine {
 public:
     plaats_origine();
     
-    void init(mainMini *_mai, ofxMidiOut *_midi);
+    void init(mainMini *_mai, ofxOscSender *_osc);
     void setup();
     void update();
     void draw();
@@ -29,7 +29,7 @@ public:
     
     string afterChapter;
     
-    ofxMidiOut *midiOut;
+    ofxOscSender *oscOut;
     mainMini *main;
 private:
     void loadXML(string file, bool printResult);

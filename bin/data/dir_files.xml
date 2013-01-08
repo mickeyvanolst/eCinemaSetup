@@ -120,36 +120,6 @@
         </right>
     </chapter>
     <chapter>
-        <name>05_Beleving</name>
-        <left>
-            <file>content/05_Beleving/L_05_Beleving.mov</file>
-            <name>L_05_Beleving.mov</name>
-            <duration>0</duration>
-            <frames>0</frames>
-            <filesize>-2102147803</filesize>
-            <width>0</width>
-            <height>0</height>
-        </left>
-        <middle>
-            <file>content/05_Beleving/M_05_Beleving.mov</file>
-            <name>M_05_Beleving.mov</name>
-            <duration>0</duration>
-            <frames>0</frames>
-            <filesize>-2102147803</filesize>
-            <width>0</width>
-            <height>0</height>
-        </middle>
-        <right>
-            <file>content/05_Beleving/R_05_Beleving.mov</file>
-            <name>R_05_Beleving.mov</name>
-            <duration>0</duration>
-            <frames>0</frames>
-            <filesize>-2102147803</filesize>
-            <width>0</width>
-            <height>0</height>
-        </right>
-    </chapter>
-    <chapter>
         <name>07_Maker vs kijker</name>
         <left>
             <file>content/07_Maker vs kijker/L_07_Maker vs kijker.mov</file>

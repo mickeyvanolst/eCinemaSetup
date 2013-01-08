@@ -16,15 +16,15 @@ miniHandler::miniHandler(){
 }
 
 //--------------------------------------------------------------
-void miniHandler::init(mpeClientTCP * _cli, ofxMidiOut * _midi, bool *_bMidi, float *_tv1rotVal, float *_tv2rotVal, float *_tv1rotTotVal, float *_tv2rotTotVal){
+void miniHandler::init(mpeClientTCP * _cli, ofxOscSender * _osc, bool *_bOsc, float *_tv1rotVal, float *_tv2rotVal, float *_tv1rotTotVal, float *_tv2rotTotVal){
     client = _cli;
-    main.init(_cli, _bMidi, _tv1rotVal, _tv2rotVal, _tv1rotTotVal, _tv2rotTotVal);
-    midiOut = _midi;
-    bMidi = _bMidi;
-    myZoetroop.init(&main, _midi);
-    myPlaats_origine.init(&main, _midi);
-    myIntentie_interpretatie.init(&main, _midi);
-    myInterview_bezoekers.init(&main, _midi);
+    main.init(_cli, _bOsc, _tv1rotVal, _tv2rotVal, _tv1rotTotVal, _tv2rotTotVal);
+    oscOut = _osc;
+    bOsc = _bOsc;
+    myZoetroop.init(&main, _osc);
+    myPlaats_origine.init(&main, _osc);
+    myIntentie_interpretatie.init(&main, _osc);
+    myInterview_bezoekers.init(&main, _osc);
     
     // setting after what chapter the interactive chapter should play.
     if (XML.loadFile("app_content/contentOrder.xml")) {
@@ -57,6 +57,13 @@ void miniHandler::setup(string id){
 //--------------------------------------------------------------
 void miniHandler::update(){
     main.update(); // so the speedvals of the rotation get calculated
+    
+//    if (*bOsc) {
+//        ofxOscMessage m;
+//        m.setAddress("/foo");
+//        m.addStringArg("bar");
+//        oscOut->sendMessage(m);
+//    }
     
     // not yet finished here, need to figure out how to do this with several mini apps etc
     if (!pauseApp) {

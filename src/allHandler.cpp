@@ -15,17 +15,16 @@ allHandler::allHandler(){
 
     activeID = -1; // negative so at least we know something's wrong
     bPlayAll = true;
-    bMidi = true;
 }
 
 
 //--------------------------------------------------------------
-void allHandler::init(mpeClientTCP *_cli, handleChapters *_rea, ofxMidiOut * _midi, float *_tv1rotVal, float *_tv2rotVal, float *_tv1rotTotVal, float *_tv2rotTotVal){
+void allHandler::init(mpeClientTCP *_cli, handleChapters *_rea, ofxOscSender * _osc, float *_tv1rotVal, float *_tv2rotVal, float *_tv1rotTotVal, float *_tv2rotTotVal){
     client  = _cli;
     reader  = _rea;
-    midiOut = _midi;
+    oscOut = _osc;
     player.init(_rea);
-    miniApp.init(_cli, _midi, &bMidi, _tv1rotVal, _tv2rotVal, _tv1rotTotVal, _tv2rotTotVal);
+    miniApp.init(_cli, _osc, &bOsc, _tv1rotVal, _tv2rotVal, _tv1rotTotVal, _tv2rotTotVal);
 }
 
 
@@ -33,6 +32,14 @@ void allHandler::init(mpeClientTCP *_cli, handleChapters *_rea, ofxMidiOut * _mi
 void allHandler::setup(string appName){
     
     appName = appName;
+    
+    // only send OSC (for audio sync) from left app
+    if (appName == "left") {
+        bOsc = true;
+    } else {
+        bOsc = false;
+    }
+
     // customp player, also needs to know who he is
     player.setup(appName);
     
@@ -84,12 +91,20 @@ void allHandler::createList(){
 
 //--------------------------------------------------------------
 void allHandler::update(){
+    ofxOscMessage m;
+    if (bOsc) {
+        m.setAddress("chapter");
+        m.addIntArg(activeID);    
+    }
     if (list[activeID].type.compare("app") == 0) {
         // this is an app
         miniApp.update();
     } else if(list[activeID].type.compare("mov") == 0) {
         // this is a movie
         player.update();
+    }
+    if (bOsc) {
+        oscOut->sendMessage(m);
     }
 }
 

@@ -20,7 +20,7 @@ class myGUI {
 public:
     myGUI();
     
-    void init(mpeClientTCP *_cli, allHandler *_all, float *_tv1rotVal, float *_tv2rotVal, float *_tv1rotTotVal, float *_tv2rotTotVal);
+    void init(mpeClientTCP *_cli, allHandler *_all, float *_tv1rotVal, float *_tv2rotVal, float *_tv1rotTotVal, float *_tv2rotTotVal, string *_oscOutIp, int *_oscOutPort);
     void setup(string appID);
     void keyPressed(int key);
     
@@ -63,7 +63,7 @@ public:
     ofxUIToggle     *syphonLaBtn;
     ofxUIToggle     *syphonRaBtn;
     
-    ofxUIToggle     *midiOutBtn;
+    ofxUIToggle     *oscOutBtn;
     
     int             activeChap;
     
@@ -87,6 +87,9 @@ public:
     float *tv2rotVal;
     float *tv1rotTotVal;
     float *tv2rotTotVal;
+    
+    string *oscOutIp;
+    int *oscOutPort;
     
     ofxUISlider     *chapCurPercent;
     float           chapCurTime;

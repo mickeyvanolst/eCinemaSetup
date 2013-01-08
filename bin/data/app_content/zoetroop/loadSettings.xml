@@ -1,0 +1,14 @@
+<settings>
+	<left>
+		<introfolder>12_FPS/Zoe_Int_Left</introfolder>
+		<repeatfolder>Static/Zoe_Int_Left</repeatfolder>
+	</left>
+	<middle>
+		<introfolder>12_FPS/Zoe_Int_Middle</introfolder>
+		<repeatfolder>Static/Zoe_Int_Middle</repeatfolder>
+	</middle>
+	<right>
+		<introfolder>12_FPS/Zoe_Int_Right</introfolder>
+		<repeatfolder>Static/Zoe_Int_Right</repeatfolder>
+	</right>
+</settings>

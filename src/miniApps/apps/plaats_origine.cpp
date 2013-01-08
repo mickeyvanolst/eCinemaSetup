@@ -14,9 +14,9 @@ plaats_origine::plaats_origine(){
 }
 
 //--------------------------------------------------------------
-void plaats_origine::init(mainMini *_mai, ofxMidiOut *_midi){
+void plaats_origine::init(mainMini *_mai, ofxOscSender *_osc){
     main = _mai;
-    midiOut = _midi;
+    oscOut = _osc;
 }
 
 //--------------------------------------------------------------
@@ -64,6 +64,13 @@ void plaats_origine::update(){
                 Tweener.addTween(tBg,bgCuePoints[i].frame, 1, &ofxTransitions::linear);
             }
             curBg = i;
+            
+            if (*main->bOsc) {
+                ofxOscMessage m;
+                m.setAddress("plaats_origine/bg");
+                m.addIntArg(curBg);
+                oscOut->sendMessage(m);
+            }
         }
     }
     
@@ -89,7 +96,7 @@ void plaats_origine::update(){
     bgMov.update();
     
     
-    if (main->appName == "middle") {
+    
         for (int i = 0; i < artCuePoints.size(); i++) {
             if (curArt != i && *main->tv2pos >= i*(360/artCuePoints.size()) && *main->tv2pos < (i+1)*(360/artCuePoints.size())) {
                 
@@ -105,10 +112,17 @@ void plaats_origine::update(){
                     Tweener.addTween(tArt,artCuePoints[i].frame, 1, &ofxTransitions::linear);
                 }
                 curArt = i;
+                
+                if (*main->bOsc) {
+                    ofxOscMessage m;
+                    m.setAddress("plaats_origine/art");
+                    m.addIntArg(curArt);
+                    oscOut->sendMessage(m);
+                }
             }
         }
-        
-        if (tArt != artMov.getCurrentFrame()) {
+
+        if (tArt != artMov.getCurrentFrame() && main->appName == "middle" ) {
             if (tArt > artMov.getTotalNumFrames()) {
                 tArt = tArt - main->sortaModulo(artMov.getTotalNumFrames(), tArt);
                 // take off -1 of totalframes in case cuepoint is zero
@@ -127,8 +141,9 @@ void plaats_origine::update(){
 //            cout << "curFrame: " << bgMov.getCurrentFrame() << "\n";
 //            cout << output << "\n";
         }
-        artMov.update();
-    }
+        if (main->appName == "middle") {
+            artMov.update();
+        }
     
     Tweener.update();
     

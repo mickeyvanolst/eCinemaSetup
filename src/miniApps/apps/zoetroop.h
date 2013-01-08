@@ -12,13 +12,13 @@
 #include "mainMini.h"
 #include "ofxTweener.h"
 #include "ofxImageSequence.h"
-#include "ofxMidi.h"
+#include "ofxOsc.h"
 
 class zoetroop {
 public:
     zoetroop();
     
-    void init(mainMini *_mai, ofxMidiOut * _midi);
+    void init(mainMini *_mai, ofxOscSender * _osc);
     void setup();
     void update();
     void draw();
@@ -27,7 +27,7 @@ public:
     
     string afterChapter;
     
-    ofxMidiOut *midiOut;
+    ofxOscSender *oscOut;
     mainMini *main;
 private:
     

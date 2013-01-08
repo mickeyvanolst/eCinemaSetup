@@ -14,9 +14,9 @@ interview_bezoekers::interview_bezoekers(){
 }
 
 //--------------------------------------------------------------
-void interview_bezoekers::init(mainMini *_mai, ofxMidiOut *_midi){
+void interview_bezoekers::init(mainMini *_mai, ofxOscSender *_osc){
     main = _mai;
-    midiOut = _midi;
+    oscOut = _osc;
 }
 
 //--------------------------------------------------------------

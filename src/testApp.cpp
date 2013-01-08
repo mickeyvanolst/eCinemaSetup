@@ -9,8 +9,8 @@ testApp::testApp()
     tv1rotTotVal = 0;
     tv2rotTotVal = 0;
     
-    handler.init(&client, &reader, &midiOut, &tv1rotVal, &tv2rotVal, &tv1rotTotVal, &tv2rotTotVal);
-    gui.init(&client, &handler, &tv1rotVal, &tv2rotVal, &tv1rotTotVal, &tv2rotTotVal);
+    handler.init(&client, &reader, &oscOut, &tv1rotVal, &tv2rotVal, &tv1rotTotVal, &tv2rotTotVal);
+    gui.init(&client, &handler, &tv1rotVal, &tv2rotVal, &tv1rotTotVal, &tv2rotTotVal, &oscOutIp, &oscOutPort);
 }
 
 //--------------------------------------------------------------
@@ -28,14 +28,22 @@ void testApp::setup(){
     string appNameList[3] = {"left","middle","right"}; // ,"TV_1", "TV_2"
     appName = appNameList[client.getID()];
     
+    if (XML.loadFile("osc_settings.xml")) {
+        XML.pushTag("settings");
+        oscOutIp            = XML.getValue("out:ip", "");
+        oscOutPort          = XML.getValue("out:port", 0);
+        oscInPort           = XML.getValue("in:port", 0);
+        XML.popTag();
+    } else {
+        cout << "loading osc_settings.xml failed, needed for OSC\n";
+    }
+    
     handler.setup(appName);
     gui.setup(appName);
-    receiver.setup(8000); // OSC
+    receiver.setup(oscInPort); // OSC
     
-	midiOut.listPorts();
-	midiOut.openPort(0);
-    midiChannel = 1;
-    
+    oscOut.setup(oscOutIp, oscOutPort);
+        
     client.start();
     
     // read out the directory and check if all files are correct
@@ -101,8 +109,12 @@ void testApp::frameEvent() {
     if (syphonOut && handler.list[handler.activeID].type.compare("app") == 0) {
         ofClear(255,255,255, 0);
         appFbo.begin();
+        ofBackground(0, 200, 0);
+        ofSetColor(255, 0, 0);
+        ofRect(0, 0, client.getLWidth(), client.getLHeight());
+        ofSetColor(255, 255, 255);
         ofPushMatrix();
-        ofTranslate(-client.getXoffset(), 0);
+        ofTranslate(-client.getXoffset(), client.getYoffset());
     }
     
     handler.draw();
@@ -112,7 +124,6 @@ void testApp::frameEvent() {
     if (syphonOut && handler.list[handler.activeID].type.compare("app") == 0) {
         ofPopMatrix();
         appFbo.end();
-        
         ofSetColor(255, 255, 255);
         if (drawScreen) {
             appFbo.draw(client.getXoffset(),0,ofGetWidth(),ofGetHeight()); // ajust this later
@@ -320,6 +331,20 @@ void testApp::handleMessages(){
                         printf("syphonRA: FALSE\n");
                     }
                     gui.syphonRaBtn->setValue(ofToInt(splitMsg[1]));
+                }
+                
+                // ------------ OSC OUT ------------
+                
+                // turn osc on or off, second value is the false/true
+                if (splitMsg[0].compare("oscOut") == 0 && splitMsg.size() == 2) {
+                    if (appName == "left" && ofToInt(splitMsg[1]) == 1) {
+                        handler.bOsc = true;
+                        printf("oscOut: TRUE\n");
+                    } else if(appName == "left" && ofToInt(splitMsg[1]) == 0) {
+                        handler.bOsc = false;
+                        printf("oscOut: FALSE\n");
+                    }
+                    gui.oscOutBtn->setValue(ofToInt(splitMsg[1]));
                 }
                 
                 // ------------ FPS ALL APPS ------------
@@ -601,5 +626,4 @@ void testApp::windowResized(int w, int h){
 //--------------------------------------------------------------
 void testApp::exit() {
 	// clean up
-	midiOut.closePort();
 }

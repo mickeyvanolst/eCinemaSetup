@@ -9,7 +9,6 @@
 #include "chapterHandler.h"
 #include "allHandler.h"
 #include "ofxOsc.h"
-#include "ofxMidi.h"
 #include "myGUI.h"
 
 class testApp : public ofBaseApp, public mpeClientListener {
@@ -32,10 +31,6 @@ public:
     void scaleByHeight(int oW, int oH, int *nW, int nH);
     void scaleByWidth(int oW, int oH, int nW, int *nH);
     
-    // MIDI for the audio connection (on a nother laptop)
-    ofxMidiOut midiOut;
-	int midiChannel;
-    
     // MPE's way of doing an update/draw, everything updates from here
     void frameEvent();
     
@@ -49,8 +44,19 @@ public:
     handleChapters      reader;
     // GUI stuff
     myGUI               gui;
+    
     // needed for touch osc (iPad) to simulate our interactive objects
     ofxOscReceiver      receiver;
+    
+    // and for the audio connection (on another laptop)
+    ofxOscSender        oscOut;
+    
+    ofxXmlSettings      XML;
+    
+    string              oscOutIp;
+    int                 oscOutPort;
+    int                 oscInPort;
+    
     // we draw into this and send the Fbo trough syphon
     ofFbo               appFbo;
     ofxSyphonServer     syphonServer;

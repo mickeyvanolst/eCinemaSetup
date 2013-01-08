@@ -14,9 +14,9 @@ zoetroop::zoetroop(){
 }
 
 //--------------------------------------------------------------
-void zoetroop::init(mainMini *_mai, ofxMidiOut *_midi){
+void zoetroop::init(mainMini *_mai, ofxOscSender *_osc){
     main = _mai;
-    midiOut = _midi;
+    oscOut = _osc;
 }
 
 //--------------------------------------------------------------
@@ -60,12 +60,6 @@ void zoetroop::update(){
     
     Tweener.addTween(tTV, combTvPos, 8,  &ofxTransitions::easeOutSine);
     tTVmod = tTV - main->sortaModulo(360, tTV);
-    
-    if (*main->bMidi && main->appName == "left") {
-        //midiOut->sendNoteOn(1,45, tTV1);
-        //cout << "midi!\n";
-    }
-    //cout << (tTV - ptTV) << "\n";
     
     // just for now to show the end of an interactive event can be triggered by time
     // this should be the last thing you do in an update!!!!!!!

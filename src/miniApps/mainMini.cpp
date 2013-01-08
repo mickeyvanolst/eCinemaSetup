@@ -14,9 +14,9 @@ mainMini::mainMini(){
 }
 
 //--------------------------------------------------------------
-void mainMini::init(mpeClientTCP *_cli, bool *_bMidi, float *_tv1rotVal, float *_tv2rotVal, float *_tv1rotTotVal, float *_tv2rotTotVal){
+void mainMini::init(mpeClientTCP *_cli, bool *_bOsc, float *_tv1rotVal, float *_tv2rotVal, float *_tv1rotTotVal, float *_tv2rotTotVal){
     client = _cli;
-    bMidi = _bMidi;
+    bOsc = _bOsc;
     
     tv1pos          = _tv1rotVal;
     tv2pos          = _tv2rotVal;
