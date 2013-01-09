@@ -102,6 +102,9 @@ void allHandler::update(){
     } else if(list[activeID].type.compare("mov") == 0) {
         // this is a movie
         player.update();
+        if (bOsc) {
+            m.addFloatArg(player.chapCurPercent);
+        }
     }
     if (bOsc) {
         oscOut->sendMessage(m);

@@ -27,23 +27,13 @@ void zoetroop::setup(){
     
     if(XML.loadFile("app_content/zoetroop/loadSettings.xml")){
         XML.pushTag("settings");
-            normImgs.loadSequence("app_content/zoetroop/" + XML.getValue(main->appName + ":introfolder", "", 0));
-            fastImgs.loadSequence("app_content/zoetroop/" + XML.getValue(main->appName + ":repeatfolder", "", 0));
+            normMov.loadMovie("app_content/zoetroop/" + XML.getValue(main->appName + ":intro", "", 0));
+            fastMov.loadMovie("app_content/zoetroop/" + XML.getValue(main->appName + ":repeat", "", 0));
         XML.popTag();
     } else {
         cout << "no loadSettings.xml found..\n";
     }
-
-//    slowImgs.loadSequence("app_content/zoetroop/archief/dog_img");
-//    normImgs.loadSequence("app_content/zoetroop/archief/horse_img");
-//    fastImgs.loadSequence("app_content/zoetroop/archief/cheetah_img");
-    
-//	slowImgs.preloadAllFrames();	//this way there is no stutter when loading frames
-    normImgs.preloadAllFrames();
-    fastImgs.preloadAllFrames();
-    
-	//slowImgs.setFrameRate(10); //set to ten frames per second
-    
+        
     tTV = *main->totalTv1pos + *main->totalTv2pos;
     ptTV = tTV;
     ptTV = tTVmod;
@@ -60,6 +50,9 @@ void zoetroop::update(){
     
     Tweener.addTween(tTV, combTvPos, 8,  &ofxTransitions::easeOutSine);
     tTVmod = tTV - main->sortaModulo(360, tTV);
+    
+    normMov.update();
+    fastMov.update();
     
     // just for now to show the end of an interactive event can be triggered by time
     // this should be the last thing you do in an update!!!!!!!
@@ -81,24 +74,16 @@ void zoetroop::draw(){
         curPercent = 0;
     }
     
-//    if (tTV - ptTV > 28) {
-//        fastImgs.getFrameAtPercent(curPercent)->draw(0, 0);
-//        fastTime++;
-//    } else if(tTV - ptTV > 20) {
-//        normImgs.getFrameAtPercent(curPercent)->draw(0, 0);
-//        fastTime = 0;
-//    } else {
-//        slowImgs.getFrameAtPercent(curPercent)->draw(0, 0);
-//    }
-    
     if (tTV - ptTV > 25) {
-        fastImgs.getFrameAtPercent(curPercent)->draw(main->client->getXoffset(), 0);
+        fastMov.setPosition(curPercent);
+        fastMov.draw(main->client->getXoffset(), 0);
         fastTime++;
     } else {
-        normImgs.getFrameAtPercent(curPercent)->draw(main->client->getXoffset(), 0);
+        normMov.setPosition(curPercent);
+        normMov.draw(main->client->getXoffset(), 0);
     }
     
-    //normImgs.getFrameAtPercent(curPercent)->draw(0, 0);
+    
     bool visualTest = false;
     if (visualTest) {
         ofSetColor(255, 0, 0);

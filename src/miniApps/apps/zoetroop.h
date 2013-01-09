@@ -38,9 +38,8 @@ private:
     
     long int combTvPos;
     
-    ofxImageSequence slowImgs;
-    ofxImageSequence normImgs;
-    ofxImageSequence fastImgs;
+    ofVideoPlayer normMov;
+    ofVideoPlayer fastMov;
     
     int fastTime;
     

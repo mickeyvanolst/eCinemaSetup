@@ -148,18 +148,34 @@ void intentie_interpretatie::update(){
             frameRepeat = 2;
         }
         
+        ofxOscMessage m;
+        if (*main->bOsc) {
+            m.setAddress("intentie_interpretatie/times");
+        }
+        
         if (main->appName == "left") {
             if (curActive == 0 && Vid1.getCurrentFrame() >= frameRepeat + clipCurFrame) {
                 Vid1.setFrame(clipCurFrame);
+                m.addIntArg(Vid1.getTotalNumFrames());
             } else if (curActive == 1 && Vid2.getCurrentFrame() >= frameRepeat + clipCurFrame) {
                 Vid2.setFrame(clipCurFrame);
+                m.addIntArg(Vid2.getTotalNumFrames());
             }
         } else if (main->appName == "right") {
             if (curActive == 2 && Vid1.getCurrentFrame() >= frameRepeat + clipCurFrame) {
                 Vid1.setFrame(clipCurFrame);
+                m.addIntArg(Vid1.getTotalNumFrames());
             } else if (curActive == 3 && Vid2.getCurrentFrame() >= frameRepeat + clipCurFrame) {
                 Vid2.setFrame(clipCurFrame);
+                m.addIntArg(Vid2.getTotalNumFrames());
             }
+        }
+        
+        if (*main->bOsc) {
+            m.addIntArg(clipCurFrame);
+            m.addIntArg(totalFrames);
+            m.addIntArg(mainCurFrame);
+            oscOut->sendMessage(m);
         }
         
         prevTv1pos = *main->tv1pos;
