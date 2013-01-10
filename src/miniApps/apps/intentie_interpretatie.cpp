@@ -77,13 +77,13 @@ void intentie_interpretatie::setup(){
     cout << "totalFrames: " << totalFrames << "\n";
     
     // setting viewport rectangle
-	viewport1.x = main->client->getXoffset();
-	viewport1.y = main->client->getYoffset();
+	viewport1.x = 0;
+	viewport1.y = 0;
 	viewport1.width = main->client->getLWidth()/2;
 	viewport1.height = main->client->getLHeight();
     
-    viewport2.x = main->client->getXoffset() + (main->client->getLWidth()/2);
-	viewport2.y = main->client->getYoffset();
+    viewport2.x = main->client->getLWidth()/2;//main->client->getXoffset() + (main->client->getLWidth()/2);
+	viewport2.y = 0;//main->client->getYoffset();
 	viewport2.width = main->client->getLWidth()/2;
 	viewport2.height = main->client->getLHeight();
 }
@@ -150,7 +150,7 @@ void intentie_interpretatie::update(){
         
         ofxOscMessage m;
         if (*main->bOsc) {
-            m.setAddress("intentie_interpretatie/times");
+            m.setAddress("/intentie_interpretatie/times");
         }
         
         if (main->appName == "left") {
@@ -194,6 +194,13 @@ void intentie_interpretatie::update(){
 
 //--------------------------------------------------------------
 void intentie_interpretatie::draw(){
+    
+    video1.x = main->client->getLWidth() / 2 * -1;//-768;//
+    video1.y = main->client->getLHeight()/2 * -1;//-540;
+    
+    video2.x = main->client->getLWidth() / 4 * -1;//-384;
+    video2.y = main->client->getLHeight()/2 * -1;//-540;
+    
     if (main->appName != "middle") {
         ofBackground(0, 200, 0);
         int tempWidth = 0;
@@ -203,16 +210,16 @@ void intentie_interpretatie::draw(){
             //ofSetupScreen();
             glScalef(-1, -1, 1);
             glTranslatef(-main->client->getXoffset(), -main->client->getLHeight(), 0);
-        
+            
             if (Vid1.isLoaded()) {
                 ofSetColor(255, 255, 255);
                 ofPushMatrix();
                 ofSetRectMode(OF_RECTMODE_CENTER);
                 ofRotate(180);
                 ofTranslate(tempWidth, 0, 0 );
+                Vid1.draw(video1.x, video1.y, tempWidth*2, main->client->getLHeight());
+                //Vid1.draw(-tempWidth/2, (-main->client->getLHeight()/2), tempWidth*2, main->client->getLHeight());
                 
-                Vid1.draw(-tempWidth/2, (-main->client->getLHeight()/2), tempWidth*2, main->client->getLHeight());
-                //Vid1.draw(0 - ((tempWidth - viewport1.width)/2), (-main->client->getLHeight()/2), tempWidth, main->client->getLHeight());
                 ofSetRectMode(OF_RECTMODE_CORNER);
                 ofPopMatrix();
             }
@@ -240,8 +247,11 @@ void intentie_interpretatie::draw(){
             ofPopMatrix();
         }
         ofPopView();
-        ofSetColor(0, 0, 0);
-        ofRect(main->client->getXoffset(), 50, 40, 50);
+        
+        //ofSetColor(255,0,0);
+        //ofDrawBitmapString("viewport x: " + ofToString(viewport2.x) + "\nviewport y:" + ofToString(viewport2.y) + "\n",main->client->getXoffset() + 100,100);
+        //ofDrawBitmapString("video x: " + ofToString(video1.x) + "\nvdideo y:" + ofToString(video1.y) + "\n", main->client->getXoffset() + 100,140);
+
     } else { // Middle app
         ofBackground(0, 0, 0);
     }

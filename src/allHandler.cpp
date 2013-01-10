@@ -34,12 +34,13 @@ void allHandler::setup(string appName){
     appName = appName;
     
     // only send OSC (for audio sync) from left app
-    if (appName == "left") {
-        bOsc = true;
-    } else {
-        bOsc = false;
-    }
-
+//    if (appName == "left") {
+//        bOsc = true;
+//    } else {
+//        bOsc = false;
+//    }
+    bOsc = false;
+    
     // customp player, also needs to know who he is
     player.setup(appName);
     
@@ -93,7 +94,7 @@ void allHandler::createList(){
 void allHandler::update(){
     ofxOscMessage m;
     if (bOsc) {
-        m.setAddress("chapter");
+        m.setAddress("/chapter");
         m.addIntArg(activeID);    
     }
     if (list[activeID].type.compare("app") == 0) {

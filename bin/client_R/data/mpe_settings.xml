@@ -9,11 +9,11 @@
 		<height>1080</height>
 	</local_dimensions>
 	<local_location>
-		<x>3072</x>
+		<x>3456</x>
 		<y>0</y>
 	</local_location>
 	<master_dimensions>
-		<width>4608</width>
+		<width>4992</width>
 		<height>1080</height>
 	</master_dimensions>
 	<go_fullscreen>false</go_fullscreen>

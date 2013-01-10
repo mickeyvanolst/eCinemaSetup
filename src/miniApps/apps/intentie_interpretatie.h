@@ -31,6 +31,8 @@ public:
     mainMini *main;
     
 private:
+    ofVec2f video1;
+    ofVec2f video2;
     
     long int initTime;
     long int durTime;

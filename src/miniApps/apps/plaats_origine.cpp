@@ -67,7 +67,7 @@ void plaats_origine::update(){
             
             if (*main->bOsc) {
                 ofxOscMessage m;
-                m.setAddress("plaats_origine/bg");
+                m.setAddress("/plaats_origine/bg");
                 m.addIntArg(curBg);
                 oscOut->sendMessage(m);
             }
@@ -115,7 +115,7 @@ void plaats_origine::update(){
                 
                 if (*main->bOsc) {
                     ofxOscMessage m;
-                    m.setAddress("plaats_origine/art");
+                    m.setAddress("/plaats_origine/art");
                     m.addIntArg(curArt);
                     oscOut->sendMessage(m);
                 }
