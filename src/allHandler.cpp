@@ -82,9 +82,6 @@ void allHandler::createList(){
     // init first item, otherwise some classes won't be happy..
     start(list[0].name);
     pause();
-
-
-    
     
     int myInt;
     ofNotifyEvent(buildGUIEvent,myInt,this);
@@ -92,23 +89,23 @@ void allHandler::createList(){
 
 //--------------------------------------------------------------
 void allHandler::update(){
-    ofxOscMessage m;
-    if (bOsc) {
-        m.setAddress("/chapter");
-        m.addIntArg(activeID);    
-    }
     if (list[activeID].type.compare("app") == 0) {
         // this is an app
         miniApp.update();
     } else if(list[activeID].type.compare("mov") == 0) {
         // this is a movie
         player.update();
-        if (bOsc) {
+        
+        if (bOsc && durTime > 1000 && player.isPlaying) {
+            initTime = ofGetElapsedTimeMillis();
+            durTime = 0;
+            ofxOscMessage m;
+            m.setAddress("/chapter");
+            m.addIntArg(activeID);
             m.addFloatArg(player.chapCurPercent);
+            oscOut->sendMessage(m);
         }
-    }
-    if (bOsc) {
-        oscOut->sendMessage(m);
+        durTime = ofGetElapsedTimeMillis() - initTime;
     }
 }
 
@@ -173,6 +170,8 @@ void allHandler::start(string name){
         // this is a movie
         printf("film name: %s\n", list[activeID].name.c_str());
         player.startPlayer(list[activeID].chapterID);
+        initTime = ofGetElapsedTimeMillis();
+        durTime = 1001;
     }
     printf("starting: %s - id:%i type: %s\n",list[activeID].name.c_str(), activeID, list[activeID].type.c_str());
 }
@@ -211,6 +210,8 @@ void allHandler::resume(){
     } else if(list[activeID].type.compare("mov") == 0) {
         // this is a movie
         player.playPlayer();
+        initTime = ofGetElapsedTimeMillis();
+        durTime = 1001;
     }
 }
 

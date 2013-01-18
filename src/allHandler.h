@@ -63,6 +63,8 @@ public:
     ofEvent<int>        buildGUIEvent;
     
 private:
+    long int durTime;
+    long int initTime;
 };
 
 #endif

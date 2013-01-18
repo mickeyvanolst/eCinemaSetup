@@ -2,29 +2,29 @@
     <chapter>
         <name>02_1_Identiteit</name>
         <left>
-            <file>content/02_1_Identiteit/L_02_Identiteit.mov</file>
-            <name>L_02_Identiteit.mov</name>
-            <duration>480</duration>
-            <frames>12000</frames>
-            <filesize>141357373</filesize>
+            <file>content/02_1_Identiteit/L_02_1_Identiteit.mov</file>
+            <name>L_02_1_Identiteit.mov</name>
+            <duration>320</duration>
+            <frames>8018</frames>
+            <filesize>594631127</filesize>
             <width>1536</width>
             <height>1080</height>
         </left>
         <middle>
-            <file>content/02_1_Identiteit/M_02_Identiteit.mov</file>
-            <name>M_02_Identiteit.mov</name>
-            <duration>664</duration>
-            <frames>12000</frames>
-            <filesize>130379142</filesize>
-            <width>702</width>
-            <height>395</height>
+            <file>content/02_1_Identiteit/M_02_1_Identiteit.mov</file>
+            <name>M_02_1_Identiteit.mov</name>
+            <duration>320</duration>
+            <frames>8018</frames>
+            <filesize>1916673393</filesize>
+            <width>1920</width>
+            <height>1080</height>
         </middle>
         <right>
-            <file>content/02_1_Identiteit/R_02_Identiteit.mov</file>
-            <name>R_02_Identiteit.mov</name>
-            <duration>480</duration>
-            <frames>12000</frames>
-            <filesize>148777164</filesize>
+            <file>content/02_1_Identiteit/R_02_1_Identiteit.mov</file>
+            <name>R_02_1_Identiteit.mov</name>
+            <duration>320</duration>
+            <frames>8018</frames>
+            <filesize>685281306</filesize>
             <width>1536</width>
             <height>1080</height>
         </right>
@@ -34,27 +34,27 @@
         <left>
             <file>content/02_2_Identiteit/L_02_2_Identiteit.mov</file>
             <name>L_02_2_Identiteit.mov</name>
-            <duration>480</duration>
-            <frames>12000</frames>
-            <filesize>121375622</filesize>
+            <duration>141</duration>
+            <frames>3537</frames>
+            <filesize>1264975657</filesize>
             <width>1536</width>
             <height>1080</height>
         </left>
         <middle>
             <file>content/02_2_Identiteit/M_02_2_Identiteit.mov</file>
             <name>M_02_2_Identiteit.mov</name>
-            <duration>480</duration>
-            <frames>12000</frames>
-            <filesize>123736697</filesize>
+            <duration>141</duration>
+            <frames>3537</frames>
+            <filesize>1366579422</filesize>
             <width>1920</width>
             <height>1080</height>
         </middle>
         <right>
             <file>content/02_2_Identiteit/R_02_2_Identiteit.mov</file>
             <name>R_02_2_Identiteit.mov</name>
-            <duration>480</duration>
-            <frames>12000</frames>
-            <filesize>121381210</filesize>
+            <duration>141</duration>
+            <frames>3537</frames>
+            <filesize>1297042515</filesize>
             <width>1536</width>
             <height>1080</height>
         </right>
@@ -64,27 +64,27 @@
         <left>
             <file>content/03_Plaats en origine/L_03_Plaats en origine.mov</file>
             <name>L_03_Plaats en origine.mov</name>
-            <duration>211</duration>
-            <frames>5275</frames>
-            <filesize>535567054</filesize>
+            <duration>212</duration>
+            <frames>5300</frames>
+            <filesize>587744710</filesize>
             <width>1536</width>
             <height>1080</height>
         </left>
         <middle>
             <file>content/03_Plaats en origine/M_03_Plaats en origine.mov</file>
             <name>M_03_Plaats en origine.mov</name>
-            <duration>211</duration>
-            <frames>5275</frames>
-            <filesize>282386377</filesize>
+            <duration>212</duration>
+            <frames>5300</frames>
+            <filesize>397584395</filesize>
             <width>1920</width>
             <height>1080</height>
         </middle>
         <right>
             <file>content/03_Plaats en origine/R_03_Plaats en origine.mov</file>
             <name>R_03_Plaats en origine.mov</name>
-            <duration>211</duration>
-            <frames>5275</frames>
-            <filesize>503564741</filesize>
+            <duration>212</duration>
+            <frames>5300</frames>
+            <filesize>723788642</filesize>
             <width>1536</width>
             <height>1080</height>
         </right>
@@ -94,27 +94,57 @@
         <left>
             <file>content/04_Techniek/L_04_Techniek.mov</file>
             <name>L_04_Techniek.mov</name>
-            <duration>180</duration>
-            <frames>4500</frames>
-            <filesize>1096065058</filesize>
+            <duration>194</duration>
+            <frames>4850</frames>
+            <filesize>1146482596</filesize>
             <width>1536</width>
             <height>1080</height>
         </left>
         <middle>
             <file>content/04_Techniek/M_04_Techniek.mov</file>
             <name>M_04_Techniek.mov</name>
-            <duration>180</duration>
-            <frames>4500</frames>
-            <filesize>1445852218</filesize>
+            <duration>194</duration>
+            <frames>4850</frames>
+            <filesize>1504052967</filesize>
             <width>1920</width>
             <height>1080</height>
         </middle>
         <right>
             <file>content/04_Techniek/R_04_Techniek.mov</file>
             <name>R_04_Techniek.mov</name>
-            <duration>180</duration>
-            <frames>4500</frames>
-            <filesize>1068457151</filesize>
+            <duration>194</duration>
+            <frames>4850</frames>
+            <filesize>1118873508</filesize>
+            <width>1536</width>
+            <height>1080</height>
+        </right>
+    </chapter>
+    <chapter>
+        <name>05_Beleving</name>
+        <left>
+            <file>content/05_Beleving/L_05_beleving.mov</file>
+            <name>L_05_beleving.mov</name>
+            <duration>480</duration>
+            <frames>12000</frames>
+            <filesize>-1671936357</filesize>
+            <width>1536</width>
+            <height>1080</height>
+        </left>
+        <middle>
+            <file>content/05_Beleving/M_05_beleving.mov</file>
+            <name>M_05_beleving.mov</name>
+            <duration>480</duration>
+            <frames>12000</frames>
+            <filesize>-1050280882</filesize>
+            <width>1920</width>
+            <height>1080</height>
+        </middle>
+        <right>
+            <file>content/05_Beleving/R_05_beleving.mov</file>
+            <name>R_05_beleving.mov</name>
+            <duration>480</duration>
+            <frames>12000</frames>
+            <filesize>-1699089641</filesize>
             <width>1536</width>
             <height>1080</height>
         </right>
@@ -124,27 +154,27 @@
         <left>
             <file>content/07_Maker vs kijker/L_07_Maker vs kijker.mov</file>
             <name>L_07_Maker vs kijker.mov</name>
-            <duration>539</duration>
-            <frames>32340</frames>
-            <filesize>137837092</filesize>
+            <duration>208</duration>
+            <frames>5201</frames>
+            <filesize>933196055</filesize>
             <width>1536</width>
             <height>1080</height>
         </left>
         <middle>
             <file>content/07_Maker vs kijker/M_07_Maker vs kijker.mov</file>
             <name>M_07_Maker vs kijker.mov</name>
-            <duration>539</duration>
-            <frames>32340</frames>
-            <filesize>210831024</filesize>
+            <duration>208</duration>
+            <frames>5201</frames>
+            <filesize>662477213</filesize>
             <width>1920</width>
             <height>1080</height>
         </middle>
         <right>
             <file>content/07_Maker vs kijker/R_07_Maker vs kijker.mov</file>
             <name>R_07_Maker vs kijker.mov</name>
-            <duration>539</duration>
-            <frames>32340</frames>
-            <filesize>208664077</filesize>
+            <duration>208</duration>
+            <frames>5201</frames>
+            <filesize>890830829</filesize>
             <width>1536</width>
             <height>1080</height>
         </right>

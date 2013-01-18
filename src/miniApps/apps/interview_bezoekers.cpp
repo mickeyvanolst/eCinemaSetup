@@ -26,10 +26,12 @@ void interview_bezoekers::setup(){
     ofClear(255, 255, 255);
     ofBackground(0, 0, 0);
     
+    files.allowExt("mov");
+    files.allowExt("mp4");
     files.listDir("app_content/interview_bezoekers/clips");
     files.sort();
     
-    for (int i = 0; i < files.numFiles(); i++) {
+    for (int i = 0; i < 5; i++) {//files.numFiles()
         smartClip clip;
         clip.vid.loadMovie(files.getPath(i));
         clip.vid.setLoopState(OF_LOOP_NONE);
@@ -37,7 +39,7 @@ void interview_bezoekers::setup(){
 
         clip.viewport.x = 0;
         clip.viewport.y = 0;
-        clip.viewport.width = 300;
+        clip.viewport.width = main->client->getLWidth()/2;
         clip.viewport.height = main->client->getLHeight();
         
         clip.onScreen = false; // figure this out later
@@ -50,6 +52,10 @@ void interview_bezoekers::setup(){
     }
     
     loadXML("app_content/interview_bezoekers/inOutPoints.xml", true);
+    
+    for (int i = 0; i < 5; i++) {//files.numFiles()
+        videos[i].vid.setFrame(videos[i].inFrame);
+    }
     
     curVid = 0;
     rotateVideos = 90; // degrees
@@ -72,10 +78,22 @@ void interview_bezoekers::update(){
         curVid++;
         
         if (curVid < videos.size()) {
-            videos[curVid].vid.setFrame(videos[curVid].inFrame);
-            videos[curVid].vid.play();
+            //videos[curVid].vid.setFrame(videos[curVid].inFrame);
+            if (main->appName == "left") {
+                if (curVid == 0 || curVid == 1) {
+                    videos[curVid].vid.play();
+                }
+            } else if (main->appName == "middle" && curVid == 2) {
+                videos[curVid].vid.play();
+            } else if (main->appName == "right") {
+                if (curVid == 3 || curVid == 4) {
+                    videos[curVid].vid.play();
+                }
+            }
+                
+            
         } else {
-            endOfMini();
+            //endOfMini();
         }
     }
 }
@@ -103,50 +121,70 @@ void interview_bezoekers::drawViewPorts(int numPorts){
             break;
         case 5: // [1l1] [2l2] [-l3l3l-] [4l4] [5l5]
             
-            if (main->appName == "left") {                                
-                int vidNr = 0;
+            if (main->appName == "left" || main->appName == "right") {
+                int vidNr;
                 int tempHeight = 0;
-                
-                videos[vidNr].viewport.x = main->client->getXoffset();
-                videos[vidNr].viewport.y = main->client->getYoffset();
-                videos[vidNr].viewport.width = main->client->getLWidth()/2;
-                videos[vidNr].viewport.height = main->client->getLHeight();
+                if (main->appName == "left") {
+                    vidNr = 0;                   
+                } else if(main->appName == "right") {
+                    vidNr = 3;
+                }
                 
                 main->scaleByWidth(videos[vidNr].vid.getWidth(), videos[vidNr].vid.getHeight(), main->client->getLHeight(), &tempHeight);
-                ofPushView();
-                ofViewport(videos[vidNr].viewport);
-                ofSetupScreen();
-                glScalef(1, -1, 1);
-                glTranslatef(0, -main->client->getLHeight(), 0);
                 
-                ofSetColor(255, 255, 255);
-                ofPushMatrix();
-                ofRotate(rotateVideos);
-                videos[vidNr].vid.draw(0, -tempHeight, main->client->getLHeight(), tempHeight);
-                ofPopMatrix();
+                videos[vidNr].viewport.x = 0;
+                videos[vidNr].viewport.y = 0;
+                videos[vidNr].vidpos.x = main->client->getLHeight() / 2 * -1;
+                videos[vidNr].vidpos.y = main->client->getLWidth()/2 * -1;//tempHeight/2 * -1;//main->client->getLWidth()/2 * -1;
+                videos[vidNr].viewport.width = main->client->getLWidth()/2;
+                videos[vidNr].viewport.height = main->client->getLHeight();
+
+                ofPushView();
+                    ofViewport(videos[vidNr].viewport);
+                    //ofSetupScreen();
+                    glScalef(-1, -1, 1);
+                    glTranslatef(-main->client->getXoffset(), -main->client->getLHeight(), 0);
+                    
+                    ofSetColor(255, 255, 255);
+                    ofPushMatrix();
+                        ofSetRectMode(OF_RECTMODE_CENTER);
+                        ofRotate(rotateVideos + 180);
+                        ofTranslate(0, 0, 0 );
+                        videos[vidNr].vid.draw(videos[vidNr].vidpos.x, videos[vidNr].vidpos.y, main->client->getLHeight(), tempHeight*2);
+                        ofSetRectMode(OF_RECTMODE_CORNER);
+                    ofPopMatrix();
                 ofPopView();
                 
-                
-                vidNr = 1;
+                if (main->appName == "left") {
+                    vidNr = 1;
+                } else if(main->appName == "right") {
+                    vidNr = 4;
+                }
                 tempHeight = 0;
                 
-                videos[vidNr].viewport.x = main->client->getXoffset() + (main->client->getLWidth()/2);
-                videos[vidNr].viewport.y = main->client->getYoffset();
+                main->scaleByWidth(videos[vidNr].vid.getWidth(), videos[vidNr].vid.getHeight(), main->client->getLHeight(), &tempHeight);
+                
+                videos[vidNr].viewport.x = main->client->getLWidth()/2;
+                videos[vidNr].viewport.y = 0;
+                videos[vidNr].vidpos.x = main->client->getLHeight() / 2 * -1;
+                videos[vidNr].vidpos.y = main->client->getLWidth()/2 * -1;//tempHeight/2 * -1;//main->client->getLWidth()/2 * -1;
                 videos[vidNr].viewport.width = main->client->getLWidth()/2;
                 videos[vidNr].viewport.height = main->client->getLHeight();
                 
-                main->scaleByWidth(videos[vidNr].vid.getWidth(), videos[vidNr].vid.getHeight(), main->client->getLHeight(), &tempHeight);
                 ofPushView();
                 ofViewport(videos[vidNr].viewport);
-                ofSetupScreen();
-                glScalef(1, -1, 1);
-                glTranslatef(0, -main->client->getLHeight(), 0);
-                
-                ofSetColor(255, 255, 255);
-                ofPushMatrix();
-                ofRotate(rotateVideos);
-                videos[vidNr].vid.draw(0, -tempHeight, main->client->getLHeight(), tempHeight);
-                ofPopMatrix();
+                    //ofSetupScreen();
+                    glScalef(-1, -1, 1);
+                    glTranslatef(-main->client->getXoffset(), -main->client->getLHeight(), 0);
+                    
+                    ofSetColor(255, 255, 255);
+                    ofPushMatrix();
+                        ofSetRectMode(OF_RECTMODE_CENTER);
+                        ofRotate(rotateVideos + 180);
+                        ofTranslate(0, 0, 0 );
+                        videos[vidNr].vid.draw(videos[vidNr].vidpos.x, videos[vidNr].vidpos.y, main->client->getLHeight(), tempHeight*2);
+                        ofSetRectMode(OF_RECTMODE_CORNER);
+                    ofPopMatrix();
                 ofPopView();
                 
             } else if(main->appName == "middle") {
@@ -154,73 +192,31 @@ void interview_bezoekers::drawViewPorts(int numPorts){
                 int vidNr = 2;
                 int tempHeight = 0;
                 
+                main->scaleByWidth(videos[vidNr].vid.getWidth(), videos[vidNr].vid.getHeight(), main->client->getLHeight(), &tempHeight);
+                
                 videos[vidNr].viewport.x = main->client->getLWidth()/4;
                 videos[vidNr].viewport.y = 0;
+                videos[vidNr].vidpos.x = main->client->getLHeight() / 2 * -1;
+                videos[vidNr].vidpos.y = main->client->getLWidth()/2 * -1;//tempHeight/2 * -1;//main->client->getLWidth()/2 * -1;
                 videos[vidNr].viewport.width = main->client->getLWidth()/2;
                 videos[vidNr].viewport.height = main->client->getLHeight();
                 
-                main->scaleByWidth(videos[vidNr].vid.getWidth(), videos[vidNr].vid.getHeight(), main->client->getLHeight(), &tempHeight);
                 ofPushView();
-                ofViewport(videos[vidNr].viewport);
-                ofSetupScreen();
-                glScalef(1, -1, 1);
-                glTranslatef(0, -main->client->getLHeight(), 0);
-                
-                ofSetColor(255, 255, 255);
-                ofPushMatrix();
-                ofRotate(rotateVideos);
-                videos[vidNr].vid.draw(0, -tempHeight,main->client->getLHeight(), tempHeight);
-                ofPopMatrix();
+                    ofViewport(videos[vidNr].viewport);
+                    //ofSetupScreen();
+                    glScalef(-1, -1, 1);
+                    glTranslatef(-main->client->getXoffset(), -main->client->getLHeight(), 0);
+                    
+                    ofSetColor(255, 255, 255);
+                    ofPushMatrix();
+                        ofSetRectMode(OF_RECTMODE_CENTER);
+                        ofRotate(rotateVideos + 180);
+                        ofTranslate(0, 0, 0 );
+                        videos[vidNr].vid.draw(videos[vidNr].vidpos.x, videos[vidNr].vidpos.y, main->client->getLHeight(), tempHeight*2);
+                        ofSetRectMode(OF_RECTMODE_CORNER);
+                    ofPopMatrix();
                 ofPopView();
-            } else if(main->appName == "right") {
-                
-                int vidNr = 3;
-                int tempHeight = 0;
-                
-                videos[vidNr].viewport.x = main->client->getXoffset();
-                videos[vidNr].viewport.y = main->client->getYoffset();
-                videos[vidNr].viewport.width = main->client->getLWidth()/2;
-                videos[vidNr].viewport.height = main->client->getLHeight();
-                
-                main->scaleByWidth(videos[vidNr].vid.getWidth(), videos[vidNr].vid.getHeight(), main->client->getLHeight(), &tempHeight);
-                ofPushView();
-                ofViewport(videos[vidNr].viewport);
-                ofSetupScreen();
-                glScalef(1, -1, 1);
-                glTranslatef(0, -main->client->getLHeight(), 0);
-                
-                ofSetColor(255, 255, 255);
-                ofPushMatrix();
-                ofRotate(rotateVideos);
-                videos[vidNr].vid.draw(0, -tempHeight, main->client->getLHeight(), tempHeight);
-                ofPopMatrix();
-                ofPopView();
-                
-                
-                vidNr = 4;
-                tempHeight = 0;
-                
-                videos[vidNr].viewport.x = main->client->getXoffset() + (main->client->getLWidth()/2);
-                videos[vidNr].viewport.y = main->client->getYoffset();
-                videos[vidNr].viewport.width = main->client->getLWidth()/2;
-                videos[vidNr].viewport.height = main->client->getLHeight();
-                
-                main->scaleByWidth(videos[vidNr].vid.getWidth(), videos[vidNr].vid.getHeight(), main->client->getLHeight(), &tempHeight);
-                ofPushView();
-                ofViewport(videos[vidNr].viewport);
-                ofSetupScreen();
-                glScalef(1, -1, 1);
-                glTranslatef(0, -main->client->getLHeight(), 0);
-                
-                ofSetColor(255, 255, 255);
-                ofPushMatrix();
-                ofRotate(rotateVideos);
-                videos[vidNr].vid.draw(0, -tempHeight, main->client->getLHeight(), tempHeight);
-                ofPopMatrix();
-                ofPopView();
-                
             }
-            
             break;
         default:
             break;

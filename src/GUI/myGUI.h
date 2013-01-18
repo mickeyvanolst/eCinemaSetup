@@ -61,9 +61,11 @@ public:
     ofxUIToggle     *tv2FsBtn;
     
     ofxUIToggle     *syphonLaBtn;
+    ofxUIToggle     *syphonMaBtn;
     ofxUIToggle     *syphonRaBtn;
     
     ofxUIToggle     *oscOutBtn;
+    ofxUIToggle     *ignoreOscBtn;
     
     int             activeChap;
     

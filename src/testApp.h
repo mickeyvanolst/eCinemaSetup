@@ -69,8 +69,10 @@ public:
     long int fpsCounter; // every app may only send fps once every 200ms
     long int nextCounter; // counter so the next button doesn't get triggerd by every app that thinks it's time to move to another chapter
     
+    bool ignoreOSCrot;
     bool syphonOut;
     bool drawScreen;
+    bool hiddenCursor;
     
     float tv1rotVal;
     float tv2rotVal;

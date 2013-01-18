@@ -9,6 +9,8 @@ testApp::testApp()
     tv1rotTotVal = 0;
     tv2rotTotVal = 0;
     
+    hiddenCursor = false;
+    
     handler.init(&client, &reader, &oscOut, &tv1rotVal, &tv2rotVal, &tv1rotTotVal, &tv2rotTotVal);
     gui.init(&client, &handler, &tv1rotVal, &tv2rotVal, &tv1rotTotVal, &tv2rotTotVal, &oscOutIp, &oscOutPort);
 }
@@ -53,14 +55,15 @@ void testApp::setup(){
     handler.createList(); // setting up our total list of apps and movies
     
     // syphon is ON by default at the left and right app
-    if (appName == "left" || appName == "right") {
+    //if (appName == "left" || appName == "right") {
         syphonServer.setName(appName);
         syphonOut = true;
-    } else {
-        syphonOut = false;
-    }
+    //} else {
+    //    syphonOut = false;
+    //}
     
     drawScreen = true;
+    ignoreOSCrot = false;
     fpsCounter = 0;
     nextCounter = 0;
     outputString = "";
@@ -109,8 +112,8 @@ void testApp::frameEvent() {
     if (syphonOut && handler.list[handler.activeID].type.compare("app") == 0) {
         ofClear(255,255,255, 0);
         appFbo.begin();
-        ofBackground(0, 200, 0);
-        ofSetColor(255, 0, 0);
+        ofBackground(0, 0, 0);
+        ofSetColor(0, 0, 0);
         ofRect(0, 0, client.getLWidth(), client.getLHeight());
         ofSetColor(255, 255, 255);
         ofPushMatrix();
@@ -118,8 +121,6 @@ void testApp::frameEvent() {
     }
     
     handler.draw();
-
-    
     // wraps up drawing into the FBO if it's an app, and also checks if it needs to be drawn to the screen
     if (syphonOut && handler.list[handler.activeID].type.compare("app") == 0) {
         ofPopMatrix();
@@ -152,28 +153,33 @@ void testApp::frameEvent() {
     // will be replaced by real objects
     int val1 = 0;
     int val2 = 0;
-	while(receiver.hasWaitingMessages()){
-		// get the next message
-		ofxOscMessage m;
-		receiver.getNextMessage(&m);
-        
-		// check encoder 1
-		if(m.getAddress() == "/1/encoder1"){
-            if (m.getArgAsFloat(0) == 0) {
-                val1 -= 1;
-            } else if(m.getArgAsFloat(0) == 1) {
-                val1 += 1;
+    if (ignoreOSCrot == false) {
+        while(receiver.hasWaitingMessages()){
+            // get the next message
+            ofxOscMessage m;
+            receiver.getNextMessage(&m);
+            
+            // check encoder 1
+            if(m.getAddress() == "/1/encoder1"){
+                if (m.getArgAsFloat(0) == 0) {
+                    val1 -= 1;
+                } else if(m.getArgAsFloat(0) == 1) {
+                    val1 += 1;
+                }
             }
-		}
-		// check encoder 2
-		if(m.getAddress() == "/1/encoder2"){
-            if (m.getArgAsFloat(0) == 0) {
-                val2 -= 1;
-            } else if(m.getArgAsFloat(0) == 1) {
-                val2 += 1;
+            // check encoder 2
+            if(m.getAddress() == "/1/encoder2"){
+                if (m.getArgAsFloat(0) == 0) {
+                    val2 -= 1;
+                } else if(m.getArgAsFloat(0) == 1) {
+                    val2 += 1;
+                }
             }
-		}
-	}
+        }
+    } else {
+        // ignoring the OSC values from the rotary encoders
+    }
+	
     string sendVals = "tvRotOSC," + ofToString(val1) + "," + ofToString(val2);
     if (val1 == 0 && val2 == 0) {
         // do nothing
@@ -322,6 +328,18 @@ void testApp::handleMessages(){
                 }
                 
                 // turn syphon on or off, second value is the false/true
+                if (splitMsg[0].compare("syphonMa") == 0 && splitMsg.size() == 2) {
+                    if (appName == "middle" && ofToInt(splitMsg[1]) == 1) {
+                        syphonOut = true;
+                        printf("syphonMA: TRUE\n");
+                    } else if(appName == "middle" && ofToInt(splitMsg[1]) == 0) {
+                        syphonOut = false;
+                        printf("syphonMA: FALSE\n");
+                    }
+                    gui.syphonMaBtn->setValue(ofToInt(splitMsg[1]));
+                }
+                
+                // turn syphon on or off, second value is the false/true
                 if (splitMsg[0].compare("syphonRa") == 0 && splitMsg.size() == 2) {
                     if (appName == "right" && ofToInt(splitMsg[1]) == 1) {
                         syphonOut = true;
@@ -333,7 +351,7 @@ void testApp::handleMessages(){
                     gui.syphonRaBtn->setValue(ofToInt(splitMsg[1]));
                 }
                 
-                // ------------ OSC OUT ------------
+                // ------------ OSC ------------
                 
                 // turn osc on or off, second value is the false/true
                 if (splitMsg[0].compare("oscOut") == 0 && splitMsg.size() == 2) {
@@ -345,6 +363,17 @@ void testApp::handleMessages(){
                         printf("oscOut: FALSE\n");
                     }
                     gui.oscOutBtn->setValue(ofToInt(splitMsg[1]));
+                }
+                
+                if (splitMsg[0].compare("ignoreOscIn") == 0 && splitMsg.size() == 2) {
+                    if (appName == "left" && ofToInt(splitMsg[1]) == 1) {
+                        ignoreOSCrot = true;
+                        printf("ignoreOSCrot: TRUE\n");
+                    } else if(appName == "left" && ofToInt(splitMsg[1]) == 0) {
+                        ignoreOSCrot = false;
+                        printf("ignoreOSCrot: FALSE\n");
+                    }
+                    gui.ignoreOscBtn->setValue(ofToInt(splitMsg[1]));
                 }
                 
                 // ------------ FPS ALL APPS ------------
@@ -373,7 +402,7 @@ void testApp::handleMessages(){
                 
                 // just to fire of a red colored ofBackground to check for latency
                 if (splitMsg[0].compare("shoot") == 0 && splitMsg.size() == 2) {
-                    ofBackground(255, 0, 0);
+                    ofBackground(0, 255, 0);
                 }
                 
                 // =========== GUI COLUMN 2 ===========
@@ -407,7 +436,7 @@ void testApp::handleMessages(){
                 
                 // next control
                 if (splitMsg[0].compare("next") == 0 && splitMsg.size() == 2) {
-                    if ((ofGetElapsedTimeMillis() - nextCounter ) > 100) {
+                    if ((ofGetElapsedTimeMillis() - nextCounter ) > 500) {
                         resetRotation();
                         handler.startNext();
                         nextCounter = ofGetElapsedTimeMillis();
@@ -585,6 +614,14 @@ void testApp::keyPressed(int key){
         case 'f':
 			ofToggleFullscreen();
 			break;
+        case 'c':
+            if (hiddenCursor) {
+                ofShowCursor();
+            } else {
+                ofHideCursor();
+            }
+            hiddenCursor = !hiddenCursor;
+            break;
         default:
             break;
     }

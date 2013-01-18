@@ -43,42 +43,85 @@ void zoetroop::setup(){
 
 //--------------------------------------------------------------
 void zoetroop::update(){
-    durTime = ofGetElapsedTimeMillis() - initTime;
+    //durTime = ofGetElapsedTimeMillis() - initTime;
     Tweener.update();
     
     combTvPos = (*main->totalTv1pos + *main->totalTv2pos)*1.5;
-    
+    cout << "combTvPos: " << combTvPos << "\n";
+    prevTTV = tTV;
     Tweener.addTween(tTV, combTvPos, 8,  &ofxTransitions::easeOutSine);
+//    bool negativeTVmod = false;
+//    if (tTVmod < 0) {
+//        negativeTVmod = true;
+//        tTVmod = tTVmod * -1;
+//    }
+    cout << "tTV: " << tTV << "\n";
     tTVmod = tTV - main->sortaModulo(360, tTV);
+//    if (negativeTVmod) {
+//        tTVmod = tTVmod * -1;
+//    }
     
     normMov.update();
     fastMov.update();
     
+    if (main->bOsc) {
+        ofxOscMessage m;
+        float speedPer;
+        
+        speedPer = ofMap(tTV - ptTV, 0, 30, 0.0, 100.0);
+        Tweener.addTween(speedPer, speedPer, 0.5,  &ofxTransitions::easeOutSine);
+        
+        if (speedPer < 0.0) {
+            speedPer = speedPer * -1;
+        }
+        if (speedPer > 100.0) {
+            speedPer = 100.0;
+        }
+        
+        m.setAddress("/zoetroop");
+        m.addFloatArg(speedPer);
+        oscOut->sendMessage(m);
+        
+        prevSpeedPer = speedPer;
+    }
+    
     // just for now to show the end of an interactive event can be triggered by time
     // this should be the last thing you do in an update!!!!!!!
-    if (fastTime > 200 && int(*main->totalTv1pos) != int(main->totalTv1prevPos) && int(*main->totalTv2pos) != int(main->totalTv2prevPos)) {
-        cout << "yaaay\n";
-        endOfMini();
-    }
+    //if (fastTime > 200 && int(*main->totalTv1pos) != int(main->totalTv1prevPos) && int(*main->totalTv2pos) != int(main-/>totalTv2prevPos)) {
+       // cout << "yaaay\n";
+      //  endOfMini();
+    //}
 }
 
 //--------------------------------------------------------------
 void zoetroop::draw(){
     ofBackground(0, 0, 0);
-    
-    float curPercent = ofMap(tTVmod, 0, 360.0, 0, 1, true);
-    
-    if (curPercent > 1.0) {
-        curPercent = 1.0;
-    } else if(curPercent < 0) {
-        curPercent = 0;
+    cout << "tTVmod: " << tTVmod << "\n";
+    if (tTVmod < 0) {
+        // weird stuff going on here.. just tying to do things right, backwards doesn't handle very well without this
+        if ((tTVmod * -1) > 360.0) {
+            tTVmod = tTVmod - main->sortaModulo(360, tTVmod*-1);
+            tTVmod = 360.0 - tTVmod;
+            tTVmod = tTVmod - main->sortaModulo(360, tTVmod);
+        } else {
+            tTVmod = 360.0 - (tTVmod * -1);
+        }
+        cout << "micktry tTVmod: " << tTVmod << "\n";
     }
     
+    
+    float curPercent = ofMap(tTVmod, 0, 360.0, 0, 1, true);
+//    if (curPercent > 1.0) {
+//        curPercent = 1.0;
+//    } else if(curPercent < 0) {
+//        curPercent = 0.0;
+//    }
     if (tTV - ptTV > 25) {
         fastMov.setPosition(curPercent);
         fastMov.draw(main->client->getXoffset(), 0);
         fastTime++;
     } else {
+        cout << "curPercent: " << curPercent << "\n";
         normMov.setPosition(curPercent);
         normMov.draw(main->client->getXoffset(), 0);
     }

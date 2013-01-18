@@ -45,6 +45,7 @@ private:
     struct smartClip {
         ofVideoPlayer   vid;
         ofRectangle     viewport;
+        ofVec2f         vidpos;
         bool            onScreen;
         int             inFrame;
         int             outFrame;

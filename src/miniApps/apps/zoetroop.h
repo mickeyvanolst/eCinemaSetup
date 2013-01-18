@@ -44,8 +44,11 @@ private:
     int fastTime;
     
     float tTV;
+    float prevTTV;
     float tTVmod;
     float ptTV;
+    
+    float prevSpeedPer;
     
     float tweenTo;
 };

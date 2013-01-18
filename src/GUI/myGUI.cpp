@@ -107,10 +107,22 @@ void myGUI::guiEvent(ofxUIEventArgs &e)
             oscOutBtn->setValue(!oscOutBtn->getValue());
         }
         
+        if(name == "IGNORE OSC IN")
+        {
+            ofxUIToggle *button = (ofxUIToggle *) e.widget;
+            ignoreOscBtn->setValue(!ignoreOscBtn->getValue());
+        }
+        
         if(name == "RA SYPHON")
         {
             ofxUIToggle *button = (ofxUIToggle *) e.widget;
             syphonRaBtn->setValue(!syphonRaBtn->getValue());
+        }
+        
+        if(name == "MA SYPHON")
+        {
+            ofxUIToggle *button = (ofxUIToggle *) e.widget;
+            syphonMaBtn->setValue(!syphonMaBtn->getValue());
         }
         
     } else {
@@ -247,6 +259,16 @@ void myGUI::guiEvent(ofxUIEventArgs &e)
             }
         }
         
+        if(name == "IGNORE OSC IN")
+        {
+            ofxUIToggle *button = (ofxUIToggle *) e.widget;
+            if (ignoreOscBtn->getValue() == 1) {
+                client->broadcast("ignoreOscIn,1");
+            } else {
+                client->broadcast("ignoreOscIn,0");
+            }
+        }
+        
         if(name == "RA SYPHON")
         {
             ofxUIToggle *button = (ofxUIToggle *) e.widget;
@@ -254,6 +276,16 @@ void myGUI::guiEvent(ofxUIEventArgs &e)
                 client->broadcast("syphonRa,1");
             } else {
                 client->broadcast("syphonRa,0");
+            }
+        }
+        
+        if(name == "MA SYPHON")
+        {
+            ofxUIToggle *button = (ofxUIToggle *) e.widget;
+            if (syphonMaBtn->getValue() == 1) {
+                client->broadcast("syphonMa,1");
+            } else {
+                client->broadcast("syphonMa,0");
             }
         }
         
@@ -341,11 +373,13 @@ void myGUI::setGUI1()
 	gui1->addWidgetDown(new ofxUILabel("SYPHON OUTPUT", OFX_UI_FONT_MEDIUM));
     syphonLaBtn = (ofxUIToggle *) gui1->addWidgetDown(new ofxUIToggle("LA SYPHON", true, dim, dim));
     syphonRaBtn = (ofxUIToggle *) gui1->addWidgetRight(new ofxUIToggle("RA SYPHON", true, dim, dim));
+    syphonMaBtn = (ofxUIToggle *) gui1->addWidgetDown(new ofxUIToggle("MA SYPHON", true, dim, dim));
     
     gui1->addSpacer(length-xInit, 2);
-	gui1->addWidgetDown(new ofxUILabel("OSC OUTPUT", OFX_UI_FONT_MEDIUM));
+	gui1->addWidgetDown(new ofxUILabel("OSC", OFX_UI_FONT_MEDIUM));
     gui1->addWidgetDown(new ofxUILabel(*oscOutIp + "  " + ofToString(*oscOutPort), OFX_UI_FONT_SMALL));
     oscOutBtn = (ofxUIToggle *) gui1->addWidgetDown(new ofxUIToggle("OSC OUT (LA)", &handler->bOsc, dim, dim));
+    ignoreOscBtn = (ofxUIToggle *) gui1->addWidgetDown(new ofxUIToggle("IGNORE OSC IN", false, dim, dim));
     
     gui1->addSpacer(length-xInit, 2);
     gui1->addWidgetDown(new ofxUILabel("FPS ALL APPS", OFX_UI_FONT_MEDIUM));

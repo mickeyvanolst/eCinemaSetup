@@ -1,4 +1,7 @@
 <order>
+	<interview_bezoekers>
+		<after>02_1_Identiteit</after>
+	</interview_bezoekers>
 	<plaas_origine>
 		<after>02_2_Identiteit</after>
 	</plaas_origine>
@@ -6,9 +9,6 @@
 		<after>03_Plaats en origine</after>
 	</zoetroop>
 	<intentie_interpretatie>
-		<after>04_Techniek</after>
+		<after>05_Beleving</after>
 	</intentie_interpretatie>
-	<interview_bezoekers>
-		<after>02_1_Identiteit</after>
-	</interview_bezoekers>
 </order>

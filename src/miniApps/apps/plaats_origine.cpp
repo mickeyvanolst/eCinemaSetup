@@ -68,7 +68,12 @@ void plaats_origine::update(){
             if (*main->bOsc) {
                 ofxOscMessage m;
                 m.setAddress("/plaats_origine/bg");
-                m.addIntArg(curBg);
+                cout << bgCuePoints.size() << "\n";
+                if (i > 8) {
+                   
+                } else {
+                    m.addIntArg(i+1);
+                }
                 oscOut->sendMessage(m);
             }
         }
@@ -113,10 +118,10 @@ void plaats_origine::update(){
                 }
                 curArt = i;
                 
-                if (*main->bOsc) {
+                if (*main->bOsc) {                    
                     ofxOscMessage m;
                     m.setAddress("/plaats_origine/art");
-                    m.addIntArg(curArt);
+                    m.addIntArg(i + 1);
                     oscOut->sendMessage(m);
                 }
             }

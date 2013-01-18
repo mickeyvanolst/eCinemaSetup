@@ -46,6 +46,7 @@ private:
     int curActive;
     int mainCurFrame;
     int clipCurFrame;
+    int curClipTotal;
     
     int frameRepeat;
     
