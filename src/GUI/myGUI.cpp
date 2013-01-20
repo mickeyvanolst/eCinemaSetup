@@ -433,7 +433,7 @@ void myGUI::setGUI2()
     playBtn = (ofxUIImageButton *) gui2->addWidgetRight(new ofxUIImageButton(dim*2, dim*2, false, "GUI/play.png", "PLAY BUTTON"));
     prevBtn = (ofxUIImageButton *) gui2->addWidgetRight(new ofxUIImageButton(dim*2, dim*2, false, "GUI/next.png", "NEXT BUTTON"));
     
-    playAllBtn = (ofxUIToggle *) gui2->addLabelToggle("PLAY ALL", true);
+    playAllBtn = (ofxUIToggle *) gui2->addLabelToggle("PLAY ALL", false);
     
     gui2->autoSizeToFitWidgets();
     gui2->getRect()->setWidth(length+xInit);

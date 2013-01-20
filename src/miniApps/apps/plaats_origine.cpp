@@ -43,6 +43,28 @@ void plaats_origine::setup(){
         curArt = 0;
         Tweener.addTween(tArt, artCuePoints[curArt].frame, 1, &ofxTransitions::linear);
     }
+    
+    if (main->bOsc) {
+        ofxOscMessage m;
+        m.setAddress("/chapter");
+        m.addIntArg(-1);
+        
+//        ofxOscMessage c;
+//        c.setAddress("/plaats_origine/bg");
+//        c.addIntArg(0);
+        
+        oscOut->sendMessage(m);
+        
+        ofxOscMessage b;
+        b.setAddress("/plaats_origine/bg");
+        b.addIntArg(curBg+1);
+        oscOut->sendMessage(b);
+        
+        ofxOscMessage a;
+        a.setAddress("/plaats_origine/art");
+        a.addIntArg(curArt+1);
+        oscOut->sendMessage(a);
+    }
 }
 
 //--------------------------------------------------------------
@@ -66,6 +88,9 @@ void plaats_origine::update(){
             curBg = i;
             
             if (*main->bOsc) {
+                //ofxOscMessage c;
+                //c.setAddress("/");
+                
                 ofxOscMessage m;
                 m.setAddress("/plaats_origine/bg");
                 cout << bgCuePoints.size() << "\n";

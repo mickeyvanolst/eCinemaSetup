@@ -48,6 +48,7 @@ private:
         ofVec2f         vidpos;
         bool            onScreen;
         int             inFrame;
+        int             duration;
         int             outFrame;
         string          filename;
     };

@@ -200,7 +200,7 @@ void intentie_interpretatie::update(){
             float tempClipCurFrame = singleClipCurFrame; cout << "clipCurFrame:" << singleClipCurFrame << "\n";
             float tempCurClipTotal = curClipTotal; cout << "curClipTotal:" << curClipTotal << "\n";
             float tempMainCurFrame = mainCurFrame; cout << "mainCurFrame:" << mainCurFrame << "\n";
-            float tempTotalFrames = totalFrames;   cout << "totalFrames:" << totalFrames << "\n";            
+            float tempTotalFrames = totalFrames;   cout << "totalFrames:" << totalFrames << "\n";
             
             float perCur = (tempClipCurFrame * 100.0) / tempCurClipTotal;
             float perTot = (tempMainCurFrame * 100.0) / tempTotalFrames;
@@ -235,50 +235,50 @@ void intentie_interpretatie::draw(){
     
     if (main->appName != "middle") {
         ofBackground(0, 0, 0);
-//        int tempWidth = 0;
-//        main->scaleByHeight(Vid1.getWidth(), Vid1.getHeight(), &tempWidth, main->client->getLHeight());
-//        ofPushView();
-//            ofViewport(viewport1);
-//            //ofSetupScreen();
-//            glScalef(-1, -1, 1);
-//            glTranslatef(-main->client->getXoffset(), -main->client->getLHeight(), 0);
-//            
-//            if (Vid1.isLoaded()) {
-//                ofSetColor(255, 255, 255);
-//                ofPushMatrix();
-//                ofSetRectMode(OF_RECTMODE_CENTER);
-//                ofRotate(180);
-//                ofTranslate(tempWidth, 0, 0 );
-//                Vid1.draw(video1.x, video1.y, tempWidth*2, main->client->getLHeight());
-//                //Vid1.draw(-tempWidth/2, (-main->client->getLHeight()/2), tempWidth*2, main->client->getLHeight());
-//                
-//                ofSetRectMode(OF_RECTMODE_CORNER);
-//                ofPopMatrix();
-//            }
-//        ofPopView();
-//        
-//        //--
-//
-//        tempWidth = 0;
-//        main->scaleByHeight(Vid2.getWidth(), Vid2.getHeight(), &tempWidth, main->client->getLHeight());
-//        ofPushView();
-//        ofViewport(viewport2);
-//        //ofSetupScreen();
-//        glScalef(-1, -1, 1);
-//        glTranslatef(-main->client->getXoffset(), -main->client->getLHeight(), 0);
-//        
-//        if (Vid1.isLoaded()) {
-//            ofSetColor(255, 255, 255);
-//            ofPushMatrix();
-//            ofSetRectMode(OF_RECTMODE_CENTER);
-//            ofRotate(180);
-//            ofTranslate(tempWidth, 0, 0 );
-//            Vid2.draw(-tempWidth/2, (-main->client->getLHeight()/2), tempWidth*2, main->client->getLHeight());
-//            //Vid1.draw(0 - ((tempWidth - viewport1.width)/2), (-main->client->getLHeight()/2), tempWidth, main->client->getLHeight());
-//            ofSetRectMode(OF_RECTMODE_CORNER);
-//            ofPopMatrix();
-//        }
-//        ofPopView();
+        //        int tempWidth = 0;
+        //        main->scaleByHeight(Vid1.getWidth(), Vid1.getHeight(), &tempWidth, main->client->getLHeight());
+        //        ofPushView();
+        //            ofViewport(viewport1);
+        //            //ofSetupScreen();
+        //            glScalef(-1, -1, 1);
+        //            glTranslatef(-main->client->getXoffset(), -main->client->getLHeight(), 0);
+        //
+        //            if (Vid1.isLoaded()) {
+        //                ofSetColor(255, 255, 255);
+        //                ofPushMatrix();
+        //                ofSetRectMode(OF_RECTMODE_CENTER);
+        //                ofRotate(180);
+        //                ofTranslate(tempWidth, 0, 0 );
+        //                Vid1.draw(video1.x, video1.y, tempWidth*2, main->client->getLHeight());
+        //                //Vid1.draw(-tempWidth/2, (-main->client->getLHeight()/2), tempWidth*2, main->client->getLHeight());
+        //
+        //                ofSetRectMode(OF_RECTMODE_CORNER);
+        //                ofPopMatrix();
+        //            }
+        //        ofPopView();
+        //
+        //        //--
+        //
+        //        tempWidth = 0;
+        //        main->scaleByHeight(Vid2.getWidth(), Vid2.getHeight(), &tempWidth, main->client->getLHeight());
+        //        ofPushView();
+        //        ofViewport(viewport2);
+        //        //ofSetupScreen();
+        //        glScalef(-1, -1, 1);
+        //        glTranslatef(-main->client->getXoffset(), -main->client->getLHeight(), 0);
+        //
+        //        if (Vid1.isLoaded()) {
+        //            ofSetColor(255, 255, 255);
+        //            ofPushMatrix();
+        //            ofSetRectMode(OF_RECTMODE_CENTER);
+        //            ofRotate(180);
+        //            ofTranslate(tempWidth, 0, 0 );
+        //            Vid2.draw(-tempWidth/2, (-main->client->getLHeight()/2), tempWidth*2, main->client->getLHeight());
+        //            //Vid1.draw(0 - ((tempWidth - viewport1.width)/2), (-main->client->getLHeight()/2), tempWidth, main->client->getLHeight());
+        //            ofSetRectMode(OF_RECTMODE_CORNER);
+        //            ofPopMatrix();
+        //        }
+        //        ofPopView();
         
         if (Vid1.isLoaded()) {
             Vid1.draw(main->client->getXoffset(), 0);
@@ -291,7 +291,7 @@ void intentie_interpretatie::draw(){
         //ofSetColor(255,0,0);
         //ofDrawBitmapString("viewport x: " + ofToString(viewport2.x) + "\nviewport y:" + ofToString(viewport2.y) + "\n",main->client->getXoffset() + 100,100);
         //ofDrawBitmapString("video x: " + ofToString(video1.x) + "\nvdideo y:" + ofToString(video1.y) + "\n", main->client->getXoffset() + 100,140);
-
+        
     } else { // Middle app
         ofBackground(0, 0, 0);
     }

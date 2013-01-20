@@ -36,12 +36,12 @@ void interview_bezoekers::setup(){
         clip.vid.loadMovie(files.getPath(i));
         clip.vid.setLoopState(OF_LOOP_NONE);
         clip.vid.setFrame(1);
+        clip.vid.setVolume(0);
 
         clip.viewport.x = 0;
         clip.viewport.y = 0;
         clip.viewport.width = main->client->getLWidth()/2;
         clip.viewport.height = main->client->getLHeight();
-        
         clip.onScreen = false; // figure this out later
         clip.inFrame = 0; // in and out will be changed if needed by loadXML
         clip.outFrame = clip.vid.getTotalNumFrames();
@@ -62,6 +62,9 @@ void interview_bezoekers::setup(){
     
     videos[curVid].vid.setFrame(videos[curVid].inFrame);
     videos[curVid].vid.play();
+    if (main->appName == "left") {
+        videos[curVid].vid.setVolume(100);
+    }
 }
 
 //--------------------------------------------------------------
@@ -78,22 +81,22 @@ void interview_bezoekers::update(){
         curVid++;
         
         if (curVid < videos.size()) {
-            //videos[curVid].vid.setFrame(videos[curVid].inFrame);
             if (main->appName == "left") {
                 if (curVid == 0 || curVid == 1) {
-                    videos[curVid].vid.play();
+                    videos[curVid].vid.setVolume(100);
                 }
             } else if (main->appName == "middle" && curVid == 2) {
-                videos[curVid].vid.play();
+                videos[curVid].vid.setVolume(100);
             } else if (main->appName == "right") {
                 if (curVid == 3 || curVid == 4) {
-                    videos[curVid].vid.play();
+                    videos[curVid].vid.setVolume(100);
                 }
             }
-                
             
+            videos[curVid].vid.setFrame(videos[curVid].inFrame);
+            videos[curVid].vid.play();
         } else {
-            //endOfMini();
+            endOfMini();
         }
     }
 }

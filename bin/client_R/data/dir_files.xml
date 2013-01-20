@@ -4,177 +4,27 @@
         <left>
             <file>content/02_1_Identiteit/L_02_1_Identiteit.mov</file>
             <name>L_02_1_Identiteit.mov</name>
-            <duration>310</duration>
-            <frames>7752</frames>
-            <filesize>527998742</filesize>
+            <duration>320</duration>
+            <frames>8018</frames>
+            <filesize>594631127</filesize>
             <width>1536</width>
             <height>1080</height>
         </left>
         <middle>
             <file>content/02_1_Identiteit/M_02_1_Identiteit.mov</file>
             <name>M_02_1_Identiteit.mov</name>
-            <duration>310</duration>
-            <frames>7752</frames>
-            <filesize>2096931725</filesize>
+            <duration>320</duration>
+            <frames>8018</frames>
+            <filesize>1916673393</filesize>
             <width>1920</width>
             <height>1080</height>
         </middle>
         <right>
             <file>content/02_1_Identiteit/R_02_1_Identiteit.mov</file>
             <name>R_02_1_Identiteit.mov</name>
-            <duration>310</duration>
-            <frames>7752</frames>
-            <filesize>588086788</filesize>
-            <width>1536</width>
-            <height>1080</height>
-        </right>
-    </chapter>
-    <chapter>
-        <name>02_2_Identiteit</name>
-        <left>
-            <file>content/02_2_Identiteit/L_02_2_Identiteit.mov</file>
-            <name>L_02_2_Identiteit.mov</name>
-            <duration>141</duration>
-            <frames>3537</frames>
-            <filesize>1183646447</filesize>
-            <width>1536</width>
-            <height>1080</height>
-        </left>
-        <middle>
-            <file>content/02_2_Identiteit/M_02_2_Identiteit.mov</file>
-            <name>M_02_2_Identiteit.mov</name>
-            <duration>141</duration>
-            <frames>3537</frames>
-            <filesize>1698567835</filesize>
-            <width>1920</width>
-            <height>1080</height>
-        </middle>
-        <right>
-            <file>content/02_2_Identiteit/R_02_2_Identiteit.mov</file>
-            <name>R_02_2_Identiteit.mov</name>
-            <duration>141</duration>
-            <frames>3537</frames>
-            <filesize>1339786478</filesize>
-            <width>1536</width>
-            <height>1080</height>
-        </right>
-    </chapter>
-    <chapter>
-        <name>03_Plaats en origine</name>
-        <left>
-            <file>content/03_Plaats en origine/L_03_Plaats en origine.mov</file>
-            <name>L_03_Plaats en origine.mov</name>
-            <duration>212</duration>
-            <frames>5300</frames>
-            <filesize>616076572</filesize>
-            <width>1536</width>
-            <height>1080</height>
-        </left>
-        <middle>
-            <file>content/03_Plaats en origine/M_03_Plaats en origine.mov</file>
-            <name>M_03_Plaats en origine.mov</name>
-            <duration>212</duration>
-            <frames>5300</frames>
-            <filesize>389637583</filesize>
-            <width>1920</width>
-            <height>1080</height>
-        </middle>
-        <right>
-            <file>content/03_Plaats en origine/R_03_Plaats en origine.mov</file>
-            <name>R_03_Plaats en origine.mov</name>
-            <duration>212</duration>
-            <frames>5300</frames>
-            <filesize>676652571</filesize>
-            <width>1536</width>
-            <height>1080</height>
-        </right>
-    </chapter>
-    <chapter>
-        <name>04_Techniek</name>
-        <left>
-            <file>content/04_Techniek/L_04_Techniek.mov</file>
-            <name>L_04_Techniek.mov</name>
-            <duration>194</duration>
-            <frames>4850</frames>
-            <filesize>1160039807</filesize>
-            <width>1536</width>
-            <height>1080</height>
-        </left>
-        <middle>
-            <file>content/04_Techniek/M_04_Techniek.mov</file>
-            <name>M_04_Techniek.mov</name>
-            <duration>194</duration>
-            <frames>4850</frames>
-            <filesize>1514927764</filesize>
-            <width>1920</width>
-            <height>1080</height>
-        </middle>
-        <right>
-            <file>content/04_Techniek/R_04_Techniek.mov</file>
-            <name>R_04_Techniek.mov</name>
-            <duration>194</duration>
-            <frames>4850</frames>
-            <filesize>1133659391</filesize>
-            <width>1536</width>
-            <height>1080</height>
-        </right>
-    </chapter>
-    <chapter>
-        <name>05_Beleving</name>
-        <left>
-            <file>content/05_Beleving/L_05_beleving.mov</file>
-            <name>L_05_beleving.mov</name>
-            <duration>480</duration>
-            <frames>12000</frames>
-            <filesize>-1736121580</filesize>
-            <width>1536</width>
-            <height>1080</height>
-        </left>
-        <middle>
-            <file>content/05_Beleving/M_05_beleving.mov</file>
-            <name>M_05_beleving.mov</name>
-            <duration>480</duration>
-            <frames>12000</frames>
-            <filesize>-1193770159</filesize>
-            <width>1920</width>
-            <height>1080</height>
-        </middle>
-        <right>
-            <file>content/05_Beleving/R_05_beleving.mov</file>
-            <name>R_05_beleving.mov</name>
-            <duration>480</duration>
-            <frames>12000</frames>
-            <filesize>-1763520187</filesize>
-            <width>1536</width>
-            <height>1080</height>
-        </right>
-    </chapter>
-    <chapter>
-        <name>07_Maker vs kijker</name>
-        <left>
-            <file>content/07_Maker vs kijker/L_07_Maker vs kijker.mov</file>
-            <name>L_07_Maker vs kijker.mov</name>
-            <duration>163</duration>
-            <frames>4076</frames>
-            <filesize>754237916</filesize>
-            <width>1536</width>
-            <height>1080</height>
-        </left>
-        <middle>
-            <file>content/07_Maker vs kijker/M_07_Maker vs kijker.mov</file>
-            <name>M_07_Maker vs kijker.mov</name>
-            <duration>163</duration>
-            <frames>4076</frames>
-            <filesize>423673499</filesize>
-            <width>1920</width>
-            <height>1080</height>
-        </middle>
-        <right>
-            <file>content/07_Maker vs kijker/R_07_Maker vs kijker.mov</file>
-            <name>R_07_Maker vs kijker.mov</name>
-            <duration>163</duration>
-            <frames>4076</frames>
-            <filesize>752892514</filesize>
+            <duration>320</duration>
+            <frames>8018</frames>
+            <filesize>685281306</filesize>
             <width>1536</width>
             <height>1080</height>
         </right>

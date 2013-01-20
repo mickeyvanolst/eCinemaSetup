@@ -14,7 +14,7 @@ allHandler::allHandler(){
     //miniApp     = new miniHandler(client);
 
     activeID = -1; // negative so at least we know something's wrong
-    bPlayAll = true;
+    bPlayAll = false;
 }
 
 

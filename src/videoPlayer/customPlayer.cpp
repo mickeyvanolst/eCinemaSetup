@@ -133,7 +133,7 @@ void customPlayer::startPlayer(int whichVid)
     isDone = false;
     activeVid = whichVid;
     printf("customplayer: play vid nr: %i\n",activeVid);
-    //players[activeVid].vid.setFrame(1);
+    players[activeVid].setFrame(0);
     players[activeVid].play();
     // pause the one that might be playing and play the new one
     
@@ -162,7 +162,7 @@ void customPlayer::stopPlayer()
 {
     if (isPlaying) {
         players[activeVid].setPaused(true);
-        players[activeVid].setPosition(0);
+        //players[activeVid].setPosition(0);
         players[activeVid].stop();
         isPlaying = false;
         printf("customPlayer - stopPlayer\n");
