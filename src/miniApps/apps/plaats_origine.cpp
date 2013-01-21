@@ -14,9 +14,11 @@ plaats_origine::plaats_origine(){
 }
 
 //--------------------------------------------------------------
-void plaats_origine::init(mainMini *_mai, ofxOscSender *_osc){
+void plaats_origine::init(mainMini *_mai, ofxOscSender *_osc, ofxOscSender *_rpiOutA, ofxOscSender *_rpiOutB){
     main = _mai;
     oscOut = _osc;
+    rpiOutA = _rpiOutA;
+    rpiOutB = _rpiOutB;
 }
 
 //--------------------------------------------------------------
@@ -64,6 +66,16 @@ void plaats_origine::setup(){
         a.setAddress("/plaats_origine/art");
         a.addIntArg(curArt+1);
         oscOut->sendMessage(a);
+        
+        ofxOscMessage rA;
+        rA.setAddress("/chapter");
+        rA.addIntArg(1);
+        rpiOutA->sendMessage(rA);
+        
+        ofxOscMessage rB;
+        rB.setAddress("/chapter");
+        rB.addIntArg(1);
+        rpiOutB->sendMessage(rB);
     }
 }
 
@@ -90,6 +102,11 @@ void plaats_origine::update(){
             if (*main->bOsc) {
                 //ofxOscMessage c;
                 //c.setAddress("/");
+                
+                ofxOscMessage rA;
+                rA.setAddress("/po/position");
+                rA.addIntArg(i);
+                rpiOutA->sendMessage(rA);
                 
                 ofxOscMessage m;
                 m.setAddress("/plaats_origine/bg");
@@ -148,6 +165,11 @@ void plaats_origine::update(){
                     m.setAddress("/plaats_origine/art");
                     m.addIntArg(i + 1);
                     oscOut->sendMessage(m);
+                    
+                    ofxOscMessage rB;
+                    rB.setAddress("/po/position");
+                    rB.addIntArg(i);
+                    rpiOutB->sendMessage(rB);
                 }
             }
         }

@@ -23,7 +23,7 @@ class miniHandler {
 public:
     miniHandler();
     
-    void init(mpeClientTCP * _cli, ofxOscSender * _osc, bool *_bOsc, float *_tv1rotVal, float *_tv2rotVal, float *_tv1rotTotVal, float *_tv2rotTotVal);
+    void init(mpeClientTCP * _cli, ofxOscSender * _osc, ofxOscSender * _rpiOutA, ofxOscSender * _rpiOutB, bool *_bOsc, float *_tv1rotVal, float *_tv2rotVal, float *_tv1rotTotVal, float *_tv2rotTotVal);
     void setup(string id);
     void update();
     void draw();

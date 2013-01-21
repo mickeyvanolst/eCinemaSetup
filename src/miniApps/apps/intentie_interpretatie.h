@@ -17,7 +17,7 @@ class intentie_interpretatie {
 public:
     intentie_interpretatie();
     
-    void init(mainMini *_mai, ofxOscSender * _osc);
+    void init(mainMini *_mai, ofxOscSender * _osc, ofxOscSender *_rpiOutA, ofxOscSender *_rpiOutB);
     void setup();
     void update();
     void draw();
@@ -29,6 +29,9 @@ public:
     
     ofxOscSender *oscOut;
     mainMini *main;
+    
+    ofxOscSender *rpiOutA;
+    ofxOscSender *rpiOutB;
     
 private:
     ofVec2f video1;

@@ -19,7 +19,7 @@ class plaats_origine {
 public:
     plaats_origine();
     
-    void init(mainMini *_mai, ofxOscSender *_osc);
+    void init(mainMini *_mai, ofxOscSender *_osc, ofxOscSender *_rpiOutA, ofxOscSender *_rpiOutB);
     void setup();
     void update();
     void draw();
@@ -31,6 +31,9 @@ public:
     
     ofxOscSender *oscOut;
     mainMini *main;
+    
+    ofxOscSender *rpiOutA;
+    ofxOscSender *rpiOutB;
 private:
     void loadXML(string file, bool printResult);
     double floor0( double value );

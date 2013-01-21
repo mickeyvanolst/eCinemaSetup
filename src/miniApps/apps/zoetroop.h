@@ -18,7 +18,7 @@ class zoetroop {
 public:
     zoetroop();
     
-    void init(mainMini *_mai, ofxOscSender * _osc);
+    void init(mainMini *_mai, ofxOscSender * _osc, ofxOscSender *_rpiOutA, ofxOscSender *_rpiOutB);
     void setup();
     void update();
     void draw();
@@ -29,6 +29,9 @@ public:
     
     ofxOscSender *oscOut;
     mainMini *main;
+    
+    ofxOscSender *rpiOutA;
+    ofxOscSender *rpiOutB;
 private:
     
     ofxXmlSettings XML;

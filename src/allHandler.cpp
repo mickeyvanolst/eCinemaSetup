@@ -19,12 +19,12 @@ allHandler::allHandler(){
 
 
 //--------------------------------------------------------------
-void allHandler::init(mpeClientTCP *_cli, handleChapters *_rea, ofxOscSender * _osc, float *_tv1rotVal, float *_tv2rotVal, float *_tv1rotTotVal, float *_tv2rotTotVal){
+void allHandler::init(mpeClientTCP *_cli, handleChapters *_rea, ofxOscSender * _osc, ofxOscSender * _rpiOutA, ofxOscSender * _rpiOutB, float *_tv1rotVal, float *_tv2rotVal, float *_tv1rotTotVal, float *_tv2rotTotVal){
     client  = _cli;
     reader  = _rea;
     oscOut = _osc;
     player.init(_rea);
-    miniApp.init(_cli, _osc, &bOsc, _tv1rotVal, _tv2rotVal, _tv1rotTotVal, _tv2rotTotVal);
+    miniApp.init(_cli, _osc, _rpiOutA, _rpiOutB, &bOsc, _tv1rotVal, _tv2rotVal, _tv1rotTotVal, _tv2rotTotVal);
 }
 
 

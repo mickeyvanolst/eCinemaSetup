@@ -14,9 +14,11 @@ zoetroop::zoetroop(){
 }
 
 //--------------------------------------------------------------
-void zoetroop::init(mainMini *_mai, ofxOscSender *_osc){
+void zoetroop::init(mainMini *_mai, ofxOscSender *_osc, ofxOscSender *_rpiOutA, ofxOscSender *_rpiOutB){
     main = _mai;
     oscOut = _osc;
+    rpiOutA = _rpiOutA;
+    rpiOutB = _rpiOutB;
 }
 
 //--------------------------------------------------------------
@@ -34,16 +36,29 @@ void zoetroop::setup(){
         cout << "no loadSettings.xml found..\n";
     }
         
+    if (main->bOsc) {
+        ofxOscMessage rA;
+        rA.setAddress("/chapter");
+        rA.addIntArg(2);
+        rpiOutA->sendMessage(rA);
+        
+        ofxOscMessage rB;
+        rB.setAddress("/chapter");
+        rB.addIntArg(2);
+        rpiOutB->sendMessage(rB);
+    }
+    
     tTV = *main->totalTv1pos + *main->totalTv2pos;
     ptTV = tTV;
     ptTV = tTVmod;
     
     fastTime = 0;
+    initTime = ofGetElapsedTimeMillis();
 }
 
 //--------------------------------------------------------------
 void zoetroop::update(){
-    //durTime = ofGetElapsedTimeMillis() - initTime;
+    durTime = ofGetElapsedTimeMillis() - initTime;
     Tweener.update();
     
     combTvPos = (*main->totalTv1pos + *main->totalTv2pos)*1.5;
@@ -81,6 +96,21 @@ void zoetroop::update(){
         m.setAddress("/zoetroop");
         m.addFloatArg(speedPer);
         oscOut->sendMessage(m);
+        
+        if (durTime > 200) {
+            initTime = ofGetElapsedTimeMillis();
+            ofxOscMessage rA;
+            rA.setAddress("/zo/position");
+            rA.addIntArg(speedPer);
+            rpiOutA->sendMessage(rA);
+            
+            ofxOscMessage rB;
+            rB.setAddress("/zo/position");
+            rB.addIntArg(speedPer);
+            rpiOutB->sendMessage(rB);
+        }
+        
+
         
         prevSpeedPer = speedPer;
     }

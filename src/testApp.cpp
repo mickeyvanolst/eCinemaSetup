@@ -11,7 +11,7 @@ testApp::testApp()
     
     hiddenCursor = false;
     
-    handler.init(&client, &reader, &oscOut, &tv1rotVal, &tv2rotVal, &tv1rotTotVal, &tv2rotTotVal);
+    handler.init(&client, &reader, &oscOut, &rpiOutA, &rpiOutB, &tv1rotVal, &tv2rotVal, &tv1rotTotVal, &tv2rotTotVal);
     gui.init(&client, &handler, &tv1rotVal, &tv2rotVal, &tv1rotTotVal, &tv2rotTotVal, &oscOutIp, &oscOutPort);
 }
 
@@ -35,6 +35,12 @@ void testApp::setup(){
         oscOutIp            = XML.getValue("out:ip", "");
         oscOutPort          = XML.getValue("out:port", 0);
         oscInPort           = XML.getValue("in:port", 0);
+        XML.pushTag("rpi");
+        rpiAip              = XML.getValue("A", "");
+        rpiBip              = XML.getValue("B", "");
+        rpiPort             = XML.getValue("port", 0);
+        cout << "rpi A: " << rpiAip << "\n";
+        XML.popTag();
         XML.popTag();
     } else {
         cout << "loading osc_settings.xml failed, needed for OSC\n";
@@ -45,6 +51,9 @@ void testApp::setup(){
     receiver.setup(oscInPort); // OSC
     
     oscOut.setup(oscOutIp, oscOutPort);
+    
+    rpiOutA.setup(rpiAip, rpiPort);
+    rpiOutB.setup(rpiBip, rpiPort);
         
     client.start();
     

@@ -13,9 +13,11 @@ intentie_interpretatie::intentie_interpretatie(){
 }
 
 //--------------------------------------------------------------
-void intentie_interpretatie::init(mainMini *_mai, ofxOscSender *_osc){
+void intentie_interpretatie::init(mainMini *_mai, ofxOscSender *_osc, ofxOscSender *_rpiOutA, ofxOscSender *_rpiOutB){
     main = _mai;
     oscOut = _osc;
+    rpiOutA = _rpiOutA;
+    rpiOutB = _rpiOutB;
 }
 
 //--------------------------------------------------------------
@@ -53,6 +55,25 @@ void intentie_interpretatie::setup(){
         numFrames[1] = Vid4.getTotalNumFrames();
         numFrames[2] = Vid1.getTotalNumFrames();
         numFrames[3] = Vid2.getTotalNumFrames();
+    }
+    
+    if (main->bOsc) {
+        ofxOscMessage m;
+        m.setAddress("/chapter");
+        m.addIntArg(-1);
+        oscOut->sendMessage(m);
+        
+        
+        ofxOscMessage rA;
+        rA.setAddress("/chapter");
+        rA.addIntArg(3);
+        rpiOutA->sendMessage(rA);
+
+        ofxOscMessage rB;
+        rB.setAddress("/chapter");
+        rB.addIntArg(3);
+        rpiOutB->sendMessage(rB);
+
     }
     
     totalFrames = 0;
@@ -97,15 +118,26 @@ void intentie_interpretatie::update(){
         Vid1.update();
         Vid2.update();
         
+        int tCurActive;
         // just some dumb-ass way to tell what clip should be active
         if (*main->tv1pos >= 0 && *main->tv1pos < 90) {
-            curActive = 0;
+            tCurActive = 0;
         } else if(*main->tv1pos >= 90 && *main->tv1pos < 180) {
-            curActive = 1;
+            tCurActive = 1;
         } else if(*main->tv1pos >= 180 && *main->tv1pos < 270) {
-            curActive = 2;
+            tCurActive = 2;
         } else if(*main->tv1pos >= 270 && *main->tv1pos < 360) {
-            curActive = 3;
+            tCurActive = 3;
+        }
+        
+        if (tCurActive != curActive) {
+            curActive = tCurActive;
+            if (main->bOsc) {
+                ofxOscMessage rA;
+                rA.setAddress("/ii/position");
+                rA.addIntArg(curActive);
+                rpiOutA->sendMessage(rA);
+            }
         }
         
         clipCurFrame = ofMap(*main->tv1pos - main->sortaModulo(90, *main->tv1pos), 0, 90, 0, numFrames[curActive]);
@@ -149,15 +181,6 @@ void intentie_interpretatie::update(){
             frameRepeat = 2;
         }
         
-        ofxOscMessage m;
-        if (*main->bOsc) {
-            //m.setAddress("/intentie_interpretatie");
-            m.setAddress("/chapter");
-            m.addIntArg(-1);
-            oscOut->sendMessage(m);
-        }
-        
-        
         if (main->appName == "left") {
             if (curActive == 0 && Vid1.getCurrentFrame() >= frameRepeat + clipCurFrame) {
                 Vid1.setFrame(clipCurFrame);
@@ -197,13 +220,23 @@ void intentie_interpretatie::update(){
         }
         
         if (*main->bOsc) {
-            float tempClipCurFrame = singleClipCurFrame; cout << "clipCurFrame:" << singleClipCurFrame << "\n";
-            float tempCurClipTotal = curClipTotal; cout << "curClipTotal:" << curClipTotal << "\n";
-            float tempMainCurFrame = mainCurFrame; cout << "mainCurFrame:" << mainCurFrame << "\n";
-            float tempTotalFrames = totalFrames;   cout << "totalFrames:" << totalFrames << "\n";
+            float tempClipCurFrame = singleClipCurFrame; //cout << "clipCurFrame:" << singleClipCurFrame << "\n";
+            float tempCurClipTotal = curClipTotal; //cout << "curClipTotal:" << curClipTotal << "\n";
+            float tempMainCurFrame = mainCurFrame; //cout << "mainCurFrame:" << mainCurFrame << "\n";
+            float tempTotalFrames = totalFrames;   //cout << "totalFrames:" << totalFrames << "\n";
             
             float perCur = (tempClipCurFrame * 100.0) / tempCurClipTotal;
             float perTot = (tempMainCurFrame * 100.0) / tempTotalFrames;
+            
+            
+            float looplength = tempClipCurFrame / tempCurClipTotal * 100.0;
+            ofxOscMessage rB;
+            rB.setAddress("/ii/position");
+            rB.addIntArg(looplength);
+            rpiOutB->sendMessage(rB);
+            
+            
+            ofxOscMessage m;
             m.addFloatArg(perCur);
             m.addFloatArg(perTot);
             

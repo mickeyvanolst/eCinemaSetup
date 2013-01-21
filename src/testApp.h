@@ -51,11 +51,19 @@ public:
     // and for the audio connection (on another laptop)
     ofxOscSender        oscOut;
     
+    ofxOscSender        rpiOutA;
+    ofxOscSender        rpiOutB;
+    
     ofxXmlSettings      XML;
     
     string              oscOutIp;
     int                 oscOutPort;
     int                 oscInPort;
+    
+    string                 rpiAip;
+    string                 rpiBip;
+    int                    rpiPort;
+    
     
     // we draw into this and send the Fbo trough syphon
     ofFbo               appFbo;

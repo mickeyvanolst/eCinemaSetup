@@ -16,14 +16,14 @@ miniHandler::miniHandler(){
 }
 
 //--------------------------------------------------------------
-void miniHandler::init(mpeClientTCP * _cli, ofxOscSender * _osc, bool *_bOsc, float *_tv1rotVal, float *_tv2rotVal, float *_tv1rotTotVal, float *_tv2rotTotVal){
+void miniHandler::init(mpeClientTCP * _cli, ofxOscSender * _osc, ofxOscSender * _rpiOutA, ofxOscSender * _rpiOutB, bool *_bOsc, float *_tv1rotVal, float *_tv2rotVal, float *_tv1rotTotVal, float *_tv2rotTotVal){
     client = _cli;
     main.init(_cli, _bOsc, _tv1rotVal, _tv2rotVal, _tv1rotTotVal, _tv2rotTotVal);
     oscOut = _osc;
     bOsc = _bOsc;
-    myZoetroop.init(&main, _osc);
-    myPlaats_origine.init(&main, _osc);
-    myIntentie_interpretatie.init(&main, _osc);
+    myZoetroop.init(&main, _osc, _rpiOutA, _rpiOutB);
+    myPlaats_origine.init(&main, _osc, _rpiOutA, _rpiOutB);
+    myIntentie_interpretatie.init(&main, _osc, _rpiOutA, _rpiOutB);
     myInterview_bezoekers.init(&main, _osc);
     
     // setting after what chapter the interactive chapter should play.
